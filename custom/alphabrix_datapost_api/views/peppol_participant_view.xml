@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="peppol_participant_view_form">
+            <field name="name">peppol.participant.form</field>
+            <field name="model">peppol.participant</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <header>
+                        </header>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="company_name"/>
+                            </group>
+                            <group>
+                                <field name="document_type"/>
+                                <field name="date_registered"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="peppol_participant_view_tree">
+            <field name="name">peppol.participant.tree</field>
+            <field name="model">peppol.participant</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="company_name"/>
+                    <field name="document_type"/>
+                    <field name="date_registered"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="peppol_participant_action" model="ir.actions.act_window">
+            <field name="name">Peppol Participant</field>
+            <field name="res_model">peppol.participant</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem
+                id="peppol_participant_menu"
+                name="Peppol Participant"
+                parent="datapost_menu_root"
+                action="peppol_participant_action"
+                sequence="30"/>
+    </data>
+</odoo>

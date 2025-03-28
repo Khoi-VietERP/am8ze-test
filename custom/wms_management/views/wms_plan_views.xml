@@ -1,0 +1,76 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="view_wms_plan_form">
+      <field name="name">wms.plan.form</field>
+      <field name="model">wms.plan</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <button name="action_done" type="object" string="Done"/>
+          </header>
+          <sheet>
+            <group>
+              <group>
+                <field name="name"/>
+                <field name="start_date"/>
+              </group>
+              <group>
+                <field name="repeat"/>
+              </group>
+            </group>
+            <notebook>
+              <page string="Lines" name="lines">
+                <field name="line_ids">
+                  <tree editable="inline">
+                    <field name="product_id"/>
+                    <field name="location_id"/>
+                    <field name="currency_id" invisible="1"/>
+
+                    <field name="avg_price"/>
+                    <field name="quantity"/>
+                    <field name="discrepancies"/>
+                    <field name="skipped_checks"/>
+
+                    <field name="start_at"/>
+                    <field name="stop_at"/>
+
+                    <button type="object" name="action_start" string="Start"/>
+                    <button type="object" name="action_stop" string="Stop"/>
+                  </tree>
+                </field>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_wms_plan_tree">
+      <field name="name">wms.plan.tree</field>
+      <field name="model">wms.plan</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="start_date"/>
+          <field name="repeat"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="wms_management.action_wms_plan_window">
+      <field name="name">Plan</field>
+      <field name="res_model">wms.plan</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Top menu item -->
+    <menuitem name="WMS" id="wms_management.menu_root"/>
+    <!-- menu categories -->
+    <menuitem name="Plan" id="wms_management.menu_wms_plan" parent="wms_management.menu_root"/>
+
+    <!-- actions -->
+    <menuitem name="Plan" id="wms_management.menu_wms_plan_list" parent="wms_management.menu_wms_plan"
+              action="wms_management.action_wms_plan_window"/>
+  </data>
+</odoo>

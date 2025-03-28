@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="receipt_print_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="wk39717700c_modifier_print.modifier_external_layout_no_header">
+                        <style>
+                            .page {
+                                font-size: 15px
+                            }
+                            .table-product th {
+                                border: 1px solid #000;
+                                padding: 0.2rem 0.2rem;
+                            }
+                            .table-product td {
+                                border: 1px solid #000;
+                                padding: 0.2rem 0.75rem;
+                            }
+                        </style>
+                        <div class="page">
+                            <t t-if="not company">
+                                <t t-if="company_id">
+                                    <t t-set="company" t-value="company_id"/>
+                                </t>
+                                <t t-elif="o and 'company_id' in o">
+                                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                                </t>
+                                <t t-else="else">
+                                    <t t-set="company" t-value="res_company"/>
+                                </t>
+                            </t>
+                            <div class="row" style="margin-left: 0px; margin-right:0px; width: 100%">
+                                <div class="col-1" style="text-align: left;padding: 0px;">
+                                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 90px"
+                                 alt="Logo"/>
+                                </div>
+                                <div class="col-11 text-center">
+                                    <b style="font-size: 20px;">
+                                        <t t-esc="company.name"/>
+                                    </b><br/>
+                                    <span><t t-esc="company.street"/> </span><br/>
+                                    <span> <t t-esc="company.street2"/>, <t t-esc="company.city"/> <t t-esc="company.zip"/></span><br/>
+                                    <span>Email : <t t-esc="company.email"/></span>
+                                    <span>Tel : <t t-esc="company.phone"/>, Fax : 67436789</span><br/>
+                                    <span>Co.Reg.No : 39717700-C</span>
+                                </div>
+                            </div>
+                            <div class="row text-center" style="padding-top: 40px; padding-bottom: 20px; width: 100%; border-bottom: 1px solid #000">
+                                <div class="col-1"/>
+                                <div class="col-11" style="font-size: 18px;">
+                                    <b>Sales Receipt Detail</b>
+                                </div>
+                            </div>
+                            <table style="width: 100%; margin-top: 30px">
+                                <tr>
+                                    <td style="width: 60%; padding: 0.2rem">
+                                        <b>Received Form :</b><br/><br/>
+                                        <t t-foreach="o.partner_ids" t-as="partner_id">
+                                            <b><t t-esc="partner_id.name"/> </b><br/>
+                                            <t t-if="partner_id.street">
+                                                <t t-esc="partner_id.street"/>
+                                                <br/>
+                                            </t>
+                                            <t t-if="partner_id.street2">
+                                                <t t-esc="partner_id.street2"/>
+                                                <br/>
+                                            </t>
+                                            <t t-if="partner_id.phone">
+                                                <t t-esc="partner_id.phone"/>
+                                                <br/>
+                                            </t>
+                                        </t>
+                                    </td>
+                                    <td style="width: 40%; padding: 0.2rem">
+                                        <b>Receipt Voucher</b><br/><br/>
+                                        <table style="width: 100%">
+                                            <tr>
+                                                <td style="width: 45%">
+                                                    <b>Receipt No</b>
+                                                </td>
+                                                <td style="width: 55%">
+                                                    : <t t-esc="o.payment_id"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <b>Receipt Date</b>
+                                                </td>
+                                                <td>
+                                                    : <t t-esc="o.payment_date and o.payment_date.strftime('%-d %b %Y') or ''"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <b>Paymode Code</b>
+                                                </td>
+                                                <td>
+                                                    : <t t-esc="o.journal_id.type and o.journal_id.type.title() or ''"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <div style="margin-top: 30px">
+                                <b>Receipt Detail :</b>
+                                <table class="table-product" style="width: 100%; margin-top: 20px">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 25%">Invoice No</th>
+                                            <th style="width: 25%">Invoice Date</th>
+                                            <th style="width: 20%">Paid Amount</th>
+                                            <th style="width: 20%">Credit Amount</th>
+                                            <th style="width: 10%">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <t t-set="total" t-value="0"/>
+                                    <t t-foreach="o.payment_lines" t-as="line">
+                                        <t t-set="total" t-value="total + line.amount"/>
+                                        <tr>
+                                            <td>
+                                                <t t-esc="line.invoice_id.name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.invoice_id.invoice_date"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <t t-esc="'{0:,.2f}'.format(line.amount)"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <t t-esc="'{0:,.2f}'.format(0)"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <t t-esc="'{0:,.2f}'.format(line.amount)"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <td></td>
+                                        <td class="text-right">
+                                            <b>
+                                                Total
+                                            </b>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(total)"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="'{0:,.2f}'.format(0)"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="'{0:,.2f}'.format(total)"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div style="margin-top: 30px">
+                                <table style="width: 100%">
+                                    <tr>
+                                        <td style="width: 25%"><b>Payment Detai</b></td>
+                                        <td style="width: 75%">: </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>PayMode</b></td>
+                                        <td>: <t t-esc="o.journal_id.type and o.journal_id.type.title() or ''"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Bank Code</b></td>
+                                        <td>: </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Paid Amount</b></td>
+                                        <td>: <t t-esc="'{0:,.2f}'.format(o.total_received_amount)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>ExcessAmount</b></td>
+                                        <td>: <t t-esc="'{0:,.2f}'.format(o.account_amount)"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div style="margin-top: 20px">
+                                <b>Remarks : </b><t t-esc="o.memo"/><br/><br/>
+                                <b>Amount (in words) : </b><t t-esc="o.currency_id.name"/> <t t-esc="o.currency_id.amount_to_text(o.total_received_amount)"/>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <report id="receipt_print"
+            string="Receipt"
+            model="multiple.register.payments"
+            report_type="qweb-pdf"
+            name="wk39717700c_modifier_print.receipt_print_template"
+            file="wk39717700c_modifier_print.receipt_print_template"
+            paperformat="wk39717700c_modifier_print.paperformat_no_header"
+            print_report_name="'Receipt'"
+            menu="True"/>
+    </data>
+</odoo>

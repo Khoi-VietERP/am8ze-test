@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="binary_ir8a_txt_wizard_file_inherit" model="ir.ui.view">
+            <field name="model">binary.ir8a.text.file.wizard</field>
+            <field name="inherit_id" ref="sg_income_tax_report.binary_ir8a_txt_wizard_file" />
+            <field name="arch" type="xml">
+                <footer position="inside">
+                    <button type="object" string="Submit" name="submit_to_iras" colspan="2"/>
+                </footer>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_partner_education,name_partner_education,model_partner_education,,1,1,1,1
+access_partner_religion,name_partner_religion,model_partner_religion,,1,1,1,1
+access_partner_hobbies,name_partner_hobbies,model_partner_hobbies,,1,1,1,1
+access_partner_life_goals,name_partner_life_goals,model_partner_life_goals,,1,1,1,1
+access_partner_values,name_partner_values,model_partner_values,,1,1,1,1
+access_partner_lifestyles,name_partner_lifestyles,model_partner_lifestyles,,1,1,1,1
+access_partner_sectors,name_partner_sectors,model_partner_sectors,,1,1,1,1

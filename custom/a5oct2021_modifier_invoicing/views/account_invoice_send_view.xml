@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="account_invoice_send_wizard_form_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.send.form.inherit</field>
+            <field name="model">account.invoice.send</field>
+            <field name="inherit_id" ref="account.account_invoice_send_wizard_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='mail_form']/div" position="before">
+                    <div attrs="{'invisible': [('composition_mode', '!=', 'mass_mail')]}">
+                        <group>
+                            <group>
+                                <field name="check_same_partner" invisible="1"/>
+                                <field name="multi_print_partner_ids" widget="many2many_tags"
+                                       attrs="{'invisible': [('check_same_partner', '!=', True)]}"/>
+                            </group>
+                        </group>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

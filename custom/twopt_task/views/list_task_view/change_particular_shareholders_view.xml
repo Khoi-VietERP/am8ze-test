@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="change_particular_shareholders_form" model="ir.ui.view">
+            <field name="name">change.particular.shareholders</field>
+            <field name="model">change.particular.shareholders</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Entity Information">
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <field name="shareholders_line_ids" attrs="{'invisible' : [('entity_id', '=', False)]}"
+                               context="{'form_view_ref': 'twopt_task.shareholders_line_form'}" options="{'create': false}">
+                            <tree create="false" delete="false">
+                                <field name="number"/>
+                                <field name="identification_no"/>
+                                <field name="name"/>
+                                <field name="category"/>
+                                <field name="contact_id" invisible="1"/>
+                                <field name="contact_associations_id" invisible="1"/>
+                                <field name="current_identification_type" invisible="1"/>
+                                <field name="current_country_id" invisible="1"/>
+                                <field name="curent_fixed_line_no" invisible="1"/>
+                                <field name="curent_mobile_no" invisible="1"/>
+                                <field name="curent_email" invisible="1"/>
+                                <field name="current_address" invisible="1"/>
+                                <field name="curent_occupation" invisible="1"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="shareholders_line_form" model="ir.ui.view">
+            <field name="name">shareholders.line</field>
+            <field name="model">shareholders.line</field>
+            <field name="arch" type="xml">
+                <form create="false">
+                    <group string="Change in Particulars - Shareholder current particulars">
+                        <group>
+                            <field name="contact_id" invisible="1"/>
+                            <field name="contact_associations_id" invisible="1"/>
+                            <field name="identification_no" readonly="1"/>
+                            <field name="name" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="category" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Change in Particulars - Name">
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="effective_date_of_change_tab1"/>
+                            <field name="deed_poll_attachment"/>
+                        </group>
+                        <group>
+                            <field name="new_name"/>
+                            <field name="deed_poll_date"/>
+                        </group>
+                    </group>
+
+                    <group string="Change in Particulars - Identification Number">
+                        <group>
+                            <field name="identification_no" readonly="1"/>
+                            <field name="effective_date_of_change_tab2"/>
+                        </group>
+                        <group>
+                            <field name="new_identification_no"/>
+                        </group>
+                    </group>
+
+                    <group string="Change in Particulars - Identification Type">
+                        <group>
+                            <field name="current_identification_type" readonly="1"/>
+                            <field name="effective_date_of_change_tab3"/>
+                        </group>
+                        <group>
+                            <field name="new_identification_type"/>
+                        </group>
+                    </group>
+
+                    <group string="Change in Particulars - Nationality">
+                        <group>
+                            <field name="current_country_id" readonly="1"/>
+                            <field name="effective_date_of_change_tab4"/>
+                        </group>
+                        <group>
+                            <field name="new_country_id"/>
+                        </group>
+                    </group>
+
+                    <group string="Change in Particulars - Fixed Line No.">
+                        <group>
+                            <field name="curent_fixed_line_no" readonly="1"/>
+                            <field name="effective_date_of_change_tab5"/>
+                        </group>
+                        <group>
+                            <field name="new_fixed_line_no"/>
+                        </group>
+                    </group>
+
+                    <group string="Change in Particulars - Mobile No.">
+                        <group>
+                            <field name="curent_mobile_no" readonly="1"/>
+                            <field name="effective_date_of_change_tab6"/>
+                        </group>
+                        <group>
+                            <field name="new_mobile_no"/>
+                        </group>
+                    </group>
+
+                    <group string="Change in Particulars - Email">
+                        <group>
+                            <field name="curent_email" readonly="1"/>
+                            <field name="effective_date_of_change_tab7"/>
+                        </group>
+                        <group>
+                            <field name="new_email"/>
+                        </group>
+                    </group>
+
+                    <separator string="Change in Particulars - Address"/>
+                    <div>
+                        <label for="current_address" style="display: contents;"/><br/>
+                        <field name="current_address"/><br/>
+                        <label for="address_type" string="Change To" style="display: contents;"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="address_type"/>
+                            <field name="effective_date_of_change_tab8"/>
+                        </group>
+                        <group attrs="{'invisible' : [('address_type', '!=', 'local_address')]}">
+                            <field name="zip"/>
+                            <field name="house"/>
+                            <field name="street"/>
+                            <field name="level"/>
+                            <field name="unit"/>
+                            <field name="building"/>
+                        </group>
+                        <group attrs="{'invisible' : [('address_type', '!=', 'foreign_address')]}">
+                            <field name="foreign_address_line1" attrs="{'required' : [('address_type', '=', 'foreign_address')]}"/>
+                            <field name="foreign_address_line2"/>
+                        </group>
+                    </group>
+
+                    <group string="Change in Particulars - Occupation">
+                        <group>
+                            <field name="curent_occupation" readonly="1"/>
+                            <field name="effective_date_of_change_tab9"/>
+                        </group>
+                        <group>
+                            <field name="new_occupation"/>
+                        </group>
+                    </group>
+
+                    <separator string="Change in Particulars - Cessa"/>
+                    <div>
+                        <label for="date_of_cessation" style="display: contents;"/><br/>
+                        <field name="date_of_cessation"/><br/>
+                        <label for="reason_for_cessation" style="display: contents;"/><br/>
+                        <field name="reason_for_cessation"/><label for="reason_for_cessation" string="Deceased" style="display: contents;"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

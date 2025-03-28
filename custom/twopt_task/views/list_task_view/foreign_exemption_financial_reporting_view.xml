@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="foreign_exemption_financial_reporting_form" model="ir.ui.view">
+            <field name="name">foreign.exemption.financial.reporting.form</field>
+            <field name="model">foreign.exemption.financial.reporting</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <div>
+                                <label for="end_current_financial_year" style="font-weight: bold;"/><br/>
+                                <field name="end_current_financial_year" readonly="1" class="color-text-ff8d06"/>
+                            </div><br/><br/>
+                            <span style="font-weight: bold;">Note:</span> <br/>
+                            <span style="font-weight: bold;">Please check to ensure that the financial year end date populated above is correct.
+                            in the event that the financial year end date is wrong, you can change the financial year end date via BizFile
+                            <span class="color-text-ff8d06">Change of Financial Year</span> befire submitting your application for relief under Section 373.</span><br/><br/>
+                            <div>
+                                <label for="validation_of_correct" style="font-weight: bold;"/><br/>
+                                <field name="validation_of_correct" widget="radio" style="flex-flow: row nowrap;"/>
+                            </div><br/><br/>
+                            <div attrs="{'invisible' : [('validation_of_correct', '!=', 'no')]}">
+                                <label for="financial_year_end_date" style="font-weight: bold;"/><br/>
+                                <field name="financial_year_end_date" style="width: 30%;"/>
+                            </div><br/><br/>
+                            <div>
+                                <label for="select_the_type" style="font-weight: bold;"/><br/>
+                                <field name="select_the_type" widget="radio"/>
+                            </div><br/>
+                            <div attrs="{'invisible' : [('select_the_type', '!=', '1')]}">
+                                <label for="is_the_foreign_company" style="font-weight: bold;"/><br/>
+                                <field name="is_the_foreign_company" widget="radio" style="flex-flow: row nowrap;"/>
+                            </div><br/>
+                            <span style="font-weight: bold;">Attachment of Documents</span><br/><br/>
+                            <div>
+                                <label for="statutory_declarations" style="font-weight: bold;"/><br/>
+                                <field name="statutory_declarations" style="width: 50%;"/>
+                            </div><br/><br/>
+                            <span style="font-weight: bold;">Note:</span> <br/>
+                            <span style="font-weight: bold;">Please refer to the latest relevant ACRA's Practice Direction which sets out the information we require to
+                            process the application</span><br/><br/>
+                            <div attrs="{'invisible' : [('select_the_type', '!=', '1')]}">
+                                <label for="financial_statements" style="font-weight: bold;"/><br/>
+                                <field name="financial_statements" style="width: 50%;"/>
+                                <br/><br/>
+                            </div>
+                            <div attrs="{'invisible' : [('select_the_type', 'not in', ['1','3'])]}">
+                                <label for="alternative_financial" style="font-weight: bold;"/><br/>
+                                <field name="alternative_financial" style="width: 50%;"/>
+                                <br/><br/>
+                            </div>
+                            <div attrs="{'invisible' : [('select_the_type', '!=', '2')]}">
+                                    <label for="unaudited_income_statement" style="font-weight: bold;"/><br/>
+                                    <field name="unaudited_income_statement" style="width: 50%;"/>
+                                    <br/><br/>
+                            </div>
+                            <div>
+                                <label for="is_the_foreign_company_AGM" style="font-weight: bold;"/><br/>
+                                <field name="is_the_foreign_company_AGM" widget="radio" style="flex-flow: row nowrap;"/>
+                            </div><br/><br/>
+                            <div attrs="{'invisible' : [('is_the_foreign_company_AGM', '!=', 'yes')]}">
+                                <label for="agm_date" style="font-weight: bold;"/><br/>
+                                <field name="agm_date" style="width: 50%;"/>
+                                <br/><br/>
+                            </div>
+                            <group col="2">
+                                <div>
+                                    <label for="due_date_for_annual_filing1" style="font-weight: bold;"/><br/>
+                                    <field name="due_date_for_annual_filing1" readonly="1" class="color-text-ff8d06"/>
+                                </div>
+                                <div>
+                                    <label for="due_date_for_annual_filing2" style="font-weight: bold;"/><br/>
+                                    <field name="due_date_for_annual_filing2" readonly="1" class="color-text-ff8d06"/>
+                                </div>
+                                <div>
+                                    <label for="email_address" style="font-weight: bold;"/><br/>
+                                    <field name="email_address" readonly="1" class="color-text-ff8d06"/>
+                                </div>
+                            </group><br/><br/>
+                            <span style="font-weight: bold;">Note:</span> <br/>
+                            <span style="font-weight: bold;">Please note that if the email address is not correct, please update it through
+                                'Change in particulars' transaction</span>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

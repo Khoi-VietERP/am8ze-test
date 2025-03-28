@@ -1,0 +1,70 @@
+<odoo>
+    <data>
+        <record id="mail_activity_view_tree" model="ir.ui.view">
+            <field name="name">mail.activity.view.tree</field>
+            <field name="model">mail.activity</field>
+            <field name="arch" type="xml">
+                <tree string="Activities"
+                        decoration-danger="date_deadline &lt; current_date"
+                        decoration-success="date_deadline == current_date"
+                        default_order="date_deadline"
+                      editable="bottom"
+                >
+                    <field name="case_id" required="1"/>
+                    <field name="create_date" string="Action Date / Time"/>
+                    <!--<field name="time_deadline" widget="float_time"/>-->
+                    <field name="action_code_id" string="Action Code"/>
+                    <field name="case_stage_id"/>
+                    <field name="activity_type_id" string="Followup Action"/>
+                    <field name="date_deadline" string="Followup Date"/>
+                    <field name="employee_id" required="1"/>
+                    <field name="internal_remarks"/>
+
+                    <field name="status_id"/>
+                    <field name="description_id"/>
+
+                    <field name="debtor_id" context="{'default_is_debtor':True}"/>
+
+                    <field name="res_model_id" invisible="1"/>
+                    <field name="res_id" invisible="1"/>
+                    <field name="res_name" invisible="1"/>
+
+                    <!--<button string="Print Dunning Letter" name="print_dunning_letter" type="object"/>-->
+                </tree>
+            </field>
+        </record>
+
+        <!--<record model="ir.actions.act_window.view" id="act_hr_timesheet_report_form">-->
+            <!--<field name="sequence" eval="15"/>-->
+            <!--<field name="view_mode">form</field>-->
+            <!--<field name="view_id" ref="hr_timesheet.hr_timesheet_line_form"/>-->
+            <!--<field name="act_window_id" ref="act_hr_timesheet_report"/>-->
+        <!--</record>-->
+
+        <record id="action_mail_activity" model="ir.actions.act_window">
+            <field name="name">Events</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mail.activity</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="mail_activity_view_tree"/>
+            <field name="context">{'default_case': True}</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create an event
+              </p>
+            </field>
+        </record>
+
+        <menuitem name="Field Management"
+            id="menu_field"
+            sequence="4"
+            web_icon="contacts,static/description/icon.png"/>
+
+        <menuitem id="daa_case_menu_cases"
+            name="Events"
+            action="action_mail_activity"
+            parent="daa_field.menu_field"
+            sequence="1"/>
+    </data>
+</odoo>

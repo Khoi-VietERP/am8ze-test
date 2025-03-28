@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="declaration_of_solvency_form" model="ir.ui.view">
+            <field name="name">declaration.of.solvency.form</field>
+            <field name="model">declaration.of.solvency</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <group col="2" attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <div>
+                                <label for="date_of_meeting" style="font-weight: bold;"/><br/>
+                                <field name="date_of_meeting" style="width: 30%;"/>
+                            </div>
+                            <div>
+                                <label for="attach_statement" style="font-weight: bold;"/><br/>
+                                <field name="attach_statement" style="width: 50%;"/>
+                            </div>
+                            <br/><br/>
+                            <div>
+                                <span style="font-weight: bold;">
+                                    Director(s) Present at Meeting
+                                </span><br/>
+                                <field name="director_meeting_1"/>
+                                <label for="director_meeting_1" style="display: contents;font-weight: normal"/><br/>
+                                <field name="director_meeting_2"/>
+                                <label for="director_meeting_2" style="display: contents;font-weight: normal"/>
+                            </div>
+                            <div>
+                                <span style="font-weight: bold;">
+                                    Director(s) Who made the declaration
+                                </span><br/>
+                                <field name="director_declaration_1"/>
+                                <label for="director_declaration_1" style="display: contents;font-weight: normal"/><br/>
+                                <field name="director_declaration_2"/>
+                                <label for="director_declaration_2" style="display: contents;font-weight: normal"/>
+                            </div>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

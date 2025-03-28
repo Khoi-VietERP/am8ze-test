@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_coa_bold_parent_account_coa_bold_parent_account,coa_bold_parent_account.coa_bold_parent_account,model_coa_bold_parent_account_coa_bold_parent_account,base.group_user,1,1,1,1

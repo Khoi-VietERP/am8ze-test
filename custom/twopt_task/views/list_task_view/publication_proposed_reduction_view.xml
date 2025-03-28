@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="publication_proposed_reduction_form" model="ir.ui.view">
+            <field name="name">publication.proposed.reduction</field>
+            <field name="model">publication.proposed.reduction</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Entity Information">
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Publication Details" name="publication_details" attrs="{'invisible' : [('entity_id', '=', False)]}">
+                                <div>
+                                    <label for="date_of_special" style="font-weight: bold;"/><br/>
+                                    <field name="date_of_special" style="width: 30%;"/>
+                                </div>
+                                <div>
+                                    <label for="aspects_of_resolution" style="font-weight: bold;"/><br/>
+                                    <field name="aspects_of_resolution" style="width: 80%;"/>
+                                </div>
+                                <div>
+                                    <span style="font-weight: bold;">Nature of reduction</span><br/>
+                                    <field name="check_extinguish"/>
+                                    <label for="check_extinguish" style="display: contents;font-weight: normal;"/><br/>
+                                    <field name="check_cancel"/>
+                                    <label for="check_cancel" style="display: contents;font-weight: normal;"/><br/>
+                                    <field name="check_return"/>
+                                    <label for="check_return" style="display: contents;font-weight: normal;"/><br/>
+                                    <field name="check_others"/>
+                                    <label for="check_others" style="display: contents;font-weight: normal;"/><br/>
+                                </div>
+                                <div attrs="{'invisible' : [('check_others', '=', False)]}">
+                                    <label for="orther_details" style="font-weight: bold;"/><br/>
+                                    <field name="orther_details" style="width: 80%;"/>
+                                </div>
+                            </page>
+                            <page string="Share Capital Details" name="share_capital_details" attrs="{'invisible' : [('entity_id', '=', False)]}">
+                                <div>
+                                    <label for="currency" style="font-weight: bold;"/><br/>
+                                    <field name="currency" style="width: 80%;" widget="radio" required="1"/>
+                                </div>
+                                <separator string="Current share capital"/>
+                                <table style="width: 100%" class="table-bordered table_publication">
+                                    <tr style="height: 30px">
+                                        <td style="width: 30%">
+                                            Class Of Share
+                                        </td>
+                                        <td style="width: 20%">
+                                            Ordinary
+                                        </td>
+                                        <td style="width: 20%">
+                                            Preference
+                                        </td>
+                                        <td style="width: 20%">
+                                            Others
+                                        </td>
+                                    </tr>
+                                    <tr style="height: 30px">
+                                        <td>
+                                            Number of Shares
+                                        </td>
+                                        <td>
+                                            50000
+                                        </td>
+                                        <td>
+                                            0
+                                        </td>
+                                        <td>
+                                            0
+                                        </td>
+                                    </tr>
+                                    <tr style="height: 30px">
+                                        <td>
+                                            Amount of Issued Share Capital
+                                        </td>
+                                        <td>
+                                           50000
+                                        </td>
+                                        <td>
+                                            0
+                                        </td>
+                                        <td>
+                                            0
+                                        </td>
+                                    </tr>
+                                    <tr style="height: 30px">
+                                        <td>
+                                            Amount of Paid Up Share Capital
+                                        </td>
+                                        <td>
+                                            50000
+                                        </td>
+                                        <td>
+                                            0
+                                        </td>
+                                        <td>
+                                            0
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <separator string="Share Capital after Reduction"/>
+
+                                <table style="width: 100%" class="table-bordered table_publication">
+                                    <tr style="height: 30px">
+                                        <td style="width: 55%">
+                                            Class Of Share
+                                        </td>
+                                        <td style="width: 15%">
+                                            Ordinary
+                                        </td>
+                                        <td style="width: 15%">
+                                            Preference
+                                        </td>
+                                        <td style="width: 15%">
+                                            Others
+                                        </td>
+                                    </tr>
+                                    <tr style="height: 30px">
+                                        <td>
+                                            Number of Shares
+                                        </td>
+                                        <td>
+                                            <field name="ordinary_number_of_shares"/>
+                                        </td>
+                                        <td>
+                                            <field name="preference_number_of_shares"/>
+                                        </td>
+                                        <td>
+                                            <field name="others_number_of_shares"/>
+                                        </td>
+                                    </tr>
+                                    <tr style="height: 30px">
+                                        <td>
+                                            Amount of Issued Share Capital
+                                        </td>
+                                        <td>
+                                            <field name="ordinary_amount_of_issued"/>
+                                        </td>
+                                        <td>
+                                            <field name="preference_amount_of_issued"/>
+                                        </td>
+                                        <td>
+                                            <field name="others_amount_of_issued"/>
+                                        </td>
+                                    </tr>
+                                    <tr style="height: 30px">
+                                        <td>
+                                            Amount of Paid Up Share Capital
+                                        </td>
+                                        <td>
+                                            <field name="ordinary_amount_of_paid_up"/>
+                                        </td>
+                                        <td>
+                                            <field name="preference_amount_of_paid_up"/>
+                                        </td>
+                                        <td>
+                                            <field name="others_amount_of_paid_up"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

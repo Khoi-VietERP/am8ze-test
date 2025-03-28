@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="daa_view_partner_form" model="ir.ui.view">
+            <field name="name">daa.res.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="function" position="before">
+                    <field name="peppol_id" options="{'no_create_edit': True}"/>
+                    <field name="peppol_reference"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

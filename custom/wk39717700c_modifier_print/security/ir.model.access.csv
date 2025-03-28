@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wk39717700c_modifier_print_wk39717700c_modifier_print,wk39717700c_modifier_print.wk39717700c_modifier_print,model_wk39717700c_modifier_print_wk39717700c_modifier_print,base.group_user,1,1,1,1

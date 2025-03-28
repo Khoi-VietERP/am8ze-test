@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_h202102879_modifier_hr_h202102879_modifier_hr,h202102879_modifier_hr.h202102879_modifier_hr,model_h202102879_modifier_hr_h202102879_modifier_hr,base.group_user,1,1,1,1

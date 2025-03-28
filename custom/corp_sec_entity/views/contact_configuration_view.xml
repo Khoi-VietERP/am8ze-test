@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- Company Type -->
+        <record id="company_type_tree_view" model="ir.ui.view">
+            <field name="name">company.type.tree</field>
+            <field name="model">company.type</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="company_type_action" model="ir.actions.act_window">
+            <field name="name">Company Type</field>
+            <field name="res_model">company.type</field>
+            <field name='view_mode'>tree</field>
+        </record>
+
+        <!-- Position Details -->
+
+        <record id="position_detail_tree_view" model="ir.ui.view">
+            <field name="name">position.detail.tree</field>
+            <field name="model">position.detail</field>
+            <field name="arch" type="xml">
+                <tree string="Position Details" editable="bottom">
+                    <field name="name"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="position_detail_action" model="ir.actions.act_window">
+            <field name="name">Position Details</field>
+            <field name="res_model">position.detail</field>
+            <field name='view_mode'>tree</field>
+        </record>
+
+        <!-- Identification Type -->
+        <record id="identification_type_tree_view" model="ir.ui.view">
+            <field name="name">identification.type.tree</field>
+            <field name="model">identification.type</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="identification_type_action" model="ir.actions.act_window">
+            <field name="name">Identification Type</field>
+            <field name="res_model">identification.type</field>
+            <field name='view_mode'>tree</field>
+        </record>
+
+        <!-- Address Type -->
+
+        <record id="contact_address_type_tree_view" model="ir.ui.view">
+            <field name="name">contact.address.type.tree</field>
+            <field name="model">contact.address.type</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="contact_address_type_action" model="ir.actions.act_window">
+            <field name="name">Address Type</field>
+            <field name="res_model">contact.address.type</field>
+            <field name='view_mode'>tree</field>
+        </record>
+
+        <!-- Associations Company Status -->
+        <record id="associations_company_status_tree_view" model="ir.ui.view">
+            <field name="name">associations.company.status.tree</field>
+            <field name="model">associations.company.status</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="associations_company_status_action" model="ir.actions.act_window">
+            <field name="name">Associations Company Status</field>
+            <field name="res_model">associations.company.status</field>
+            <field name='view_mode'>tree</field>
+        </record>
+
+        <!-- Associations Position -->
+        <record id="associations_position_tree_view" model="ir.ui.view">
+            <field name="name">associations.position.tree</field>
+            <field name="model">associations.position</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="associations_position_action" model="ir.actions.act_window">
+            <field name="name">Associations Position</field>
+            <field name="res_model">associations.position</field>
+            <field name='view_mode'>tree</field>
+        </record>
+
+        <!-- Associations Position -->
+        <record id="associations_position_state_tree_view" model="ir.ui.view">
+            <field name="name">associations.position.state.tree</field>
+            <field name="model">associations.position.state</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="associations_position_state_action" model="ir.actions.act_window">
+            <field name="name">Associations Position State</field>
+            <field name="res_model">associations.position.state</field>
+            <field name='view_mode'>tree</field>
+        </record>
+
+        <menuitem id="menu_config_contact_information" name="Contact" parent="corp_sec_menu_config" sequence="10"/>
+        <menuitem id="company_type_menu" name="Company Type" parent="menu_config_contact_information" action="company_type_action" sequence="1"/>
+        <menuitem id="position_details_config" name="Position Details" parent="menu_config_contact_information" action="position_detail_action" sequence="1"/>
+        <menuitem id="identification_type_menu" name="Identification Type" parent="menu_config_contact_information" action="identification_type_action" sequence="1"/>
+        <menuitem id="contact_address_type_menu" name="Address Type" parent="menu_config_contact_information" action="contact_address_type_action" sequence="1"/>
+        <menuitem id="associations_company_status_menu" name="Associations Company Status" parent="menu_config_contact_information" action="associations_company_status_action" sequence="1"/>
+        <menuitem id="associations_position_menu" name="Associations Position" parent="menu_config_contact_information" action="associations_position_action" sequence="1"/>
+        <menuitem id="associations_position_state_menu" name="Associations Position State" parent="menu_config_contact_information" action="associations_position_state_action" sequence="1"/>
+    </data>
+</odoo>

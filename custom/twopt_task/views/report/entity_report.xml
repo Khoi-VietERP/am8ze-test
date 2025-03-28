@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--TODO Client DD and Declaration Form.docx-->
+        <report
+            id="client_dd_and_declaration_form"
+            model="corp.entity"
+            string="Client DD and Declaration Form"
+            report_type="qweb-pdf"
+            name="twopt_task.report_client_dd_and_declaration_form"
+            file="twopt_task.report_client_dd_and_declaration_form"
+            menu="False"
+        />
+        <record id="client_dd_and_declaration_form" model="ir.actions.report">
+            <field name="file_template_data" type="base64" file="twopt_task/views/report/Client DD and Declaration Form.docx"/>
+            <field name="populating_ms_word_template" eval="True"/>
+        </record>
+
+        <template id="report_client_dd_and_declaration_form">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                </div>
+            </t>
+        </template>
+
+        <!--TODO Notice of Registrable Controller.docx-->
+            <report
+                id="notice_of_registrable_controller"
+                model="corp.entity"
+                string="Notice of Registrable Controller"
+                report_type="qweb-pdf"
+                name="twopt_task.report_notice_of_registrable_controller"
+                file="twopt_task.report_notice_of_registrable_controller"
+                menu="False"
+            />
+            <record id="notice_of_registrable_controller" model="ir.actions.report">
+                <field name="file_template_data" type="base64" file="twopt_task/views/report/Notice of Registrable Controller.docx"/>
+                <field name="populating_ms_word_template" eval="True"/>
+            </record>
+
+            <template id="report_notice_of_registrable_controller">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+                    </div>
+                </t>
+            </template>
+
+        <!--TODO Risk Assessment Form.docx-->
+            <report
+                id="risk_assessment_form"
+                model="corp.entity"
+                string="Risk Assessment Form"
+                report_type="qweb-pdf"
+                name="twopt_task.report_risk_assessment_form"
+                file="twopt_task.report_risk_assessment_form"
+                menu="False"
+            />
+            <record id="risk_assessment_form" model="ir.actions.report">
+                <field name="file_template_data" type="base64" file="twopt_task/views/report/Risk Assessment Form.docx"/>
+                <field name="populating_ms_word_template" eval="True"/>
+            </record>
+
+            <template id="report_risk_assessment_form">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+                    </div>
+                </t>
+            </template>
+    </data>
+</odoo>

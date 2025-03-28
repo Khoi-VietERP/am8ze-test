@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="filing_annual_return_form" model="ir.ui.view">
+            <field name="name">filing.annual.return.form</field>
+            <field name="model">filing.annual.return</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Entity Information">
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <notebook attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <page string="Annual Return Details">
+                                <group col="2">
+                                    <div>
+                                        <label for="financial_year_end" style="font-weight: bold;"/><br/>
+                                        <field name="financial_year_end" style="width: 50%;" readonly="1"/>
+                                    </div>
+                                    <div>
+                                        <label for="date_annual_return" style="font-weight: bold;"/><br/>
+                                        <field name="date_annual_return" style="width: 50%;" readonly="1"/>
+                                    </div>
+                                </group>
+                                <separator string="Section A: Company Type and Status"/>
+                                <div>
+                                    <label for="company_type" style="font-weight: bold;"/><br/>
+                                    <field name="company_type" style="width: 50%;"/>
+                                </div>
+                                <div>
+                                    <label for="company_type_status_1"/><br/>
+                                    <field name="company_type_status_1" widget="radio" style="flex-flow: row nowrap;"/>
+                                </div>
+                                <div>
+                                    <label for="company_type_status_2"/><br/>
+                                    <field name="company_type_status_2" widget="radio" style="flex-flow: row nowrap;"/>
+                                </div><br/>
+                                <div>
+                                    <div attrs="{'invisible' : [('company_type_status_1', '!=', 'dormant')]}">
+                                        <field name="check_1"/>
+                                        <label for="check_1" style="display: contents;font-weight: normal;" />
+                                    </div>
+                                    <div class="margin-left-46" attrs="{'invisible' : ['|',('check_1', '=', False),('company_type_status_1', '!=', 'dormant')]}">
+                                        <div>
+                                            The directors are lodging the following statement:
+                                        </div><br/>
+                                        <span>
+                                            (i) that the company has been dormant for the period from the time of its formation or since the end of the
+                                            previous financial year, as the case may be.
+                                        </span><br/>
+                                        <span>
+                                            (ii) that no notice has been received under section 201A(3) of the Companies Act in relation to the financial
+                                            year and
+                                        </span><br/>
+                                        <span>
+                                            (iii) the accounting and other records required by the Companies Act to be kept by the company have been kept
+                                            in accordance with section 199 of the Companies Act
+                                        </span>
+                                    </div>
+                                    <div attrs="{'invisible' : [('company_type_status_1', '!=', 'dormant')]}">
+                                        <field name="check_2"/>
+                                        <label for="check_2" style="display: contents;font-weight: normal;"/>
+                                    </div>
+                                    <div class="margin-left-46" attrs="{'invisible' : ['|',('check_2', '=', False),('company_type_status_1', '!=', 'dormant')]}">
+                                        <div>
+                                            The directors make the following statement:
+                                        </div><br/>
+                                        <span>
+                                            (i) that the company has been dormant for the period from the time of its formation or since the end of the
+                                            previous financial year, as the case may be.
+                                        </span><br/>
+                                        <span>
+                                            (ii) that no notice has been received under section 205B(6) of the Companies Act in relation to the financial
+                                            year and
+                                        </span><br/>
+                                        <span>
+                                            (iii) the accounting and other records required by the Companies Act to be kept by the company have been kept
+                                            in accordance with section 199 of the Companies Act
+                                        </span>
+                                    </div>
+                                    <field name="check_3"/>
+                                    <label for="check_3" style="display: contents;font-weight: normal;"/><br/>
+                                    <div class="margin-left-46" attrs="{'invisible' : [('check_3', '=', False)]}">
+                                        <div>
+                                            The directors make the following statement:
+                                        </div><br/>
+                                        <span>
+                                            (i) that the company qualifies as a small company under section 205C read with the Thirteenth Schedule.
+                                        </span><br/>
+                                        <span>
+                                            (ii) that no notice has been received under section 205C(2) of the Companies Act in relation to the financial
+                                            year and
+                                        </span><br/>
+                                        <span>
+                                            (iii) the accounting and other records required by the Companies Act to be kept by the company have been kept
+                                            in accordance with section 199 of the Companies Act
+                                        </span>
+                                    </div>
+                                </div>
+                                <separator string="AGM Details"/>
+                                <div>
+                                    <label for="is_company_required_agm"/><br/>
+                                    <field name="is_company_required_agm" widget="radio"/>
+                                </div><br/>
+                                <div attrs="{'invisible' : [('is_company_required_agm', '!=', 'yes')]}">
+                                    <label for="date_of_annual" style="font-weight: bold;"/><br/>
+                                    <field name="date_of_annual" style="width: 50%;"/>
+                                </div>
+                                <div attrs="{'invisible' : [('is_company_required_agm', 'not in', ['no1','no3'])]}">
+                                    <label for="date_financiall_statements" style="font-weight: bold;"/><br/>
+                                    <field name="date_financiall_statements" style="width: 50%;"/>
+                                </div>
+                                <separator string="Section B: Financial Information"/>
+                                <p style="font-weight: bold;">
+                                    Financial Information in XBRL Format
+                                </p>
+                                <span>
+                                    Except for Dormant Relevant Companies, Solvent Exempt Provate Companies and Companies Limited by Guarantee, all
+                                    other companies are required to file financial information in XBRL format, unless approval from registrar has been
+                                    obtained. For more information on preparing and filing financial information in XBRL format, please click here
+                                </span><br/><br/>
+                                <span>
+                                    Click the Refresh button to display the list of uploaded XBRL fields
+                                </span><br/><br/>
+                                <table style="width: 100%" class="table-bordered table-padding-left-10">
+                                    <tr>
+                                        <td style="width: 10%">
+                                            Select
+                                        </td>
+                                        <td style="width: 45%">
+                                            Nature of Financial Information
+                                        </td>
+                                        <td style="width: 15%">
+                                            Uploaded By
+                                        </td>
+                                        <td style="width: 15%">
+                                            Uploaded Date
+                                        </td>
+                                        <td style="width: 15%"/>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <field name="select_financial_information"/>
+                                        </td>
+                                        <td>
+                                            Not Filing Financial Information in XBRL Format
+                                        </td>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                    </tr>
+                                </table>
+                                <br/>
+                                <p>Financial Statements in PDF Format</p>
+                                <ul>
+                                  <li>Optional for Dormant Relevant Companies and Solvent Exempt Private Companies</li>
+                                  <li>Mandatory for companies that are required to file financial statements but not filing a full set of financial
+                                  statements in XBRL format. Please attach full set of financial statements as tabled at the AGM or sent to members</li>
+                                </ul>
+                                <group col="2">
+                                    <div>
+                                        <label for="agm_copy_of_financial_statements" style="font-weight: bold;"/><br/>
+                                        <field name="agm_copy_of_financial_statements" style="width: 50%;"/>
+                                    </div>
+                                    <div>
+                                        <label for="contionuation_of_attachment" style="font-weight: bold;"/><br/>
+                                        <field name="contionuation_of_attachment" style="width: 50%;"/>
+                                    </div>
+                                </group>
+                                <br/><span style="color: #ff8d06">The Statement By Director have been signed by:</span><br/>
+                                <group col="2">
+                                    <div>
+                                        <label for="director_name_1" style="font-weight: bold;"/><br/>
+                                        <field name="director_name_1" style="width: 50%;"/>
+                                    </div>
+                                    <div>
+                                        <label for="director_name_2" style="font-weight: bold;"/><br/>
+                                        <field name="director_name_2" style="width: 50%;"/>
+                                    </div>
+                                </group>
+                                <separator string="Section C: Audit Information"/>
+                                <field name="check_this_box_to_confirm"/>
+                                <label for="check_this_box_to_confirm" style="display: contents;"/><br/>
+                                <div attrs="{'invisible' : [('check_this_box_to_confirm', '=', False)]}">
+                                    <group col="2">
+                                        <div>
+                                            <label for="name_public_accounting_entity" style="font-weight: bold;"/><br/>
+                                            <field name="name_public_accounting_entity" style="width: 50%;"/>
+                                        </div>
+                                        <div>
+                                            <label for="name_of_auditor" style="font-weight: bold;"/><br/>
+                                            <field name="name_of_auditor" style="width: 50%;"/>
+                                        </div>
+                                        <div>
+                                            <label for="date_of_independent" style="font-weight: bold;"/><br/>
+                                            <field name="date_of_independent" style="width: 50%;"/>
+                                        </div>
+                                        <div/>
+                                        <div>
+                                        <label for="audit_opinion"/><br/>
+                                            <field name="audit_opinion" widget="radio" style="flex-flow: row nowrap;"/>
+                                        </div>
+                                        <div>
+                                            <label for="adverse_opinion"/><br/>
+                                            <field name="adverse_opinion" widget="radio" style="flex-flow: row nowrap;"/>
+                                        </div><br/>
+                                    </group>
+                                    <p>Note</p>
+                                    <p>An emphasis of matter is one where:</p>
+                                    <ul>
+                                        <li>
+                                            An emphasis of matter paragraph is added to highlight a matter affecting the financial
+                                            statements which is included in a note to the financial statements that more extensively
+                                            discusses the matter.
+                                        </li>
+                                    </ul>
+                                    <p>A modified opinion is one where:</p>
+                                    <ul>
+                                        <li>
+                                            The auditor concludes that except for the effects of the matter to which the qualification relates
+                                            the accounts is true and fair (qualified opinion) or
+                                        </li>
+                                        <li>
+                                            The auditor express the possible effect of a limitation on scope is so material and pervasive that the
+                                            auditor has not been able to obtain sufficient appropriate audit evidence and accordingly is unable to express
+                                            an opinion on the financical statements (disclaimer of opinion) or
+                                        </li>
+                                        <li>
+                                            The auditor states that effect of a disagreement is so material and pervasive to the financial statements that the auditor
+                                            concludes that a qualification of the report is not adequate to disclose the misleading or incomplete nature of the
+                                            financiel statements (adverse opinion)
+                                        </li>
+                                    </ul>
+                                </div>
+                            </page>
+                            <page string="Company Details">
+                                <separator string="Primary/Secondary Activity(ies) Section (as at 23/06/2021)"/>
+                                <separator string="Address Section"/>
+                                <separator string="Particulars of Company Officers and Auditors"/>
+                                <separator string="Share Capital Details"/>
+                                <separator string="Member(s) Details"/>
+                                <separator string="Register of Controllers and Nominee Directors"/>
+                                <div>
+                                    <label for="controllers_is_kept"/><br/>
+                                    <field name="controllers_is_kept" widget="radio"/>
+                                </div><br/>
+                                <div>
+                                    <label for="nominee_directors_kept"/><br/>
+                                    <field name="nominee_directors_kept" widget="radio"/>
+                                </div>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

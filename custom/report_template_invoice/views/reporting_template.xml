@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+         <record id="view_form_reporting_template_inherit" model="ir.ui.view">
+             <field name="name">reporting.custom.template</field>
+             <field name="model">reporting.custom.template</field>
+             <field name="inherit_id" ref="report_utils.view_form_reporting_template"/>
+             <field name="arch" type="xml">
+                 <xpath expr="//sheet" position="before">
+                     <header>
+                         <button name="action_preview" type="object" string="Preview" class="oe_highlight"/>
+                    </header>
+                 </xpath>
+                 <field name="section_footer_field_ids" position="after">
+                     <separator string="Note"/>
+                     <field name="template_note" placeholder="Add an note..."/>
+                 </field>
+                 <field name="show_footer" position="after">
+                     <field name="show_paynow_qr"/>
+                 </field>
+                <field name="header_company_field_ids" position="before">
+                    <group>
+                        <group>
+                            <field name="margin_top_header"/>
+                            <field name="margin_bottom_header"/>
+                        </group>
+                        <group>
+                            <field name="margin_left_header"/>
+                            <field name="margin_right_header"/>
+                        </group>
+                    </group>
+                 </field>
+             </field>
+         </record>
+    </data>
+</odoo>

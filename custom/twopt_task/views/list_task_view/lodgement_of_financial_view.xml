@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="lodgement_of_financial_form" model="ir.ui.view">
+            <field name="name">lodgement.of.financial.form</field>
+            <field name="model">lodgement.of.financial</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group name="entity_info">
+                                <field name="uen"/>
+                                <field name="select_the_option"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <group col="2">
+                                <div>
+                                    <label for="is_foreign_company" style="font-weight: bold;"/><br/>
+                                    <field name="is_foreign_company" widget="radio" style="flex-flow: row nowrap;"/>
+                                </div>
+                                <div>
+                                    <label for="financial_year_end_date" style="font-weight: bold;"/><br/>
+                                    <field name="financial_year_end_date" style="width: 50%;" readonly="1" class="color-text-ff8d06"/>
+                                </div>
+                                <div attrs="{'invisible' : [('is_foreign_company', '!=', 'yes')]}">
+                                    <br/><br/>
+                                    <label for="agm_date" style="font-weight: bold;"/><br/>
+                                    <field name="agm_date" style="width: 30%;"/>
+                                </div>
+                            </group>
+                            <group col="2" string="Operations in Country of Incorporation">
+                                <div>
+                                    <label for="name_of_auditor" style="font-weight: bold;"/><br/>
+                                    <field name="name_of_auditor" style="width: 50%;"/>
+                                </div>
+                                <div/>
+                                <div>
+                                    <label for="attachment_for_operations" style="font-weight: bold;"/><br/>
+                                    <field name="attachment_for_operations" style="width: 50%;"/>
+                                </div>
+                                <div>
+                                    <label for="continuation_of_attachment" style="font-weight: bold;"/><br/>
+                                    <field name="continuation_of_attachment" style="width: 50%;"/>
+                                </div>
+                            </group>
+                            <group col="2" string="Singapore Branch">
+                                <div>
+                                    <label for="are_the_accounts_audited" style="font-weight: bold;"/><br/>
+                                    <field name="are_the_accounts_audited" widget="radio" style="flex-flow: row nowrap;"/>
+                                </div>
+                                <div attrs="{'invisible' : [('are_the_accounts_audited', '!=', 'yes')]}">
+                                    <label for="name_of_auditor_branch" style="font-weight: bold;"/><br/>
+                                    <field name="name_of_auditor_branch" style="width: 50%;"/>
+                                </div>
+                                <div>
+                                    <label for="attachment_for_sin_branch" style="font-weight: bold;"/><br/>
+                                    <field name="attachment_for_sin_branch" style="width: 50%;"/>
+                                </div>
+                                <div>
+                                    <label for="continuation_of_attachment_branch" style="font-weight: bold;"/><br/>
+                                    <field name="continuation_of_attachment_branch" style="width: 50%;"/>
+                                </div>
+                            </group>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

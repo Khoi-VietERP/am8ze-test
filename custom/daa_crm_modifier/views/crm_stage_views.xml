@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <record id="crm_stage_form" model="ir.ui.view">
+            <field name="name">crm.stage.form</field>
+            <field name="model">crm.stage</field>
+            <field name="inherit_id" ref="crm.crm_stage_form"/>
+            <field name="arch" type="xml">
+                <field name="team_count" position="before">
+                    <group>
+                        <field name="is_auto_client"/>
+                    </group>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

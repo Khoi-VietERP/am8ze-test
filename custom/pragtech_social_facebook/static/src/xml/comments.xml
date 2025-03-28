@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template xml:space="preserve">
+
+<t t-name="FBCommentsMainMenu">
+    <span class="facebook_feed_background"/>
+    <div class="row">
+        <div class="col-4">
+            <button class="btn btn-primary buttonPostWindows" style="
+                padding: 5px 20px;
+                text-align: center;
+                margin: 4px 2px;
+                background-color: #7c7bad;
+                border-color: dimgrey;
+                border-radius: 5px;
+                font-weight: bold;
+                height: 26px;
+                width: 105px;"
+                type="button">Post</button>
+            <button class="btn btn-primary buttonRefresh" style="
+                padding: 5px 20px;
+                text-align: center;
+                margin: 4px 2px;
+                background-color:  #7c7bad;
+                border-color: dimgrey;
+                border-radius: 5px;
+                font-weight: bold;
+                height: 26px;
+                width: 105px;"
+                type="button">Refresh</button>
+        </div>
+        <div class="col-2" style="
+            margin-left: -32%;
+            background-color: white;
+            margin-top: 4%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 0px;">
+            <div style="font-weight: bold;padding-left: 5px;">
+                <center>Manage Pages</center>
+            </div>
+            <hr class="ml-3 mr-3"/>
+            <t t-foreach="widget.page_ids" t-as="page_id">
+                <div class="row">
+                    <input style="margin-left: 30px;"
+                           t-att-checked="page_id.view_fb_page_data ? 'checked' : undefined"
+                           class="PageCheckBox"
+                           type="checkbox"
+                           t-att-id="page_id.id"
+                           name="PageCheckBox">
+                        <span style="margin-left: 5px;">
+                            <t t-esc="page_id.stream_name"></t>
+                        </span>
+                    </input>
+                </div>
+            </t>
+        </div>
+    </div>
+    <html>
+        <head>
+            <meta charset="utf-8"/>
+            <title>Untitled Document</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+                <style>
+                body {
+                background-color: #eee
+            }
+
+            .card {
+                background-color: #fff;
+                border: none
+            }
+
+            .form-color {
+                    background-color: white
+            }
+            .inner_comment {
+                background-color: #D3D3D3,
+            }
+
+            .form-control {
+                height: 48px;
+                border-radius: 25px
+            }
+
+            .form-control:focus {
+                color: #495057;
+                background-color: #fff;
+                border-color: #35b69f;
+                outline: 0;
+                box-shadow: none;
+                text-indent: 10px
+            }
+            .c-badge {
+                background-color: #35b69f;
+                color: white;
+                height: 20px;
+                font-size: 11px;
+                width: 92px;
+                border-radius: 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 2px
+            }
+
+            .comment-text {
+                font-size: 13px
+            }
+
+            .wish {
+                color: #F02849;
+            }
+
+            .user-feed {
+                font-size: 14px;
+                margin-top: 12px
+            }
+
+            .chat-attachment{
+            position: absolute;
+            right: 3px;
+            }
+            div.rounded
+            {
+            width: 115px;
+            padding: 10px;
+            border: 2px solid #000;
+            border-radius: 15px;
+            -moz-border-radius: 15px;
+            }
+            .post_button {
+                background-color: #7c7bad;
+                border: none;
+                color: white;
+                padding: 5px 30px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+                border-radius: 24px;
+            }
+            .loadmore {
+                color: #767171;
+                font-size: 13px;
+                margin-left: 10px;
+                font-weight: 900;
+            }
+            .loadmorepost {
+                color: black;
+                font-size: 13px;
+                margin-left: 10px;
+                font-weight: 900;
+                position: absolute;
+                margin-left: 45%;
+            }
+                </style>
+            </head>
+    <t t-set="check_post" t-value="0"/>
+    <t t-set="checkPostButtonDisplay" t-value="1"/>
+    <t t-set="setPageDetails" t-value="1"/>
+
+    <t t-foreach="widget.post_ids" t-as="post_id">
+        <t t-set="check_post" t-value="check_post + 1"/>
+        <t t-set="displayPostBlock" t-value="'display:block;'"/>
+        <t t-if="check_post == 1">
+            <t t-set="displayPostBlock" t-value="'margin-top: -10%;'"/>
+        </t>
+        <t t-if="check_post > 10">
+            <t t-set="displayPostBlock" t-value="'display:none;'"/>
+        </t>
+        <body>
+            <div class="row height d-flex justify-content-center align-items-center" style="margin-top:10px;">
+                <div class="col-md-7 postClassDisplay" t-att-id="post_id.id"
+                    t-att-style="displayPostBlock">
+                    <div class="card">
+                        <div class="mt-2">
+                            <div class="d-flex flex-row p-3">
+<!--                                <img src="https://i.imgur.com/zQZSWrt.jpg" width="40" height="40" class="rounded-circle mr-3"/>-->
+                                <div class="w-100">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <span class="mr-2">
+                                                <span class="mr-2">Published by</span> <span class="mr-2"><a href="#"><t t-esc="post_id.stream_post_author_name"/></a></span>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-row user-feed mt-0">
+<!--                                        <span class="mr-2">Published by</span> <span class="mr-2"><a href="#"><t t-esc="post_id.stream_post_author_name"/></a></span>-->
+                                        <span><i class="fa fa-info-circle mr-2"></i></span> <span class="mr-2">
+                                        <a href="#"><t t-esc="post_id.formatted_published_date"/></a></span><span><i class="fa fa-globe"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row p-3" style="padding-top: 0px !important">
+                                <div class="w-100">
+                                    <p class="text-justify comment-text mb-0">
+                                        <t t-esc="post_id.stream_post_message"/>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-row p-0" style="padding-top: 0px !important">
+                                <div class="w-100" style="margin-left:15px;">
+                                    <t t-if="post_id.fb_post_image">
+                                        <img class="img" style="width:98%;" t-attf-src="/web/image?model=pragtech.social.stream.post&amp;field=fb_post_image&amp;id=#{post_id.id}"
+                                        t-att-title="post_id.id"
+                                        t-att-alt="post_id.id"/>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="d-flex p-2 mt-2">
+                                <t t-if="post_id.fb_user_likes">
+                                    <div class="p-2 text-center flex-fill likeMainComment" t-att-id="post_id.id">
+                                        <i style="color:#706eb3" t-att-id="post_id.id" class="fa fa-thumbs-up"></i><span class="ml-2">Like</span>
+                                  </div>
+                                </t>
+                                <t t-else="">
+                                    <div class="p-2 text-center flex-fill likeMainComment" t-att-id="post_id.id">
+                                        <i t-att-id="post_id.id" class="fa fa-thumbs-o-up"></i><span class="ml-2">Like</span>
+                                  </div>
+                                </t>
+
+                              <div class="p-2 text-center flex-fill">
+                                  <i t-att-id="post_id.id" class="fa fa-comments-o commentInput"></i>
+                                  <span t-att-id="post_id.id" class="ml-2 commentInput">Comment</span>
+                              </div>
+                              <div class="p-2 text-center flex-fill">
+<!--                                  <i t-att-id="post_id.id" class="fa fa-share"></i>-->
+<!--                                  <span class="ml-2">-->
+<!--                                    Share-->
+<!--                                  </span>-->
+                              </div>
+                            </div>
+                            <hr class="ml-3 mr-3"/>
+                            <div class="d-flex flex-row align-items-center p-3 form-color">
+<!--                                <img src="https://i.imgur.com/zQZSWrt.jpg" width="50" class="rounded-circle mr-2"/>-->
+                                <img class="img rounded-circle mr-3" width="40" height="40" t-attf-src="/web/image?model=res.users&amp;field=image_1920&amp;id=#{post_id.active_user}"
+                                    t-att-title="post_id.active_user"
+                                    t-att-alt="post_id.active_user"/>
+                                <input name="inputComments" t-att-id="post_id.id" type="text" class="form-control position-relative" placeholder="Enter your comment..."/>
+                                <div class="chat-attachment">
+        <!--                            <div class="d-flex">-->
+        <!--                                <i class="fa fa-smile-o mr-2"></i>-->
+        <!--                                <i class="fa fa-image mr-4"></i>-->
+        <!--                                </div>-->
+        <!--                            </div>-->
+                                </div>
+                            </div>
+                            <t t-set="check_comment" t-value="0"/>
+                            <t t-foreach="post_id.comments" t-as="comment">
+                                <t t-set="check_comment" t-value="check_comment + 1"/>
+                                <t t-set="displayBlock" t-value="'display:block;'"/>
+                                <t t-if="check_comment > 1">
+                                    <t t-set="displayBlock" t-value="'display:none;'"/>
+                                </t>
+                                <div t-att-id="post_id.id" class="InnerCommentReplyMainClassDisplay"
+                                     t-att-style="displayBlock">
+                                    <div>
+                                        <div style="margin-bottom:5px;border-radius: 50px;background:#efecec;"
+                                             class="col-9 flex-row align-items-center p-3 form-color">
+                                            <img t-att-src="comment.main_comment_url" width="40" height="40" class="rounded-circle mr-3"/>
+                                            <span class="w-100">
+                                                <span class="text-justify comment-text mb-0">
+                                                    <t t-esc="comment.fb_comment_text" />
+                                                </span>
+                                                <t t-if="comment.fb_comment_image">
+                                                    <img t-attf-src="data:image/png;base64, #{comment.fb_comment_image}" alt="Post Image" />-->
+                                                </t>
+
+                                                <span class="d-flex flex-row user-feed" style="margin-left: 60px;margin-top: -5px;">
+                                                    <span class="likeMainCommentComment" style="color:#706eb3" t-att-id="comment.fb_comment_id">
+                                                        <t t-if="comment.is_user_like_comment">
+                                                            <i class="fa fa-thumbs-up mr-1" style="color:#706eb3"></i>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <i class="fa fa-thumbs-up mr-1" style="color:gray"></i>
+                                                        </t>
+                                                        <t style="color:black" t-esc="comment.like_count"/>
+                                                    </span>
+                                                    <span t-att-id="comment.fb_comment_id" class="ml-3 mainCommentReplyText">
+                                                        Reply
+        <!--                                                <i class="mainCommentReply mr-2">Reply</i>-->
+                                                    </span>
+                                                    <span class="ml-3"><t t-esc="comment.created_time"/> </span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                        <input
+                                            style="margin-left: 51px;width: 75%;display: none;margin-bottom: 5px;"
+                                            name="inputReplyComments"
+                                            t-att-id="comment.fb_comment_id"
+                                            type="text"
+                                            class="form-control position-relative inputReplyComments"
+                                            placeholder="Enter your comment..."/>
+                                    </div>
+
+                                    <div t-foreach="comment.inner_comments" t-as="inner_comment">
+                                        <div class="row innerCommentMore">
+                                            <div class="col-1 d-flex flex-row align-items-center p-3 form-color" style="margin-left:15px;"/>
+                                            <div class="col-9 d-flex flex-row align-items-center p-3 form-color" style="margin-bottom:5px;border-radius: 50px;background:#efecec;">
+                                                <img t-att-src="inner_comment.main_comment_url" width="40" height="40" class="rounded-circle mr-3"/>
+                                                <div class="w-100">
+                                                    <p class="text-justify comment-text mb-0">
+                                                        <t t-esc="inner_comment.fb_comment_text" />
+                                                    </p>
+                                                    <t t-if="inner_comment.fb_comment_image">
+                                                        <img t-attf-src="data:image/png;base64, #{inner_comment.fb_comment_image}" alt="Post Image" />-->
+                                                    </t>
+
+                                                    <div class="d-flex flex-row user-feed">
+                                                        <span class="likeMainCommentCommentInner" t-att-id="inner_comment.fb_inner_comment_id">
+                                                            <t t-if="inner_comment.is_user_like_comment">
+                                                                <i class="fa fa-thumbs-up mr-1" style="color:#706eb3"></i>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <i class="fa fa-thumbs-up mr-1" style="color:gray"></i>
+                                                            </t>
+                                                            <t t-esc="inner_comment.like_count" style="color:black"/>
+                                                        </span>
+                                                        <span t-att-id="inner_comment.fb_inner_comment_id" class="ml-3 mainInnerCommentReply">
+                                                            Reply
+                                                        </span>
+                                                        <span class="ml-3"><t t-esc="inner_comment.created_time"/> </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input
+                                                style="margin-left: 110px;width: 75%;display: none;margin-bottom: 5px;"
+                                                name="inputReplyInnerComments"
+                                                t-att-id="inner_comment.fb_inner_comment_id"
+                                                type="text"
+                                                class="form-control position-relative inputReplyInnerComments"
+                                                placeholder="Enter your comment..."/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-if="check_comment > 1">
+                                <a href="#" t-att-id="post_id.id" class="loadmore">View More Comments</a>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </body>
+    </t>
+    <t t-if="check_post > 10 and checkPostButtonDisplay == '1'">
+        <t t-set="marginSet" t-value="-(check_post-10) * 10 + 5"/>
+        <t t-set="marginTopVMP" t-value="'margin-top:' + marginSet + 'px;background-color: white;'"/>
+        <div class="loadmorepost" t-att-style="marginTopVMP"><a>View More Posts ....</a></div>
+        <t t-set="checkPostButtonDisplay" t-value="0"/>
+    </t>
+</html>
+</t>
+</template>

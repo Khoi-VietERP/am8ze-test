@@ -1,0 +1,210 @@
+<odoo>
+    <data>
+        <!--TODO Menu Cash Flow-->
+        <record model="ir.ui.menu" id="account_dynamic_reports.account_report_cf_wiz">
+            <field name="sequence">2</field>
+        </record>
+
+        <!--TODO Menu Financial Reports-->
+        <menuitem id="invoicing_financial_report" name="Financial Reports"
+                  parent="account.menu_finance_reports"
+                  sequence="0"/>
+
+        <record model="ir.ui.menu" id="sg_account_report.menu_print_journal">
+            <field name="parent_id" ref="invoicing_financial_report"/>
+            <field name="name">Audit Log</field>
+            <field name="sequence" eval="1"/>
+        </record>
+
+        <record model="ir.ui.menu" id="account_dynamic_reports.account_report_cashflow">
+            <field name="parent_id" ref="invoicing_financial_report"/>
+            <field name="sequence">2</field>
+            <field name="name">Cash Flows</field>
+        </record>
+
+        <record model="ir.ui.menu" id="account_dynamic_reports.account_report_bl">
+            <field name="parent_id" ref="invoicing_financial_report"/>
+            <field name="sequence">3</field>
+        </record>
+
+        <record model="ir.ui.menu" id="account_dynamic_reports.account_report_pandl">
+            <field name="parent_id" ref="invoicing_financial_report"/>
+            <field name="sequence">4</field>
+        </record>
+
+        <record model="ir.ui.menu" id="alphabricks_pnl_report.menu_ins_pnl_new_report">
+            <field name="parent_id" ref="invoicing_financial_report"/>
+            <field name="sequence">5</field>
+        </record>
+
+        <record model="ir.ui.menu" id="a5oct2021_modifier_invoicing.menu_ins_pnl_detail_report">
+            <field name="parent_id" ref="invoicing_financial_report"/>
+            <field name="sequence">5</field>
+        </record>
+
+        <!--TODO Accounts &amp; Transactions-->
+        <menuitem id="invoicing_account_transactions_report" name="Accounts &amp; Transactions"
+                  parent="account.menu_finance_reports"
+                  sequence="1"/>
+
+        <record model="ir.ui.menu" id="account_dynamic_reports.account_report_gl">
+            <field name="parent_id" ref="invoicing_account_transactions_report"/>
+            <field name="sequence">0</field>
+        </record>
+
+        <record model="ir.ui.menu" id="account_dynamic_reports.account_report_tb">
+            <field name="parent_id" ref="invoicing_account_transactions_report"/>
+            <field name="sequence">1</field>
+        </record>
+
+        <!--TODO Receivables-->
+        <menuitem id="invoicing_receivables_report" name="Receivables"
+                  parent="account.menu_finance_reports"
+                  sequence="2"/>
+
+        <record model="ir.ui.menu" id="modifier_ar_ap_report.account_aging_receivable_report_pa">
+            <field name="parent_id" ref="invoicing_receivables_report"/>
+            <field name="sequence">1</field>
+        </record>
+
+        <!--TODO Payables-->
+        <menuitem id="invoicing_payables_report" name="Payables"
+                  parent="account.menu_finance_reports"
+                  sequence="3"/>
+
+        <record model="ir.ui.menu" id="modifier_ar_ap_report.account_aging_payable_report_pa">
+            <field name="parent_id" ref="invoicing_payables_report"/>
+            <field name="sequence">1</field>
+        </record>
+
+        <record model="ir.ui.menu" id="account_dynamic_reports.account_report_plg">
+            <field name="parent_id" ref="invoicing_payables_report"/>
+            <field name="sequence">2</field>
+        </record>
+
+        <menuitem id="invoicing_reconciliation_report" name="Reconciliation"
+                  parent="account.menu_finance_reports"
+                  sequence="3"/>
+        <menuitem id="invoicing_gst_report" name="GST"
+                  parent="account.menu_finance_reports"
+                  sequence="3"/>
+
+        <record model="ir.ui.menu" id="gst_f5.menu_gst_returnf5_trans">
+            <field name="parent_id" ref="invoicing_gst_report"/>
+            <field name="sequence">1</field>
+        </record>
+
+        <record model="ir.ui.menu" id="sg_account_report.menu_gst_return">
+            <field name="parent_id" ref="invoicing_gst_report"/>
+            <field name="sequence">2</field>
+        </record>
+        <record model="ir.ui.menu" id="sg_account_report.menu_gst_returnf7">
+            <field name="parent_id" ref="invoicing_gst_report"/>
+            <field name="sequence">3</field>
+        </record>
+
+        <record model="ir.ui.menu" id="iaf.menu_iaf_reports">
+            <field name="sequence">4</field>
+        </record>
+        <record model="ir.ui.menu" id="account.account_reports_management_menu">
+            <field name="sequence">5</field>
+        </record>
+
+        <!--TODO REMOVE ITEM MENU -->
+        <!--		cash flow-->
+        <menuitem id="account_dynamic_reports.account_report_cf_wiz" active="False"/>
+        <!--        finance-->
+        <menuitem id="sg_account_report.menu_account_report_bs" active="False"/>
+        <menuitem id="account_dynamic_reports.account_report_bs_wiz" active="False"/>
+        <!--        Profit and Loss-->
+        <menuitem id="sg_account_report.menu_account_report_pl" active="False"/>
+        <menuitem id="account_dynamic_reports.account_report_pl_wiz" active="False"/>
+        <!--        Profit and Loss Detailt-->
+        <menuitem id="a5oct2021_modifier_invoicing.menu_dynamic_pnl_detail_report" active="False"/>
+        <!--        general ledger-->
+        <menuitem id="account_dynamic_reports.account_report_gl_wiz" active="False"/>
+        <menuitem id="sg_account_report.menu_general_ledger" active="False"/>
+        <!--        trial balance-->
+        <menuitem id="sg_account_report.menu_general_Balance_report" active="False"/>
+        <menuitem id="account_dynamic_reports.account_report_tb_wiz" active="False"/>
+        <!--        Aging Receivable-->
+        <menuitem id="modifier_ar_ap_report.account_aging_receivable_report_pa_wiz" active="False"/>
+        <!--        Aging Payable-->
+        <menuitem id="modifier_ar_ap_report.account_aging_payable_report_pa_wiz" active="False"/>
+        <!--        Partner Ledger-->
+        <menuitem id="account_dynamic_reports.account_report_plg_wiz" active="False"/>
+        <menuitem id="sg_account_report.menu_partner_ledger" active="False"/>
+        <!--        Partner Ageing-->
+        <menuitem id="account_dynamic_reports.account_report_pa_wiz" active="False"/>
+        <record model="ir.ui.menu" id="account_dynamic_reports.account_report_bl">
+            <field name="active">False</field>
+        </record>
+
+        <record model="ir.ui.menu" id="base_accounting_kit._account_financial_reports_balance_sheet">
+            <field name="active">False</field>
+        </record>
+
+        <record model="ir.ui.menu" id="account_dynamic_reports.account_report_pandl">
+            <field name="active">False</field>
+        </record>
+
+        <record model="ir.ui.menu" id="base_accounting_kit.account_financial_reports_profit_loss">
+            <field name="active">False</field>
+        </record>
+
+        <!--TODO Menu ACCOUNT - CUSTOMER -->
+        <record model="ir.ui.menu" id="account.menu_action_move_out_receipt_type">
+            <field name="name">Sales receipt</field>
+        </record>
+
+        <record model="ir.ui.menu" id="account.menu_action_account_payments_receivable">
+            <field name="active">False</field>
+        </record>
+
+        <record model="ir.ui.menu" id="direct_multiple_payment.multiple_payments_customer_menu">
+            <field name="name">Receive payment</field>
+            <field name="active">False</field>
+        </record>
+
+        <record model="ir.ui.menu" id="recurring_invoice_app.menu_recurring_invoice">
+            <field name="sequence">25</field>
+        </record>
+
+        <!--TODO Menu ACCOUNT - VENDORS -->
+        <record model="ir.ui.menu" id="account.menu_action_move_in_refund_type">
+            <field name="name">Supplier refund</field>
+        </record>
+
+        <record model="ir.ui.menu" id="account.menu_action_move_in_receipt_type">
+            <field name="name">Purchases receipt</field>
+        </record>
+
+        <record model="ir.ui.menu" id="account.menu_action_account_payments_payable">
+            <field name="active">False</field>
+        </record>
+
+        <record model="ir.ui.menu" id="direct_multiple_payment.multiple_payments_vendor_menu">
+            <field name="name">Bill payment</field>
+            <field name="active">False</field>
+        </record>
+
+        <record model="ir.ui.menu" id="a5oct2021_modifier_invoicing.menu_ins_pnl_detail_report">
+            <field name="active">False</field>
+        </record>
+
+        <!--TODO Menu ACCOUNT - BANK RECONCILE (BANKING) -->
+
+        <record model="ir.ui.menu" id="sg_bank_reconcile.menu_finance_menu_finance_entries">
+            <field name="name">Banking</field>
+        </record>
+
+        <record id="receive_spend_money_action" model="ir.actions.act_window">
+            <field name="name">Receive / Spend Money</field>
+            <field name="res_model">multiple.payments</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="receive_spend_money_action" id="receive_spend_money_menu"
+        parent="sg_bank_reconcile.menu_finance_menu_finance_entries" name="Receive / Spend Money" sequence="1"/>
+    </data>
+</odoo>

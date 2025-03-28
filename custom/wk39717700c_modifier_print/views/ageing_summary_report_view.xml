@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="ageing_summary_report_form" model="ir.ui.view">
+            <field name="name">Ageing Summary Report</field>
+            <field name="model">ageing.summary.report</field>
+            <field name="arch" type="xml">
+                <form string="Choose your date">
+                    <group>
+                        <field name="closed_date"/>
+                        <field name="customer_ids" widget="many2many_tags"/>
+                        <field name="user_ids" widget="many2many_tags"/>
+                        <field name="term_ids" widget="many2many_tags"/>
+                    </group>
+                    <footer>
+                        <button name="generate_pdf_report" string="Print" type="object" class="oe_highlight"/>
+                        <button string="VIEW" name="action_view" type="object"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="ageing_summary_report_action">
+            <field name="name">Ageing Summary Report</field>
+            <field name="res_model">ageing.summary.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="ageing_summary_report_menu" parent="account.menu_finance_reports" action="ageing_summary_report_action"/>
+    </data>
+</odoo>

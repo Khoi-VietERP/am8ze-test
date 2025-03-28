@@ -1,0 +1,89 @@
+<odoo>
+    <data>
+        <record id="multiple_payments_form_view_inherit" model="ir.ui.view">
+            <field name="name">multiple.payments.view.form</field>
+            <field name="model">multiple.payments</field>
+            <field name="inherit_id" ref="direct_multiple_payment.multiple_payments_form_view"/>
+            <field name="arch" type="xml">
+                <field name="ref_no" position="replace"/>
+                <field name="partner_id" position="after">
+                    <field name="ref_no"/>
+                </field>
+                <field name="partner_id" position="attributes">
+                    <attribute name="context">{'partner_type' : partner_type}</attribute>
+                </field>
+                <field name="payment_date" position="after">
+                    <field name="deposit_to_id" required="1"/>
+                </field>
+                <xpath expr="//field[@name='payment_lines']/tree/field[@name='tag_ids']" position="attributes">
+                    <attribute name="groups">analytic.group_analytic_tags</attribute>
+                </xpath>
+                <xpath expr="//field[@name='payment_lines']/tree/field[@name='tag_ids']" position="after">
+                    <field name="analytic_account_id" groups="analytic.group_analytic_accounting"/>
+                </xpath>
+                <xpath expr="//field[@name='payment_lines']/form/group/field[@name='tag_ids']" position="attributes">
+                    <attribute name="groups">analytic.group_analytic_tags</attribute>
+                </xpath>
+                <xpath expr="//field[@name='payment_lines']/form/group/field[@name='tag_ids']" position="after">
+                    <field name="analytic_account_id" groups="analytic.group_analytic_accounting"/>
+                </xpath>
+                <field name="journal_id" position="before">
+                    <field name="tax_status"/>
+                    <field name="payment"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="active_manual_currency_rate" invisible="1"/>
+                </field>
+                <field name="currency_id" position="before">
+                    <field name="apply_manual_currency_exchange"
+                           attrs="{'invisible': [('active_manual_currency_rate', '=', False)]}"/>
+                    <field name="manual_currency_exchange_rate"
+                           attrs="{'invisible': ['|',('apply_manual_currency_exchange', '=', False),
+                           ('active_manual_currency_rate', '=', False)],
+                           'required':[('apply_manual_currency_exchange', '=', True)]}"/>
+                </field>
+                <xpath expr="//field[@name='sub_total']" position="replace">
+                    <field name="sub_total" widget="monetary" options="{'currency_field':'currency_id'}"/>
+                </xpath>
+                <xpath expr="//field[@name='amount_tax']" position="replace">
+                    <field name="amount_tax" widget="monetary" options="{'currency_field':'currency_id'}"/>
+                </xpath>
+                <xpath expr="//field[@name='total']" position="replace">
+                    <label for="total" style="color: black;margin-bottom: 20px"/>
+                    <field name="total" widget="monetary" options="{'currency_field':'currency_id'}"
+                           class="oe_subtotal_footer_separator" nolabel="1" style="margin-bottom: 20px"/>
+                    <field name="company_currency_id" invisible="1"/>
+                    <field class="oe_subtotal_footer_separator" name="amount_total_signed" style="font-weight:100;font-size: 14px"
+                           attrs="{'invisible' : [('active_manual_currency_rate', '=', False)]}" string="Total (SGD)"/>
+                    <field name="amount_tax_signed" attrs="{'invisible' : [('active_manual_currency_rate', '=', False)]}" string="GST"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="multiple_payments_tree_view_inherit" model="ir.ui.view">
+            <field name="name">multiple.payments.view.tree</field>
+            <field name="model">multiple.payments</field>
+            <field name="inherit_id" ref="direct_multiple_payment.multiple_payments_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="replace">
+                    <tree>
+                        <field name="payment_date" string="Date" optional="show"/>
+                        <field name="name" optional="show" string="Number"/>
+                        <field name="payment" optional="show"/>
+                        <field name="partner_id" string="Partner" optional="show"/>
+                        <field name="payment_user_id" optional="show"/>
+                        <field name="ref_no" optional="hide"/>
+                        <field name="deposit_to_id" optional="hide"/>
+                        <field name="tax_status" optional="hide"/>
+                        <field name="sub_total" string="Tax Excluded" optional="hide"/>
+                        <field name="amount_tax" string="Tax" optional="hide"/>
+                        <field name="total" string="Total" optional="show"/>
+                        <field name="currency_id" optional="hide"/>
+                        <field name="payment_type" optional="hide"/>
+                        <field name="state" string="Status" optional="show"/>
+                        <field name="journal_id" string="Journal" optional="show"/>
+                    </tree>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

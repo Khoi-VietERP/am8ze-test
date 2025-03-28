@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="salesman_modifier_external_layout">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+            <t t-call="wk39717700c_modifier_print.salesman_external_layout_standard_modifier_header_logo">
+                <t t-raw="0"/>
+            </t>
+
+        </template>
+
+        <template id="salesman_external_layout_standard_modifier_header_logo">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                <table style="width: 100%">
+                    <tr>
+                        <td colspan="3">
+                            <b style="font-size: 20px;"><t t-esc="company.name"/></b>
+                        </td>
+                        <td>
+                            <b>Date : </b> <t t-esc="date_now"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <b>Detail Customer Inovice Listing - Customer Code Order (With and Without GST)</b>
+                        </td>
+                        <td>
+                            <b>Page no : </b> <span class="page"/> / <span class="topage"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40%" colspan="2">
+                            <b>Date Range : </b>
+                            <b>From <t t-esc="start_date"/> To <t t-esc="end_date"/></b>
+                        </td>
+                        <td style="width: 30%">
+                            <b>Type of Invoices : </b>
+                            <b>All Type of Invoice</b>
+                        </td>
+                        <td style="width: 30%">
+                            <b>Salesman : <t t-esc="salesman"/></b>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout">
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+        </template>
+
+        <record id="paperformat_salesman" model="report.paperformat">
+            <field name="name">Salesman Invoice Detail Paperformat A4 (Fit)</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">28</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <template id="wk39717700c_modifier_print.salesman_invoice_detail_template">
+            <t t-call="web.html_container">
+                <t t-call="wk39717700c_modifier_print.salesman_modifier_external_layout">
+                    <style>
+                        .page {
+                            font-size: 15px;
+                        }
+                        .table-product {
+                            margin-top: 30px
+                        }
+                        .table-product th, .table-product td {
+                            padding: 0.2rem 0rem;
+                        }
+                        .border-bottom {
+                            border-bottom: 1px solid #000;
+                        }
+                        .border-top {
+                            border-top: 1px solid #000;
+                        }
+                    </style>
+                    <div class="page">
+                        <table style="width: 100%" class="table-product">
+                            <thead>
+                                <tr class="border-top">
+                                    <th>Date</th>
+                                    <th>Invoice No</th>
+                                    <th>Curr</th>
+                                    <th>Value</th>
+                                    <th>Exchange</th>
+                                    <th>Curr</th>
+                                    <th>Discount</th>
+                                    <th>G.S.T</th>
+                                    <th>Actual Amnt</th>
+                                    <th>G-Total</th>
+                                </tr>
+                                <tr class="border-bottom">
+                                    <th>Invoice Date</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Quantity</th>
+                                    <th>Uom</th>
+                                    <th>UnitPrice</th>
+                                    <th>Ext.Amnt</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="customer_data" t-as="customer">
+                                    <tr>
+                                        <td>
+                                            <u><t t-esc="customer['customer_code']"/></u>
+                                        </td>
+                                        <td colspan="9">
+                                            <u><t t-esc="customer['customer_name']"/></u>
+                                        </td>
+                                    </tr>
+                                    <t t-foreach="customer['invoice_data']" t-as="invoice">
+                                        <tr>
+                                            <td><t t-esc="invoice['invoice_date']"/> </td>
+                                            <td><t t-esc="invoice['invoice_name']"/></td>
+                                            <td><t t-esc="invoice['currency']"/></td>
+                                            <td><t t-esc="invoice['amount_untaxed']"/></td>
+                                            <td></td>
+                                            <td><t t-esc="invoice['currency']"/></td>
+                                            <td>0.00</td>
+                                            <td><t t-esc="invoice['amount_tax']"/></td>
+                                            <td><t t-esc="invoice['amount_total']"/></td>
+                                            <td><t t-esc="invoice['amount_total']"/></td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <td></td>
+                                        <td colspan="2">
+                                            <u>Customer Total Distribution<br/>Curr</u>
+                                        </td>
+                                        <td>
+                                            <br/>
+                                            <u>CurName</u>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <br/>
+                                            <u>Total Value</u>
+                                        </td>
+                                        <td>
+                                            <br/>
+                                            <u>GST Amt</u>
+                                        </td>
+                                        <td>
+                                            <br/>
+                                            <u>Total Amt</u>
+                                        </td>
+                                        <td>
+                                            <br/>
+                                            <u><t t-esc="customer['currency']"/></u>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-bottom">
+                                        <td></td>
+                                        <td>
+                                            <t t-esc="customer['currency']"/>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Singapore Dollar
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><t t-esc="customer['total_amount_untaxed']"/> </td>
+                                        <td><t t-esc="customer['total_amount_tax']"/></td>
+                                        <td><t t-esc="customer['total_amount_total']"/></td>
+                                        <td><t t-esc="customer['total_amount_total']"/></td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td></td>
+                                    <td colspan="2">
+                                        <u><b>Salesman Invoice Total Distribution<br/>Curr</b></u>
+                                    </td>
+                                    <td>
+                                        <br/>
+                                        <u><b>CurName</b></u>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <br/>
+                                        <u><b>Total Value</b></u>
+                                    </td>
+                                    <td>
+                                        <br/>
+                                        <u><b>GST Amt</b></u>
+                                    </td>
+                                    <td>
+                                        <br/>
+                                        <u><b>Total Amt</b></u>
+                                    </td>
+                                    <td>
+                                        <br/>
+                                        <u><b>S$</b></u>
+                                    </td>
+                                </tr>
+                                <tr class="border-bottom">
+                                    <td></td>
+                                    <td>
+                                        <b>S$</b>
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <b>Singapore Dollar</b>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><b><t t-esc="salesman_ta_untaxed"/></b></td>
+                                    <td><b><t t-esc="salesman_ta_tax"/></b></td>
+                                    <td><b><t t-esc="salesman_ta_total"/></b></td>
+                                    <td><b><t t-esc="salesman_ta_total"/></b></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <report id="salesman_invoice_detail_report"
+            string="Salesman Invoice Detail"
+            model="salesman.invoice.detail"
+            report_type="qweb-pdf"
+            name="wk39717700c_modifier_print.salesman_invoice_detail_template"
+            file="wk39717700c_modifier_print.salesman_invoice_detail_template"
+            paperformat="wk39717700c_modifier_print.paperformat_salesman"
+            print_report_name="'Salesman Invoice Detail'"
+            menu="False"/>
+    </data>
+</odoo>

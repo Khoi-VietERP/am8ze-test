@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="appointment_slot_search">
+            <field name="model">das.time.slot</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="appointment_slot_form_view">
+            <field name="model">das.time.slot</field>
+            <field name="arch" type="xml">
+                <form string="Appointment Slot">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="time_start" widget="float_time"/>
+                                <field name="time_end" widget="float_time"/>
+                            </group>
+                            <group>
+                                <field name="slot" widget="float_time"/>
+                                <field name="day"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="appointment_slot_tree_view">
+            <field name="model">das.time.slot</field>
+            <field name="arch" type="xml">
+                <tree string="Slots">
+                    <field name="name"/>
+                    <field name="time_start" widget="float_time"/>
+                    <field name="time_end" widget="float_time"/>
+                    <field name="slot" widget="float_time"/>
+                    <field name="day"/>
+                </tree>
+            </field>
+        </record>
+
+        
+        <record model="ir.actions.act_window" id="appointment_slot_action">
+            <field name="name">Time Slots</field>
+            <field name="res_model">das.time.slot</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Time Slots" id="menu_appointment_slot"
+                  parent="menu_appointment" groups="website.group_website_designer"
+                  action="appointment_slot_action" sequence="10"/>
+
+    </data>
+</odoo>

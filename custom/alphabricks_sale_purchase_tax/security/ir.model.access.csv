@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_alphabricks_sale_purchase_tax_alphabricks_sale_purchase_tax,alphabricks_sale_purchase_tax.alphabricks_sale_purchase_tax,model_alphabricks_sale_purchase_tax_alphabricks_sale_purchase_tax,base.group_user,1,1,1,1

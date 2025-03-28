@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_a5oct2021_modifier_invoicing_a5oct2021_modifier_invoicing,a5oct2021_modifier_invoicing.a5oct2021_modifier_invoicing,model_a5oct2021_modifier_invoicing_a5oct2021_modifier_invoicing,base.group_user,1,1,1,1

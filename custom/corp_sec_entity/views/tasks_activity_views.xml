@@ -1,0 +1,70 @@
+<odoo>
+    <data>
+        <record id="tasks_activity_tree_view" model="ir.ui.view">
+            <field name="name">tasks.activity.tree</field>
+            <field name="model">project.task</field>
+            <field name="arch" type="xml">
+                <tree string="Tasks Activity">
+                    <field name="name"/>
+                    <field name="entity_id"/>
+                    <field name="date_assign" string="Date"/>
+                    <field name="project_id"/>
+                    <field name="user_id"/>
+                    <field name="date_deadline" string="Due Date"/>
+                    <field name="stage_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tasks_activity_form_view" model="ir.ui.view">
+            <field name="name">tasks.activity.form</field>
+            <field name="model">project.task</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Task" class="project_tasks">
+                    <!--<header>-->
+                        <!--<field name="stage_id" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}"/>-->
+                    <!--</header>-->
+                    <sheet string="Task">
+                        <div class="oe_title pr-0">
+                            <h1 class="d-flex flex-row justify-content-between">
+                                <field name="name" class="o_task_name text-truncate" placeholder="Task Title..."/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="entity_id"/>
+                                <field name="date_assign" string="Date"/>
+                                <field name="project_id" string="Tasks" domain="[('active', '=', True)]"/>
+                                <field name="user_id"/>
+                            </group>
+                            <group>
+                                <field name="date_deadline" string="Due Date"/>
+                                <field name="stage_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="description_page" string="Description">
+                                <field name="description" type="html"/>
+                                <div class="oe_clear"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="tasks_activity_action" model="ir.actions.act_window">
+            <field name="name">Tasks Activity</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('corp_sec_entity.tasks_activity_tree_view')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('corp_sec_entity.tasks_activity_form_view')}),
+            ]"/>
+        </record>
+
+        <menuitem id="tasks_activity_menu" name="Tasks Activity" parent="corp_sec_entity" action="tasks_activity_action" sequence="1"/>
+    </data>
+</odoo>

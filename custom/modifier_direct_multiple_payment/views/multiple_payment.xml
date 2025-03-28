@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+         <record model="ir.ui.menu" id="direct_multiple_payment.multiple_payments_customer_menu">
+             <field name="name">Batch payments</field>
+         </record>
+
+        <record model="ir.ui.menu" id="direct_multiple_payment.multiple_payments_vendor_menu">
+             <field name="name">Batch payments</field>
+         </record>
+    </data>
+</odoo>

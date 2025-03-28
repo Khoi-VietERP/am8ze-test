@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="model_uom_view_form" model="ir.ui.view">
+            <field name="name">uom.uom.form.inherit</field>
+            <field name="model">uom.uom</field>
+            <field name="inherit_id" ref="uom.product_uom_form_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="peppol_code"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="model_uom_view_tree" model="ir.ui.view">
+            <field name="name">uom.uom.list.inherit</field>
+            <field name="model">uom.uom</field>
+            <field name="inherit_id" ref="uom.product_uom_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="peppol_code"/>
+                </field>
+            </field>
+        </record>
+
+        <function name="write" model="uom.uom">
+            <value eval="[ref('uom.product_uom_unit')]"/>
+            <value eval="{'peppol_code': 'EA'}"/>
+        </function>
+    </data>
+</odoo>

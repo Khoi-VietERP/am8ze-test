@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="assets_backend_attachment_dragdrop" name="attachment_dragdrop assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link href="/fufong_modifier_bulk_expense/static/src/css/attachment_dragdrop.css" rel="stylesheet" />
+                <script type="text/javascript" src="/fufong_modifier_bulk_expense/static/src/js/attachment_dragdrop.js"></script>
+            </xpath>
+        </template>
+
+        <record id="bulk_expense_form_view_inherit" model="ir.ui.view">
+            <field name="name">bulk.expense.form</field>
+            <field name="model">bulk.expense</field>
+            <field name="inherit_id" ref="bulk_expense.bulk_expense_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='attachment_id']" position="attributes">
+                    <attribute name="filename">attachment_name</attribute>
+                    <attribute name="widget">binary</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='attachment_id']" position="after">
+                    <field name="attachment_name" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/form/group/field[@name='attachment_id']" position="attributes">
+                    <attribute name="filename">attachment_name</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/form/group/field[@name='attachment_id']" position="after">
+                    <field name="attachment_name" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="options">{'no_create_edit': True}</attribute>
+                </xpath>
+                <xpath expr="//form" position="attributes">
+                    <attribute name="class">bulk_form_view</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

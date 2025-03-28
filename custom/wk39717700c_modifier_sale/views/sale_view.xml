@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_order_form_ihr_date_lot" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_order_lot_selection.view_order_tree_lot" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_invoice_id']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('partner_id', '=', False)]}</attribute>
+                <attribute name="context">{'default_type': 'invoice', 'search_belong_address': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_shipping_id']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('partner_id', '=', False)]}</attribute>
+                <attribute name="context">{'default_type': 'delivery', 'search_belong_address': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='lot_id']" position="after">
+                <field name="life_date" optional="hide"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='lot_id']" position="attributes">
+                <attribute name="optional">hide</attribute>
+                <attribute name="context">{'lot_product_id' : product_id}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='lot_id']" position="after">
+                <field name="lot_qty_available" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

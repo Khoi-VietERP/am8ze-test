@@ -1,0 +1,218 @@
+<odoo>
+    <data>
+        <template id="assets_backend" name="modifier_account_dynamic_reports assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/modifier_ar_ap_report/static/src/js/script.js"></script>
+            </xpath>
+        </template>
+
+        <record id="ap_ar_report_wizard" model="ir.ui.view">
+            <field name="name">ins.partner.ageing.view</field>
+            <field name="model">ins.partner.ageing</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group col="4">
+                        <field name="as_on_date"/>
+                        <field name="company_id" invisible="1"/>
+                        <field name="report_name" invisible="1"/>
+                        <field name="type"/>
+                        <field name="partner_type"/>
+                        <field name="include_details"/>
+                        <field name="select_all"/>
+                    </group>
+                    <group col="2">
+                        <field name="partner_ids" widget="many2many_tags"
+                               domain="[('parent_id','=', False),
+                                    '|',('company_id','=',company_id), ('company_id','=',False)]"
+                                options="{'no_create_edit': True,'no_create': True, 'no_quick_create': True}"/>
+                        <field name="partner_category_ids" widget="many2many_tags"
+                                options="{'no_create_edit': True,'no_create': True, 'no_quick_create': True}"/>
+                    </group>
+                    <group col="5">
+                        <field name="bucket_1" class="oe_inline" nolabel="1"/>
+                        <field name="bucket_2" class="oe_inline" nolabel="1"/>
+                        <field name="bucket_3" class="oe_inline" nolabel="1"/>
+                        <field name="bucket_4" class="oe_inline" nolabel="1"/>
+                        <field name="bucket_5" class="oe_inline" nolabel="1"/>
+                    </group>
+                    <footer>
+                        <button name="action_pdf" type="object" string="PDF" class="oe_highlight"/>
+                        <button name="action_xlsx" type="object" string="XLSX" class="oe_highlight"/>
+                        <button name="action_view" type="object" string="VIEW" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_aging_receivable_wizard" model="ir.actions.act_window">
+            <field name="name">Aging Receivable</field>
+            <field name="res_model">ins.partner.ageing</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="ap_ar_report_wizard"/>
+            <field name="target">new</field>
+            <field name="context">{'default_type': 'receivable', 'default_partner_type': 'customer','default_report_name' : 'Aging Receivable'}</field>
+            <field name="binding_model_id" ref="account_dynamic_reports.model_ins_partner_ageing" />
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_dynamic_allinone_ar_report" model="ir.actions.client">
+            <field name="name">Aging Receivable</field>
+            <field name="tag">dynamic.pa</field>
+        </record>
+
+        <menuitem id="account_aging_receivable_report_pa" sequence="41" action="action_aging_receivable_wizard"
+                  name="Aging Receivable" parent="account_dynamic_reports.account_reports_ins" groups="account.group_account_user"/>
+
+        <menuitem id="account_aging_receivable_report_pa_wiz" sequence="41" action="action_dynamic_allinone_ar_report"
+                  name="Aging Receivable" parent="account_dynamic_reports.account_reports_ins_wiz" groups="account.group_account_user"/>
+
+        <record id="action_aging_payable_wizard" model="ir.actions.act_window">
+            <field name="name">Aging Payable</field>
+            <field name="res_model">ins.partner.ageing</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="ap_ar_report_wizard"/>
+            <field name="target">new</field>
+            <field name="context">{'default_type': 'payable', 'default_partner_type': 'supplier','default_report_name' : 'Aging Payable'}</field>
+            <field name="binding_model_id" ref="account_dynamic_reports.model_ins_partner_ageing" />
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_dynamic_allinone_ap_report" model="ir.actions.client">
+            <field name="name">Aging Payable</field>
+            <field name="tag">dynamic.pa</field>
+        </record>
+
+        <menuitem id="account_aging_payable_report_pa" sequence="41" action="action_aging_payable_wizard"
+                  name="Aging Payable" parent="account_dynamic_reports.account_reports_ins" groups="account.group_account_user"/>
+
+        <menuitem id="account_aging_payable_report_pa_wiz" sequence="41" action="action_dynamic_allinone_ap_report"
+                  name="Aging Payable" parent="account_dynamic_reports.account_reports_ins_wiz" groups="account.group_account_user"/>
+
+        <record id="account_dynamic_reports.action_dynamic_allinone_pa_report" model="ir.actions.client">
+            <field name="name">Partner Ageing</field>
+            <field name="tag">dynamic.pa</field>
+        </record>
+
+        <record id="ins_partner_ageing_wizard_inherit" model="ir.ui.view">
+	    <field name="name">ins.partner.ageing.view.form</field>
+	    <field name="model">ins.partner.ageing</field>
+	    <field name="inherit_id" ref="account_dynamic_reports.ins_partner_ageing_wizard"/>
+            <field name="arch" type="xml">
+                <field name="include_details" position="after">
+                    <field name="hide_line"/>
+                </field>
+            </field>
+        </record>
+
+        <template id="account_dynamic_reports.partner_ageing">
+            <t t-call="web.html_container">
+                <t t-call="web.internal_layout">
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        <style>
+                            .pims_report_content{
+                                font-size: 14px;
+                                font-family" 'Arial';
+                            }
+
+                            .pims_report_line_table {
+                                width:100%;
+                                border-collapse: collapse;
+                            }
+
+                            .pims_report_line_table thead{
+                                width: 100%;
+                                overflow: auto;
+                                border-bottom:2px solid grey;
+                            }
+
+                            .pims_report_line_main_tr {
+                                font-weight:bold;
+                                --background-color: cyan;
+                                border-bottom:1px solid grey;
+                            }
+
+                            .pims_report_line_initial_tr {
+                                font-style:italic;
+                            }
+
+                            .pims_report_line_subtotal {
+                                font-weight:bold;
+                                background-color: white;
+                                --border:1px solid grey;
+                            }
+                        </style>
+                        <h3><span t-esc="res_company.name"/>: Partner Ageing</h3>
+                        <div>
+
+                            <div class="row pims_report_content">
+                                <div class="col-3">
+                                    <strong>As on Date:</strong>
+                                    <p t-esc="Filters['as_on_date']" t-options='{"widget": "date"}'></p>
+                                </div>
+                                <div class="col-6">
+                                    <strong>Partners:</strong>
+                                    <p t-esc="', '.join([ lt or '' for lt in Filters['partners'] ])"/>
+                                </div>
+                                <div class="col-3">
+                                    <strong>Partner Tags:</strong>
+                                    <p t-esc="', '.join([ lt or '' for lt in Filters['categories'] ])"/>
+                                </div>
+                            </div>
+
+                            <br></br>
+
+                            <table class="pims_report_line_table pims_report_content">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th>Partner</th>
+                                        <t t-foreach="Period_List" t-as="period">
+                                            <th style="text-align:right;margin-bottom:10px;"><t t-esc="period"/></th>
+                                        </t>
+                                        <th style="text-align:right">Total</th>
+                                    </tr>
+                                </thead>
+                                <t t-foreach="Filters['partner_ids']" t-as="partner">
+                                    <t t-if="Ageing_data.get(str(partner), False)">
+                                        <tr class="pims_report_line_main_tr" style="font-weight: normal">
+                                            <td>
+                                                <span style="color: white;" t-esc="'..'"/>
+                                                <span t-esc="Ageing_data[str(partner)]['partner_name']"/>
+                                            </td>
+                                            <t t-foreach="Period_List" t-as="period">
+                                                <td class="text-right">
+                                                    <span t-esc="Ageing_data[str(partner)][period]" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                                </td>
+                                            </t>
+                                            <td class="text-right">
+                                                <span t-esc="Ageing_data[str(partner)]['total']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </t>
+                                <tr style="font-weight: bold">
+                                    <td>
+                                        <span>Total</span>
+                                    </td>
+                                    <t t-foreach="Period_List" t-as="period">
+                                        <td class="text-right">
+                                            <span t-esc="Ageing_data['Total'][period]" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                        </td>
+                                    </t>
+                                    <td class="text-right">
+                                        <span t-esc="Ageing_data['Total']['total']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <br></br>
+                        <p style="text-align:center"> *** END OF DOCUMENT ***</p>
+                    </div>
+               </t>
+            </t>
+        </template>
+    </data>
+</odoo>

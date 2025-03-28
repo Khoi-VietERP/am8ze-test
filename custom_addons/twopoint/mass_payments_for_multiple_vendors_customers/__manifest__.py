@@ -1,0 +1,53 @@
+# -*- coding: utf-8 -*-
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+
+{
+    'name' : 'Mass Register Payment for Multiple Vendor Bills & Customer Invoices (Credit Notes, Refunds, Receipts)',
+    'version' : '1.0',
+    'category': 'Accounting',
+    'sequence': 1,
+    'author' : 'GYB IT SOLUTIONS',
+    'website': 'http://www.gybitsolutions.com',
+    'license': 'AGPL-3',
+    'description' : """
+        Mass Register Payment for Multiple Vendor Bills & Customer Invoices (Credit Notes, Refunds, Receipts),
+        Multiple Vendor Payment,
+        Multiple Bill Payment,
+        Multiple Customer Payment,
+        Multiple Invoice Payment,
+        Invoice Bulk Payment,
+        Customer Bulk Payment,
+        Vendor Bulk Payment,
+        Bill Bulk Payment,
+        Mass Invoice Payment,
+        Mass Payment,
+        mass bill payment,
+        mass vendor payment,
+        Mass payment invoice,
+        Mass Payments,
+        Customer Invoices mass payment,
+        Vendor Bills mass payment,
+        Credit Notes (Customer Credit Note),
+        Sales Receipt mass payment,
+        Refunds (Vendor Credit Note) mass payment,
+        Purchase Receipt  mass payment,
+        multiple payments,
+        Odoo standard App,
+    """,
+    'depends' : ['base','account'],
+    'data' : [
+        'security/ir.model.access.csv',
+        'views/account_journal_view.xml',
+        'wizard/multiple_register_payments.xml',
+     ],
+    'price': 18.00,
+    'currency': 'EUR',
+    'demo' : [],
+    'test': [],
+    'application': True,
+    'installable': True,
+    'auto_install': False,
+    'images': ['static/description/icon.png',],
+}
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

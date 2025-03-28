@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.pragtech.facebook</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="pragtech_social.res_config_settings_pragtech_social_view_form"/>
+        <field name="arch" type="xml">
+           <xpath expr="//div[@data-key='pragtech_social']" position="inside">
+                <h2>Facebook Account</h2>
+                <div class="o_settings_container row mt16">
+                    <div class="o_setting_box col-md-6">
+                        <div class="o_setting_left_pane">
+                            <field name="facebook_own_account"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="facebook_own_account" class="o_form_label oe_inline"/>
+                            <div attrs="{'invisible': [('facebook_own_account', '=', False)]}" class="content-group">
+                                <div class="mt16">
+                                    <label class="o_form_label col-3 col-lg-3"
+                                           for="fb_app_id"
+                                           string="App ID"/>
+                                    <field class="oe_inline"
+                                           name="fb_app_id"/>
+                                </div>
+                                <div class="mt16">
+                                    <label class="o_form_label col-3 col-lg-3"
+                                           for="fb_client_secret"
+                                           string="App Secret"/>
+                                    <field password="True"
+                                           class="oe_inline"
+                                            name="fb_client_secret"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

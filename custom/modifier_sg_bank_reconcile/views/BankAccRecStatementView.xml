@@ -1,0 +1,112 @@
+<odoo>
+    <data>
+        <template id="reconcile_asset_backend_inherit" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link href="/modifier_sg_bank_reconcile/static/src/scss/form_statement.scss" rel="stylesheet" type="text/scss"/>
+            </xpath>
+        </template>
+
+        <record id="view_bank_acc_rec_statement_form_inherit" model="ir.ui.view">
+            <field name="name">bank.acc.rec.statement.form.inherit</field>
+            <field name="model">bank.acc.rec.statement</field>
+            <field name="inherit_id" ref="sg_bank_reconcile.view_bank_acc_rec_statement_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page/field[@name='debit_move_line_ids']" position="before">
+                    <field name="move_line_ids" class="scroll_tree_view" colspan="4" mode="tree" nolabel="1" widget="one2many_list" height="300">
+                        <form string="Deposits, Credits, and Interest">
+                            <group colspan="4">
+                                <field name="cleared_bank_account"/>
+                                <field name="payment_id"/>
+                                <field name="date"/>
+                                <field name="name"/>
+                                <field name="ref"/>
+                                <field name="partner_id"/>
+                                <field name="amount" invisible="1"/>
+                                <field name="type" invisible="1"/>
+                                <field name="amount_cr" invisible="1"/>
+                                <field name="amount_dr" invisible="1"/>
+                                <field name="amount_cr_str"/>
+                                <field name="amount_dr_str"/>
+                                <field name="currency_id"/>
+                                <field name="research_required" invisible="1"/>
+                            </group>
+                        </form>
+                        <tree string="Deposits, Credits, and Interest" editable="top" limit="9999999">
+                            <field name="payment_id"/>
+                            <field name="date"/>
+                            <field name="name"/>
+                            <field name="ref"/>
+                            <field name="partner_id"/>
+                            <field name="amount" invisible="1"/>
+                            <field name="type" invisible="1"/>
+                            <field name="amount_cr" invisible="1"/>
+                            <field name="amount_dr" invisible="1"/>
+                            <field name="amount_cr_str" class="text-right"/>
+                            <field name="amount_dr_str" class="text-right"/>
+                            <field name="currency_id"/>
+                            <field name="cleared_bank_account"/>
+                            <field name="move_line_id"/>
+                            <button name="open_detail" string="" type="object" icon="fa-edit"/>
+                        </tree>
+                    </field>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page/field[@name='debit_move_line_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page/field[@name='credit_move_line_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page/label" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page/label[2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <field name="ending_date" position="before">
+                    <field name="begin_date" placeholder="Enter begin date"/>
+                </field>
+                <xpath expr="//form" position="attributes">
+                    <attribute name="class">form-statement</attribute>
+                </xpath>
+            </field>
+        </record>
+
+         <record id="view_bank_acc_rec_statement_tree_inherit" model="ir.ui.view">
+            <field name="name">bank.acc.rec.statement.tree.inherit</field>
+            <field name="model">bank.acc.rec.statement</field>
+            <field name="inherit_id" ref="sg_bank_reconcile.view_bank_acc_rec_statement_tree"/>
+            <field name="arch" type="xml">
+                <field name="account_id" position="after">
+                    <field name="ending_balance"/>
+                    <field name="difference"/>
+                    <field name="account_currency_id"/>
+                </field>
+            </field>
+         </record>
+
+
+        <record id="view_bank_acc_rec_statement_form_inherit_inherit" model="ir.ui.view">
+            <field name="name">bank.acc.rec.statement.form.inherit</field>
+            <field name="model">bank.acc.rec.statement</field>
+            <field name="inherit_id" ref="a5oct2021_modifier_invoicing.view_bank_acc_rec_statement_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_select_all']" position="replace">
+                    <field name="check_select_all_deposit" invisible="1"/>
+                    <button name="action_select_all_deposit" type="object" string="Select All"
+                            attrs="{'invisible': ['|',('state', 'not in', ['draft','to_be_reviewed']),('check_select_all_deposit', '=', True)]}"/>
+                    <span></span>
+                    <button name="action_unselect_all_deposit" type="object" string="Unselect All"
+                            attrs="{'invisible': ['|',('state', 'not in', ['draft','to_be_reviewed']),('check_select_all_deposit', '!=', True)]}"/>
+                </xpath>
+                <xpath expr="//button[@name='action_unselect_all']" position="replace">
+                    <field name="check_select_all_withdrawals" invisible="1"/>
+                    <button name="action_select_all_withdrawals" type="object" string="Select All"
+                            attrs="{'invisible': ['|',('state', 'not in', ['draft','to_be_reviewed']),('check_select_all_withdrawals', '=', True)]}"/>
+                    <span></span>
+                    <button name="action_unselect_all_withdrawals" type="object" string="Unselect All"
+                            attrs="{'invisible': ['|',('state', 'not in', ['draft','to_be_reviewed']),('check_select_all_withdrawals', '!=', True)]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

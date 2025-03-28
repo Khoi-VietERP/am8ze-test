@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_model_industry_code,access_model_industry_code,model_industry_code,base.group_user,1,1,1,1
+access_model_partner_status,access_model_partner_status,model_partner_status,base.group_user,1,1,1,1
+access_model_partner_contact_address,access_model_partner_contact_address,model_partner_contact_address,base.group_user,1,1,1,1
+access_model_partner_contact_phone,access_model_partner_contact_phone,model_partner_contact_phone,base.group_user,1,1,1,1
+access_model_partner_contact_status,access_model_partner_contact_status,model_partner_contact_status,base.group_user,1,1,1,1

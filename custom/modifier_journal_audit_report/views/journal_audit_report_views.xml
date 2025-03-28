@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_print_journal_inherit" model="ir.ui.view">
+        <field name="name">Journals Audit Views Action</field>
+        <field name="model">account.print.journal</field>
+        <field name="inherit_id" ref="sg_account_report.account_report_print_journal_view"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//button[@name='check_report']" position="before">
+                    <button name="action_views" string="View" type="object" default_focus="1" class="oe_highlight"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <template id="report_journal_inherit" inherit_id="account.report_journal">
+        <xpath expr="//div[hasclass('page')]/table/thead/tr/th[last()]" position="after">
+            <th>User</th>
+        </xpath>
+        <xpath expr="//div[hasclass('page')]/table/tbody/tr/td[last()]" position="after">
+            <td><span t-field="aml.create_uid.name"/></td>
+        </xpath>
+    </template>
+
+    <template id="assets_backend" name="journal_audit_report assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/modifier_journal_audit_report/static/src/js/script.js"></script>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="foreign_financila_statement_form" model="ir.ui.view">
+            <field name="name">foreign.financila.statement.form</field>
+            <field name="model">foreign.financila.statement</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <group col="2" attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <div>
+                                <label for="type_of_extension" style="font-weight: bold;"/><br/>
+                                <field name="type_of_extension" readonly="1" class="color-text-ff8d06"/>
+                            </div>
+                            <div>
+                                <label for="financial_year_end_date" style="font-weight: bold;"/><br/>
+                                <field name="financial_year_end_date" readonly="1" class="color-text-ff8d06"/>
+                            </div>
+                            <div>
+                                <label for="is_foreign_company" style="font-weight: bold;"/><br/>
+                                <field name="is_foreign_company" widget="radio" style="flex-flow: row nowrap;"/>
+                            </div>
+                            <div attrs="{'invisible' : [('is_foreign_company', 'not in', ['yes','no'])]}">
+                                <label for="reason" style="font-weight: bold;"/><br/>
+                                <field name="reason" style="width: 50%;"/>
+                            </div>
+                            <div attrs="{'invisible' : [('is_foreign_company', '!=', 'yes')]}">
+                                <label for="agm_date" style="font-weight: bold;"/><br/>
+                                <field name="agm_date" style="width: 30%;"/>
+                            </div>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

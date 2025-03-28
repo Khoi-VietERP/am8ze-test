@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="supplier_outstanding_form" model="ir.ui.view">
+            <field name="name">Supplier - Outstanding</field>
+            <field name="model">supplier.outstanding</field>
+            <field name="arch" type="xml">
+                <form string="Choose your date">
+                    <group>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="partner_id"/>
+                    </group>
+                    <footer>
+                        <button name="generate_pdf_report" string="Print" type="object" class="oe_highlight"/>
+                        <button string="VIEW" name="action_view" type="object"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="supplier_outstanding_action">
+            <field name="name">Supplier - Outstanding Report</field>
+            <field name="res_model">supplier.outstanding</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="supplier_outstanding_menu" parent="account.menu_finance_reports" action="supplier_outstanding_action"/>
+    </data>
+</odoo>

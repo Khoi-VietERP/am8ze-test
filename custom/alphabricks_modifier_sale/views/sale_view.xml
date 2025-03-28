@@ -1,0 +1,80 @@
+<odoo>
+    <data>
+        <menuitem id="menu_sale_invoice" parent="sale.sale_menu_root" name="Invoices" sequence="2"
+                  action="account.action_move_out_invoice_type"
+                  groups="sales_team.group_sale_salesman,sales_team.group_sale_manager"/>
+
+        <template id="assets_backend_attachment_alphabricks" name="alphabricks_modifier_sale assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link href="/alphabricks_modifier_sale/static/src/css/custom.css" rel="stylesheet" />
+            </xpath>
+        </template>
+
+        <record id="view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="payment_term_id" position="after">
+                    <field name="tax_status"/>
+                </field>
+                <field name="amount_total" position="after">
+                    <br/>
+                    <field name="amount_untaxed_signed"
+                               style="font-weight:100;font-size: 14px"
+                               attrs="{'invisible' : [('active_manual_currency_rate', '=', False)]}"
+                               string="Untaxed Amount"/>
+                    <field name="amount_tax_signed"
+                           attrs="{'invisible' : [('active_manual_currency_rate', '=', False)]}" string="GST"/>
+                    <field name="amount_total_signed" class="oe_subtotal_footer_separator"
+                           attrs="{'invisible' : [('active_manual_currency_rate', '=', False)]}" string="Total"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_quotation_tree_with_onboarding_inherit" model="ir.ui.view">
+            <field name="name">sale.order.tree.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='currency_id']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <field name="create_date" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </field>
+                <field name="create_date" position="after">
+                    <field name="date_order"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_confirm_validate_stock_form" model="ir.ui.view">
+            <field name="name">confirm.validate.stock.form</field>
+            <field name="model">confirm.validate.stock</field>
+            <field name="arch" type="xml">
+                <form string="Validate Stock Picking Confirmation">
+                    <sheet>
+                        <field name="sale_order_ids" invisible="1"/>
+                        <field name="picking_ids"/>
+                        <footer>
+                            <button name="action_confirm" type="object" string="Confirm" class="oe_highlight"/>
+                            <button string="Cancel" class="oe_link" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="model_sale_order_action_validate_stock" model="ir.actions.server">
+            <field name="name">Validate Stock</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_validate_stock()</field>
+        </record>
+
+    </data>
+</odoo>

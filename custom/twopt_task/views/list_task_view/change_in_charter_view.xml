@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="change_in_charter_form" model="ir.ui.view">
+            <field name="name">change.in.charter.form</field>
+            <field name="model">change.in.charter</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <group col="2">
+                                <div>
+                                    <span>
+                                        Transaction No of Extension
+                                    </span>
+                                </div>
+                                <div>
+                                    <label for="date_of_change" style="font-weight: bold;"/><br/>
+                                    <field name="date_of_change" style="width: 30%;"/>
+                                </div>
+                                <div>
+                                    <label for="type_of_document" style="font-weight: bold;"/><br/>
+                                    <field name="type_of_document" widget="radio"/>
+                                </div>
+                                <div>
+                                    <label for="certified_true_by" style="font-weight: bold;"/><br/>
+                                    <field name="certified_true_by" style="width: 50%;"/>
+                                </div>
+                                <div>
+                                    <label for="date_document" style="font-weight: bold;"/><br/>
+                                    <field name="date_document" style="width: 30%;"/>
+                                </div>
+                            </group>
+                            <group col="2" string="Attachments">
+                                <div>
+                                    <label for="copy_of_document" style="font-weight: bold;"/><br/>
+                                    <field name="copy_of_document" style="width: 50%;"/>
+                                </div>
+                                <div>
+                                    <label for="other_document" style="font-weight: bold;"/><br/>
+                                    <field name="other_document" style="width: 50%;"/>
+                                </div>
+                            </group>
+                            <div>
+                                <label for="document" style="font-weight: bold;"/><br/>
+                                <field name="document" style="width: 25%;"/>
+                            </div>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

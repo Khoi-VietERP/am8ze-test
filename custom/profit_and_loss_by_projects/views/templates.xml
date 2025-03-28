@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="assets_backend" name="account_dynamic_reports assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/profit_and_loss_by_projects/static/src/js/script.js"></script>
+        </xpath>
+    </template>
+
+    <template id="ins_report_financial_pr">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <t t-set="data_report_margin_top" t-value="12"/>
+                <t t-set="data_report_header_spacing" t-value="9"/>
+                <t t-set="data_report_dpi" t-value="110"/>
+                <div class="page">
+                    <style>
+                        .pims_report_content{
+                            font-size: 14px;
+                            font-family" 'Arial';
+                        }
+
+                        .pims_report_line_table {
+                            width:100%;
+                        }
+
+                        .pims_report_summary_table {
+                            width:100%;
+                            font-weight: bold;
+                        }
+
+                        .pims_report_line_main_tr {
+                            font-weight:bold;
+                            font-size: 14px;
+                            font-family" 'Arial';
+                            border-bottom:1px solid grey;
+                        }
+
+                        .pims_report_line_initial_tr {
+                            font-style:italic;
+                        }
+
+                        .pims_report_line_subtotal {
+                            font-weight:bold;
+                            background-color: white;
+                            border:1px solid grey;
+                        }
+                    </style>
+                    <h3><span t-esc="res_company.name"/>: <t t-esc="data['form']['account_report_id'][1]"/> </h3>
+
+                    <div class="row mt32 pims_report_content">
+                        <div class="col-3">
+                            <strong>Target Moves:</strong>
+                            <p>
+                                <span t-if="data['form']['target_move'] == 'all'">All Entries</span>
+                                <span t-if="data['form']['target_move'] == 'posted'">All Posted Entries</span>
+                            </p>
+                        </div>
+                        <div class="col-3">
+                            <strong>Date From:</strong>
+                            <p t-esc="data['form']['date_from']" t-options='{"widget": "date"}'></p>
+                        </div>
+                        <div class="col-3">
+                            <strong>Date To:</strong>
+                            <p t-esc="data['form']['date_to']" t-options='{"widget": "date"}'></p>
+                        </div>
+                    </div>
+                    <t t-if="data['form']['enable_filter']">
+                        <div class="row mt32 pims_report_content">
+                            <div class="col-3">
+                                <strong>Comparison Date From:</strong>
+                                <p t-esc="data['form']['comparison_context']['date_from']" t-options='{"widget": "date"}'></p>
+                            </div>
+                            <div class="col-3">
+                                <strong>Comparison Date To:</strong>
+                                <p t-esc="data['form']['comparison_context']['date_to']" t-options='{"widget": "date"}'></p>
+                            </div>
+                        </div>
+                    </t>
+                    <br></br><br></br>
+
+                    <table class="pims_report_line_table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <t t-foreach="data['analytics_list']" t-as="al">
+                                    <th class="text-right"><span t-esc="al['name']"></span></th>
+                                </t>
+                                <th class="text-right">
+                                    <span>Non Project</span>
+                                </th>
+                                 <th class="text-right">
+                                    <span>Total</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="data['report_lines']" t-as="a">
+                                <tr class="pims_report_line_main_tr">
+                                    <t t-if="a.get('level') &gt; 3">
+                                        <t t-set="style" t-value="'font-weight: normal;'"/>
+                                    </t>
+                                    <t t-if="not a.get('level') &gt; 3">
+                                        <t t-set="style" t-value="'font-weight: bold;'"/>
+                                    </t>
+
+                                    <td>
+                                        <span style="color: white;" t-esc="'..' * a.get('level', 0)"/>
+                                        <span t-att-style="style" t-esc="a.get('name')"/>
+                                    </td>
+
+                                    <t t-set="total_project" t-value="0"/>
+                                    <t t-set="project_line" t-value="a['project_line']"/>
+                                    <t t-foreach="data['analytics_list']" t-as="al">
+                                        <t t-set="project_data" t-value="project_line.get(al['id'], False)"/>
+                                        <t t-if="project_data">
+                                            <td class="text-right" style="white-space: text-nowrap;">
+                                                <span t-att-style="style" t-raw="project_data[0]" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                            </td>
+                                            <t t-set="total_project" t-value="total_project + project_data[0]"/>
+                                        </t>
+                                        <t t-else="">
+                                            <td class="text-right" style="white-space: text-nowrap;"><span t-att-style="style">-</span></td>
+                                        </t>
+                                    </t>
+
+                                    <t t-set="project_data" t-value="project_line.get('None', False)"/>
+                                    <t t-if="project_data">
+                                        <td class="text-right" style="white-space: text-nowrap;">
+                                            <span t-att-style="style" t-raw="project_data[0]" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                        </td>
+                                        <t t-set="total_project" t-value="total_project + project_data[0]"/>
+                                    </t>
+                                    <t t-else="">
+                                        <td class="text-right" style="white-space: text-nowrap;"><span t-att-style="style">-</span></td>
+                                    </t>
+
+                                    <t t-if="total_project">
+                                        <td class="text-right" style="white-space: text-nowrap;">
+                                            <span t-att-style="style" t-raw="total_project" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                        </td>
+                                    </t>
+                                    <t t-else="">
+                                        <td class="text-right" style="white-space: text-nowrap;"><span t-att-style="style">-</span></td>
+                                    </t>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <report
+        id="ins_financial_report_pr_pdf"
+        model="ins.financial.report"
+        string="Profit and Loss By Project"
+        report_type="qweb-pdf"
+        name="profit_and_loss_by_projects.ins_report_financial_pr"
+        file="profit_and_loss_by_projects.ins_report_financial_pr"
+    />
+
+    <report
+        id="ins_financial_report_pr_report"
+        model="ins.financial.report"
+        string="Print to XLSX"
+        report_type="xlsx"
+        name="profit_and_loss_by_projects.ins_report_pr_excel"
+        file="profit_and_loss_by_projects.ins_report_pr_excel"
+        attachment_use="False"
+        print_report_name="'Profit and Loss By Project'"
+    />
+
+</odoo>

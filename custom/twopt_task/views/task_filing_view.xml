@@ -1,0 +1,172 @@
+<odoo>
+    <data>
+        <template id="twopt_task_form" name="Task JS" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/twopt_task/static/src/js/form_view.js"/>
+                <link rel="stylesheet" href="/twopt_task/static/src/css/twopt_task.css"/>
+            </xpath>
+        </template>
+
+        <record id="task_filing_tree" model="ir.ui.view">
+            <field name="name">task.filing.tree</field>
+            <field name="model">task.filing</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="task_filing_form" model="ir.ui.view">
+            <field name="name">task.filing.form</field>
+            <field name="model">task.filing</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="col-12" style="margin-left: 100px;">
+                        <p style="color:red">Local Company</p>
+                        <p style="margin-left: 20px;">
+                            <span style="color:green;">Start a new local company</span><br/>
+                            <div style="margin-left: 20px; margin-top: 5px;">
+                                <span class="application-for-new-company" style="cursor: pointer">Application for new Company Name</span><br/>
+                                <span class="incorporation-local-company" style="cursor: pointer">Incorporation of Local Company</span><br/>
+                                <span>Withdrawal of Name application</span><br/>
+                                <span>Notice of Compliance by Company that has/has not issue prospectus</span>
+                            </div>
+                        </p>
+                        <p style="margin-left: 20px;">
+                            <span style="color:green;">Make changes</span><br/>
+                            <div style="margin-left: 20px; margin-top: 5px;">
+                                <span class="registration-of-amalgamation" style="cursor: pointer">Registration of Amalgmation</span><br/>
+                                <span>Statutory report of Public Company</span><br/>
+                                <span class="change-company_info" style="cursor: pointer">Change in Company information including Appointment / cessation of company officer / auditors</span><br/>
+                                <span class="change-particular-shareholders" style="cursor: pointer">Change in particulars of shareholders</span><br/>
+                                <span class="conversion-company-type" style="cursor: pointer">Conversion of Company Type</span><br/>
+                                <span class="application-under-secton" style="cursor: pointer">Application under Secton 29(1) or 29(2) of the Companies Act - Omission of the work " Limited: or "Berhad"</span><br/>
+                                <span class="notice-financial-assistance" style="cursor: pointer">Notice to Member on giving Financial Assistance under S76(9A) / S76(9B)/ S76(10)(E)</span>
+                            </div>
+                        </p>
+                        <p style="margin-left: 20px;">
+                            <span style="color:green;">Charge Registration</span><br/>
+                            <div style="margin-left: 20px; margin-top: 5px;">
+                                <span class="registration-of-charge" style="cursor: pointer">Registration of Charge</span><br/>
+                                <span class="satisfaction-of-charge" style="cursor: pointer">Satisfaction of Charge</span><br/>
+                                <span class="variation-of-charge" style="cursor: pointer">Variation of Charge</span><br/>
+                                <span class="extension-of-time" style="cursor: pointer">Extension of Time for Registration of Charge</span>
+                            </div>
+                        </p>
+                        <p style="margin-left: 20px;">
+                            <span style="color:green;">Update Share information</span><br/>
+                            <div style="margin-left: 20px; margin-top: 5px;">
+                                <span class="publication-proposed-reduction" style="cursor: pointer">Publication for proposed reduction of share capital under S78B/C</span><br/>
+                                <span class="return-allotment-shares" style="cursor: pointer">Return of Allotment of shares</span><br/>
+                                <span>Notice of Creditor's application to court for cancellation of Special resolution under S78D</span><br/>
+                                <span class="transfer-of-shares" style="cursor: pointer">Transfer of Shares / Update list of members</span><br/>
+                                <span class="notice-alternation-share-capital" style="cursor: pointer">Notice by local company of alternation in Share Capital under S71</span><br/>
+                                <span class="reduction-share-capital" style="cursor: pointer">Reduction of share capital by Special Resolution under S78E</span><br/>
+                                <span class="notice-cancellation-special-resolution" style="cursor: pointer">Notice of Court order for cancellation of special resolution under S78F</span><br/>
+                                <span class="notice-reducton-share-capital" style="cursor: pointer">Notice of Court order for approval of reducton share capital by special resolution under S78G</span><br/>
+                                <span class="notice-redemption-redeemable-shares" style="cursor: pointer">Notice of Redemption of Redeemable preference shares</span><br/>
+                                <span class="application-extension-time" style="cursor: pointer">Application for extension of time under S78I</span><br/>
+                                <span class="notice-disposal-treasury-shares" style="cursor: pointer">Notice of cancellation or disposal of treasury shres under S76K</span><br/>
+                                <span class="notice-update-erom" style="cursor: pointer">Notice of update EROM and paid up share capital</span><br/>
+                                <span class="notice-of-redenomination" style="cursor: pointer">Notice of redenomination</span><br/>
+                                <span class="conversion-of-shares" style="cursor: pointer">Conversion of Shares</span><br/>
+                                <span class="resolution-reduction-capital" style="cursor: pointer">Special resolution for reduction of capital by public company under S78C</span>
+                            </div>
+                        </p>
+
+                        <p style="margin-left: 20px;">
+                            <span style="color:green;">Annual Filing</span><br/>
+                            <div style="margin-left: 20px; margin-top: 5px;">
+                                <span class="filing-annual-return" style="cursor: pointer">Filing of Annual Return by local company (for FYE from 31 Aug 2018)</span><br/>
+                                <span class="annual-return" style="cursor: pointer">Annual return by local company (for FYE before 31 Aug 2018)</span><br/>
+                                <span class="change-of-financial" style="cursor: pointer">Change of financial year end</span><br/>
+                                <span class="extension-time-agm" style="cursor: pointer">Extension of time for AGM / Annual Return</span><br/>
+                                <span class="exemption-accounting-standards" style="cursor: pointer">Application under Section 201 (12) of the Companies Act - exemption from compliance with accounting standards</span><br/>
+                                <span class="relief-from-requirements" style="cursor: pointer">Application under Section 202 of the Companies Act - Relief from Requirements as to Form and Content of financial statements and Directors' Statement</span><br/>
+                                <span class="notification-annual-general-meeting" style="cursor: pointer">Notification of Annual General Meeting</span>
+                            </div>
+                        </p>
+                        <p style="margin-left: 20px;">
+                            <span style="color:green;">Close a local company</span><br/>
+                            <div style="margin-left: 20px; margin-top: 5px;">
+                                <span class="application-for-strike-off" style="cursor: pointer">Application for strike off</span><br/>
+                                <span class="withdrawal-strike-off" style="cursor: pointer">Withdrawal of Strike off</span><br/>
+                                <span class="objection-against-strike-off" style="cursor: pointer">Lodgement / Clearance of Objection Against Strike off</span><br/>
+                                <span class="lodgement-court-order" style="cursor: pointer">Lodgement of Court order for restoraation of struk off company</span><br/>
+                                <span class="declaration-of-solvency" style="cursor: pointer">Declaration of solvency</span><br/>
+                                <span class="statement-of-affairs" style="cursor: pointer">Statement of Affairs</span><br/>
+                                <span class="notice-winding-up-order" style="cursor: pointer">Notice of winding up order and particulars of liquidators</span><br/>
+                                <span class="notice-appointment-cessation" style="cursor: pointer">Notice of appointment / cessation of provisional liquidator / liquidator</span><br/>
+                                <span class="notice-change-situation-office" style="cursor: pointer">Notice of change in situation of office of provisional liquidators / liquidator</span><br/>
+                                <span class="liquidators-account-receipts" style="cursor: pointer">Liquidators account of receipts and payment and statement of the position in the winding up</span><br/>
+                                <span class="dissolution-of-company" style="cursor: pointer">Dissolution of Company</span><br/>
+                                <span class="early-dissolution-company" style="cursor: pointer">Application for order in early dissolution of company (objection to early dissolution of Company (IRDA S211(5)))</span><br/>
+                                <span class="notice-early-dissolution-company" style="cursor: pointer">Notice of early dissolution of Company</span>
+                            </div>
+                        </p>
+
+                        <p style="color:red">Foreign company</p>
+                        <p style="margin-left: 20px;">
+                            <span style="color:green;">Start a new foreign company</span><br/>
+                            <div style="margin-left: 20px; margin-top: 5px;">
+                                <span class="foreign-application-new-company-name" style="cursor: pointer">Application for new Company Name</span><br/>
+                                <span class="foreign-registration-branch" style="cursor: pointer">Registration of branch of foreign company</span><br/>
+                                <span class="foreign-withdrawal-name-application" style="cursor: pointer">Withdrawal of Name application</span>
+                            </div>
+                        </p>
+                        <p style="margin-left: 20px;">
+                            <span style="color:green;">Make changes</span><br/>
+                            <div style="margin-left: 20px; margin-top: 5px;">
+                                <span class="change-foreign-company-information" style="cursor: pointer">Change in Company information including Appointment / cessation of directors / authorized representatives</span><br/>
+                                <span class="change-personal-particulars-directors" style="cursor: pointer">Change in Personal Particulars of of Authorized Representative or Directors</span><br/>
+                                <span class="notice-change-company-name" style="cursor: pointer">Notice of Change of Company name</span><br/>
+                                <span class="change-in-charter" style="cursor: pointer">Change in the Charter, statue, Memerandum Articles or other instruments of foreign company</span><br/>
+                                <span class="constitution-foreign-company" style="cursor: pointer">Application for extension of time to lodge certificate and constitution for foreign company</span><br/>
+                                <span class="report-change-particulars" style="cursor: pointer">Extension of time to lodge instrument effecting change, lodge change of name &amp; report chang of particulars</span>
+                            </div>
+                        </p>
+                        <p style="margin-left: 20px;">
+                            <span style="color:green;">Charge Registration</span><br/>
+                            <div style="margin-left: 20px; margin-top: 5px;">
+                                <span class="foreign-registration-of-charge" style="cursor: pointer">Registration of Charge</span><br/>
+                                <span class="foreign-satisfaction-of-charge" style="cursor: pointer">Satisfaction of Charge</span><br/>
+                                <span class="foreign-variation-of-charge" style="cursor: pointer">Variation of Charge</span><br/>
+                                <span class="foreign-extension-of-time" style="cursor: pointer">Application for extension of time for registration of charge</span>
+                            </div>
+                        </p>
+                        <p style="margin-left: 20px;">
+                            <span style="color:green;">Annul filing</span><br/>
+                            <div style="margin-left: 20px; margin-top: 5px;">
+                                <span class="lodgement-of-financial" style="cursor: pointer">Lodgement of financial statements by foreign company</span><br/>
+                                <span class="foreign-change-financial-year" style="cursor: pointer">Change of financial year</span><br/>
+                                <span class="foreign-exemption-financial-reporting" style="cursor: pointer">Application under Section 373 of the Companies Act - Exemption / waiver of financial reporting for foreign company</span><br/>
+                                <span class="foreign-financila-statement" style="cursor: pointer">Extension of time for filing of financila statement of foreign company - S373(10)</span>
+                            </div>
+                        </p>
+                        <p style="margin-left: 20px;">
+                            <span style="color:green;">Close a foreign company</span><br/>
+                            <div style="margin-left: 20px; margin-top: 5px;">
+                                <span class="notificaton-foreign-company-cessation" style="cursor: pointer">Notification by foreign company of cessatio of business</span><br/>
+                                <span class="foreign-application-strike-off" style="cursor: pointer">Application for strike off</span><br/>
+                                <span>Withdrawal of strike off application</span><br/>
+                                <span class="notice-dissolution-foreign-company" style="cursor: pointer">Notice by authorized representative of foreign company of liquidation or dissolution of Company</span><br/>
+                                <span>Lodgement / Clearance of objective against strike off</span><br/>
+                                <span>Lodgment of court order for restoration of struck off company</span>
+                            </div>
+                        </p>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="task_filing_action" model="ir.actions.act_window">
+            <field name="name">Filling</field>
+            <field name="res_model">task.filing</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <menuitem id="twopt_task_menu" name="Task" parent="corp_sec_entity.corp_sec_entity" sequence="10"/>
+        <menuitem id="task_filing_menu" name="Filing" action="task_filing_action" parent="twopt_task_menu" sequence="1" />
+    </data>
+</odoo>

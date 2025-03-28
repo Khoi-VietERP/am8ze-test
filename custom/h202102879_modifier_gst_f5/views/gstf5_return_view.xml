@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <record id="gst_return_view_inherit" model="ir.ui.view">
+            <field name="name">GST Return form</field>
+            <field name="model">account.gstreturn</field>
+            <field name="inherit_id" ref="sg_account_report.gst_return_view"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='check_report']" position="after">
+                    <button name="action_view" string="View" type="object" default_focus="1" class="oe_highlight"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

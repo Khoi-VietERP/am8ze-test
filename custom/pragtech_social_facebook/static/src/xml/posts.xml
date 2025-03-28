@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template xml:space="preserve">
+
+<t t-name="FBPostsMainMenu">
+    <span class="facebook_post_background"/>
+    <html>
+        <head>
+            <meta charset="utf-8"/>
+            <title>Untitled Document</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+                <style>
+                body {
+                background-color: #eee
+            }
+
+            .card {
+                background-color: #fff;
+                border: none
+            }
+
+            .form-color {
+<!--                background-color: #fafafa-->
+                    background-color: white
+            }
+            .inner_comment {
+                background-color: #D3D3D3,
+            }
+
+            .form-control {
+                height: 48px;
+                border-radius: 25px
+            }
+
+            .form-control:focus {
+                color: #495057;
+                background-color: #fff;
+                border-color: #35b69f;
+                outline: 0;
+                box-shadow: none;
+                text-indent: 10px
+            }
+            .c-badge {
+                background-color: #35b69f;
+                color: white;
+                height: 20px;
+                font-size: 11px;
+                width: 92px;
+                border-radius: 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 2px
+            }
+
+            .comment-text {
+                font-size: 13px
+            }
+
+            .wish {
+                color: #F02849;
+            }
+
+            .user-feed {
+                font-size: 14px;
+                margin-top: 12px
+            }
+
+            .chat-attachment{
+            position: absolute;
+            right: 3px;
+            }
+            div.rounded
+            {
+            width: 115px;
+            padding: 10px;
+            border: 2px solid #000;
+            border-radius: 15px;
+            -moz-border-radius: 15px;
+            }
+            .post_button {
+                background-color: #7c7bad;
+                border: none;
+                color: white;
+                padding: 5px 30px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+                border-radius: 24px;
+            }
+
+                </style>
+                <script>
+                    function previewFile(input){
+                    var file = $("input[type=file]").get(0).files[0];
+                    if(file){
+                        var reader = new FileReader();
+                        reader.onload = function(){
+                            $("#previewImg").attr("style", "display: block;height: 300px;width: 100%;")
+                            $("#previewImg").attr("src", reader.result);
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                }
+                </script>
+            </head>
+        <body>
+            <div class="container mt-4 mb-4"/>
+            <div class="row height d-flex justify-content-center align-items-center">
+                <div class="col-md-7">
+                    <div class="card">
+                        <div class="mt-2">
+                            <div class="d-flex flex-row align-items-center p-3 form-color">
+                                <textarea name="PostMessage"  class="form-control position-relative PostMessage"
+                                          placeholder="Write Your Caption Here..."/>
+<!--                                    style="-->
+<!--                                        width: 70%;-->
+<!--                                        height: 80px;-->
+<!--                                        padding: 12px 20px;-->
+<!--                                        box-sizing: border-box;-->
+<!--                                        border: 2px solid #ccc;-->
+<!--                                        border-radius: 15px;-->
+<!--                                        background-color: #f8f8f8;-->
+<!--                                        font-size: 16px;-->
+<!--                                        resize: none;"-->
+<!--                                    />-->
+
+<!--                                <input name="PostMessage" type="text" class="form-control position-relative PostMessage"-->
+<!--                                       placeholder="Write Your Caption Here..."/>-->
+                                <div class="chat-attachment">
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-row align-items-center p-3 form-color">
+                                <input type="file" name="photo" onchange="previewFile(this);"/>
+                            </div>
+                            <div class="d-flex flex-row align-items-center p-3 form-color">
+                                <img style="width: 95%;display: none;" id="previewImg" alt="Placeholder"/>
+                            </div>
+                            <t t-foreach="widget.account_ids" t-as="account_id">
+                                <div class="row">
+                                    <input style="margin-left: 30px;"
+                                           checked="checked"
+                                           class="AccountCheckBox"
+                                           type="checkbox"
+                                           t-att-id="account_id.id"
+                                           name="AccountCheckBox">
+                                        <span style="margin-left: 5px;">
+                                            <t t-esc="account_id.name"></t>
+                                        </span>
+                                    </input>
+                                </div>
+                            </t>
+                            <hr class="ml-3 mr-3"/>
+                            <div class="d-flex flex-row align-items-center p-3 form-color">
+                                <button class="post_button" type="button">Post</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </body>
+</html>
+</t>
+</template>

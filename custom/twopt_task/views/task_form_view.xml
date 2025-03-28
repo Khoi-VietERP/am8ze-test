@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="corp_sec_entity.corp_entity_action" model="ir.actions.act_window">
+            <field name="domain">[('not_is_entity', '=', False)]</field>
+        </record>
+
+        <record id="corp_is_not_entity_form" model="ir.ui.view">
+            <field name="name">corp.entity.inherit</field>
+            <field name="model">corp.entity</field>
+            <field name="arch" type="xml">
+                <form string="IAP Account">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" string="Name" placeholder="" required="True"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="type" required="True"/>
+                            </group>
+                            <group>
+                                <field name="suffix"/>
+                            </group>
+                        </group>
+                        <!--<group string="Entity Information">-->
+                            <!--<group name="entity_info">-->
+                                <!--<field name="task_type" invisible="1"/>-->
+                                <!--<field name="type" required="True"/>-->
+                                <!--<field name="check_type" invisible="1" readony="1"/>-->
+                                <!--<field name="sub_type"/>-->
+                                <!--<field name="uen"/>-->
+                                <!--<field name="incorporation_date"/>-->
+                                <!--<field name="fye_day" required="True"/>-->
+                                <!--<field name="fye_month" required="True"/>-->
+                                <!--<field name="state"/>-->
+                            <!--</group>-->
+                            <!--<group>-->
+                                <!--<field name="source" required="True"/>-->
+                                <!--<field name="jurisdiction"/>-->
+                                <!--<field name="new_takeover_date"/>-->
+                                <!--<field name="suffix" attrs="{'invisible': [('check_type', '!=', 'local')]}"/>-->
+                                <!--<field name="in_charge"/>-->
+                                <!--<field name="hours_work_5"/>-->
+                                <!--<field name="hours_work_3"/>-->
+                                <!--<field name="task_state"/>-->
+                            <!--</group>-->
+                        <!--</group>-->
+                        <notebook>
+                            <page string="Business Activity" name="business_activity">
+                                <group>
+                                    <group string="Primary Activity">
+                                        <field name="ssic_code"/>
+                                        <field name="ssic_title"/>
+                                        <field name="primary_activity_description"/>
+                                    </group>
+                                    <group string="Secondary Activity">
+                                        <field name="secondary_ssic_code"/>
+                                        <field name="secondary_ssic_title"/>
+                                        <field name="secondary_primary_activity_description"/>
+                                    </group>
+                                </group>
+                                <div class="oe_title">
+                                    <label for="register_professional_partnership" string="Are you reistering a professional partnership ?"/>
+                                    <field name="register_professional_partnership" class="oe_inline"/>
+                                </div>
+                            </page>
+
+                            <page string="In-Principle Approval Obtained From Authorities" name="authority_approval">
+                                <div class="oe_title">
+                                    <label for="authority_approval_obtained" string="In-Principle Approval Obtained From Authorities"/>
+                                    <field name="authority_approval_obtained" class="oe_inline"/>
+                                </div>
+                                <field name="authority_approval_ids" widget="section_and_note_one2many" mode="tree" attrs="{'invisible': [('authority_approval_obtained', '=', False)]}">
+                                    <tree string="Approval Obtained From Authorities" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="file_name"/>
+                                        <field name="description"/>
+                                        <field name="attachment"/>
+                                        <field name="user_id" options="{'no_create_edit': True}"/>
+                                    </tree>
+                                    <form string="Approval Obtained From Authorities">
+                                        <group name="approval">
+                                            <field name="name"/>
+                                            <field name="file_name"/>
+                                            <field name="description"/>
+                                            <field name="attachment"/>
+                                            <field name="user_id"/>
+                                        </group>
+                                     </form>
+                                </field>
+                            </page>
+
+                            <page string="Officer/Position Details" name="officer_position">
+                                <field name="contact_ids" widget="section_and_note_one2many" mode="tree">
+                                    <tree string="Officer / Position Details" editable="bottom">
+                                        <field name="category_type"/>
+                                        <field name="position_detail_id"/>
+                                        <field name="date_appointment"/>
+                                        <field name="identification_type" attrs="{'readonly': [('category_type', '!=', 'individual')]}"/>
+                                        <field name="nric" attrs="{'readonly': [('category_type', '!=', 'individual')]}"/>
+                                        <field name="contact_id"/>
+                                        <field name="name" invisible="1"/>
+                                        <field name="uen" attrs="{'readonly': [('category_type', '!=', 'corporate')]}"/>
+                                        <field name="check_signed"/>
+                                    </tree>
+                                    <form string="Officer / Position Details">
+                                        <group name="approval">
+                                            <field name="category_type"/>
+                                            <field name="position_detail_id"/>
+                                            <field name="date_appointment"/>
+                                            <field name="identification_type"/>
+                                            <field name="nric"/>
+                                            <field name="contact_id"/>
+                                            <field name="name" invisible="1"/>
+                                            <field name="uen"/>
+                                            <field name="check_signed"/>
+                                        </group>
+                                     </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

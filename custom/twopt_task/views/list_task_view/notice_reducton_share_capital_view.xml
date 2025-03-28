@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="notice_reducton_share_capital_form" model="ir.ui.view">
+            <field name="name">notice.reducton.share.capital.form</field>
+            <field name="model">notice.reducton.share.capital</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <div>
+                                <label for="date_of_special_resolution" style="font-weight: bold;"/><br/>
+                                <field name="date_of_special_resolution" style="width: 15%;"/>
+                            </div>
+                            <group col="2" string="Order of Court Information">
+                                <div>
+                                    <label for="date_of_order_of_court" style="font-weight: bold;"/><br/>
+                                    <field name="date_of_order_of_court" style="width: 30%;"/>
+                                </div>
+                                <div>
+                                    <label for="attach_copy_of_court_order" style="font-weight: bold;"/><br/>
+                                    <field name="attach_copy_of_court_order" style="width: 50%;"/>
+                                </div>
+                            </group>
+                            <separator string="Extension of Time under S78I"/>
+                            <div>
+                                <label for="extension_of_time" style="font-weight: bold;"/><br/>
+                                <field name="extension_of_time" widget="radio" style="flex-flow: row nowrap;"/>
+                            </div>
+                            <div attrs="{'invisible' : [('extension_of_time', '!=', 'yes')]}">
+                                <div>
+                                    <label for="attach_copy_of_court_order" style="font-weight: bold;"/><br/>
+                                    <field name="attach_copy_of_court_order" style="width: 50%;"/>
+                                </div>
+                                <span style="font-weight: bold;">Transaction No.</span><br/>
+                                <span style="font-weight: bold;">Extended Date for Filing with the extension.</span>
+                            </div>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

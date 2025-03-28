@@ -1,0 +1,1111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <template id="gst_f5.gst_return_report_f5_trans">
+            <t t-call="web.html_container">
+                <!-- <t t-foreach="docs" t-as="o"> -->
+                <div class="page">
+                    <style>
+                        .padding {
+                        padding-top:3px;
+                        padding-bottom:3px;
+                        padding-left:3px;
+                        padding-right:3px;
+                        }
+                    </style>
+                    <div class='row'>
+                        <div style="font-size:13px;text-align: center;">
+                            <b>
+                                <span>GST F5</span>
+                                <br/>
+                            </b>
+                            <b>
+                                <span>GOODS AND SERVICES TAX RETURN</span>
+                                <br/>
+                            </b>
+                            <b>
+                                <span>Goods and Services Tax Act (Cap 117A)</span>
+                                <br/>
+                            </b>
+                        </div>
+                        <br/>
+                        <t t-foreach="get_info" t-as="rec">
+                            <table width="100%">
+                                <tr>
+                                    <td width="29%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                            <b>Name</b>
+                                        </span>
+                                    </td>
+                                    <td width="1%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                            <b>:</b>
+                                        </span>
+                                    </td>
+                                    <td width="70%" style="font-size:12px;text-align: left;">
+                                        <span t-esc="rec.get('name')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="29%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                            <b>Tax Reference No.</b>
+                                        </span>
+                                    </td>
+                                    <td width="1%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                            <b>:</b>
+                                        </span>
+                                    </td>
+                                    <td width="70%" style="font-size:12px;text-align: left;">
+                                        <span t-esc="rec.get('tax_no') or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="29%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                            <b>GST Registration No.</b>
+                                        </span>
+                                    </td>
+                                    <td width="1%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                            <b>:</b>
+                                        </span>
+                                    </td>
+                                    <td width="70%" style="font-size:12px;text-align: left;">
+                                        <span t-esc="rec.get('gst_no') or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="29%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                            <b>Due Date</b>
+                                        </span>
+                                    </td>
+                                    <td width="1%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                            <b>:</b>
+                                        </span>
+                                    </td>
+                                    <td width="70%" style="font-size:12px;text-align: left;">
+                                        <span/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="29%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                            <b>Period covered by this return</b>
+                                        </span>
+                                    </td>
+                                    <td width="1%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                            <b>:</b>
+                                        </span>
+                                    </td>
+                                    <td width="70%" style="font-size:12px;text-align: left;">
+                                        <span
+                                                t-esc="rec.get('date_start')"/>
+                                        to
+                                        <span
+                                                t-esc="rec.get('date_end')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="29%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                            <b>Date Printed</b>
+                                        </span>
+                                    </td>
+                                    <td width="1%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                            <b>:</b>
+                                        </span>
+                                    </td>
+                                    <td width="70%" style="font-size:12px;text-align: left;">
+                                        <span t-esc="rec.get('current_date')"/>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table width="100%" cellspacing="0">
+                                <tr>
+                                    <td class="padding" colspan="5"
+                                        style="background-color: #9699F2;font-size:12px;text-align: left;">
+                                        <span>Supplies</span>
+                                    </td>
+                                </tr>
+                                <tr class="padding">
+                                    <td width="10%" class="padding"/>
+                                    <td width="25%" class="padding" style="font-size:13px;text-align: left;">
+                                        <span>Total value of standard-rated supplies</span>
+                                    </td>
+                                    <td width="35%" class="padding"/>
+                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                        <span t-esc="rec.get('box1_tot_net_amount')"/>
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">
+                                        <span style="background:gray;color:#fff;
+                                            font-size:10px;padding:2px;padding-left:6px;text-align: center;
+                                            padding-right:5px;border:1px solid;border-radius:100px 100px 100px 100px;">1</span>
+                                    </td>
+                                </tr>
+                                <t t-if="rec.get('detail_box1')">
+                                    <tr class="padding" style="background-color: #d8d8d8;font-size:12px">
+                                        <td width="10%" class="padding" style="background-color: #ffffff"/>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span>Date</span>
+                                        </td>
+                                        <td width="30%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span>Name</span>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span>Credit</span>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span>Debit</span>
+                                        </td>
+                                        <td width="15%" class="padding"/>
+                                    </tr>
+                                    <tr class="padding" t-foreach="rec.get('detail_box1')" t-as="box_line1">
+                                        <td width="10%" class="padding"/>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span t-esc="box_line1.get('date')"/>
+                                        </td>
+                                        <td width="30%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span t-esc="box_line1.get('name')"/>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span t-esc="'%.2f'% box_line1.get('credit')"/>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span t-esc="'%.2f'% box_line1.get('debit')"/>
+                                        </td>
+                                        <td width="15%" class="padding"/>
+                                    </tr>
+                                </t>
+
+
+                                <tr>
+                                    <td class="padding" colspan="5">
+                                        <span></span>
+                                    </td>
+                                </tr>
+
+                                <tr class="padding">
+                                    <td width="10%" class="padding"/>
+                                    <td width="25%" class="padding" style="font-size:13px;text-align: left;">
+                                        <span>Total value of zero-rated supplies</span>
+                                    </td>
+                                    <td width="35%" class="padding"/>
+                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                        <span t-esc="rec.get('box2')"/>
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">
+                                        <span style="background:gray;color:#fff;
+                                            font-size:10px;padding:2px;padding-left:6px;text-align: center;
+                                            padding-right:5px;border:1px solid;border-radius:100px 100px 100px 100px;">2</span>
+                                    </td>
+                                </tr>
+                                <t t-if="rec.get('detail_box2')">
+                                    <tr class="padding" style="background-color: #d8d8d8;font-size:12px">
+                                        <td width="10%" class="padding" style="background-color: #ffffff"/>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span>Date</span>
+                                        </td>
+                                        <td width="30%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span>Name</span>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span>Credit</span>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span>Debit</span>
+                                        </td>
+                                        <td width="15%" class="padding"/>
+                                    </tr>
+                                    <tr class="padding" t-foreach="rec.get('detail_box2')" t-as="box_line2">
+                                        <td width="10%" class="padding"/>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span t-esc="box_line2.get('date')"/>
+                                        </td>
+                                        <td width="30%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span t-esc="box_line2.get('name')"/>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span t-esc="'%.2f'% box_line2.get('credit')"/>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span t-esc="'%.2f'% box_line2.get('debit')"/>
+                                        </td>
+                                        <td width="15%" class="padding"/>
+                                    </tr>
+                                </t>
+                                  <tr>
+                                    <td class="padding" colspan="5">
+                                        <span></span>
+                                    </td>
+                                </tr>
+                                <tr class="padding">
+                                    <td width="10%" class="padding"/>
+                                    <td width="15%" class="padding" style="font-size:13px;text-align: left;">
+                                        <span>Total value of exempt supplies</span>
+                                    </td>
+                                    <td width="35%" class="padding"/>
+                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                        <span t-esc="rec.get('box3')"/>
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">
+                                        <span style="background:gray;color:#fff;
+                                            font-size:10px;padding:2px;padding-left:6px;text-align: center;
+                                            padding-right:5px;border:1px solid;border-radius:100px 100px 100px 100px;">3</span>
+                                    </td>
+                                </tr>
+                                <tr class="padding">
+                                    <td width="10%" class="padding"/>
+                                    <td width="50%" colspan="2" class="padding" style="font-size:13px;text-align: left;">
+                                        <span>Box 3a: Total Value of Regulation 33 Exempt Supplies</span>
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                        <span t-esc="rec.get('box3a')"/>
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">
+                                        <span style="background:gray;color:#fff;
+                                            font-size:10px;padding:2px;padding-left:6px;text-align: center;
+                                            padding-right:5px;border:1px solid;border-radius:100px 100px 100px 100px;">3a</span>
+                                    </td>
+                                </tr>
+                                <t t-if="rec.get('detail_box3_a')">
+                                    <tr class="padding" style="background-color: #d8d8d8;font-size:12px">
+                                        <td width="10%" class="padding" style="background-color: #ffffff"/>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span>Date</span>
+                                        </td>
+                                        <td width="30%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span>Name</span>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span>Credit</span>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span>Debit</span>
+                                        </td>
+                                        <td width="15%" class="padding"/>
+                                    </tr>
+                                    <tr class="padding" t-foreach="rec.get('detail_box3_a')" t-as="box_line3">
+                                        <td width="10%" class="padding"/>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span t-esc="box_line3.get('date')"/>
+                                        </td>
+                                        <td width="30%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span t-esc="box_line3.get('name')"/>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span t-esc="'%.2f'% box_line3.get('credit')"/>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span t-esc="'%.2f'% box_line3.get('debit')"/>
+                                        </td>
+                                        <td width="15%" class="padding"/>
+                                    </tr>
+                                </t>
+                                <t t-if="rec.get('detail_box3_a_dup')">
+                                    <tr class="padding" style="background-color: #d8d8d8;font-size:12px">
+                                        <td width="10%" class="padding" style="background-color: #ffffff"/>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span>Date</span>
+                                        </td>
+                                        <td width="30%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span>Name</span>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span>Credit</span>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span>Debit</span>
+                                        </td>
+                                        <td width="15%" class="padding"/>
+                                    </tr>
+                                    <tr class="padding" t-foreach="rec.get('detail_box3_a_dup')" t-as="box_line3_dup">
+                                        <td width="10%" class="padding"/>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span t-esc="box_line3_dup.get('date')"/>
+                                        </td>
+                                        <td width="30%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span t-esc="box_line3_dup.get('name')"/>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span t-esc="'%.2f'% box_line3_dup.get('credit')"/>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span t-esc="'%.2f'% box_line3_dup.get('debit')"/>
+                                        </td>
+                                        <td width="15%" class="padding"/>
+                                    </tr>
+                                </t>
+                                <tr class="padding">
+                                    <td width="10%" class="padding"/>
+                                    <td width="50%" colspan="2" class="padding" style="font-size:13px;text-align: left;">
+                                        <span>
+                                              Box 3b: Total Value of Non-Regulation 33 Exempt Supplies<br/>
+                                              (Please review if the input tax incurred on these supplies are claimable)
+                                        </span>
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                        <span t-esc="rec.get('box3b')"/>
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">
+                                        <span style="background:gray;color:#fff;
+                                            font-size:10px;padding:2px;padding-left:6px;text-align: center;
+                                            padding-right:5px;border:1px solid;border-radius:100px 100px 100px 100px;">3b</span>
+                                    </td>
+                                </tr>
+                                <t t-if="rec.get('detail_box3_b')">
+                                    <tr class="padding" style="background-color: #d8d8d8;font-size:12px">
+                                        <td width="10%" class="padding" style="background-color: #ffffff"/>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span>Date</span>
+                                        </td>
+                                        <td width="30%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span>Name</span>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span>Credit</span>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span>Debit</span>
+                                        </td>
+                                        <td width="15%" class="padding"/>
+                                    </tr>
+                                    <tr class="padding" t-foreach="rec.get('detail_box3_b')" t-as="box_line3">
+                                        <td width="10%" class="padding"/>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span t-esc="box_line3.get('date')"/>
+                                        </td>
+                                        <td width="30%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span t-esc="box_line3.get('name')"/>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span t-esc="'%.2f'% box_line3.get('credit')"/>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span t-esc="'%.2f'% box_line3.get('debit')"/>
+                                        </td>
+                                        <td width="15%" class="padding"/>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td class="padding" colspan="5">
+                                        <span></span>
+                                    </td>
+                                </tr>
+                                <tr class="padding">
+                                    <td width="10%" class="padding"/>
+                                    <td width="25%" class="padding" style="font-size:13px;text-align: left;">
+                                        <span>Total value of (1) + (2) + (3)</span>
+                                    </td>
+                                    <td width="35%" class="padding"/>
+                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                        <span t-esc="rec.get('box4')"/>
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">
+                                        <span style="background:gray;color:#fff;
+                                            font-size:10px;padding:2px;padding-left:6px;text-align: center;
+                                            padding-right:5px;border:1px solid;border-radius:100px 100px 100px 100px;">4</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="padding" colspan="5"
+                                        style="background-color: #9699F2;font-size:12px;text-align: left;">
+                                        <span>Purchases</span>
+                                    </td>
+                                </tr>
+                                <tr class="padding">
+                                    <td width="10%" class="padding"/>
+                                    <td width="25%" class="padding" style="font-size:12px;text-align: left;">
+                                        <span>Total value of taxable purchases</span>
+                                    </td>
+                                    <td width="35%" class="padding"/>
+                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                        <span t-esc="rec.get('box5')"/>
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">
+                                        <span style="background:gray;color:#fff;
+                                            font-size:10px;padding:2px;padding-left:6px;text-align: center;
+                                            padding-right:5px;border:1px solid;border-radius:100px 100px 100px 100px;">5</span>
+                                    </td>
+                                </tr>
+                                <t t-if="rec.get('detail_box5')">
+                                    <tr class="padding" style="background-color: #d8d8d8;font-size:12px">
+                                        <td width="10%" class="padding" style="background-color: #ffffff"/>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span>Date</span>
+                                        </td>
+                                        <td width="30%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span>Name</span>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span>Credit</span>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span>Debit</span>
+                                        </td>
+                                        <td width="15%" class="padding"/>
+                                    </tr>
+                                    <tr class="padding" t-foreach="rec.get('detail_box5')" t-as="box_line5">
+                                        <td width="10%" class="padding"/>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span t-esc="box_line5.get('date')"/>
+                                        </td>
+                                        <td width="30%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span t-esc="box_line5.get('name')"/>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span t-esc="'%.2f'% box_line5.get('credit')"/>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span t-esc="'%.2f'% box_line5.get('debit')"/>
+                                        </td>
+                                        <td width="15%" class="padding"/>
+                                    </tr>
+                                </t>
+
+                                <tr>
+                                    <td class="padding" colspan="5"
+                                        style="background-color: #9699F2;font-size:12px;text-align: left;">
+                                        <span>Taxes</span>
+                                    </td>
+                                </tr>
+                                <tr class="padding">
+                                    <td width="15%" class="padding"/>
+                                    <td width="35%" class="padding" style="font-size:12px;text-align: left;">
+                                        <span>Output tax due</span>
+                                    </td>
+                                    <td width="35%" class="padding"/>
+                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                        <span t-esc="rec.get('box6_tot_net_amount')"/>
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">
+                                        <span style="background:gray;color:#fff;
+                                            font-size:10px;padding:2px;padding-left:6px;text-align: center;
+                                            padding-right:5px;border:1px solid;border-radius:100px 100px 100px 100px;">6</span>
+                                    </td>
+                                </tr>
+                                <t t-if="rec.get('detail_box6')">
+                                    <tr class="padding" style="background-color: #d8d8d8;font-size:12px">
+                                        <td width="10%" class="padding" style="background-color: #ffffff"/>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span>Date</span>
+                                        </td>
+                                        <td width="30%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span>Name</span>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span>Credit</span>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span>Debit</span>
+                                        </td>
+                                        <td width="15%" class="padding"/>
+                                    </tr>
+                                    <tr class="padding" t-foreach="rec.get('detail_box6')" t-as="box_line6">
+                                        <td width="10%" class="padding"/>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span t-esc="box_line6.get('date')"/>
+                                        </td>
+                                        <td width="30%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span t-esc="box_line6.get('name')"/>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span t-esc="'%.2f'% box_line6.get('credit')"/>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span t-esc="'%.2f'% box_line6.get('debit')"/>
+                                        </td>
+                                        <td width="15%" class="padding"/>
+                                    </tr>
+                                </t>
+
+                                <tr class="padding">
+                                    <td width="15%" class="padding"/>
+                                    <td width="35%" class="padding" style="font-size:12px;text-align: left;">
+                                        <span>Less :</span>
+                                    </td>
+                                    <td width="35%" class="padding"/>
+                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                        <span></span>
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">
+                                        <span></span>
+                                    </td>
+                                </tr>
+
+                                <tr class="padding">
+                                    <td width="15%" class="padding"/>
+                                    <td width="35%" class="padding" style="font-size:12px;text-align: left;">
+                                        <span>Input tax and refunds claimed</span>
+                                    </td>
+                                    <td width="35%" class="padding"/>
+                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                        <span t-esc="rec.get('box7')"/>
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">
+                                        <span style="background:gray;color:#fff;
+                                            font-size:10px;padding:2px;padding-left:6px;text-align: center;
+                                            padding-right:5px;border:1px solid;border-radius:100px 100px 100px 100px;">7</span>
+                                    </td>
+                                </tr>
+                                <t t-if="rec.get('detail_box7')">
+                                    <tr class="padding" style="background-color: #d8d8d8;font-size:12px">
+                                        <td width="10%" class="padding" style="background-color: #ffffff"/>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span>Date</span>
+                                        </td>
+                                        <td width="30%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span>Name</span>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span>Credit</span>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span>Debit</span>
+                                        </td>
+                                        <td width="15%" class="padding"/>
+                                    </tr>
+                                    <tr class="padding" t-foreach="rec.get('detail_box7')" t-as="box_line7">
+                                        <td width="10%" class="padding"/>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span t-esc="box_line7.get('date')"/>
+                                        </td>
+                                        <td width="30%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span t-esc="box_line7.get('name')"/>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span t-esc="'%.2f'% box_line7.get('credit')"/>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span t-esc="'%.2f'% box_line7.get('debit')"/>
+                                        </td>
+                                        <td width="15%" class="padding"/>
+                                    </tr>
+                                </t>
+
+                                <tr class="padding">
+                                    <td width="15%" class="padding"/>
+                                    <td width="35%" class="padding" style="font-size:12px;text-align: left;">
+                                        <span>Equals :</span>
+                                    </td>
+                                    <td width="35%" class="padding"/>
+                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                        <span></span>
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">
+                                        <span></span>
+                                    </td>
+                                </tr>
+
+                                <tr class="padding">
+                                    <td width="15%" class="padding"/>
+                                    <td width="35%" class="padding" style="font-size:12px;text-align: left;">
+                                        <span>Net GST to be paid to (claimed from) IRAS</span>
+                                    </td>
+                                    <td width="35%" class="padding"/>
+                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                        <span t-esc="rec.get('box8')"/>
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">
+                                        <span style="background:gray;color:#fff;
+                                            font-size:10px;padding:2px;padding-left:6px;text-align: center;
+                                            padding-right:5px;border:1px solid;border-radius:100px 100px 100px 100px;">8</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="padding" colspan="5"
+                                        style="background-color: #9699F2;font-size:12px;text-align: left;">
+                                        <span>Applicable to Taxable Persons under Major Exporter
+                                            Scheme /
+                                            Approved 3rd Party Logistics Company / Other Approved
+                                            Schemes
+                                            Only
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr class="padding">
+                                    <td width="15%" class="padding"/>
+                                    <td width="35%" class="padding" style="font-size:12px;text-align: left;">
+                                        <span>Total value of goods imported under this Scheme</span>
+                                    </td>
+                                    <td width="35%" class="padding"/>
+                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                        <span t-esc="rec.get('box9')"/>
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">
+                                        <span style="background:gray;color:#fff;
+                                            font-size:10px;padding:2px;padding-left:6px;text-align: center;
+                                            padding-right:5px;border:1px solid;border-radius:100px 100px 100px 100px;">9</span>
+                                    </td>
+                                </tr>
+                                <t t-if="rec.get('detail_box9')">
+                                    <tr class="padding" style="background-color: #d8d8d8;font-size:12px">
+                                        <td width="10%" class="padding" style="background-color: #ffffff"/>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span>Date</span>
+                                        </td>
+                                        <td width="30%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span>Name</span>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span>Credit</span>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span>Debit</span>
+                                        </td>
+                                        <td width="15%" class="padding"/>
+                                    </tr>
+                                    <tr class="padding" t-foreach="rec.get('detail_box9')" t-as="box_line9">
+                                        <td width="10%" class="padding"/>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span t-esc="box_line9.get('date')"/>
+                                        </td>
+                                        <td width="30%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span t-esc="box_line9.get('name')"/>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span t-esc="'%.2f'% box_line9.get('credit')"/>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span t-esc="'%.2f'% box_line9.get('debit')"/>
+                                        </td>
+                                        <td width="15%" class="padding"/>
+                                    </tr>
+                                </t>
+
+                                <!-- <tr>
+                                    <td class="padding" colspan="5"
+                                        style="background-color: #9699F2;font-size:12px;text-align: left;">
+                                        <span>Did you make the following claims in Box 7 ?</span>
+                                    </td>
+                                </tr>
+                                <tr class="padding">
+                                    <td width="35%" class="padding" colspan="2"
+                                        style="font-size:12px;text-align: left;">
+                                        <span>Did you claim for GST you had refunded to tourists?
+                                        </span>
+                                    </td>
+                                    <td width="35%" class="padding"/>
+                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                        <span t-esc="rec.get('box10')"/>
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">
+                                        <span>◯</span>
+                                    </td>
+                                </tr>
+                                <tr class="padding">
+                                    <t t-if="rec.get('box10') == '0.00'">
+                                        <td width="35%" class="padding" colspan="2"
+                                            style="font-size:12px;text-align: left;">
+                                            <span>
+                                                <input type="radio" name="yes10"/>
+                                            </span>
+                                            <span style="padding-left:10px;">Yes</span>
+                                            <span style="padding-left:10px;">
+                                                <input type="radio" name="no10" checked="checked"/>
+                                            </span>
+                                            <span style="padding-left:10px;">No</span>
+                                        </td>
+                                    </t>
+                                    <t t-if="rec.get('box10') != '0.00'">
+                                        <td width="35%" class="padding" colspan="2"
+                                            style="font-size:12px;text-align: left;">
+                                            <span>
+                                                <input type="radio" name="yes10" checked="checked"/>
+                                            </span>
+                                            <span style="padding-left:10px;">Yes</span>
+                                            <span style="padding-left:10px;">
+                                                <input type="radio" name="no10"/>
+                                            </span>
+                                            <span style="padding-left:10px;">No</span>
+                                        </td>
+                                    </t>
+                                </tr>
+
+                                <tr class="padding">
+                                    <td width="35%" class="padding" colspan="2"
+                                        style="font-size:12px;text-align: left;">
+                                        <span>Did you make any bad debt relief claims?</span>
+                                    </td>
+                                    <td width="35%" class="padding"/>
+                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                        <span t-esc="rec.get('box11')"/>
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">
+                                        <span>◯</span>
+                                    </td>
+                                </tr>
+                                <tr class="padding">
+                                    <t t-if="rec.get('box11') == '0.00'">
+                                        <td width="35%" class="padding" colspan="2"
+                                            style="font-size:12px;text-align: left;">
+                                            <span>
+                                                <input type="radio" name="yes11"/>
+                                            </span>
+                                            <span style="padding-left:10px;">Yes</span>
+                                            <span style="padding-left:10px;">
+                                                <input type="radio" name="no11" checked="checked"/>
+                                            </span>
+                                            <span style="padding-left:10px;">No</span>
+                                        </td>
+                                    </t>
+                                    <t t-if="rec.get('box11') != '0.00'">
+                                        <td width="35%" class="padding" colspan="2"
+                                            style="font-size:12px;text-align: left;">
+                                            <span>
+                                                <input type="radio" name="yes11" checked="checked"/>
+                                            </span>
+                                            <span style="padding-left:10px;">Yes</span>
+                                            <span style="padding-left:10px;">
+                                                <input type="radio" name="no11"/>
+                                            </span>
+                                            <span style="padding-left:10px;">No</span>
+                                        </td>
+                                    </t>
+                                </tr>
+
+                                <tr class="padding">
+                                    <td width="35%" class="padding" colspan="2"
+                                        style="font-size:12px;text-align: left;">
+                                        <span>Did you make any pre-registration claims?</span>
+                                    </td>
+                                    <td width="35%" class="padding"/>
+                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                        <span t-esc="rec.get('box12')"/>
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">
+                                        <span>◯</span>
+                                    </td>
+                                </tr>
+                                <tr class="padding">
+                                    <t t-if="rec.get('box12') == '0.00'">
+                                        <td width="35%" class="padding" colspan="2"
+                                            style="font-size:12px;text-align: left;">
+                                            <span>
+                                                <input type="radio" name="yes12"/>
+                                            </span>
+                                            <span style="padding-left:10px;">Yes</span>
+                                            <span style="padding-left:10px;">
+                                                <input type="radio" name="no12" checked="checked"/>
+                                            </span>
+                                            <span style="padding-left:10px;">No</span>
+                                        </td>
+                                    </t>
+                                    <t t-if="rec.get('box12') != '0.00'">
+                                        <td width="35%" class="padding" colspan="2"
+                                            style="font-size:12px;text-align: left;">
+                                            <span>
+                                                <input type="radio" name="yes12" checked="checked"/>
+                                            </span>
+                                            <span style="padding-left:10px;">Yes</span>
+                                            <span style="padding-left:10px;">
+                                                <input type="radio" name="no12"/>
+                                            </span>
+                                            <span style="padding-left:10px;">No</span>
+                                        </td>
+                                    </t>
+                                </tr>
+                                <tr class="padding">
+                                    <td width="70%" class="padding" colspan="3"
+                                        style="font-size:12px;text-align: left;">
+                                        <span style="padding-left:25px;">Self-reviewd of eligibility to
+                                            Pre-Registration Input Tax Claims
+                                        </span>
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                        <span/>
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">
+                                        <span>◯</span>
+                                    </td>
+                                </tr>
+ -->
+                                <tr>
+                                    <td class="padding" colspan="5"
+                                        style="background-color: #9699F2;font-size:12px;text-align: left;">
+                                        <span>Revenue</span>
+                                    </td>
+                                </tr>
+                                <tr class="padding">
+                                    <td width="15%" class="padding"/>
+                                    <td width="35%" class="padding" style="font-size:12px;text-align: left;">
+                                        <span>Revenue for the accounting period</span>
+                                    </td>
+                                    <td width="35%" class="padding"/>
+                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                        <span t-esc="rec.get('box13')"/>
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">
+                                        <span style="background:gray;color:#fff;
+                                            font-size:10px;padding:2px;padding-left:6px;text-align: center;
+                                            padding-right:5px;border:1px solid;border-radius:100px 100px 100px 100px;">13</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="padding" colspan="5"
+                                        style="background-color: #9699F2;font-size:12px;text-align: left;">
+                                        <span>Import GST Deferment Scheme</span>
+                                    </td>
+                                </tr>
+<!--                                <tr class="padding">-->
+<!--                                    <td width="15%" class="padding" />-->
+<!--                                    <td width="35%" class="padding" style="font-size:12px;text-align: left;">-->
+<!--                                        <span>Net GST per box 8 above</span>-->
+<!--                                    </td>-->
+<!--                                    <td width="35%" class="padding"/>-->
+<!--                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">-->
+<!--                                        <span t-esc="rec.get('box14')" />-->
+<!--                                    </td>-->
+<!--                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">-->
+<!--                                        <span style="background:gray;color:#fff;-->
+<!--                                            font-size:10px;padding:2px;padding-left:6px;text-align: center;-->
+<!--                                            padding-right:5px;border:1px solid;border-radius:100px 100px 100px 100px;">16</span>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+                                <tr class="padding">
+                                    <td width="15%" class="padding" />
+                                    <td width="35%" class="padding" style="font-size:12px;text-align: left;">
+                                        <span>Add : </span>
+                                    </td>
+                                    <td width="35%" class="padding"/>
+                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                        <span></span>
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">
+                                        <span></span>
+                                    </td>
+                                </tr>
+                                <tr class="padding">
+                                    <td width="15%" class="padding" />
+                                    <td width="35%" class="padding" style="font-size:12px;text-align: left;">
+                                        <span>Deferred import GST payable </span>
+                                    </td>
+                                    <td width="35%" class="padding"/>
+                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                        <span t-esc="rec.get('box15')" />
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">
+                                        <span style="background:gray;color:#fff;
+                                            font-size:10px;padding:2px;padding-left:6px;text-align: center;
+                                            padding-right:5px;border:1px solid;border-radius:100px 100px 100px 100px;">17</span>
+                                    </td>
+                                </tr>
+                                <t t-if="rec.get('detail_box15_01')">
+                                    <tr class="padding" style="background-color: #d8d8d8;font-size:12px">
+                                        <td width="10%" class="padding" style="background-color: #ffffff"/>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span>Date</span>
+                                        </td>
+                                        <td width="30%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span>Name</span>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span>Credit</span>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span>Debit</span>
+                                        </td>
+                                        <td width="15%" class="padding"/>
+                                    </tr>
+                                    <tr class="padding" t-foreach="rec.get('detail_box15_01')" t-as="box_line15_01">
+                                        <td width="10%" class="padding"/>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span t-esc="box_line15_01.get('date')"/>
+                                        </td>
+                                        <td width="30%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span t-esc="box_line15_01.get('name')"/>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span t-esc="'%.2f'% box_line15_01.get('credit')"/>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span t-esc="'%.2f'% box_line15_01.get('debit')"/>
+                                        </td>
+                                        <td width="15%" class="padding"/>
+                                    </tr>
+                                </t>
+                                <t t-if="rec.get('detail_box15_02')">
+                                    <tr class="padding" t-foreach="rec.get('detail_box15_02')" t-as="box_line15_02">
+                                        <td width="10%" class="padding"/>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span t-esc="box_line15_02.get('date')"/>
+                                        </td>
+                                        <td width="30%" class="padding" style="font-size:12px;text-align: left;">
+                                            <span t-esc="box_line15_02.get('name')"/>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span t-esc="'%.2f'% box_line15_02.get('credit')"/>
+                                        </td>
+                                        <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                            <span t-esc="'%.2f'% box_line15_02.get('debit')"/>
+                                        </td>
+                                        <td width="15%" class="padding"/>
+                                    </tr>
+                                </t>
+                                <tr class="padding">
+                                    <td width="15%" class="padding" />
+                                    <td width="35%" class="padding" style="font-size:12px;text-align: left;">
+                                        <span>Equals : </span>
+                                    </td>
+                                    <td width="35%" class="padding"/>
+                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                        <span></span>
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">
+                                        <span></span>
+                                    </td>
+                                </tr>
+<!--                                <tr class="padding">-->
+<!--                                    <td width="15%" class="padding" />-->
+<!--                                    <td width="35%" class="padding" style="font-size:12px;text-align: left;">-->
+<!--                                        <span>Total tax to be paid to IRAS</span>-->
+<!--                                    </td>-->
+<!--                                    <td width="35%" class="padding"/>-->
+<!--                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">-->
+<!--                                        <span t-esc="rec.get('box16')" />-->
+<!--                                    </td>-->
+<!--                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">-->
+<!--                                        <span style="background:gray;color:#fff;-->
+<!--                                            font-size:10px;padding:2px;padding-left:6px;text-align: center;-->
+<!--                                            padding-right:5px;border:1px solid;border-radius:100px 100px 100px 100px;">18</span>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+                                <tr class="padding">
+                                    <td width="15%" class="padding" />
+                                    <td width="35%" class="padding" style="font-size:12px;text-align: left;">
+                                        <span>Total value of goods imported under this scheme</span>
+                                    </td>
+                                    <td width="35%" class="padding"/>
+                                    <td width="15%" class="padding" style="font-size:12px;text-align: right;">
+                                        <span t-esc="rec.get('box17')" />
+                                    </td>
+                                    <td width="15%" class="padding" style="font-size:15px;text-align: center;">
+                                        <span style="background:gray;color:#fff;
+                                            font-size:10px;padding:2px;padding-left:6px;text-align: center;
+                                            padding-right:5px;border:1px solid;border-radius:100px 100px 100px 100px;">19</span>
+                                    </td>
+                                </tr>
+                            </table>
+
+
+                            <table width="100%">
+                                <tr>
+                                    <td class="padding" colspan="5"
+                                        style="background-color: #9699F2;font-size:12px;text-align: left;">
+                                        <span>Declaration</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="padding" colspan="4"
+                                        style="font-size:12px;text-align: left;">
+                                        <span>
+                                            I declare that the information given above is true and
+                                            complete.
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="padding" colspan="4"
+                                        style="font-size:12px;text-align: left;">
+                                        <span>&#160;</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td width="29%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                            <b>Name Of Declarant</b>
+                                        </span>
+                                    </td>
+                                    <td width="1%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                            <b>:</b>
+                                        </span>
+                                    </td>
+                                    <td width="70%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="29%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                            <b>Declarant ID</b>
+                                        </span>
+                                    </td>
+                                    <td width="1%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                            <b>:</b>
+                                        </span>
+                                    </td>
+                                    <td width="70%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="29%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                            <b>Designation</b>
+                                        </span>
+                                    </td>
+                                    <td width="1%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                            <b>:</b>
+                                        </span>
+                                    </td>
+                                    <td width="70%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="29%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                            <b>Contact Person</b>
+                                        </span>
+                                    </td>
+                                    <td width="1%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                            <b>:</b>
+                                        </span>
+                                    </td>
+                                    <td width="70%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="29%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                            <b>Contact Tel No.</b>
+                                        </span>
+                                    </td>
+                                    <td width="1%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                            <b>:</b>
+                                        </span>
+                                    </td>
+                                    <td width="70%" style="font-size:12px;text-align: left;">
+                                        <span>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </t>
+                    </div>
+                </div>
+                <!-- </t> -->
+            </t>
+        </template>
+    </data>
+</odoo>

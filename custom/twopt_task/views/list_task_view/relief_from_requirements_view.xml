@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="relief_from_requirements_form" model="ir.ui.view">
+            <field name="name">relief.from.requirements.form</field>
+            <field name="model">relief.from.requirements</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Entity Information">
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <separator string="Application Details"/>
+                            <div>
+                                <label for="financial_year_end_date" style="font-weight: bold;"/><br/>
+                                <field name="financial_year_end_date" style="width: 50%;" readonly="1" class="color-text-ff8d06"/>
+                            </div>
+                            <div>
+                                <span style="font-weight: bold;">Note:</span><br/>
+                                <span>
+                                    Please check tos ensure that the financial year end date populated above is correct. In the event that the
+                                    financial year end date is wrong, you can change the financial year end date via Bizfile <span class="color-text-blue">
+                                    "Annual Filing => Notification for change of Financial Year"</span> before submitting your application for relief under
+                                    Section 202.
+                                </span><br/>
+                            </div><br/>
+                            <div>
+                                <label for="section_seeking_relief_from" style="font-weight: bold;"/><br/>
+                                <field name="section_seeking_relief_from" widget="radio"/>
+                            </div><br/><br/>
+                            <div>
+                                <label for="letter" style="font-weight: bold;"/><br/>
+                                <field name="letter" style="width: 30%;" />
+                            </div><br/><br/>
+                            <div>
+                                <span style="font-weight: bold;">Note:</span><br/>
+                                <span>
+                                    Please refer to the latest relevant ACRA's Practice Direction which sets out the information we
+                                    require to process the application
+                                </span><br/>
+                            </div>
+                            <div>
+                                <label for="letter_of_consent" style="font-weight: bold;"/><br/>
+                                <field name="letter_of_consent" style="width: 30%;" />
+                            </div><br/><br/>
+                            <div>
+                                <span style="font-weight: bold;">Note:</span><br/>
+                                <span>
+                                    Please include the Letter of Consent by shareholders if there are more than one shareholder for this entity.
+                                </span><br/>
+                            </div>
+                            <div>
+                                <label for="email_address" style="font-weight: bold;"/><br/>
+                                <field name="email_address" style="width: 50%;" readonly="1" class="color-text-ff8d06"/>
+                            </div><br/><br/>
+                            <div>
+                                <span style="font-weight: bold;">Note:</span><br/>
+                                <span>
+                                    Please not that if the email address is not correct, please update it through "Change in particulars" transaction
+                                </span><br/>
+                            </div>
+                            <separator string="Declaration"/>
+                            <div>
+                                <field name="declaration_check"/>
+                                <label for="declaration_check" style="display: contents;font-weight: normal"/>
+                            </div>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

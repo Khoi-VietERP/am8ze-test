@@ -1,0 +1,65 @@
+<odoo>
+    <data>
+        <record id="seq_iras_api_submit" model="ir.sequence">
+            <field name="name">Sequence IRAS</field>
+            <field name="code">iras.api.submit</field>
+            <field name="prefix">app13-am8ze-IRAS-</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False" />
+        </record>
+
+        <record id="iras_api_submit_tree_view" model="ir.ui.view">
+            <field name="name">iras.api.submit.tree</field>
+            <field name="model">iras.api.submit</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="api_type"/>
+                    <field name="file_type_sub"/>
+                    <field name="note"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="iras_api_submit_form_view" model="ir.ui.view">
+            <field name="name">iras.api.submit.form</field>
+            <field name="model">iras.api.submit</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="send_submit"
+                                string="Submit"
+                                type="object"
+                                states="draft"
+                                class="btn-primary"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submit,error"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="api_type"/>
+                                <field name="file" filename="filename" attrs="{'invisible' : [('api_type', '!=', 'submission_emp_income')], 'required' : [('api_type', '=', 'submission_emp_income')]}"/>
+                                <field name="filename" invisible="1"/>
+                                <field name="file_type" attrs="{'invisible' : [('api_type', '!=', 'submission_emp_income')], 'required' : [('api_type', '=', 'submission_emp_income')]}"/>
+                                <field name="gst_file_type" attrs="{'invisible' : [('api_type', '!=', 'submission_gst')], 'required' : [('api_type', '=', 'submission_gst')]}"/>
+                            </group>
+                            <group>
+                                <field name="note"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="iras_api_submit_action" model="ir.actions.act_window">
+            <field name="name">IRAS API Submit</field>
+            <field name="res_model">iras.api.submit</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="iras_api_submit_menu" action="iras_api_submit_action" parent="iras_api_menu"/>
+    </data>
+</odoo>

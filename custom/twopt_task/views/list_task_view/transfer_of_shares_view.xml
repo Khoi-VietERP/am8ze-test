@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="transfer_of_shares_form" model="ir.ui.view">
+            <field name="name">transfer.of.shares.name</field>
+            <field name="model">transfer.of.shares</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Entity Information">
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <group attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <group>
+                                <field name="type_of_change"/>
+                            </group>
+                            <group>
+                                <field name="sub_type_of_change"/>
+                            </group>
+                        </group>
+                        <div attrs="{'invisible' : ['|','|',('type_of_change', '=', False),('sub_type_of_change', '=', False),('entity_id', '=', False)]}">
+                            <separator string="Transfer From Information"/>
+                            <div>
+                                <label for="transfer_from_id" style="font-weight: bold;"/><br/>
+                                <field name="transfer_from_id" style="width: 30%;" options="{'no_create_edit':1, 'no_open': 1, 'no_quick_create': True}"/>
+                            </div><br/>
+                            <table style="width: 100%" class="table-bordered table_allotment_detail">
+                                <tr>
+                                    <td style="width: 30%">
+                                        Class Of Shares
+                                    </td>
+                                    <td style="width: 20%">
+                                        Ordinary
+                                    </td>
+                                    <td style="width: 20%">
+                                        Preference
+                                    </td>
+                                    <td style="width: 20%">
+                                        Others
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Number of Shares
+                                    </td>
+                                    <td>
+                                        <field name="from_ordinary_number_of_shares" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="from_pre_number_of_shares" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="from_others_number_of_shares" readonly="1"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Amount of Paid Up Share Capital
+                                    </td>
+                                    <td>
+                                        <field name="from_ordinary_amount_of_paid_up" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="from_pre_amount_of_paid_up" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="from_others_amount_of_paid_up" readonly="1"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Shares held in trust
+                                    </td>
+                                    <td>
+                                        <field name="from_ordinary_share_hit"/>
+                                    </td>
+                                    <td>
+                                        <field name="from_pre_share_hit" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="from_others_share_hit" readonly="1"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Name of the trust
+                                    </td>
+                                    <td>
+                                        <field name="from_ordinary_name_ott"/>
+                                    </td>
+                                    <td>
+                                        <field name="from_pre_name_ott" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="from_others_name_ott" readonly="1"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <separator string="Transfer To Information"/>
+                            <div>
+                                <label for="transfer_to_id" style="font-weight: bold;"/><br/>
+                                <field name="transfer_to_id" style="width: 30%;" options="{'no_create_edit':1, 'no_open': 1, 'no_quick_create': True}"/>
+                            </div><br/>
+                            <table style="width: 100%" class="table-bordered table_allotment_detail">
+                                <tr>
+                                    <td style="width: 30%">
+                                        Class Of Shares
+                                    </td>
+                                    <td style="width: 20%">
+                                        Ordinary
+                                    </td>
+                                    <td style="width: 20%">
+                                        Preference
+                                    </td>
+                                    <td style="width: 20%">
+                                        Others
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Number of Shares
+                                    </td>
+                                    <td>
+                                        <field name="to_ordinary_number_of_shares"/>
+                                    </td>
+                                    <td>
+                                        <field name="to_pre_number_of_shares" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="to_others_number_of_shares" readonly="1"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Amount of Paid Up Share Capital
+                                    </td>
+                                    <td>
+                                        <field name="to_ordinary_amount_of_paid_up"/>
+                                    </td>
+                                    <td>
+                                        <field name="to_pre_amount_of_paid_up" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="to_others_amount_of_paid_up" readonly="1"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Shares held in trust
+                                    </td>
+                                    <td>
+                                        <field name="to_ordinary_share_hit"/>
+                                    </td>
+                                    <td>
+                                        <field name="to_pre_share_hit" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="to_others_share_hit" readonly="1"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Name of the trust
+                                    </td>
+                                    <td>
+                                        <field name="to_ordinary_name_ott"/>
+                                    </td>
+                                    <td>
+                                        <field name="to_pre_name_ott" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="to_others_name_ott" readonly="1"/>
+                                    </td>
+                                </tr>
+                            </table><br/><br/>
+                            <div>
+                                <label for="date_of_transfer" style="font-weight: bold;"/><br/>
+                                <field name="date_of_transfer" style="width: 30%;"/>
+                            </div>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

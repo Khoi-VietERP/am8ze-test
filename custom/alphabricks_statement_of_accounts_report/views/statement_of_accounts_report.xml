@@ -1,0 +1,219 @@
+<odoo>
+    <data>
+		<template id="modifier_external_layout_soa">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <!-- Multicompany -->
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+
+            <t t-call="alphabricks_statement_of_accounts.external_layout_standard_soa">
+                <t t-raw="0"/>
+            </t>
+
+        </template>
+
+        <template id="external_layout_standard_soa">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            </div>
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+                 t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id">
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+            <div t-attf-class="footer o_company_#{company.id}_layout">
+				<div class="text-center" style="border-top: 1px solid black; width: 100%">
+					<ul class="list-inline mb4" style="font-size:13px; width: 100%">
+						<li t-if="company.phone" class="list-inline-item d-inline">Phone:
+							<span class="o_force_ltr" t-esc="company.phone"/>
+						</li>
+						<li t-if="company.email" class="list-inline-item d-inline">Email:
+							<span t-field="company.email"/>
+						</li>
+						<li t-if="company.website" class="list-inline-item d-inline">Web:
+							<span t-field="company.website"/>
+						</li>
+						<li t-if="company.vat" class="list-inline-item d-inline"><t
+								t-esc="company.country_id.vat_label or 'Tax ID'"/>:
+							<span t-field="company.vat"/>
+						</li>
+					</ul>
+					<h6 t-field="company.name"/>
+					<div t-if="report_type == 'pdf'" class="text-muted">
+						Page:
+						<span class="page"/>
+						/
+						<span class="topage"/>
+					</div>
+				</div>
+            </div>
+        </template>
+
+        <template id="report_statement_of_accounts_template">
+			<t t-call="alphabricks_statement_of_accounts_report.modifier_external_layout_soa">
+				<t t-set="company" t-value="res_company"/>
+				<div class="page">
+					<style>
+						.table-bordered th, .table-bordered td {
+							padding: 0.4rem 0.75rem;
+						}
+					</style>
+					<div class="row" style="border-bottom:1px solid black; margin-left: 0px;
+					margin-right:0px; padding-bottom: 20px; width: 100%;">
+						<div class="col-1" style="text-align: left;padding: 0px;">
+							<img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 145px"
+						 alt="Logo"/>
+						</div>
+						<div class="col-11">
+							<b style="font-size: 20px;">
+								<t t-esc="company.name"/>
+							</b><br/>
+							<t t-if="company.china_character">
+								<span style="font-size: 20px;"><t t-esc="company.china_character"/></span>
+							</t><br/>
+							<span><t t-esc="company.street"/> </span><br/>
+							<span> <t t-esc="company.street2"/>, <t t-esc="company.city"/> <t t-esc="company.zip"/></span><br/>
+							<span>Tel : <t t-esc="company.phone"/>, Email : <t t-esc="company.email"/></span><br/>
+						</div>
+					</div>
+					<div class="text-center" style="margin-top : 10px">
+						<h5>STATEMENT OF ACCOUNT</h5>
+					</div>
+					<div name="company_address" style="font-size:14px;width:55%">
+						<span>Company name/ Name :<![CDATA[&nbsp;]]></span><span t-esc="partner['partner_name']"></span><br/>
+						<span>Address :<![CDATA[&nbsp;]]><t t-esc="partner['partner_address']"/> </span><br/>
+						<span>Phone number :<![CDATA[&nbsp;]]><t t-esc="partner['partner_mobile']"/> </span><br/>
+						<span>Email :<![CDATA[&nbsp;]]><t t-esc="partner['partner_email']"/></span><br/>
+					</div>
+
+					<table class="table table-bordered" style="margin-top : 10px">
+						<thead>
+							<tr class="text-center">
+							<th>Date</th>
+                            <th>Ref.</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th t-if="partner['activity']">Payment</th>
+                            <th>Balance</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td></td>
+								<td class="text-center">
+									<b>Initial Balance</b>
+								</td>
+								<td></td>
+								<td></td>
+								<td t-if="partner['activity']"></td>
+								<td class="text-right">
+									<b><span t-esc="partner['opening_balance']"/></b>
+								</td>
+							</tr>
+							<tr t-foreach="partner['soa_data']" t-as="line">
+								<td class="text-center">
+									<t t-esc="line['date']"/>
+								</td>
+								<td class="text-center">
+									<t t-esc="line['ref']"/>
+								</td>
+								<td class="text-center">
+									<t t-esc="line['description']"/>
+								</td>
+								<td class="text-right">
+									<t t-esc="line['amount']"/>
+								</td>
+								<td t-if="partner['activity']" class="text-right">
+									<t t-esc="line['payment']"/>
+								</td>
+								<td class="text-right">
+                                    <t t-esc="line['balance']"/>
+                                </td>
+							</tr>
+							<tr>
+								<td></td>
+								<td class="text-center">
+									<b>Ending Balance</b>
+								</td>
+								<td></td>
+								<td class="text-right">
+									<b><span t-esc="partner['total_amount']"/></b>
+								</td>
+								<td t-if="partner['activity']" class="text-right">
+									<b><span t-esc="partner['total_payment']"/></b>
+								</td>
+								<td class="text-right">
+									<b><span t-esc="partner['sub_total']"/></b>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<br/>
+					<table t-if="partner['type'] != 'bill'" t-attf-class="table table-sm" name="days_table" style="page-break-inside: avoid;">
+						<thead>
+							<tr >
+								<th></th>
+								<th>0-30</th>
+								<th>30-60</th>
+								<th>60-90</th>
+								<th>90+</th>
+								<th>Total</th>
+							</tr>
+						</thead>
+						<tr>
+							<td></td>
+							<td><span t-esc="partner['first_thirty_day']" /></td>
+							<td><span t-esc="partner['thirty_sixty_days']" /></td>
+							<td><span t-esc="partner['sixty_ninty_days']" /></td>
+							<td><span t-esc="partner['ninty_plus_days']" /></td>
+							<td><span t-esc="partner['total']" /></td>
+						</tr>
+					</table>
+				</div>
+			</t>
+		</template>
+
+		<template id="report_statement_of_accounts_doc">
+			<t t-call="web.html_container">
+				<t t-foreach="customer_data" t-as="partner">
+					<t t-call="alphabricks_statement_of_accounts_report.report_statement_of_accounts_template"/>
+				</t>
+			</t>
+		</template>
+
+		<record id="paper_format" model="report.paperformat">
+            <field name="name">SOA Report</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">5</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+            id="statement_of_accounts_report_print"
+            string="Statement of Accounts"
+            model="statement.of.accounts.report"
+            report_type="qweb-pdf"
+            file="alphabricks_statement_of_accounts_report.report_statement_of_accounts_doc"
+            name="alphabricks_statement_of_accounts_report.report_statement_of_accounts_doc"
+			print_report_name="'Customer_Statement'"
+			paperformat="alphabricks_statement_of_accounts_report.paper_format"
+			menu="False"
+        />
+    </data>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_account_list_inherit" model="ir.ui.view">
+            <field name="name">account.account.tree.view</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_list"/>
+            <field name="arch" type="xml">
+                <field name="user_type_id" position="after">
+                    <field name="parent_id" context="{'show_parent_account':True}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

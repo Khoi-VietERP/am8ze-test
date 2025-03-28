@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="corp_entity_view_form_inherit">
+            <field name="name">corp.entity.form</field>
+            <field name="model">corp.entity</field>
+            <field name="inherit_id" ref="corp_sec_entity.corp_entity_view_form"/>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="History">
+                        <separator string="Register of Members and Share Ledger"/>
+                        <field name="history_register_of_members_ids" context="{
+                            'tree_view_ref': 'corp_sec_entity_history.history_register_of_members_tree',
+                            'form_view_ref': 'corp_sec_entity_history.history_register_of_members_form'}"
+                        />
+                        <separator string="Register of Applications and Allotments"/>
+                        <field name="history_register_of_applications_ids" context="{
+                            'tree_view_ref': 'corp_sec_entity_history.history_register_of_applications_tree',
+                            'form_view_ref': 'corp_sec_entity_history.history_register_of_applications_form'}"
+                        />
+                        <separator string="Register of Auditors"/>
+                        <field name="register_of_auditors_ids" context="{
+                            'tree_view_ref': 'corp_sec_entity_history.register_of_auditors_tree',
+                            'form_view_ref': 'corp_sec_entity_history.register_of_auditors_form'}"
+                        />
+                        <separator string="Register of Beneficial Owners"/>
+                        <field name="history_register_of_beneficial_ids" context="{
+                            'tree_view_ref': 'corp_sec_entity_history.history_register_of_beneficial_tree',
+                            'form_view_ref': 'corp_sec_entity_history.history_register_of_beneficial_form'}"
+                        />
+                        <separator string="Register of Directors"/>
+                        <field name="history_register_of_directors_ids" context="{
+                            'tree_view_ref': 'corp_sec_entity_history.history_register_of_directors_tree',
+                            'form_view_ref': 'corp_sec_entity_history.history_register_of_directors_form'}"
+                        />
+                        <separator string="Register of Managers"/>
+                        <field name="history_register_of_managers_ids" context="{
+                            'tree_view_ref': 'corp_sec_entity_history.history_register_of_managers_tree',
+                            'form_view_ref': 'corp_sec_entity_history.history_register_of_managers_form'}"
+                        />
+                        <separator string="Register of Mortgages"/>
+                        <field name="history_register_of_mortgages_ids" context="{
+                            'tree_view_ref': 'corp_sec_entity_history.history_register_of_mortgages_tree',
+                            'form_view_ref': 'corp_sec_entity_history.history_register_of_mortgages_form'}"
+                        />
+                        <separator string="Register of Nominee Directors"/>
+                        <field name="history_register_of_nominee_directors_ids" context="{
+                            'tree_view_ref': 'corp_sec_entity_history.history_register_of_nominee_directors_tree',
+                            'form_view_ref': 'corp_sec_entity_history.history_register_of_nominee_directors_form'}"
+                        />
+                        <separator string="Register of Controllers"/>
+                        <field name="history_register_of_controllers_ids" context="{
+                            'tree_view_ref': 'corp_sec_entity_history.history_register_of_controllers_tree',
+                            'form_view_ref': 'corp_sec_entity_history.history_register_of_controllers_form'}"
+                        />
+                        <separator string="Register of Secretaries"/>
+                        <field name="history_register_of_secretaries_ids" context="{
+                            'tree_view_ref': 'corp_sec_entity_history.history_register_of_secretaries_tree',
+                            'form_view_ref': 'corp_sec_entity_history.history_register_of_secretaries_form'}"
+                        />
+                        <separator string="Register of Transfer"/>
+                        <field name="history_register_of_transfer_ids" context="{
+                            'tree_view_ref': 'corp_sec_entity_history.history_register_of_transfer_tree',
+                            'form_view_ref': 'corp_sec_entity_history.history_register_of_transfer_form'}"
+                        />
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

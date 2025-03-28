@@ -1,0 +1,214 @@
+<odoo>
+    <data>
+		<template id="statement_accounts_by_date_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+					<t t-foreach="o.partner_ids" t-as="partner_id">
+						<t t-call="wk39717700c_modifier_print.modifier_external_layout_no_header">
+							<style>
+								.page {
+									font-size: 15px
+								}
+								.table-product th {
+									border-top: 1px solid #000;
+									border-bottom: 1px solid #000;
+									padding: 0.2rem 0.2rem;
+								}
+								.table-product td {
+									padding: 0.2rem 0.75rem;
+								}
+
+								.table-total td, .table-total th{
+									border: 1px solid #000;
+									padding: 0.2rem 0.75rem;
+								}
+							</style>
+							<div class="page">
+								<t t-if="not company">
+									<t t-set="company" t-value="partner_id.get_partner_company()"/>
+								</t>
+								<div class="row" style="border-bottom:1px solid black; margin-left: 0px; margin-right:0px; padding-bottom: 20px; width: 100%;">
+									<div class="col-1" style="text-align: left;padding: 0px;">
+										<img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 145px"
+									 alt="Logo"/>
+									</div>
+									<div class="col-11">
+										<b style="font-size: 20px;">
+											<t t-esc="company.name"/>
+										</b><br/>
+										<t t-if="company.china_character">
+											<span style="font-size: 20px;"><t t-esc="company.china_character"/></span>
+										</t><br/>
+										<span><t t-esc="company.street"/> </span><br/>
+										<span> <t t-esc="company.street2"/>, <t t-esc="company.city"/> <t t-esc="company.zip"/></span><br/>
+										<span>Tel : <t t-esc="company.phone"/>, Fax : 67436789</span><br/>
+									</div>
+								</div>
+								<div class="text-center" style="margin-top : 10px">
+									<h5>STATEMENT OF ACCOUNT</h5>
+								</div>
+								<table style="width: 100%; margin-top: 20px">
+									<tr>
+										<td style="width: 55%" rowspan="5">
+											<b><t t-esc="partner_id.customer_code"/></b><br/>
+											<b><t t-esc="partner_id.name"/> </b><br/>
+											<t t-if="partner_id.street">
+												<t t-esc="partner_id.street"/><br/>
+											</t>
+											<t t-if="partner_id.street2">
+												<t t-esc="partner_id.street2"/><br/>
+											</t>
+											<t t-esc="partner_id.city"/>
+											<t t-esc="partner_id.zip"/><br/>
+											Tel : <t t-esc="partner_id.phone"/>
+											Fax:
+										</td>
+										<td style="width: 15%" rowspan="5"/>
+										<td style="width: 13%">
+											<b>Date</b>
+										</td>
+										<td style="width: 17%">
+											: <t t-esc="datetime.datetime.now().strftime('%d/%m/%Y')"/>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<b>Page No</b>
+										</td>
+										<td>
+											: 1/1
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<b>Terms</b>
+										</td>
+										<td>
+											: <span t-field="partner_id.property_payment_term_id"/>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<b>Currency</b>
+										</td>
+										<td>
+											: <t t-esc="partner_id.currency_id.symbol"/>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<b>CO.Reg No</b>
+										</td>
+										<td>
+											: <b><t t-esc="company.l10n_sg_unique_entity_number"/> </b>
+										</td>
+									</tr>
+								</table>
+								<table class="table-product" style="width: 100%; margin-top: 20px">
+									<tr>
+										<th style="width: 15%">Date</th>
+										<th style="width: 30%">Description</th>
+										<th style="width: 15%" class="text-right">Debit($)</th>
+										<th style="width: 15%" class="text-right">Credit($)</th>
+										<th style="width: 15%" class="text-right">Balance($)</th>
+									</tr>
+									<t t-set="balance" t-value="0"/>
+									<tr t-foreach="o.get_balance_invoice(partner_id).sorted(key=lambda r: (r.invoice_date, r.name))" t-as="line">
+										<td class="text-left">
+											<span t-esc='line.invoice_date and line.invoice_date.strftime("%d-%m-%Y") or ""'/>
+										</td>
+										<td class="text-left">
+											<span t-esc="line.name"/>
+										</td>
+										<td class="text-right">
+											<span t-esc="'{0:,.2f}'.format(line.amount_total)"/>
+										</td>
+										<td class="text-right">
+											<span t-esc="'{0:,.2f}'.format(line.credit_amount)"/>
+										</td>
+										<td class="text-right">
+											<t t-set="balance" t-value="balance + line.result"/>
+											<span t-esc="'{0:,.2f}'.format(balance)"/>
+										</td>
+									</tr>
+								</table>
+								<table class="table-total" style="page-break-inside: avoid;margin-top: 40px; width: 100%">
+									<thead>
+										<tr>
+											<t t-foreach="o.get_header_table_total()" t-as="header">
+												<th class="text-right"><t t-esc="header"/></th>
+											</t>
+										</tr>
+									</thead>
+									<tr>
+										<td class="text-right" style="width: 16%">
+											<span t-esc="'{0:,.2f}'.format(partner_id.with_context({'start_date':o.start_date, 'end_date':o.end_date}).month_5)" />
+										</td>
+										<td class="text-right" style="width: 16%">
+											<span t-esc="'{0:,.2f}'.format(partner_id.with_context({'start_date':o.start_date, 'end_date':o.end_date}).month_4)" />
+										</td>
+										<td class="text-right" style="width: 16%">
+											<span t-esc="'{0:,.2f}'.format(partner_id.with_context({'start_date':o.start_date, 'end_date':o.end_date}).month_3)" />
+										</td>
+										<td class="text-right" style="width: 16%">
+											<span t-esc="'{0:,.2f}'.format(partner_id.with_context({'start_date':o.start_date, 'end_date':o.end_date}).month_2)" />
+										</td>
+										<td class="text-right" style="width: 16%">
+											<span t-esc="'{0:,.2f}'.format(partner_id.with_context({'start_date':o.start_date, 'end_date':o.end_date}).month_1)" />
+										</td>
+										<td class="text-right" style="width: 20%">
+											<span t-esc="'{0:,.2f}'.format(partner_id.with_context({'start_date':o.start_date, 'end_date':o.end_date}).total)" />
+										</td>
+									</tr>
+								</table>
+							</div>
+						</t>
+					</t>
+                </t>
+            </t>
+        </template>
+
+        <report id="statement_accounts_by_date_print"
+            string="Statement of Account Outstanding"
+            model="statement.accounts.by.date"
+            report_type="qweb-pdf"
+            name="wk39717700c_modifier_print.statement_accounts_by_date_template"
+            file="wk39717700c_modifier_print.statement_accounts_by_date_template"
+            paperformat="wk39717700c_modifier_print.paperformat_no_header"
+            print_report_name="'Statement of Account Outstanding'"
+            menu="False"/>
+
+        <record id="view_statement_accounts_by_date_form" model="ir.ui.view">
+            <field name="name">statement.accounts.by.date.form</field>
+            <field name="model">statement.accounts.by.date</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="partner_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                        <group></group>
+                    </group>
+                    <footer>
+                        <button name="print_pdf" type="object" string="PDF" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_statement_accounts_by_date_menu" model="ir.actions.act_window">
+            <field name="name">Statement of Account Outstanding</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">statement.accounts.by.date</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wk39717700c_modifier_print.view_statement_accounts_by_date_form"/>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+            <field name="binding_type">report</field>
+            <field name="binding_view_types">form,list</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,63 @@
+<odoo>
+    <data>
+        <record id="history_register_of_applications_tree" model="ir.ui.view">
+            <field name="name">history.register.of.applications.tree</field>
+            <field name="model">history.register.of.applications</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="history_register_of_applications_form" model="ir.ui.view">
+            <field name="name">history.register.of.applications.form</field>
+            <field name="model">history.register.of.applications</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="entity_id"/>
+                            <field name="name"/>
+                        </group>
+                        <group/>
+                    </group>
+                    <field name="line_ids">
+                        <tree editable="bottom">
+                            <field name="date_of_allotment"/>
+                            <field name="no_of_allotment"/>
+                            <field name="name"/>
+                            <field name="class_of_share"/>
+                            <field name="no_of_shares_allotted"/>
+                            <field name="distinctive_from"/>
+                            <field name="distinctive_to"/>
+                            <field name="amount_paid_in_cash"/>
+                            <field name="amount_paid_otherwise"/>
+                            <field name="further_amount_payable"/>
+                            <field name="share_certificate_no"/>
+                            <field name="folio_no"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="date_of_allotment"/>
+                                <field name="no_of_allotment"/>
+                                <field name="name"/>
+                                <field name="class_of_share"/>
+                                <field name="no_of_shares_allotted"/>
+                            </group>
+                            <group>
+                                <field name="distinctive_from"/>
+                                <field name="distinctive_to"/>
+                                <field name="amount_paid_in_cash"/>
+                                <field name="amount_paid_otherwise"/>
+                                <field name="further_amount_payable"/>
+                                <field name="share_certificate_no"/>
+                                <field name="folio_no"/>
+                            </group>
+                        </form>
+                    </field>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

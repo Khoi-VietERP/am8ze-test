@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_res_partner_filter_inherit" model="ir.ui.view">
+            <field name="name">view.res.partner.filter.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <separator/>
+                    <filter string="Outstanding Customers" name="check_outstanding_customers" domain="[('check_outstanding_customers', '=', True)]"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

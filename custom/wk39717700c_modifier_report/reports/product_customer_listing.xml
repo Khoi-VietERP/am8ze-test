@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <template id="product_customer_listing_layout">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+            <t t-call="wk39717700c_modifier_report.external_layout_product_customer_listing_header_logo">
+                <t t-raw="0"/>
+            </t>
+
+        </template>
+
+        <template id="external_layout_product_customer_listing_header_logo">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                <div class="row" style="width: 100%;">
+                    <div class="col-8" style="font-size: 15px">
+                        <strong>WINLYKAH TRADING</strong>
+                        <br/>
+                        <span>Products Customer Listing</span>
+                        <br/>
+                        <span>Date Range <t t-esc="start_date"/> to <t t-esc="end_date"/></span>
+                        <br/>
+                        <span>
+                            Product Range:
+                            <t t-if="check_product">
+                                 <t t-esc="product_data[0].get('product_name')"/>
+                            </t>
+                        </span>
+                    </div>
+                    <div class="col-4">
+                        <span>Date: <t t-esc="date"/></span>
+                        <br/>
+                        <span>Page: <span class="page"/> of <span class="topage"/></span>
+                    </div>
+                </div>
+            </div>
+
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+                 t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                 t-att-data-oe-lang="o and o.env.context.get('lang')"
+            >
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+        </template>
+        <template id="report_product_customer_listing_template">
+            <t t-call="web.html_container">
+                <t t-call="wk39717700c_modifier_report.product_customer_listing_layout">
+                    <div class="page">
+                        <table style="width: 100%">
+                            <thead>
+                                <tr style="border-top: 1px solid black; border-bottom: 1px solid black">
+                                    <th style="width:10%; text-align:left">
+                                        <span>ProductCode</span>
+                                        <br/>
+                                        <span>Date</span>
+                                    </th>
+                                    <th style="width:10%; text-align:center"><br/>Type</th>
+                                    <th style="width:12%; text-align:left">
+                                        <span>ProductName</span>
+                                        <br/>
+                                        <span>Doc.No</span>
+                                    </th>
+                                    <th style="width:11%; text-align:right"><br/>StockOut</th>
+                                    <th style="width:10%; text-align:center"><br/>UOM</th>
+                                    <th style="width:11%; text-align:right"><br/>Unit Price</th>
+                                    <th style="width:11%; text-align:right"><br/>Total</th>
+                                    <th style="width:10%; text-align:center"><br/>Cust.Code</th>
+                                    <th style="width:15%; text-align:center">Description of Transaction</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="product_data" t-as="product_line">
+                                    <tr>
+                                    <td style="text-align:left; text-decoration:underline;font-weight: bold">
+                                        <t t-esc="product_line.get('product_code')"/>
+                                    </td>
+                                    <td></td>
+                                    <td  colspan="7" style="text-align:left; text-decoration:underline; font-weight: bold">
+                                        <t t-esc="product_line.get('product_name')"/>
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="9" style="height:10px">
+                                        </td>
+                                    </tr>
+                                    <t t-foreach="product_line.get('data')" t-as="line">
+                                        <tr>
+                                        <td style="text-align:left">
+                                            <t t-esc="line.get('date')"/>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <t t-esc="line.get('type')"/>
+                                        </td>
+                                        <td style="text-align:left">
+                                            <t t-esc="line.get('doc_no')"/>
+                                        </td>
+                                        <td style="text-align:right">
+                                            <t t-esc="'{0:,.2f}'.format(line.get('stock_out'))"/>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <t t-esc="line.get('uom')"/>
+                                        </td>
+                                        <td style="text-align:right">
+                                            <t t-esc="'{0:,.2f}'.format(line.get('unit_price'))"/>
+                                        </td>
+                                        <td style="text-align:right">
+                                            <t t-esc="'{0:,.2f}'.format(line.get('total'))"/>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <t t-esc="line.get('cust_code')"/>
+                                        </td>
+                                        <td style="text-align:left">
+                                            <t t-esc="line.get('cust_name')"/>
+                                        </td>
+                                    </tr>
+                                    </t>
+                                </t>
+                                <tr>
+                                    <td/>
+                                    <td/>
+                                    <td class="text-right">
+                                        <b>Grand Total :</b>
+                                    </td>
+                                    <td class="text-right">
+                                        <b><t t-esc="total_stock_out"/> </b>
+                                    </td>
+                                    <td/>
+                                    <td/>
+                                    <td class="text-right">
+                                        <b><t t-esc="total_total"/> </b>
+                                    </td>
+                                    <td/>
+                                    <td/>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+        <template id="wk39717700c_modifier_report.report_product_customer_listing">
+            <t t-call="web.html_container">
+                <t t-call="wk39717700c_modifier_report.report_product_customer_listing_template"/>
+            </t>
+        </template>
+        <record id="paper_format_product_customer_listing" model="report.paperformat">
+            <field name="name">Products Customer Listing</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">25</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+                id="report_product_customer_listing_id"
+                string="Products Customer Listing"
+                model="report.product.customer.listing"
+                report_type="qweb-pdf"
+                file="wk39717700c_modifier_report.report_product_customer_listing"
+                name="wk39717700c_modifier_report.report_product_customer_listing"
+                print_report_name="'Products Customer Listing'"
+                paperformat="wk39717700c_modifier_report.paper_format_product_customer_listing"
+                menu="False"
+        />
+
+    </data>
+</odoo>

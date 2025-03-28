@@ -1,0 +1,101 @@
+<odoo>
+    <data>
+        <record id="history_register_of_members_tree" model="ir.ui.view">
+            <field name="name">history.register.of.members.tree</field>
+            <field name="model">history.register.of.members</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="address"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="history_register_of_members_form" model="ir.ui.view">
+            <field name="name">history.register.of.members.form</field>
+            <field name="model">history.register.of.members</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="entity_id"/>
+                            <field name="name"/>
+                            <field name="address"/>
+                        </group>
+                        <group/>
+                    </group>
+                    <field name="class_of_share_ids">
+                        <tree editable="bottom">
+                            <field name="class_of_share"/>
+                            <field name="currency_id"/>
+                            <field name="current_holding"/>
+                            <field name="date_entered"/>
+                            <field name="date_ceased"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="class_of_share"/>
+                                <field name="currency_id"/>
+                                <field name="current_holding"/>
+                            </group>
+                            <group>
+                                <field name="date_entered"/>
+                                <field name="date_ceased"/>
+                            </group>
+                        </form>
+                    </field>
+                    <separator string="Shares Acquired"/>
+                    <field name="shares_acquired_ids">
+                        <tree editable="bottom">
+                            <field name="date_of_acquisition"/>
+                            <field name="number_of_shares_acquired"/>
+                            <field name="certificate_number"/>
+                            <field name="distinctive_numbers"/>
+                            <field name="consideration_paid"/>
+                            <field name="further_amount_payable"/>
+                            <field name="shares_disposed"/>
+                            <field name="notes"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="date_of_acquisition"/>
+                                <field name="number_of_shares_acquired"/>
+                                <field name="certificate_number"/>
+                                <field name="distinctive_numbers"/>
+                            </group>
+                            <group>
+                                <field name="consideration_paid"/>
+                                <field name="further_amount_payable"/>
+                                <field name="shares_disposed"/>
+                                <field name="notes"/>
+                            </group>
+                        </form>
+                    </field>
+                    <separator string="Shares Transferred"/>
+                    <field name="shares_transferred_ids">
+                        <tree editable="bottom">
+                            <field name="date_of_transfer"/>
+                            <field name="number_of_shares_transferred"/>
+                            <field name="certificate_number"/>
+                            <field name="distinctive_numbers"/>
+                            <field name="consideration_received"/>
+                            <field name="transferee"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="date_of_transfer"/>
+                                <field name="number_of_shares_transferred"/>
+                                <field name="certificate_number"/>
+                                <field name="distinctive_numbers"/>
+                            </group>
+                            <group>
+                                <field name="consideration_received"/>
+                                <field name="transferee"/>
+                            </group>
+                        </form>
+                    </field>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

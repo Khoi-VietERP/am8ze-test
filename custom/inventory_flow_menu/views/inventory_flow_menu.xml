@@ -1,0 +1,15 @@
+<odoo>
+    <menuitem id="inventory_flow_menu" name="ERP Menu"/>
+
+    <record id="stock.menu_stock_root" model="ir.ui.menu">
+        <field name="parent_id" ref="inventory_flow_menu"/>
+    </record>
+
+    <record id="sale.sale_menu_root" model="ir.ui.menu">
+        <field name="parent_id" ref="inventory_flow_menu"/>
+    </record>
+
+    <record id="purchase.menu_purchase_root" model="ir.ui.menu">
+        <field name="parent_id" ref="inventory_flow_menu"/>
+    </record>
+</odoo>

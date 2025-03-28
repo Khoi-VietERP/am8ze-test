@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="application_for_strike_off_form" model="ir.ui.view">
+            <field name="name">application.for.strike.off.form</field>
+            <field name="model">application.for.strike.off</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Entity Information">
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <separator string="Application"/>
+                            <span style="font-weight: bold;">
+                                <field name="lable_All_Majority" style="width: 100%;"/>
+                            </span>
+                            <field name="line_ids" style="width: 100%" readonly="1">
+                                <tree create="false" edit="false" delete="false">
+                                    <field name="name"/>
+                                    <field name="identification_no"/>
+                                </tree>
+                                <form create="false" edit="false">
+                                    <group>
+                                        <group>
+                                            <field name="name"/>
+                                        </group>
+                                        <group>
+                                            <field name="identification_no"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                            <br/><br/>
+                            <group col="2">
+                                <div>
+                                    <label for="reason_for_application" style="font-weight: bold;"/><br/>
+                                    <field name="reason_for_application" style="width: 50%;"/>
+                                    <field name="check_show_ceased_date" style="width: 50%;" invisible="1"/>
+                                </div>
+                                <div>
+                                    <label for="ceased_date" style="font-weight: bold;" attrs="{'invisible' : [('check_show_ceased_date', '=', True)]}"/><br/>
+                                    <field name="ceased_date" style="width: 50%;" attrs="{'invisible' : [('check_show_ceased_date', '=', True)]}"/><br/>
+                                    <label for="last_transaction_date" style="font-weight: bold;"/><br/>
+                                    <field name="last_transaction_date" style="width: 50%;"/><br/>
+                                    <label for="bank_account_close_date" style="font-weight: bold;"/><br/>
+                                    <field name="bank_account_close_date" style="width: 50%;"/>
+                                </div>
+                            </group><br/>
+                            <p>
+                                *Please check the boxes wherever appropriate.
+                            </p>
+                            <div>
+                                <field name="check_box_1"/>
+                                <label for="check_box_1" style="display: contents;font-weight: normal"/>
+                            </div><br/>
+                            <div>
+                                <field name="check_box_2"/>
+                                <label for="check_box_2" style="display: contents;font-weight: normal"/>
+                            </div><br/>
+                            <div>
+                                <field name="check_box_3"/>
+                                <label for="check_box_3" style="display: contents;font-weight: normal"/>
+                            </div><br/>
+                            <div>
+                                <field name="check_box_4"/>
+                                <label for="check_box_4" style="display: contents;font-weight: normal"/>
+                            </div>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

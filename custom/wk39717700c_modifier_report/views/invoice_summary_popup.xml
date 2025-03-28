@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="invoice_summary_popup">
+            <field name="name">invoice.summary.popup</field>
+            <field name="model">report.invoice.summary</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Export" name="export_report" type="object" class="btn-primary"/>
+                        <button string="View" name="action_view" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="invoice_summary_action" model="ir.actions.act_window">
+            <field name="name">Invoice Summary</field>
+            <field name="res_model">report.invoice.summary</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="invoice_summary_menu" name="Invoice - Summary"
+                  action="invoice_summary_action" parent="account.menu_finance_reports" sequence="52"/>
+    </data>
+</odoo>

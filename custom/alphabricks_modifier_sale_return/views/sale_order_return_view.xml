@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="knk_sale_order_return_form_inherit" model="ir.ui.view">
+        <field name="model">sale.order.return</field>
+        <field name="inherit_id" ref="knk_sale_return.knk_sale_order_return_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_create_invoice" type="object"  class="oe_highlight" string="Create Invoice"
+                    attrs="{'invisible': ['|',('invoice_count', '!=', 0), ('state','=', 'draft')]}"/>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button name="action_view_invoice" type="object" class="oe_stat_button" icon="fa-pencil-square-o"
+                        attrs="{'invisible': [('invoice_count', '=', 0)]}">
+                        <field name="invoice_count" widget="statinfo" string="Invoices"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

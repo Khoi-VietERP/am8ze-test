@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="TempStatementOfAccountsReport">
+        <div class="py-main-container">
+            <div class="py-filter-container">
+                <div class="py-control-panel">
+                </div>
+            </div>
+            <div class="py-data-container">
+                <div class="py-data-container-orig">
+                </div>
+                <div id="loader">
+                    <div id="top"></div>
+                    <div id="bottom"></div>
+                    <div id="line"></div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="FilterStatementOfAccountsReport">
+        <div class="py-control-div">
+            <div class="py-cntrl-left">
+                <div class="py-ctrl-buttons">
+                    <button type="button" class="btn py-btn-primary" id="pdf" action="print_pdf" style="position: relative;">Print (Pdf)</button>
+                </div>
+            </div>
+            <div class="py_cntrl_right">
+                <div class="py-search-buttons">
+                    <button type="button" id="filter_apply_button" class="btn py-btn-secondary" action="apply_filter" style="position: relative;">Apply</button>
+                    <div class="py-search-btn-date">
+                        <a type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="fa fa-calendar" title="Dates" role="img" aria-label="Dates"></span>
+                        Custom
+                        </a>
+                        <div class="dropdown-menu py-filters-menu" role="menu">
+                            <div role="separator" class="dropdown-divider"></div>
+                            <span role="menuitem" class="dropdown-item" data-filter="custom_filter_date">Custom</span>
+                            <div class="o_foldable_menu  o_account_report_search" data-filter="custom_filter_date">
+                                <label class="custom-date" for="date_from">Start Date :</label>
+                                <div class="form-group custom-date">
+                                    <div class="o_datepicker" aria-atomic="true" id="datepicker10" data-target-input="nearest">
+                                        <input type="date" id="date_from"></input>
+                                    </div>
+                                </div>
+                                <label class="custom-date" for="date_to">End Date :</label>
+                                <div class="form-group custom-date">
+                                    <div class="o_datepicker" aria-atomic="true" id="datepicker11" data-target-input="nearest">
+                                        <input type="date" id="date_to"></input>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="separator" class="dropdown-divider"></div>
+                        </div>
+                    </div>
+<!--                    <div class="py-search-extra">-->
+<!--                        <a type="button" class="dropdown-toggle" data-toggle="dropdown">-->
+<!--                        <span class="fa fa-filter"></span>-->
+<!--                            Customer Range-->
+<!--                        </a>-->
+<!--                        <select class="dropdown-menu py-filters-menu customer-multiple" name="states[]" multiple="multiple">-->
+<!--                            <t t-foreach="get_info['customer_list']" t-as="customer">-->
+<!--                                <option t-attf-value="{{customer[0]}}"><t t-esc="customer[1]"/></option>-->
+<!--                            </t>-->
+<!--                        </select>-->
+<!--                    </div>-->
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="TempStatementOfAccountsReportMain">
+        <style>
+            .table-product {
+                margin-top: 30px
+            }
+            .table-product th {
+                border-top: 1px solid #000;
+                border-bottom: 1px solid #000;
+                padding: 0.2rem 0rem;
+            }
+        </style>
+        <br/>
+        <div style="font-size:13px;text-align: center;border-bottom: 1px solid #6c757d;margin-top: 5px;">
+            <t t-if="get_info">
+                <div style="font-size:13px;text-align: center;">
+                    <b>
+                        <h3><span t-esc="get_info['company']"></span></h3>
+                        <b>Statement of Accounts</b>
+                        <br/>
+                        <b>Date Range : <t t-esc="get_info['date_from']"/> <t t-if="get_info['date_to']">to <t t-esc="get_info['date_to']"/></t></b>
+                    </b>
+                </div>
+            </t>
+        </div>
+        <t t-foreach="get_info['customer_data']" t-as="customer">
+            <div class="row" style="width: 90%; margin: auto;">
+                <div class="col-9 text-left" style="font-size: 15px">
+                    <br/>
+                    <span>To:</span><br/>
+                    <span>Company name/ Name :<![CDATA[&nbsp;]]></span><span t-esc="customer['partner_name']"></span><br/>
+                    <span>Address :<![CDATA[&nbsp;]]><t t-esc="customer['partner_address']"/> </span><br/>
+                    <span>Phone number :<![CDATA[&nbsp;]]><t t-esc="customer['partner_mobile']"/> </span><br/>
+                    <span>Email :<![CDATA[&nbsp;]]><t t-esc="customer['partner_email']"/></span><br/>
+                </div>
+            </div>
+            <div style="width: 80%; margin: auto; margin-top: 20px">
+                <div class="row" style="width: 20%; float: right; font-size: 15px">
+                    <div style="width: 50%">
+                        <b>Opening Balance :</b>
+                    </div>
+                    <div style="width: 50%; text-align: left;">
+                        <b><span t-esc="customer['opening_balance']"/></b>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="text-center">
+                            <th>Date</th>
+                            <th>Ref.</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th t-if="customer['activity']">Payment</th>
+                            <th>Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="customer['soa_data']" t-as="soa">
+                            <tr>
+                                <td>
+                                    <t t-esc="soa['date']"/>
+                                </td>
+                                <td>
+                                    <t t-esc="soa['ref']"/>
+                                </td>
+                                <td class="text-center">
+                                    <t t-esc="soa['description']"/>
+                                </td>
+                                <td class="text-right">
+                                    <t t-esc="soa['amount']"/>
+                                </td>
+                                <td t-if="customer['activity']" class="text-right">
+                                    <t t-esc="soa['payment']"/>
+                                </td>
+                                <td class="text-right">
+                                    <t t-esc="soa['balance']"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-right">
+                                <b><span t-esc="customer['total_amount']"/></b>
+                            </td>
+                            <td t-if="customer['activity']" class="text-right">
+                                <b><span t-esc="customer['total_payment']"/></b>
+                            </td>
+                            <td class="text-right">
+                                <b><span t-esc="customer['total_balance']"/></b>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row" style="width: 20%; float: right; font-size: 15px">
+                    <div style="width: 30%">
+                        <b>Subtotal :</b>
+                    </div>
+                    <div style="width: 70%; text-align: left;">
+                        <b><span t-esc="customer['sub_total']"/></b>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <table t-if="type != 'bill'" t-attf-class="table table-sm" name="days_table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>0-30</th>
+                                <th>30-60</th>
+                                <th>60-90</th>
+                                <th>90+</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td></td>
+                            <td><span style="margin-left: 0px;" t-esc="customer['first_thirty_day']" /></td>
+                            <td><span style="margin-left: 0px;" t-esc="customer['thirty_sixty_days']" /></td>
+                            <td><span style="margin-left: 0px;" t-esc="customer['sixty_ninty_days']" /></td>
+                            <td><span style="margin-left: 0px;" t-esc="customer['ninty_plus_days']" /></td>
+                            <td><span style="margin-left: 0px;" t-esc="customer['total']" /></td>
+                        </tr>
+                    </table>
+            </div>
+        </t>
+    </t>
+</templates>

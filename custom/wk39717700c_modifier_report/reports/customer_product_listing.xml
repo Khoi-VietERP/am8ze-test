@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="paperformat_customer_product_listing" model="report.paperformat">
+            <field name="name">Customer Product Listing A4</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">25</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">25</field>
+            <field name="dpi">96</field>
+        </record>
+
+        <report
+            id="customer_product_listing_report"
+            model="report.customer.product.listing"
+            string="Customer - Product Listing"
+            report_type="qweb-pdf"
+            name="wk39717700c_modifier_report.report_customer_product_listing"
+            file="wk39717700c_modifier_report.report_customer_product_listing"
+            paperformat="wk39717700c_modifier_report.paperformat_customer_product_listing"
+            />
+
+        <template id="wk39717700c_customer_product_listing_layout">
+            <div class="header">
+                <div class="row" id="header_id">
+                    <div style="font-size:14px;width:70%">
+                        <ul class="list-unstyled">
+                            <strong>
+                                <li t-if="company.name">
+                                    <h4 t-field="company.name"/>
+                                </li>
+                            </strong>
+                            <li>
+                                <span>Customers Products Listing</span>
+                            </li>
+                            <li>
+                                Date Range <span class="o_force_ltr" t-esc="start_date"/> to <span class="o_force_ltr" t-esc="end_date"/>
+                            </li>
+                            <li>
+                                Customer Range <span class="o_force_ltr" t-esc="customer"/>
+                            </li>
+                        </ul>
+                    </div>
+                    <div style="font-size:14px;width:30%">
+                        <ul class="list-unstyled">
+                            <li>
+                                Date: <span class="o_force_ltr" t-esc="date"/>
+                            </li>
+                            <li>
+                                Page: <span class="page"/> / <span class="topage"/>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="article" t-att-data-oe-model="o and docs[0]._name" t-att-data-oe-id="o and docs[0].id" t-att-data-oe-lang="o and docs[0].env.context.get('lang')">
+                <t t-raw="0"/>
+            </div>
+        </template>
+
+        <template id="report_customer_product_listing">
+            <t t-call="web.html_container">
+                <t t-call="wk39717700c_modifier_report.wk39717700c_customer_product_listing_layout">
+                    <t t-set="company" t-value="res_company"/>
+                    <div class="page">
+                        <table class="table" style="margin-top: 20px; width: 100%">
+                            <thead>
+                                <tr>
+                                    <th class="text-left" style="width: 15%"><strong>Cust Code<br/>Date</strong></th>
+                                    <th class="text-left" style="width: 4%"><strong>Type</strong></th>
+                                    <th class="text-left" style="width: 16%"><strong>Customer Name<br/>Doc.No</strong></th>
+                                    <th class="text-left" style="width: 10%"><strong>Product Code</strong></th>
+                                    <th class="text-left" style="width: 7%"><strong>StockOut</strong></th>
+                                    <th class="text-left" style="width: 6%"><strong>UOM</strong></th>
+                                    <th class="text-right" style="width: 12%"><strong>Unit Price</strong></th>
+                                    <th class="text-right" style="width: 10%"><strong>Total</strong></th>
+                                    <th class="text-left" style="width: 20%"><strong>Description of<br/>Transaction</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="customer_data" t-as="data">
+                                    <tr>
+                                        <td colspan="2">
+                                            <b><t t-esc="data['customer_code']"/></b>
+                                        </td>
+                                        <td colspan="7">
+                                            <b><t t-esc="data['customer_name']"/></b>
+                                        </td>
+                                    </tr>
+                                    <tr t-foreach="data['move_line']" t-as="line">
+                                        <td><span t-esc="line['cust_code_date']"/></td>
+                                        <td><span t-esc="line['type']"/></td>
+                                        <td><span t-esc="line['inv_name']"/></td>
+                                        <td><span t-esc="line['product_code']"/></td>
+                                        <td class="text-right"><span t-esc="line['stock_out']"/></td>
+                                        <td><span t-esc="line['uom']"/></td>
+                                        <td class="text-right"><span t-esc="line['uint_price']"/></td>
+                                        <td class="text-right"><span t-esc="line['total']"/></td>
+                                        <td><span t-esc="line['description']"/></td>
+                                    </tr>
+                                    <tr style="padding-top: 10px">
+                                        <td colspan="4" class="text-right">
+                                            <b>
+                                                Grand Total:
+                                            </b>
+                                        </td>
+                                        <td class="text-right">
+                                            <b>
+                                                <t t-esc="data['total_stock_out']"/>
+                                            </b>
+                                        </td>
+                                        <td/>
+                                        <td class="text-right">
+                                            <b>
+                                                <t t-esc="data['total_uint_price']"/>
+                                            </b>
+                                        </td>
+                                        <td class="text-right">
+                                            <b>
+                                                <t t-esc="data['total_total']"/>
+                                            </b>
+                                        </td>
+                                        <td/>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <report
+            id="customer_product_listing_xlsx_report"
+            model="report.customer.product.listing"
+            string="Print to XLSX"
+            report_type="xlsx"
+            name="wk39717700c_modifier_report.customer_product_excel"
+            file="wk39717700c_modifier_report.customer_product_excel"
+            attachment_use="False"
+            print_report_name="'Customer - Product Listing - %s To %s %s' % (object.start_date.strftime('%b'),object.end_date.strftime('%b'),object.start_date.strftime('%y'))"
+        />
+
+    </data>
+</odoo>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="foreign_application_strike_off_form" model="ir.ui.view">
+            <field name="name">foreign.application.strike.off.form</field>
+            <field name="model">foreign.application.strike.off</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <div>
+                                <label for="reason_for_application" style="font-weight: bold;"/><br/>
+                                <field name="reason_for_application" widget="radio"/>
+                            </div>
+                            <group col="2">
+                                <div>
+                                    <label for="date_of_correspondence" style="font-weight: bold;"/><br/>
+                                    <field name="date_of_correspondence" style="width: 30%;"/>
+                                </div>
+                                <div>
+                                    <label for="attachment_sup_document" style="font-weight: bold;"/><br/>
+                                    <field name="attachment_sup_document" style="width: 50%;"/>
+                                </div>
+                            </group>
+                            <separator string="Criteria for Striking Off"/>
+                            <div>
+                                <label for="selection_1" style="font-weight: bold;"/><br/>
+                                <field name="selection_1" widget="radio" style="flex-flow: row nowrap;"/>
+                            </div><br/><br/>
+                            <div>
+                                <label for="selection_2" style="font-weight: bold;"/><br/>
+                                <field name="selection_2" widget="radio" style="flex-flow: row nowrap;"/>
+                            </div><br/><br/>
+                            <div>
+                                <label for="selection_3" style="font-weight: bold;"/><br/>
+                                <field name="selection_3" widget="radio" style="flex-flow: row nowrap;"/>
+                            </div><br/><br/>
+                            <div attrs="{'invisible' : [('selection_3', '!=', 'no')]}">
+                                <label for="supporting_document" style="font-weight: bold;"/><br/>
+                                <field name="supporting_document" style="width: 30%;"/>
+                            </div>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

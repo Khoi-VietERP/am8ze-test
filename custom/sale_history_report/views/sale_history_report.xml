@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+
+        <record id="sale_history_report_form" model="ir.ui.view">
+            <field name="name">Sale History Report Form</field>
+            <field name="model">sale.history.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="is_best_selling_report" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="partner_id" string="Customer"/>
+                            <field name="product_id"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="generate_xlsx_report" string="Print XLSX" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="sale_history_report_action">
+            <field name="name">Sale History</field>
+            <field name="res_model">sale.history.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <menuitem id="sale_history_report_menu" name="Sale History" parent="sale.menu_sale_report"
+                  action="sale_history_report_action"/>
+
+        <record model="ir.actions.act_window" id="sale_best_selling_action">
+            <field name="name">Sale Best Selling</field>
+            <field name="res_model">sale.history.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context">{'default_is_best_selling_report' : True}</field>
+        </record>
+        <menuitem id="sale_best_selling_menu" name="Sale Best Selling" parent="sale.menu_sale_report"
+                  action="sale_best_selling_action"/>
+    </data>
+</odoo>

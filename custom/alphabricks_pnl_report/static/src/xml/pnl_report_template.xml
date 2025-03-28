@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="TempPnlReport">
+        <div class="py-main-container">
+            <div class="py-filter-container">
+                <div class="py-control-panel">
+                </div>
+            </div>
+            <div class="py-data-container">
+                <div class="py-data-container-orig">
+                </div>
+                <div id="loader">
+                    <div id="top"></div>
+                    <div id="bottom"></div>
+                    <div id="line"></div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="FilterPnlReport">
+        <div class="py-control-div">
+            <div class="py-cntrl-left">
+                <div class="py-ctrl-buttons">
+                    <button type="button" class="btn py-btn-primary" id="pdf-landscape" action="print_pdf-landscape" style="position: relative;">Print (Pdf - Landscape)</button>
+                    <button type="button" class="btn py-btn-primary" id="pdf" action="print_pdf" style="position: relative;">Print (Pdf)</button>
+                    <button type="button" class="btn py-btn-primary" id="xlsx" action="print_xlsx" style="position: relative;">Export (XLSX)</button>
+                </div>
+            </div>
+            <div class="py_cntrl_right">
+                <div class="py-search-buttons">
+                    <button type="button" id="filter_apply_button" class="btn py-btn-secondary" action="apply_filter" style="position: relative;">Apply</button>
+                    <div class="py-search-btn-date">
+                        <a type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="fa fa-calendar" title="Dates" role="img" aria-label="Dates"></span>
+                        Custom
+                        </a>
+                        <div class="dropdown-menu py-filters-menu" role="menu">
+                            <div role="separator" class="dropdown-divider"></div>
+                            <span role="menuitem" class="dropdown-item" data-filter="custom_filter_date">Custom</span>
+                            <div class="o_foldable_menu o_closed_menu o_account_report_search" data-filter="custom_filter_date">
+                                <label class="custom-date" for="date_from">Start Date :</label>
+                                <div class="form-group custom-date">
+                                    <div class="o_datepicker" aria-atomic="true" id="datepicker10" data-target-input="nearest">
+                                        <input type="date" id="date_from"></input>
+                                    </div>
+                                </div>
+                                <label class="custom-date" for="date_to">End Date :</label>
+                                <div class="form-group custom-date">
+                                    <div class="o_datepicker" aria-atomic="true" id="datepicker11" data-target-input="nearest">
+                                        <input type="date" id="date_to"></input>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="separator" class="dropdown-divider"></div>
+                        </div>
+                    </div>
+                    <div class="py-search-extra">
+                        <a type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="fa fa-calendar" title="Comparison" role="img" aria-label="Comparison"></span>
+                            Comparison
+                        </a>
+                        <div class="dropdown-menu py-filters-menu" role="menu">
+                            <div role="separator" class="dropdown-divider"></div>
+                            <span role="menuitem" class="dropdown-item"
+                                  data-filter="custom_filter_date">Previous Period</span>
+                            <div class="o_foldable_menu o_account_report_search" data-filter="custom_filter_date">
+                                <label class="custom-date" for="comparison_number_of_month">Number of Periods:</label>
+                                <div class="form-group custom-date">
+                                    <input type="text" id="comparison_number_of_month"></input>
+                                </div>
+                            </div>
+                            <span role="menuitem" class="dropdown-item" data-filter="custom_filter_date">Same Period Last Year</span>
+                            <div class="o_foldable_menu o_account_report_search" data-filter="custom_filter_date">
+                                <label class="custom-date" for="comparison_number_of_year">Number of Periods:</label>
+                                <div class="form-group custom-date">
+                                    <input type="text" id="comparison_number_of_year"></input>
+                                </div>
+                            </div>
+                            <span role="menuitem" class="dropdown-item"
+                                  data-filter="custom_filter_date">Comparison</span>
+                            <div class="o_foldable_menu o_account_report_search" data-filter="custom_filter_date">
+                                <label class="custom-date" for="date_from">Start Date :</label>
+                                <div class="form-group custom-date">
+                                    <div class="o_datepicker" aria-atomic="true" id="datepicker10" data-target-input="nearest">
+                                        <input type="date" id="date_from_cmp" style="width: 100%"></input>
+                                    </div>
+                                </div>
+                                <label class="custom-date" for="date_to">End Date :</label>
+                                <div class="form-group custom-date">
+                                    <div class="o_datepicker" aria-atomic="true" id="datepicker11" data-target-input="nearest">
+                                        <input type="date" id="date_to_cmp" style="width: 100%"></input>
+                                    </div>
+                                </div>
+                            </div>
+                            <span role="menuitem" class="dropdown-item" data-filter="custom_filter_date">Number of comparison</span>
+                            <div class="form-group custom-date">
+                                    <input type="text" id="number_of_comparison"></input>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="py-search-extra">
+                        <a type="button" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="fa fa-filter"></span>
+                            Analytic Account
+                        </a>
+                        <select class="dropdown-menu py-filters-menu analytic-multiple" name="states[]" multiple="multiple">
+                            <t t-foreach="get_info['analytic_list']" t-as="analytic">
+                                <option t-attf-value="{{analytic[0]}}"><t t-esc="analytic[1]"/></option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="py-search-extra">
+                        <a type="button" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="fa fa-filter"></span>
+                            Options:
+                        </a>
+                        <select class="dropdown-menu py-filters-menu extra-multiple" name="states[]"
+                                multiple="multiple">
+                            <option value="hide_line">Hide line not have amount</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="TempPnlReportMain">
+        <style>
+            .page {
+                 font-size:14px
+            }
+            .line-account {
+                cursor: pointer;
+            }
+            .table-gst5 table {
+                    position: relative;
+                    top: -10px;
+            }
+            .table-gst5 th {
+                position: sticky;
+                top: -7px;
+                background-color: #e5e5e5;
+            }
+            .table-gst5 th, .table-gst5 td {
+                padding-top: 1px;
+                padding-bottom: 1px
+            }
+            .table-gst5 .btn {
+                padding: 1px 0.75rem;
+            }
+            .table-with-50 {
+                width: 50%;
+                margin: 0 auto;
+            }
+        </style>
+        <br/>
+        <div style="font-size:13px;text-align: center;border-bottom: 1px solid #6c757d;margin-top: 5px;">
+            <h3>
+                <span t-esc="get_info['company_name']"/>
+                <br/>
+            </h3>
+            <h3>
+                <span>PROFIT &amp; LOSS</span>
+                <br/>
+            </h3>
+            <h5>
+                <span t-esc="get_info['start_date']"/>
+                to
+                <span t-esc="get_info['end_date']"/>
+                <br/>
+            </h5>
+        </div>
+        <div style="width: 100%">
+            <t t-if="get_info['check_cmp']">
+                <table style="margin: auto;">
+                    <thead>
+                        <tr>
+                            <th style="width:30%"></th>
+                            <t t-foreach="get_info['label_filter_list']" t-as="lable">
+                                <th style="text-align: center;width:90px"><t t-esc="lable"/> </th>
+                            </t>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="get_info['lines_data']" t-as="line">
+                            <t t-if="line['type'] == 'account_type'">
+                                <tr>
+                                    <td>
+                                        <b><t t-esc="line['name']"/></b>
+                                    </td>
+                                    <t t-foreach="get_info['balance_cmp_list']" t-as="balance_cmp">
+                                        <td class="text-right">
+                                            <b><t t-esc="line[balance_cmp]"/></b>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+                            <t t-if="line['type'] == 'view'">
+                                <tr>
+                                    <td>
+                                        <t t-foreach="line['list_len']" t-as="i">
+                                            <span>&amp;nbsp;</span>
+                                            <span>&amp;nbsp;</span>
+                                        </t>
+                                        <b><t t-esc="line['name']"/></b>
+                                    </td>
+                                    <td t-att-colspan="get_info['month_run']"></td>
+                                </tr>
+                            </t>
+                            <t t-if="line['type'] == 'total'">
+                                <tr>
+                                    <td>
+                                        <t t-foreach="line['list_len']" t-as="i">
+                                            <span>&amp;nbsp;</span>
+                                            <span>&amp;nbsp;</span>
+                                        </t>
+                                        <b><t t-esc="line['name']"/></b>
+                                    </td>
+                                    <t t-foreach="get_info['balance_cmp_list']" t-as="balance_cmp">
+                                        <td class="text-right">
+                                            <b><t t-esc="line[balance_cmp]"/></b>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+                            <t t-if="line['type'] == 'line'">
+                                <tr class="line-account" t-att-data-account-id="line['account_id']">
+                                    <td>
+                                        <t t-foreach="line['list_len']" t-as="i">
+                                            <span>&amp;nbsp;</span>
+                                            <span>&amp;nbsp;</span>
+                                        </t>
+                                        <t t-esc="line['name']"/>
+                                    </td>
+                                    <t t-foreach="get_info['balance_cmp_list']" t-as="balance_cmp">
+                                        <td class="text-right">
+                                            <b><t t-esc="line[balance_cmp]"/></b>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+                            <t t-if="line['type'] == 'total_account_type'">
+                                <tr style="border-top: 1px solid black;border-bottom: 1px double black">
+                                    <td>
+                                        <b><t t-esc="line['name']"/></b>
+                                    </td>
+                                    <t t-foreach="get_info['balance_cmp_list']" t-as="balance_cmp">
+                                        <td class="text-right">
+                                            <b><t t-esc="line[balance_cmp]"/></b>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+                            <t t-if="line['type'] == 'space'">
+                                <tr>
+                                    <td t-att-colspan="get_info['month_run'] + 1" style="height: 25px"/>
+                                </tr>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+            </t>
+            <t t-else="">
+                <table class="table table-bordered table-with-50 table-gst5">
+                    <thead>
+                        <tr>
+                            <th style="width:70%"></th>
+                            <th style="width:30%" class="text-center"><b>Amount</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="get_info['lines_data']" t-as="line">
+                            <t t-if="line['type'] == 'account_type'">
+                                <tr>
+                                    <td>
+                                        <b><t t-esc="line['name']"/></b>
+                                    </td>
+                                    <td class="text-right">
+                                        <b><t t-esc="line['balance']"/></b>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="line['type'] == 'view'">
+                                <tr>
+                                    <td>
+                                        <t t-foreach="line['list_len']" t-as="i">
+                                            <span>&amp;nbsp;</span>
+                                            <span>&amp;nbsp;</span>
+                                        </t>
+                                        <b><t t-esc="line['name']"/></b>
+                                    </td>
+                                    <td class="text-right">
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="line['type'] == 'total'">
+                                <tr>
+                                    <td>
+                                        <t t-foreach="line['list_len']" t-as="i">
+                                            <span>&amp;nbsp;</span>
+                                            <span>&amp;nbsp;</span>
+                                        </t>
+                                        <b><t t-esc="line['name']"/></b>
+                                    </td>
+                                    <td class="text-right">
+                                        <b><t t-esc="line['balance']"/></b>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="line['type'] == 'line'">
+                                <tr class="line-account" t-att-data-account-id="line['account_id']">
+                                    <td>
+                                        <t t-foreach="line['list_len']" t-as="i">
+                                            <span>&amp;nbsp;</span>
+                                            <span>&amp;nbsp;</span>
+                                        </t>
+                                        <t t-esc="line['name']"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="line['balance']"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="line['type'] == 'total_account_type'">
+                                <tr style="font-weight:bold;">
+                                    <td>
+                                        <span><t t-esc="line['name']"/></span>
+                                    </td>
+                                    <td class="text-right">
+                                        <b><t t-esc="line['balance']"/></b>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="line['type'] == 'space'">
+                                <tr>
+                                    <td colspan="2" style="height: 25px"/>
+                                </tr>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+            </t>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="account_statement.report_customer_statement">
+			<t t-call="alphabricks_statement_of_accounts.modifier_external_layout_soa">
+				<t t-set="doc" t-value="doc.with_context({'lang':doc.lang})" />
+				<t t-set="company" t-value="res_company"/>
+
+				<div class="page">
+					<style>
+						.header-table th, .header-table td {
+							padding: 0.20rem 0rem;
+						}
+					</style>
+                    <div class="row" id="header_id">
+						<div style="width:15%">
+							<img t-if="company.logo" t-att-src="image_data_uri(company.logo)"
+								 style="max-height:100px;margin-left:16px"
+								 alt="Logo"/>
+						</div>
+						<div name="company_address" style="font-size:14px;width:45%">
+							<ul class="list-unstyled">
+								<strong>
+									<li t-if="company.name">
+										<h5 t-field="company.name"/>
+									</li>
+								</strong>
+								<li>
+<!--									<span t-field="company.house_no"/>-->
+<!--									<span t-field="company.unit_no"/>-->
+<!--									<br/>-->
+									<span t-field="company.street"/>
+									<br/>
+								</li>
+								<li t-if="company.phone">Tel:
+									<span class="o_force_ltr" t-field="company.phone"/>
+								</li>
+								<li t-if="company.email">Email:
+									<span t-field="company.email"/>
+								</li>
+							</ul>
+						</div>
+						<div style="width:6%"/>
+						<div style="width:24%; margin-top: 42px;" class="text-right">
+							<span style="font-size: 20px; font-weight: bold">Statement of Accounts</span>
+							<div style="font-size: 10px;width: 100%; border-top: 1px solid black; border-bottom: 1px solid black">
+							</div>
+						</div>
+						<div style="width:10%"/>
+					</div>
+					<t t-set="i" t-value="0.0" />
+					<t t-set="j" t-value="0.0" />
+					<t t-set="k" t-value="0.0" />
+					<t t-foreach="doc.balance_invoice_ids" t-as="line">
+						<t t-set="i" t-value="i+ line.amount_total_signed" />
+						<t t-set="j" t-value="j+line.credit_amount" />
+						<t t-set="k" t-value="k+line.result" />
+					</t>
+					<div class="row" style="font-size:14px; margin-bottom: 50px">
+						<div style="width:55%">
+							<br/>
+							<br/>
+							<span>To:</span><br/>
+							<span>Company name/ Name :<![CDATA[&nbsp;]]></span><span t-esc="doc.name"></span><br/>
+							<span>Address :<![CDATA[&nbsp;]]><t t-esc="doc.get_partner_address()"/> </span><br/>
+							<span>Phone number :<![CDATA[&nbsp;]]><t t-esc="doc.mobile"/> </span><br/>
+							<span>Email :<![CDATA[&nbsp;]]><t t-esc="doc.email"/></span><br/>
+						</div>
+						<div style="width:5%"/>
+						<div style="width:30%">
+							<table class="header-table" style="width: 100%">
+								<tr>
+									<td colspan="2" style="background-color: #ebebeb">
+										<b>
+											Account Summary
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td style="width: 50%">
+										Opening Balance
+									</td>
+									<td style="width: 50%" class="text-right">
+										<t t-esc="'{0:,.2f}'.format(0)"/>
+									</td>
+								</tr>
+								<tr>
+									<td style="width: 50%">
+										Invoiced Amount
+									</td>
+									<td style="width: 50%" class="text-right">
+										<t t-esc="'{0:,.2f}'.format(i)"/>
+									</td>
+								</tr>
+								<tr style="border-bottom: 1px solid black">
+									<td style="width: 50%">
+										Amount Paid
+									</td>
+									<td style="width: 50%" class="text-right">
+										<t t-esc="'{0:,.2f}'.format(j)"/>
+									</td>
+								</tr>
+								<tr>
+									<td style="width: 50%">
+										Balance Due
+									</td>
+									<td style="width: 50%" class="text-right">
+										<t t-esc="'{0:,.2f}'.format(k)"/>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div style="width:10%"/>
+					</div>
+					<table class="table table-bordered">
+						<thead>
+							<tr class="text-center">
+								<th>Date</th>
+								<th>Invoice Number</th>
+								<th>Amount/Debit</th>
+								<th>Payments/Credit</th>
+								<th>Balance</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td></td>
+								<td class="text-center">
+									<b>Initial Balance</b>
+								</td>
+								<td></td>
+								<td></td>
+								<td class="text-right">
+									<b><span t-esc="0.0" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></b>
+								</td>
+							</tr>
+   							<t t-set="grand_total" t-value="0.0" />
+							<t t-set="bal" t-value="0.0" />
+							<t t-set="sub_total" t-value="0.0" />
+							<tr t-foreach="doc.balance_invoice_ids.sorted(key=lambda r: r.name)" t-as="line">
+								<t t-set="bal" t-value="bal +sub_total "/>
+									<td class="text-center">
+										<span t-esc="line.invoice_date" />
+									</td>
+									<td class="text-center">
+										<span t-esc="line.name" />
+									</td>
+<!--									<td>-->
+<!--										<span t-esc="line.partner_id.property_account_receivable_id.code" />-->
+<!--									</td>-->
+<!--									<td>-->
+<!--										<span t-esc="line.name" />-->
+<!--									</td>-->
+									<td class="text-right">
+										<span t-esc="line.amount_total_signed"
+											t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}" />
+									</td>
+									<td class="text-right">
+										<span t-esc="line.credit_amount"
+											t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}" />
+									</td>
+									<td class="text-right">
+										 <t t-set="sub_total" t-value="line.amount_total_signed-line.credit_amount" />
+										 <t t-set="grand_total" t-value="sub_total + bal"/>
+										<span t-esc="sub_total + bal"
+											t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}" />
+									</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td class="text-center">
+									<b>Ending Balance</b>
+								</td>
+								<td></td>
+								<td></td>
+								<td class="text-right">
+									<b><span t-esc="grand_total" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></b>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-right"></td>
+								<td></td>
+								<td class="text-right"><span t-esc="'{0:,.2f}'.format(i)" /></td>
+								<td class="text-right"><span t-esc="'{0:,.2f}'.format(j)" /></td>
+								<td class="text-right"><span t-esc="'{0:,.2f}'.format(k)" /></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<div class="col-xs-4 pull-right">
+						<table class="table table-condensed">
+							<tr class="border-black">
+								<td>
+									<strong>Total Amount OverDue :</strong>
+								</td>
+								<td class="text-right">
+									<strong>
+										<span t-field="doc.payment_amount_overdue_amt"
+											t-options='{"widget": "monetary", "display_currency": res_company.currency_id}' />
+									</strong>
+								</td>
+							</tr>
+							<tr class="border-black">
+								<td>
+									<strong>Balance Due :</strong>
+								</td>
+								<td class="text-right">
+									<strong>
+										<span t-field="doc.payment_amount_due_amt"
+											t-options='{"widget": "monetary", "display_currency": res_company.currency_id}' />
+									</strong>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<br/>
+
+					<table t-attf-class="table table-sm" name="days_table" style="page-break-inside: avoid;">
+						<thead>
+							<tr >
+								<th></th>
+								<th>0-30</th>
+								<th>30-60</th>
+								<th>60-90</th>
+								<th>90+</th>
+								<th>Total</th>
+							</tr>
+						</thead>
+						<tr>
+							<td></td>
+							<td><span t-esc="'{0:,.2f}'.format(doc.first_thirty_day)" /></td>
+							<td><span t-esc="'{0:,.2f}'.format(doc.thirty_sixty_days)" /></td>
+							<td><span t-esc="'{0:,.2f}'.format(doc.sixty_ninty_days)" /></td>
+							<td><span t-esc="'{0:,.2f}'.format(doc.ninty_plus_days)" /></td>
+							<td><span t-esc="'{0:,.2f}'.format(doc.total)" /></td>
+						</tr>
+					</table>
+				</div>
+			</t>
+		</template>
+
+		<record id="account_statement.report_customert_print" model="ir.actions.report">
+            <field name="paperformat_id" ref="alphabricks_statement_of_accounts.paper_format"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="instagram_social_dashboard_data_record" model="instagram.socail.dashboard">
+        <field name="name">Instagram Dashboard</field>
+    </record>
+     <record id="instagram_pragtech_social_media" model="instagram.pragtech.social.media">
+            <field name="insta_media_name">Instagram</field>
+            <field name="insta_media_type">instagram</field>
+            <field name="insta_media_description" type="html"><p>Manage Instagram Pages and Forms</p></field>
+            <field name="insta_media_image" type="base64" file="pragtech_crm_instagram_leads/static/src/img/instagram_image.png"/>
+        </record>
+    <record model="utm.medium" id="utm_medium_instagram">
+            <field name="name">Instagram</field>
+        </record>
+
+         <record id="utm_source_instagram" model="utm.source">
+            <field name="name">Instagram</field>
+        </record>
+</odoo>

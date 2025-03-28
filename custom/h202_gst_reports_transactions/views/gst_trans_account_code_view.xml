@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="gst_trans_account_code_form_view" model="ir.ui.view">
+        <field name="name">gst.trans.account.code.form</field>
+        <field name="model">gst.trans.account.code</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="start_date" required="1"/>
+                        </group>
+                        <group>
+                            <field name="end_date" required="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_xlsx" string="XLSX"
+                        type="object" class="oe_highlight"/>
+                    <button name="action_view" string="View" type="object" default_focus="1" class="oe_highlight"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="gst_trans_account_code_action" model="ir.actions.act_window">
+        <field name="name">GST Report Transactions by Account Code</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gst.trans.account.code</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="gst_trans_account_code_menu"
+                  parent="h202102879_modifier_menu.invoicing_gst_report"
+                  action="gst_trans_account_code_action"/>
+
+    <record id="action_gst_trans_account_code_new_tab" model="ir.actions.act_url">
+        <field name="name">GST Report Transactions by Account Code</field>
+        <field name="target">new</field>
+        <field name="url" eval="'/web#action=' + str(ref('gst_trans_account_code_action')) + '&amp;model=gst.trans.account.code&amp;menu_id=' + str(ref('account.menu_finance'))"/>
+    </record>
+
+    <record model="ir.ui.menu" id="gst_trans_account_code_menu">
+        <field name="action" eval="'ir.actions.act_url,'+str(ref('action_gst_trans_account_code_new_tab'))"/>
+    </record>
+
+    <report
+            id="gst_trans_account_code_report"
+            model="gst.trans.account.code"
+            string="Print to XLSX"
+            report_type="xlsx"
+            name="h202_gst_reports_transactions.gst_trans_acc_code_excel"
+            file="h202_gst_reports_transactions.gst_trans_acc_code_excel"
+            attachment_use="False"
+            print_report_name="'GST reports transactions by account code - %s To %s %s' % (object.start_date.strftime('%b'),object.end_date.strftime('%b'),object.start_date.strftime('%y'))"
+        />
+</odoo>

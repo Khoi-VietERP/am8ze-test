@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<act_window name="Sale Reccurring"
+        res_model="recurring.sale"
+        binding_model="sale.order"
+        view_mode="form"
+        target="new"
+        id="action_recurring_sale"/>
+</odoo>

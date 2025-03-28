@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="notice_update_erom_form" model="ir.ui.view">
+            <field name="name">notice.update.erom.form</field>
+            <field name="model">notice.update.erom</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <div>
+                                <label for="does_any_corporation_directly" style="font-weight: bold;"/><br/>
+                                <field name="does_any_corporation_directly" widget="radio" style="flex-flow: row nowrap;"/>
+                            </div>
+                            <div>
+                                <label for="currency_id" style="font-weight: bold;"/><br/>
+                                <field name="currency_id" style="width: 50%;" readonly="1" class="color-text-ff8d06"/>
+                            </div>
+                            <separator string="Share Capital Details"/>
+                            <div>
+                                <label for="date_of_change" style="font-weight: bold;"/><br/>
+                                <field name="date_of_change" style="width: 30%;"/>
+                            </div><br/>
+                            <table style="width: 100%" class="table-bordered table_publication">
+                                <tr>
+                                    <td colspan="4">
+                                        <span style="font-weight: bold;">Currency: </span><span class="color-text-ff8d06">SINGAPORE, DOLLARS</span>
+                                    </td>
+                                </tr>
+                                <tr style="height: 30px">
+                                    <td style="width: 55%">
+                                        Class Of Shares
+                                    </td>
+                                    <td style="width: 15%">
+                                        Ordinary
+                                    </td>
+                                    <td style="width: 15%">
+                                        Preference
+                                    </td>
+                                    <td style="width: 15%">
+                                        Others
+                                    </td>
+                                </tr>
+                                <tr style="height: 30px">
+                                    <td>
+                                        Number of Shares
+                                    </td>
+                                    <td>
+                                        <field name="ordinary_number_of_shares" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="preference_number_of_shares" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="others_number_of_shares" readonly="1"/>
+                                    </td>
+                                </tr>
+                                <tr style="height: 30px">
+                                    <td>
+                                        Amount of Issued Share Capital
+                                    </td>
+                                    <td>
+                                        <field name="ordinary_amount_of_issued" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="preference_amount_of_issued" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="others_amount_of_issued" readonly="1"/>
+                                    </td>
+                                </tr>
+                                <tr style="height: 30px">
+                                    <td>
+                                        Amount of Paid Up Share Capital
+                                    </td>
+                                    <td>
+                                        <field name="ordinary_amount_of_paid_up"/>
+                                    </td>
+                                    <td>
+                                        <field name="preference_amount_of_paid_up" readonly="1"/>
+                                    </td>
+                                    <td>
+                                        <field name="others_amount_of_paid_up" readonly="1"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div>
+                                <label for="are_there_any_sub_classes" style="font-weight: bold;"/><br/>
+                                <field name="are_there_any_sub_classes" widget="radio" style="flex-flow: row nowrap;"/>
+                            </div><br/>
+                            <div>
+                                <label for="line_ids"/><br/>
+                                <field name="line_ids" style="width: 100%;">
+                                    <tree editable="bottom">
+                                        <field name="sub_class_share_id"/>
+                                        <field name="ordinary"/>
+                                        <field name="preference"/>
+                                        <field name="others"/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </div>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

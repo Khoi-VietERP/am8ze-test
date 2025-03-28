@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="corp_entity_view_form_inherit" model="ir.ui.view">
+            <field name="name">corp.entity.inherit</field>
+            <field name="model">corp.entity</field>
+            <field name="inherit_id" ref="corp_sec_entity.corp_entity_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Tasks Activity">
+                        <field name="project_task_ids" context="{
+                            'tree_view_ref': 'corp_sec_entity.tasks_activity_tree_view',
+                            'form_view_ref': 'corp_sec_entity.tasks_activity_form_view'}"
+                        />
+                    </page>
+                </xpath>
+                <xpath expr="//notebook" position="before">
+                    <group col="2">
+                        <div></div>
+                        <div>
+                            <div>
+                                <strong>Print:</strong>
+                            </div>
+                            <div style="margin-left: 20px; margin-top: 5px;">
+                                <button name="print_client_dd_and_declaration_form" string="Client DD and Declaration Form.doc" type="object"/><br/>
+                                <button name="print_notice_of_registrable_controller" string="Notice of Registrable Controller.doc" type="object"/><br/>
+                                <button name="print_risk_assessment_form" string="Risk Assessment Form.doc" type="object"/><br/>
+                            </div>
+                        </div>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

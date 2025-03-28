@@ -1,0 +1,54 @@
+.table_publication td{
+    padding-left: 10px;
+}
+
+.table_allotment_detail td{
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.margin-left-46 {
+    margin-left: 46px;
+}
+
+.table-padding-left-10 td{
+    padding-left: 10px;
+}
+
+.color-text-ff8d06 {
+    color: #ff8d06 !important;
+}
+
+.color-text-blue {
+    color: blue !important;
+}
+
+.border-div {
+    border: 1px solid #ccc;
+    padding: 0px 5px;
+}
+
+.vertical-align-top td{
+    vertical-align: top !important;
+}
+
+.check-box-right {
+    float: right;
+    padding-right: 30%;
+    margin: 10px 0px !important;
+}
+.lable-size-15 {
+    font-size: 15px !important;
+    margin: 10px 0px !important;
+    color: #3892c6;
+    width: 60%;
+    font-weight: bold !important;
+}
+
+.o_form_view .o_field_boolean [type='checkbox']:not(.filled-in) + label:not(.lever):after {
+    transform: scale(1);
+    left: 0px;
+    top: 4px;
+}
+

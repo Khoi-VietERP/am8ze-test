@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_blanket_order_portal,sale.order.portal,blanket_e_commerce.model_sale_blanket_order,base.group_portal,1,0,0,0
+access_sale_blanket_order_line_portal,sale.order.line.portal,blanket_e_commerce.model_sale_blanket_order_line,base.group_portal,1,0,0,0

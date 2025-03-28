@@ -1,0 +1,93 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="datapost_api_view_form">
+            <field name="name">datapost.api.form</field>
+            <field name="model">datapost.api</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <header>
+                            <button name="get_datapost_token" string="Generate Token" class="oe_right oe_highlight"
+                                type="object"/>
+                        </header>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" string="Name" placeholder=""/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="root_uri"/>
+                                <field name="base_uri"/>
+                                <field name="api_version"/>
+                            </group>
+                            <group>
+                                <field name="api_key"/>
+                                <field name="api_secret"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Tokens">
+                                <field name="token_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="access_token"/>
+                                        <field name="access_token_expiration"/>
+                                        <field name="refresh_token"/>
+                                        <field name="refresh_token_expiration"/>
+                                        <field name="is_valid"/>
+                                        <field name="can_refresh"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="access_token"/>
+                                                <field name="access_token_expiration"/>
+                                            </group>
+                                            <group>
+                                                <field name="refresh_token"/>
+                                                <field name="refresh_token_expiration"/>
+                                                <field name="is_valid"/>
+                                                <field name="can_refresh"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="datapost_api_view_tree">
+            <field name="name">datapost.api.tree</field>
+            <field name="model">datapost.api</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="root_uri"/>
+                    <field name="base_uri"/>
+                    <field name="api_version"/>
+                    <field name="api_key"/>
+                    <field name="api_secret"/>
+                </tree>
+            </field>
+         </record>
+
+        <record id="datapost_api_action" model="ir.actions.act_window">
+           <field name="name">Datapost API</field>
+           <field name="res_model">datapost.api</field>
+           <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="datapost_menu_root" name="Datapost" parent="base.menu_administration" sequence="5"/>
+
+        <menuitem
+            id="datapost_api_menu"
+            name="Datapost API"
+            parent="datapost_menu_root"
+            action="datapost_api_action"
+            sequence="1"/>
+    </data>
+</odoo>

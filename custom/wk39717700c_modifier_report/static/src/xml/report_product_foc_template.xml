@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="TempReportProductFoc">
+        <div class="py-main-container">
+            <div class="py-filter-container">
+                <div class="py-control-panel">
+                </div>
+            </div>
+            <div class="py-data-container">
+                <div class="py-data-container-orig">
+                </div>
+                <div id="loader">
+                    <div id="top"></div>
+                    <div id="bottom"></div>
+                    <div id="line"></div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="FilterReportProductFoc">
+        <div class="py-control-div">
+            <div class="py-cntrl-left">
+                <div class="py-ctrl-buttons">
+                    <button type="button" class="btn py-btn-primary" id="pdf" action="print_pdf" style="position: relative;">Print (Pdf)</button>
+                </div>
+            </div>
+            <div class="py_cntrl_right">
+                <div class="py-search-buttons">
+                    <button type="button" id="filter_apply_button" class="btn py-btn-secondary" action="apply_filter" style="position: relative;">Apply</button>
+                    <div class="py-search-btn-date">
+                        <a type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="fa fa-calendar" title="Dates" role="img" aria-label="Dates"></span>
+                        Custom
+                        </a>
+                        <div class="dropdown-menu py-filters-menu" role="menu">
+                            <div role="separator" class="dropdown-divider"></div>
+                            <span role="menuitem" class="dropdown-item" data-filter="custom_filter_date">Custom</span>
+                            <div class="o_foldable_menu  o_account_report_search" data-filter="custom_filter_date">
+                                <label class="custom-date" for="date_from">Start Date :</label>
+                                <div class="form-group custom-date">
+                                    <div class="o_datepicker" aria-atomic="true" id="datepicker10" data-target-input="nearest">
+                                        <input type="date" id="date_from"></input>
+                                    </div>
+                                </div>
+                                <label class="custom-date" for="date_to">End Date :</label>
+                                <div class="form-group custom-date">
+                                    <div class="o_datepicker" aria-atomic="true" id="datepicker11" data-target-input="nearest">
+                                        <input type="date" id="date_to"></input>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="separator" class="dropdown-divider"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="TempReportProductFocMain">
+        <div class="text-center" style="font-size: 15px">
+            <t t-if="get_info">
+                <b style="font-size: 20px;">
+                    <t t-esc="get_info['company']['name']"/>
+                </b><br/>
+                <span><t t-esc="get_info['company']['street']"/> </span>
+                <span> <t t-esc="get_info['company']['street2']"/>, <t t-esc="get_info['company']['city']"/> <t t-esc="get_info['company']['zip']"/></span><br/>
+                <span>Email : <t t-esc="get_info['company']['email']"/></span>
+                <span>Co.Reg.No : 39717700-C</span>
+                <br/>
+                <br/>
+            </t>
+        </div>
+        <div class="row" style="width: 100%;">
+            <div class="col-10">
+                <span>
+                    <strong>Print Date: </strong>
+                    <t t-esc="get_info['date']"/>
+                </span>
+            </div>
+        </div>
+        <div>
+            <strong>Invoice Summary by FOC Product Report From
+                <t t-esc="get_info['start_date']"/>
+                To <t t-esc="get_info['end_date']"/></strong>
+        </div>
+        <table class="table table-bordered" style="width: 100%;margin-top: 20px">
+             <thead>
+                <tr style="background:#c0c0c0">
+                    <th style="border-color:black;text-align:left">Invoice No</th>
+                    <th style="border-color:black;text-align:left">Product Code</th>
+                    <th style="border-color:black;text-align:left">Product Name</th>
+                    <th style="border-color:black;text-align:center">PcsPerCarton</th>
+                    <th style="border-color:black;text-align:right">Total</th>
+                    <th style="border-color:black;text-align:right">Foc Qty</th>
+                    <th style="border-color:black;text-align:right">Price</th>
+                    <th style="border-color:black;text-align:right">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <t t-foreach="get_info['product_data']" t-as="product_line">
+                    <t t-foreach="product_line['data']" t-as="line">
+                        <tr>
+                            <td style="text-align:left">
+                                <t t-esc="line['invoice_name']"/>
+                            </td>
+                            <td style="text-align:left">
+                                <t t-esc="product_line['product_code']"/>
+                            </td>
+                            <td style="text-align:left">
+                                <t t-esc="product_line['product_name']"/>
+                            </td>
+                            <td style="text-align:center">
+                                <t t-esc="line['pcspercarton']"/>
+                            </td>
+                            <td style="text-align:right">
+                                <t t-esc="line['total']"/>
+                            </td>
+                            <td style="text-align:right">
+                                <t t-esc="line['foc_qty']"/>
+                            </td>
+                            <td style="text-align:right">
+                                <t t-esc="line['price']"/>
+                            </td>
+                            <td style="text-align:right">
+                                <t t-esc="line['amount']"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+            </tbody>
+        </table>
+    </t>
+</templates>

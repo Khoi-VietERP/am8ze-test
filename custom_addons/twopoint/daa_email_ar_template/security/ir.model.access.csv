@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_email_ar_template,name_email_ar_template,model_email_ar_template,,1,1,1,1
+access_email_ar_template_config,name_email_ar_template_config,model_email_ar_template_config,,1,1,1,1
+access_email_ar_template_config_line,name_email_ar_template_config_line,model_email_ar_template_config_line,,1,1,1,1
+access_email_ar_send_type,name_email_ar_send_type,model_email_ar_send_type,,1,1,1,1

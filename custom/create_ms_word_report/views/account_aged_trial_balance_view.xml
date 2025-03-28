@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+<!--        <record id="account_aged_balance_view_inherit" model="ir.ui.view">-->
+<!--            <field name="name">account.aged.trial.balance.form.inherit</field>-->
+<!--            <field name="model">account.aged.trial.balance</field>-->
+<!--            <field name="inherit_id" ref="sg_account_report.account_aged_balance_view"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//form/footer/button[@name='check_report']" position="before">-->
+<!--                    <button name="print_ms_word" string="Print MS Word" type="object" default_focus="1" class="oe_highlight"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+    </data>
+</odoo>

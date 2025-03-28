@@ -1,0 +1,226 @@
+<odoo>
+    <data>
+
+        <!-- Structure -->
+        <record id="s_banner" model="seller.snippets">
+            <field name="name">Banner</field>
+            <field name="code">website.s_banner</field>
+            <field name="type">structure</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_banner.png</field>
+        </record>
+
+        <record id="s_cover" model="seller.snippets">
+            <field name="name">Cover</field>
+            <field name="code">website.s_cover</field>
+            <field name="type">structure</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_cover.png</field>
+        </record>
+
+        <record id="s_text_image" model="seller.snippets">
+            <field name="name">Text - Image</field>
+            <field name="code">website.s_text_image</field>
+            <field name="type">structure</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_text_image.png</field>
+        </record>
+
+        <record id="s_image_text" model="seller.snippets">
+            <field name="name">Image Text</field>
+            <field name="code">website.s_image_text</field>
+            <field name="type">structure</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_image_text.png</field>
+        </record>
+
+        <record id="s_title" model="seller.snippets">
+            <field name="name">Title</field>
+            <field name="code">website.s_title</field>
+            <field name="type">structure</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_title.png</field>
+        </record>
+
+        <record id="s_text_block" model="seller.snippets">
+            <field name="name">Text Block</field>
+            <field name="code">website.s_text_block</field>
+            <field name="type">structure</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_text_block.png</field>
+        </record>
+
+        <record id="s_picture" model="seller.snippets">
+            <field name="name">Picture</field>
+            <field name="code">website.s_picture</field>
+            <field name="type">structure</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_picture.png</field>
+        </record>
+
+        <record id="s_carousel" model="seller.snippets">
+            <field name="name">Carousel</field>
+            <field name="code">website.s_carousel</field>
+            <field name="type">structure</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_carousel.png</field>
+        </record>
+
+        <record id="s_features" model="seller.snippets">
+            <field name="name">Features</field>
+            <field name="code">website.s_features</field>
+            <field name="type">structure</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_features.png</field>
+        </record>
+
+        <record id="s_three_columns" model="seller.snippets">
+            <field name="name">Three Columns</field>
+            <field name="code">website.s_three_columns</field>
+            <field name="type">structure</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_three_columns.png</field>
+        </record>
+
+        <!-- Features -->
+        <record id="s_image_gallery" model="seller.snippets">
+            <field name="name">Image Gallery</field>
+            <field name="code">website.s_image_gallery</field>
+            <field name="type">features</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_image_gallery.png</field>
+        </record>
+
+        <record id="s_comparison" model="seller.snippets">
+            <field name="name">Comparison</field>
+            <field name="code">website.s_comparison</field>
+            <field name="type">features</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_comparison.png</field>
+        </record>
+
+        <record id="s_company_team" model="seller.snippets">
+            <field name="name">Company Team</field>
+            <field name="code">website.s_company_team</field>
+            <field name="type">features</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_company_team.png</field>
+        </record>
+
+        <record id="s_call_to_action" model="seller.snippets">
+            <field name="name">Call To Action</field>
+            <field name="code">website.s_call_to_action</field>
+            <field name="type">features</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_call_to_action.png</field>
+        </record>
+
+        <record id="s_references" model="seller.snippets">
+            <field name="name">References</field>
+            <field name="code">website.s_references</field>
+            <field name="type">features</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_references.png</field>
+        </record>
+
+        <record id="s_faq" model="seller.snippets">
+            <field name="name">Faq</field>
+            <field name="code">website.s_faq</field>
+            <field name="type">features</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_faq.png</field>
+        </record>
+
+        <record id="s_features_grid" model="seller.snippets">
+            <field name="name">Features Grid</field>
+            <field name="code">website.s_features_grid</field>
+            <field name="type">features</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_features_grid.png</field>
+        </record>
+
+        <record id="s_tabs" model="seller.snippets">
+            <field name="name">Tabs</field>
+            <field name="code">website.s_tabs</field>
+            <field name="type">features</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_tabs.png</field>
+        </record>
+
+        <!-- Effects -->
+        <record id="s_parallax" model="seller.snippets">
+            <field name="name">Parallax</field>
+            <field name="code">website.s_parallax</field>
+            <field name="type">effects</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_parallax.png</field>
+        </record>
+
+        <record id="s_quotes_carousel" model="seller.snippets">
+            <field name="name">Quotes Carousel</field>
+            <field name="code">website.s_quotes_carousel</field>
+            <field name="type">effects</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_quotes_carousel.png</field>
+        </record>
+
+        <!-- Inner content -->
+        <record id="s_button" model="seller.snippets">
+            <field name="name">Button</field>
+            <field name="code">website.s_button</field>
+            <field name="type">inner_content</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_button.png</field>
+        </record>
+
+        <record id="s_separator" model="seller.snippets">
+            <field name="name">Separator</field>
+            <field name="code">website.s_separator</field>
+            <field name="type">inner_content</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_separator.png</field>
+        </record>
+
+        <record id="s_alert" model="seller.snippets">
+            <field name="name">Alert</field>
+            <field name="code">website.s_alert</field>
+            <field name="type">inner_content</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_alert.png</field>
+        </record>
+
+        <record id="s_card" model="seller.snippets">
+            <field name="name">Card</field>
+            <field name="code">website.s_card</field>
+            <field name="type">inner_content</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_card.png</field>
+        </record>
+
+        <record id="s_share" model="seller.snippets">
+            <field name="name">Share</field>
+            <field name="code">website.s_share</field>
+            <field name="type">inner_content</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_share.png</field>
+        </record>
+
+        <record id="s_facebook_page" model="seller.snippets">
+            <field name="name">Facebook Page</field>
+            <field name="code">website.s_facebook_page</field>
+            <field name="type">inner_content</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_facebook_page.png</field>
+        </record>
+
+        <record id="s_rating" model="seller.snippets">
+            <field name="name">Rating</field>
+            <field name="code">website.s_rating</field>
+            <field name="type">inner_content</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_rating.png</field>
+        </record>
+
+        <record id="s_products_searchbar_input" model="seller.snippets">
+            <field name="name">Products Searchbar Input</field>
+            <field name="code">website.s_products_searchbar_input</field>
+            <field name="type">inner_content</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_products_searchbar.png</field>
+        </record>
+
+        <record id="s_local_events" model="seller.snippets">
+            <field name="name">Local Events</field>
+            <field name="code">website.s_local_events</field>
+            <field name="type">inner_content</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_local_events.png</field>
+        </record>
+
+        <record id="s_button_channel_subscribe" model="seller.snippets">
+            <field name="name">Discussion Group</field>
+            <field name="code">website.s_button_channel_subscribe</field>
+            <field name="type">inner_content</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_button_channel_subscribe.png</field>
+        </record>
+
+        <record id="s_newsletter_subscribe_form" model="seller.snippets">
+            <field name="name">Newsletter</field>
+            <field name="code">website.s_newsletter_subscribe_form</field>
+            <field name="type">inner_content</field>
+            <field name="image_url">/website/static/src/img/snippets_thumbs/s_newsletter_subscribe_form.png</field>
+        </record>
+
+    </data>
+</odoo>

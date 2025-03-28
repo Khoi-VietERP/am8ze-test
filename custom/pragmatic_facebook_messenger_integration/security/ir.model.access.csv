@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_facebook_msg,facebook.msg,model_facebook_message,,1,1,1,1
+access_facebook_msg_line,facebook.msg.line,model_facebook_message_line,,1,1,1,1

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="ins_account_financial_report_pnl_detail" model="ins.account.financial.report">
+            <field name="name">Profit and Loss Detail</field>
+            <field name="type">sum</field>
+            <field name="display_detail">no_detail</field>
+        </record>
+
+        <record id="account_exchange_gain_or_loss" model="account.account">
+            <field name="code">9-1500</field>
+            <field name="name">Exchange Gain or Loss</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="internal_type">other</field>
+        </record>
+
+        <record id="account_meals_and_refreshment" model="account.account">
+            <field name="code">6-14021</field>
+            <field name="name">Meals and refreshment</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="internal_type">other</field>
+        </record>
+
+        <record id="account_financial_report_revenue" model="ins.account.financial.report">
+            <field name="name">Revenue</field>
+            <field name="sign">-1</field>
+            <field name="sequence">0</field>
+            <field name="parent_id" ref="ins_account_financial_report_pnl_detail"/>
+            <field name="display_detail">no_detail</field>
+            <field name="range_selection">current_date_range</field>
+            <field name="type">account_type</field>
+            <field name="account_type_ids" eval="[(4,ref('account.data_account_type_revenue'))]"/>
+        </record>
+
+        <record id="account_financial_report_cost_of_sale" model="ins.account.financial.report">
+            <field name="name">Cost of sales</field>
+            <field name="sign">1</field>
+            <field name="sequence">1</field>
+            <field name="parent_id" ref="ins_account_financial_report_pnl_detail"/>
+            <field name="display_detail">detail_with_hierarchy</field>
+            <field name="range_selection">current_date_range</field>
+            <field name="type">account_type</field>
+        </record>
+
+        <record id="account_financial_report_gross_profit" model="ins.account.financial.report">
+            <field name="name">Gross Profit</field>
+            <field name="sign">-1</field>
+            <field name="sequence">2</field>
+            <field name="parent_id" ref="ins_account_financial_report_pnl_detail"/>
+            <field name="range_selection">current_date_range</field>
+            <field name="type">sum</field>
+            <field name="display_detail">no_detail</field>
+        </record>
+
+        <record id="account_financial_report_revenue_value" model="ins.account.financial.report">
+            <field name="name">Revenue Value</field>
+            <field name="sign">1</field>
+            <field name="sequence">0</field>
+            <field name="parent_id" ref="account_financial_report_gross_profit"/>
+            <field name="range_selection">current_date_range</field>
+            <field name="type">account_report</field>
+            <field name="account_report_id" ref="account_financial_report_revenue"/>
+        </record>
+
+        <record id="account_financial_report_cost_of_sale_value" model="ins.account.financial.report">
+            <field name="name">Cost of sales Value</field>
+            <field name="sign">-1</field>
+            <field name="sequence">1</field>
+            <field name="parent_id" ref="account_financial_report_gross_profit"/>
+            <field name="range_selection">current_date_range</field>
+            <field name="type">account_report</field>
+            <field name="account_report_id" ref="account_financial_report_cost_of_sale"/>
+        </record>
+
+        <record id="account_financial_report_other_income" model="ins.account.financial.report">
+            <field name="name">Other income</field>
+            <field name="sign">1</field>
+            <field name="sequence">3</field>
+            <field name="parent_id" ref="ins_account_financial_report_pnl_detail"/>
+            <field name="display_detail">detail_with_hierarchy</field>
+            <field name="range_selection">current_date_range</field>
+            <field name="type">account_type</field>
+        </record>
+
+        <record id="account_financial_report_selling_and_distribution_expenses" model="ins.account.financial.report">
+            <field name="name">Selling and distribution expenses</field>
+            <field name="sign">1</field>
+            <field name="sequence">4</field>
+            <field name="parent_id" ref="ins_account_financial_report_pnl_detail"/>
+            <field name="display_detail">detail_with_hierarchy</field>
+            <field name="range_selection">current_date_range</field>
+            <field name="type">accounts</field>
+            <field name="account_ids" eval="[(4,ref('account_meals_and_refreshment'))]"/>
+        </record>
+
+        <record id="account_financial_report_administrative_expenses" model="ins.account.financial.report">
+            <field name="name">Administrative expenses</field>
+            <field name="sign">1</field>
+            <field name="sequence">6</field>
+            <field name="parent_id" ref="ins_account_financial_report_pnl_detail"/>
+            <field name="display_detail">detail_with_hierarchy</field>
+            <field name="range_selection">current_date_range</field>
+            <field name="type">accounts</field>
+            <field name="account_ids" eval="[(4,ref('account_exchange_gain_or_loss'))]"/>
+        </record>
+
+        <record id="account_financial_report_finance_expenses" model="ins.account.financial.report">
+            <field name="name">Finance expenses</field>
+            <field name="sign">1</field>
+            <field name="sequence">7</field>
+            <field name="parent_id" ref="ins_account_financial_report_pnl_detail"/>
+            <field name="display_detail">detail_with_hierarchy</field>
+            <field name="range_selection">current_date_range</field>
+            <field name="type">accounts</field>
+        </record>
+
+        <record id="account_financial_report_total_expenses" model="ins.account.financial.report">
+            <field name="name">Total expenses</field>
+            <field name="sign">1</field>
+            <field name="sequence">8</field>
+            <field name="parent_id" ref="ins_account_financial_report_pnl_detail"/>
+            <field name="range_selection">current_date_range</field>
+            <field name="type">sum</field>
+            <field name="display_detail">no_detail</field>
+        </record>
+
+        <record id="account_financial_report_selling_and_distribution_expenses_value" model="ins.account.financial.report">
+            <field name="name">Selling and distribution expenses value</field>
+            <field name="sign">1</field>
+            <field name="sequence">0</field>
+            <field name="parent_id" ref="account_financial_report_total_expenses"/>
+            <field name="range_selection">current_date_range</field>
+            <field name="type">account_report</field>
+            <field name="account_report_id" ref="account_financial_report_selling_and_distribution_expenses"/>
+        </record>
+
+        <record id="account_financial_report_administrative_expenses_value" model="ins.account.financial.report">
+            <field name="name">Administrative expenses value</field>
+            <field name="sign">1</field>
+            <field name="sequence">1</field>
+            <field name="parent_id" ref="account_financial_report_total_expenses"/>
+            <field name="range_selection">current_date_range</field>
+            <field name="type">account_report</field>
+            <field name="account_report_id" ref="account_financial_report_administrative_expenses"/>
+        </record>
+
+        <record id="account_financial_report_finance_expenses_value" model="ins.account.financial.report">
+            <field name="name">Finance expenses value</field>
+            <field name="sign">1</field>
+            <field name="sequence">2</field>
+            <field name="parent_id" ref="account_financial_report_total_expenses"/>
+            <field name="range_selection">current_date_range</field>
+            <field name="type">account_report</field>
+            <field name="account_report_id" ref="account_financial_report_finance_expenses"/>
+        </record>
+
+        <function model="ins.account.financial.report" name="update_report_data">
+            <value model="account.move.line" eval="obj().browse()"/>
+        </function>
+
+        <record id="action_dynamic_pnl_detail_report" model="ir.actions.client">
+            <field name="name">Profit and Loss Detail</field>
+            <field name="tag">dynamic.fr</field>
+            <field name="context"
+                   eval="{'account_report_id':ref('a5oct2021_modifier_invoicing.ins_account_financial_report_pnl_detail')}"/>
+        </record>
+
+        <menuitem id="menu_dynamic_pnl_detail_report" sequence="90" action="action_dynamic_pnl_detail_report"
+                  name="Profit and Loss Detail" parent="account_dynamic_reports.account_reports_ins_wiz"
+                  groups="account.group_account_user"/>
+
+        <!--    Action for profit and loss    -->
+        <record id="action_ins_pnl_detail_report" model="ir.actions.act_window">
+            <field name="name">Profit and Loss</field>
+            <field name="res_model">ins.financial.report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_dynamic_reports.ins_financial_report_wiz_modified"/>
+            <field name="target">new</field>
+            <field name="context"
+                   eval="{'default_account_report_id':ref('a5oct2021_modifier_invoicing.ins_account_financial_report_pnl_detail')}"/>
+        </record>
+
+        <menuitem id="menu_ins_pnl_detail_report" sequence="80" action="action_ins_pnl_detail_report"
+                  name="Profit and Loss Detail" parent="account_dynamic_reports.account_reports_ins"
+                  groups="account.group_account_user"/>
+    </data>
+</odoo>

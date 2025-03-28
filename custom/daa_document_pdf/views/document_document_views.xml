@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_document_document_form" model="ir.ui.view">
+            <field name="name">document.document.view.form</field>
+            <field name="model">document.document</field>
+            <field name="inherit_id" ref="document_management.view_document_document_form"/>
+            <field name="arch" type="xml">
+                <field name="document" position="attributes">
+                    <attribute name="widget">pdf_preview</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

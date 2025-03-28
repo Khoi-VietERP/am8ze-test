@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="notice_appointment_cessation_form" model="ir.ui.view">
+            <field name="name">notice.appointment.cessation.form</field>
+            <field name="model">notice.appointment.cessation</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <div>
+                                <div>
+                                    <label for="type_of_winding_up" style="font-weight: bold;"/><br/>
+                                    <field name="type_of_winding_up" style="width: 50%;"/>
+                                </div>
+                                <div attrs="{'invisible' : [('type_of_winding_up', 'in', ['winding_up', False])]}">
+                                    <div>
+                                        <label for="date_of_resolution" style="font-weight: bold;"/><br/>
+                                        <field name="date_of_resolution" style="width: 30%;"/>
+                                    </div>
+                                    <div>
+                                        <label for="date_of_commencement" style="font-weight: bold;"/><br/>
+                                        <field name="date_of_commencement" style="width: 30%;"/>
+                                    </div>
+                                    <div>
+                                        <label for="attach_copy_of_resolution" style="font-weight: bold;"/><br/>
+                                        <field name="attach_copy_of_resolution" style="width: 50%;"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div attrs="{'invisible' : [('type_of_winding_up', 'in', ['winding_up'])]}">
+                                <separator string="Notice of Appointment and Cessation of Provisional Liquidator/Liquidator"/>
+                                <field name="line_ids" style="width: 90%;">
+                                    <tree>
+                                        <field name="identification_no"/>
+                                        <field name="name_of_liquidator"/>
+                                        <field name="type_of_appointment"/>
+                                        <field name="appointment_date" string="Date of Appointment"/>
+                                        <field name="create_date" string="Cesation Date"/>
+                                    </tree>
+                                    <form>
+                                        <separator string="Appointment of Provisional Liquidator/Liquidator"/>
+                                        <div>
+                                            <label for="type_of_appointment" style="font-weight: bold;"/><br/>
+                                            <field name="type_of_appointment" widget="radio"/>
+                                        </div>
+                                        <div>
+                                            <label for="appointment_date" style="font-weight: bold;"/><br/>
+                                            <field name="appointment_date" style="width: 30%;"/>
+                                        </div>
+                                        <div>
+                                            <label for="liquidator" style="font-weight: bold;"/><br/>
+                                            <field name="liquidator" widget="radio"/>
+                                        </div>
+                                        <div attrs="{'invisible' : [('liquidator', '=', 'official')]}">
+                                            <div attrs="{'invisible' : [('liquidator', '!=', 'approved')]}">
+                                                <div>
+                                                    <label for="approved_liquidator_no" style="font-weight: bold;"/><br/>
+                                                    <field name="approved_liquidator_no" style="width: 50%;"/><br/>
+                                                    <label for="identification_no" style="font-weight: bold;"/><br/>
+                                                    <label for="identification_type" style="font-weight: bold;"/><br/>
+                                                    <label for="name_of_liquidator" style="font-weight: bold;"/><br/>
+                                                </div>
+                                            </div>
+                                            <div attrs="{'invisible' : [('liquidator', 'not in', ['local_company','accounting','audit','individual'])]}">
+                                                <div>
+                                                    <label for="identification_no" style="font-weight: bold;"/><br/>
+                                                    <field name="identification_no" style="width: 50%;"/>
+                                                </div>
+                                                <div>
+                                                    <label for="identification_type" style="font-weight: bold;"/><br/>
+                                                    <field name="identification_type" style="width: 50%;"/>
+                                                </div>
+                                                <div>
+                                                    <label for="name_of_liquidator" style="font-weight: bold;"/><br/>
+                                                    <field name="name_of_liquidator" style="width: 50%;"/>
+                                                </div>
+                                            </div>
+                                            <div attrs="{'invisible' : [('liquidator', 'not in', ['local_company','accounting','audit','approved'])]}">
+                                                <group col="2">
+                                                    <div>
+                                                        <label for="uen" style="font-weight: bold;"/><br/>
+                                                        <field name="uen" style="width: 50%;"/>
+                                                    </div>
+                                                    <div>
+                                                        <label for="entity_name" style="font-weight: bold;"/><br/>
+                                                        <field name="entity_name" style="width: 50%;"/>
+                                                    </div>
+                                                </group>
+                                            </div>
+                                            <div attrs="{'invisible' : [('liquidator', 'not in', ['local_company','accounting','audit','individual'])]}">
+                                                <div>
+                                                    <span style="font-weight: bold;">
+                                                        Address of liquidator
+                                                    </span>
+                                                </div><br/>
+                                                <div>
+                                                    <label for="postal_code" style="font-weight: bold;"/><br/>
+                                                    <field name="postal_code" style="width: 50%;"/>
+                                                </div>
+                                                <div/>
+                                                <div>
+                                                    <label for="block_house_number" style="font-weight: bold;"/><br/>
+                                                    <field name="block_house_number" style="width: 50%;"/>
+                                                </div>
+                                                <div/>
+                                                <div>
+                                                    <label for="street" style="font-weight: bold;"/><br/>
+                                                    <field name="street" style="width: 50%;"/>
+                                                </div>
+                                                <div/>
+                                                <div style="width: 50%;">
+                                                    <group col="2">
+                                                        <div>
+                                                            <label for="level" style="font-weight: bold;"/><br/>
+                                                            <field name="level" style="width: 50%;"/>
+                                                        </div>
+                                                        <div>
+                                                            <label for="unit_number" style="font-weight: bold;"/><br/>
+                                                            <field name="unit_number" style="width: 50%;"/>
+                                                        </div>
+                                                    </group>
+                                                </div>
+                                                <div/>
+                                                <div>
+                                                    <label for="building" style="font-weight: bold;"/><br/>
+                                                    <field name="building" style="width: 50%;"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </field>
+                            </div>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

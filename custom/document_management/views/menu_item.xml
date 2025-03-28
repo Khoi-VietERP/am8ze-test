@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem name="Documents" id="menu_main_document_management" groups="document_management.group_document_user" web_icon="document_management,static/description/icon.png" sequence="100"/>
+
+    <menuitem name="Directories" id="menu_document_directory" parent="menu_main_document_management" sequence="10" action="action_document_directory"/>
+
+    <menuitem name="Documents" id="menu_document_document" parent="menu_main_document_management" sequence="20" action="action_document_document"/>
+
+    <menuitem name="Configuration" id="menu_document_configuration" parent="menu_main_document_management" groups="document_management.group_document_manager" sequence="50"/>
+
+    <menuitem name="Tags" id="menu_document_tag" parent="menu_document_configuration" action="action_document_tag"/>
+
+    <menuitem name="Upload Multiple Documents" id="menu_multi_document" parent="menu_main_document_management" action="action_multi_document" sequence="30"/>
+
+</odoo>

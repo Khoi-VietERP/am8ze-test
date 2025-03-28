@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_recurring_sales,name_recurring_sales,model_recurring_sales,,1,1,1,1
+access_sale_details,name_sale_details,model_sale_details,,1,1,1,1
+access_scheduled_sales,name_scheduled_sales,model_scheduled_sales,,1,1,1,1

@@ -1,0 +1,31 @@
+.oe_signup_maket_form {
+    max-width: 90%;
+    position: relative;
+    margin: 50px auto;
+}
+
+.seller-register{
+    max-width: 30%;
+	font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    background-color: #d9edf7;
+    border-color: #6CAFBD;
+    color: #31708f;
+    border: 1px solid;
+    margin-top: -25px;
+    border-radius: 5px;
+    margin: auto;
+}
+
+@media (max-width: 1070px) {
+    .seller-register {
+        max-width: 50%;
+    }
+}
+
+@media (max-width: 520px) {
+    .seller-register {
+        max-width: 90%;
+    }
+}

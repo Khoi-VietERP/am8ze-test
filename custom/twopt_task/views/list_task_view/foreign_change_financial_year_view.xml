@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="foreign_change_financial_year_form" model="ir.ui.view">
+            <field name="name">foreign.change.financial.year.form</field>
+            <field name="model">foreign.change.financial.year</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <group col="2" attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <div>
+                                <label for="registration_date" style="font-weight: bold;"/><br/>
+                                <field name="registration_date" readonly="1" class="color-text-ff8d06"/>
+                            </div>
+                            <div>
+                                <label for="start_current_financial_year" style="font-weight: bold;"/><br/>
+                                <field name="start_current_financial_year" readonly="1" class="color-text-ff8d06"/> To
+                                <field name="end_current_financial_year" readonly="1" class="color-text-ff8d06"/>
+                            </div>
+                            <div>
+                                <label for="new_end_current_financial_year" style="font-weight: bold;"/><br/>
+                                <field name="new_end_current_financial_year" style="width: 30%;"/>
+                            </div>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <record id="view_partner_form_inheirt" model="ir.ui.view">
+            <field name="name">res.partner.form.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="customer_rank" invisible="1"/>
+                    <field name="customer_id_ref" attrs="{'invisible': [('customer_rank', '=', 0)]}"/>
+                    <field name="customer_since" attrs="{'invisible': [('customer_rank', '=', 0)]}"/>
+                    <field name="supplier_rank" invisible="1"/>
+                    <field name="vendor_id_ref" attrs="{'invisible': [('supplier_rank', '=', 0)]}"/>
+                    <field name="vendor_since" attrs="{'invisible': [('supplier_rank', '=', 0)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='user_ids']" position="after">
+                    <field name="fax_number"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

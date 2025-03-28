@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<odoo>
+    <data noupdate="1">
+        <record model="feeds.config" id="data_webkul">
+          <field name="name">Webkul RSS Feeds</field>
+          <field name="url">https://webkul.com/blog/feed/</field>
+          <field name="sequence">1</field>
+          <field name="is_active">True</field>
+          <field name="status">True</field>
+        </record>
+        <record model="feeds.config" id="data_toi">
+          <field name="name">TOI India</field>
+          <field name="url">https://timesofindia.indiatimes.com/rssfeeds/-2128936835.cms</field>
+          <field name="sequence">2</field>
+          <field name="is_active">False</field>
+          <field name="status">True</field>
+        </record>
+        <record model="feeds.config" id="data_htimes">
+          <field name="name">Hindustan Times : Top Stories</field>
+          <field name="url">https://www.hindustantimes.com/rss/topnews/rssfeed.xml</field>
+          <field name="sequence">3</field>
+          <field name="is_active">False</field>
+          <field name="status">True</field>
+        </record>
+        <record model="feeds.config" id="data_toi_cricket">
+          <field name="name">TOI-Cricket</field>
+          <field name="url">http://timesofindia.indiatimes.com/rssfeeds/4719161.cms</field>
+          <field name="sequence">4</field>
+          <field name="is_active">False</field>
+          <field name="status">True</field>
+        </record>
+
+        <record id="odoo_rss_feed_setting_1" model="rss.feed.config.settings">
+            <field name="name">Odoo RSS Feeds Settings</field>
+            <field name="is_active">True</field>
+            <field name="feed_title">RSS Feeds</field>
+            <field name="rss_view">menu</field>
+            <field name="feeds_limit">3</field>
+            <field name="feeds_char_limit">1000</field>
+            <field name="show_date">True</field>
+            <field name="show_description">True</field>
+        </record>
+    </data>
+</odoo>

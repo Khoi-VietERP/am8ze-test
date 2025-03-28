@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="invoice_summary_product_popup">
+            <field name="name">invoice.summary.product.popup</field>
+            <field name="model">report.invoice.summary.product</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="user_ids" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Export PDF" name="export_report" type="object" class="btn-primary"/>
+                        <button string="Export XLSX" name="action_xlsx" type="object" class="btn-primary"/>
+                        <button string="View" name="action_view" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="invoice_summary_product_action" model="ir.actions.act_window">
+            <field name="name">Invoice Summary by Product</field>
+            <field name="res_model">report.invoice.summary.product</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="invoice_summary_product_menu" name="Invoice - Summary by Product"
+                  action="invoice_summary_product_action"
+                  parent="account.menu_finance_reports" sequence="53"/>
+    </data>
+</odoo>

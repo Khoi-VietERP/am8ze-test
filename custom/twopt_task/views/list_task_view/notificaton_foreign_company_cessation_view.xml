@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="notificaton_foreign_company_cessation_form" model="ir.ui.view">
+            <field name="name">notificaton.foreign.company.cessation.form</field>
+            <field name="model">notificaton.foreign.company.cessation</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <label for="date_company" style="font-weight: bold;"/><br/>
+                            <field name="date_company" style="width: 30%;"/>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

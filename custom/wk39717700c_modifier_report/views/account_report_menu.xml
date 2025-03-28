@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="menu_account_report_sale_receivables" name="Sales &amp; Receivables" sequence="1" parent="account.menu_finance_reports"/>
+
+        <record model="ir.ui.menu" id="modifier_ar_ap_report.account_aging_receivable_report_pa">
+            <field name="parent_id" ref="menu_account_report_sale_receivables"/>
+            <field name="sequence">1</field>
+            <field name="name">Aging Receivables</field>
+        </record>
+
+        <record model="ir.ui.menu" id="wk39717700c_modifier_print.ageing_summary_report_menu">
+            <field name="parent_id" ref="menu_account_report_sale_receivables"/>
+            <field name="sequence">2</field>
+        </record>
+
+        <record model="ir.ui.menu" id="wk39717700c_modifier_print.salesman_invoice_detail_menu">
+            <field name="parent_id" ref="menu_account_report_sale_receivables"/>
+            <field name="sequence">3</field>
+        </record>
+
+        <record model="ir.ui.menu" id="wk39717700c_modifier_report.customer_product_listing_menu">
+            <field name="parent_id" ref="menu_account_report_sale_receivables"/>
+            <field name="sequence">4</field>
+            <field name="name">Customer Product Listing</field>
+        </record>
+
+        <record model="ir.ui.menu" id="wk39717700c_modifier_report.customer_top_selling_menu">
+            <field name="parent_id" ref="menu_account_report_sale_receivables"/>
+            <field name="sequence">5</field>
+            <field name="name">Customer Top Selling</field>
+        </record>
+
+        <record model="ir.ui.menu" id="wk39717700c_modifier_report.invoice_summary_menu">
+            <field name="parent_id" ref="menu_account_report_sale_receivables"/>
+            <field name="sequence">6</field>
+        </record>
+
+        <record model="ir.ui.menu" id="wk39717700c_modifier_report.invoice_summary_product_menu">
+            <field name="parent_id" ref="menu_account_report_sale_receivables"/>
+            <field name="sequence">7</field>
+        </record>
+
+        <menuitem id="menu_account_report_purchases_payables" name="Purchases &amp; Payables" sequence="1" parent="account.menu_finance_reports"/>
+
+        <record model="ir.ui.menu" id="modifier_ar_ap_report.account_aging_payable_report_pa">
+            <field name="parent_id" ref="menu_account_report_purchases_payables"/>
+            <field name="sequence">1</field>
+            <field name="name">Ageing Payables</field>
+        </record>
+
+        <record model="ir.ui.menu" id="wk39717700c_modifier_print.supplier_outstanding_menu">
+            <field name="parent_id" ref="menu_account_report_purchases_payables"/>
+            <field name="sequence">2</field>
+        </record>
+
+        <record model="ir.ui.menu" id="h202102879_modifier_menu.invoicing_gst_report">
+            <field name="name">GST Report</field>
+        </record>
+
+        <record model="ir.ui.menu" id="sg_account_report.menu_gst_return">
+            <field name="sequence">1</field>
+        </record>
+
+        <record model="ir.ui.menu" id="gst_f5.menu_gst_returnf5_trans">
+            <field name="sequence">2</field>
+            <field name="name">GST Form F5 details</field>
+        </record>
+
+        <record model="ir.ui.menu" id="sg_account_report.menu_gst_returnf7">
+            <field name="sequence">20</field>
+        </record>
+
+        <record model="ir.ui.menu" id="base_accounting_kit.account_reports_generic_statements">
+            <field name="sequence">20</field>
+        </record>
+    </data>
+</odoo>

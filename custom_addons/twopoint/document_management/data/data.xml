@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="acs_document_email" model="mail.template">
+            <field name="name">Document Sharing</field>
+            <field name="email_from">${ user.email|safe}</field>
+            <field name="subject">${object.name|safe} Document is shared with you</field>
+            <field name="model_id" ref="document_management.model_document_document"/>
+            <field name="body_html"><![CDATA[
+                <div style="padding:0px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777">
+                    <p>Hello,</p>
+                    <br/>
+                    <p> ${object.name|safe} Document is shared with you. Please Have a look at it.</p>
+                    <br/>
+                    <p>Please feel free to call anytime for further information or any query.</p>
+
+                    <p>Best regards.<br/>
+                </div>]]>
+                
+                </field>
+            <field name="user_signature" eval="False"/>
+        </record>
+        
+    </data>
+</odoo>

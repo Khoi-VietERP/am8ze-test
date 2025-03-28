@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="tasks_activity_tree_view_inherit" model="ir.ui.view">
+            <field name="name">project.task.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="corp_sec_entity.tasks_activity_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="stage_id" position="after">
+                    <field name="state"/>
+                </field>
+                <field name="stage_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+
+                <field name="project_id" position="after">
+                    <field name="task_related_sub"/>
+                </field>
+                <field name="project_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="tasks_activity_form_view_inherit" model="ir.ui.view">
+            <field name="name">project.task.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="corp_sec_entity.tasks_activity_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet" position="before">
+                    <header>
+                        <button name="send_doc_task" string="Send Document to client" states="prepare_doc" type="object" class="oe_highlight"/>
+                        <button name="return_doc_task" string="Return Document" states="send_doc" type="object" class="oe_highlight"/>
+                        <button name="lodgement_task" string="Lodgement" states="return_doc" type="object" class="oe_highlight"/>
+                        <button name="close_task" string="Close Task" states="lodgement" type="object" class="oe_highlight"/>
+                        <button name="cancel_task" string="Cancel" states="prepare_doc,send_doc,return_doc,lodgement" type="object" />
+                        <field name="state_sub" widget="statusbar"
+                               statusbar_visible="prepare_doc,send_doc,return_doc,lodgement,close_task,cancel_task"
+                                attrs="{'invisible' : [('state', '!=', 'close_task')]}"
+                        />
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="prepare_doc,send_doc,return_doc,lodgement,close_task,cancel_task"
+                               options="{'clickable': '1', 'fold_field': 'fold'}"
+                               attrs="{'invisible' : [('state', '=', 'close_task')]}"
+                        />
+                    </header>
+                </xpath>
+                <field name="stage_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="entity_id" position="before">
+                    <field name="company_type" attrs="{'invisible' : [('task_type', '!=', 'application-for-new-company')]}"/>
+                </field>
+                <field name="project_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="date_deadline" position="after">
+                    <field name="suffix"/>
+                </field>
+                <field name="project_id" position="after">
+                    <field name="task_type" invisible="1"/>
+                    <field name="task_form_id" readonly="1" context="{'form_view_ref' : 'twopt_task.corp_is_not_entity_form'}"
+                    attrs="{'invisible' : [('task_type', '!=', 'application-for-new-company')]}"/>
+                    <field name="change_company_info_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'change-company_info')]}"/>
+                    <field name="change_particular_shareholders_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'change-particular-shareholders')]}"/>
+                    <field name="conversion_company_type_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'conversion-company-type')]}"/>
+                    <field name="application_under_secton_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'application-under-secton')]}"/>
+                    <field name="notice_financial_assistance_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'notice-financial-assistance')]}"/>
+                    <field name="registration_of_charge_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'registration-of-charge')]}"/>
+                    <field name="satisfaction_of_charge_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'satisfaction-of-charge')]}"/>
+                    <field name="variation_of_charge_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'variation-of-charge')]}"/>
+                    <field name="extension_of_time_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'extension-of-time')]}"/>
+                    <field name="publication_proposed_reduction_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'publication-proposed-reduction')]}"/>
+                    <field name="return_allotment_shares_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'return-allotment-shares')]}"/>
+                    <field name="transfer_of_shares_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'transfer-of-shares')]}"/>
+                    <field name="filing_annual_return_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'filing-annual-return')]}"/>
+                    <field name="annual_return_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'annual-return')]}"/>
+                    <field name="change_of_financial_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'change-of-financial')]}"/>
+                    <field name="extension_time_agm_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'extension-time-agm')]}"/>
+                    <field name="exemption_accounting_standards_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'exemption-accounting-standards')]}"/>
+                    <field name="relief_from_requirements_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'relief-from-requirements')]}"/>
+                    <field name="notification_annual_general_meeting_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'notification-annual-general-meeting')]}"/>
+                    <field name="application_for_strike_off_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'application-for-strike-off')]}"/>
+                    <field name="withdrawal_strike_off_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'withdrawal-strike-off')]}"/>
+                    <field name="objection_against_strike_off_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'objection-against-strike-off')]}"/>
+                    <field name="notice_alternation_share_capital_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'notice-alternation-share-capital')]}"/>
+                    <field name="notice_cancellation_special_resolution_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'notice-cancellation-special-resolution')]}"/>
+                    <field name="notice_redemption_redeemable_shares_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'notice-redemption-redeemable-shares')]}"/>
+                    <field name="application_extension_time_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'application-extension-time')]}"/>
+                    <field name="notice_disposal_treasury_shares_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'notice-disposal-treasury-shares')]}"/>
+                    <field name="notice_update_erom_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'notice-update-erom')]}"/>
+                    <field name="notice_of_redenomination_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'notice-of-redenomination')]}"/>
+                    <field name="conversion_of_shares_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'conversion-of-shares')]}"/>
+                    <field name="resolution_reduction_capital_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'resolution-reduction-capital')]}"/>
+                    <field name="declaration_of_solvency_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'declaration-of-solvency')]}"/>
+                    <field name="statement_of_affairs_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'statement-of-affairs')]}"/>
+                    <field name="notice_winding_up_order_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'notice-winding-up-order')]}"/>
+                    <field name="notice_appointment_cessation_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'notice-appointment-cessation')]}"/>
+                    <field name="notice_change_situation_office_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'notice-change-situation-office')]}"/>
+                    <field name="liquidators_account_receipts_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'liquidators-account-receipts')]}"/>
+                    <field name="dissolution_of_company_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'dissolution-of-company')]}"/>
+                    <field name="early_dissolution_company_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'early-dissolution-company')]}"/>
+                    <field name="notice_early_dissolution_company_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'notice-early-dissolution-company')]}"/>
+                    <field name="lodgement_court_order_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'lodgement-court-order')]}"/>
+                    <field name="foreign_application_new_company_name_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'foreign-application-new-company-name')]}"/>
+                    <field name="foreign_withdrawal_name_application_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'foreign-withdrawal-name-application')]}"/>
+                    <field name="change_foreign_company_information_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'change-foreign-company-information')]}"/>
+                    <field name="notice_change_company_name_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'notice-change-company-name')]}"/>
+                    <field name="change_in_charter_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'change-in-charter')]}"/>
+                    <field name="constitution_foreign_company_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'constitution-foreign-company')]}"/>
+                    <field name="report_change_particulars_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'report-change-particulars')]}"/>
+                    <field name="foreign_registration_of_charge_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'foreign-registration-of-charge')]}"/>
+                    <field name="foreign_satisfaction_of_charge_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'foreign-satisfaction-of-charge')]}"/>
+                    <field name="foreign_variation_of_charge_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'foreign-variation-of-charge')]}"/>
+                    <field name="foreign_extension_of_time_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'foreign-extension-of-time')]}"/>
+                    <field name="lodgement_of_financial_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'lodgement-of-financial')]}"/>
+                    <field name="foreign_change_financial_year_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'foreign-change-financial-year')]}"/>
+                    <field name="foreign_exemption_financial_reporting_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'foreign-exemption-financial-reporting')]}"/>
+                    <field name="foreign_financila_statement_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'foreign-financila-statement')]}"/>
+                    <field name="notificaton_foreign_company_cessation_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'notificaton-foreign-company-cessation')]}"/>
+                    <field name="foreign_registration_branch_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'foreign-registration-branch')]}"/>
+                    <field name="foreign_application_strike_off_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'foreign-application-strike-off')]}"/>
+                    <field name="notice_dissolution_foreign_company_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'notice-dissolution-foreign-company')]}"/>
+                    <field name="incorporation_local_company_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'incorporation-local-company')]}"/>
+                    <field name="registration_of_amalgamation_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'registration-of-amalgamation')]}"/>
+                    <field name="reduction_share_capital_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'reduction-share-capital')]}"/>
+                    <field name="notice_reducton_share_capital_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'notice-reducton-share-capital')]}"/>
+                    <field name="change_personal_particulars_directors_id" readonly="1" attrs="{'invisible' : [('task_type', '!=', 'change-personal-particulars-directors')]}"/>
+                </field>
+                <xpath expr="//notebook" position="before">
+                    <group col="2" attrs="{'invisible' : [('task_type', 'not in', ['incorporation-local-company','application-for-strike-off',
+                    'change-company_info','return-allotment-shares','transfer-of-shares','filing-annual-return','change-of-financial'])]}">
+                        <div></div>
+                        <div>
+                            <div>
+                                <strong>Print:</strong>
+                            </div>
+                            <div style="margin-left: 20px; margin-top: 5px;" attrs="{'invisible' : [('task_type', '!=', 'incorporation-local-company')]}">
+                                <button name="print_f45_director_doc" string="F45 Director.doc" type="object"/><br/>
+                                <button name="print_fist_directors_resolution" string="FistDirectors'Resolution.doc" type="object"/><br/>
+                                <button name="print_form_45b_secretary" string="Form 45B Secretary.doc" type="object"/><br/>
+                                <button name="print_share_certificate_no" string="Share Certificate No 1.doc" type="object"/>
+                            </div>
+                            <div style="margin-left: 20px; margin-top: 5px;" attrs="{'invisible' : [('task_type', '!=', 'application-for-strike-off')]}">
+                                <button name="print_strike_off_documents" string="Strike off documents.doc" type="object"/><br/>
+                            </div>
+
+                            <div style="margin-left: 20px; margin-top: 5px;" attrs="{'invisible' : [('task_type', '!=', 'change-company_info')]}">
+                                <button name="print_dr_change_of_name" string="DR Change of Name.doc" type="object"/><br/>
+                                <button name="print_dr_change_of_reg_address" string="DR Change of Reg Address.doc" type="object"/><br/>
+                                <button name="print_dr_director_resignation" string="DR Director Resignation.doc" type="object"/><br/>
+                                <button name="print_dr_appt_of_director" string="DR Appt of Director.doc" type="object"/><br/>
+                            </div>
+
+                            <div style="margin-left: 20px; margin-top: 5px;" attrs="{'invisible' : [('task_type', '!=', 'return-allotment-shares')]}">
+                                <button name="print_general_meeting_issue_shares" string="Prior approval of the Company in general meeting to issue shares.doc" type="object"/><br/>
+                                <button name="print_dr_allotment_of_shares" string="DR Allotment of Shares.doc" type="object"/><br/>
+                                <button name="print_share_certificate_no" string="Share Certificate No 1.doc" type="object"/>
+                            </div>
+
+                            <div style="margin-left: 20px; margin-top: 5px;" attrs="{'invisible' : [('task_type', '!=', 'transfer-of-shares')]}">
+                                <button name="print_dr_share_transfer" string="DR Share transfer, Transfer form.doc" type="object"/><br/>
+                                <button name="print_share_certificate_no" string="Share Certificate No 1.doc" type="object"/>
+                            </div>
+                            <div style="margin-left: 20px; margin-top: 5px;" attrs="{'invisible' : [('task_type', '!=', 'filing-annual-return')]}">
+                                <button name="print_agm_more_than_1_member" string="AGM - More than 1 Member.doc" type="object"/><br/>
+                            </div>
+                            <div style="margin-left: 20px; margin-top: 5px;" attrs="{'invisible' : [('task_type', '!=', 'change-of-financial')]}">
+                                <button name="print_change_of_company_financial_year_end" string="Change of Company financial year end.doc" type="object"/><br/>
+                            </div>
+                        </div>
+                    </group>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Attachment" attrs="{'invisible' : [('task_type', '!=', 'application-for-new-company')]}">
+                        <field name="attachment_other_ids" widget="section_and_note_one2many" mode="tree">
+                            <tree string="Other Attachment" editable="bottom">
+                                <field name="category_id"/>
+                                <field name="file_name"/>
+                                <field name="description"/>
+                                <field name="attachment"/>
+                                <field name="date"/>
+                                <field name="user_id" options="{'no_create_edit': True}"/>
+                            </tree>
+                            <form string="Other Attachment">
+                                <group name="attachment">
+                                    <field name="category_id"/>
+                                    <field name="file_name"/>
+                                    <field name="description"/>
+                                    <field name="attachment"/>
+                                    <field name="date"/>
+                                    <field name="user_id"/>
+                                </group>
+                             </form>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

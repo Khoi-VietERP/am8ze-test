@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <template id="modifier_external_layout_report_reconciliation">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <!-- Multicompany -->
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+
+            <t t-call="modifier_sg_bank_reconcile.external_layout_standard_report_reconciliation">
+                <t t-raw="0"/>
+            </t>
+
+        </template>
+
+        <template id="external_layout_standard_report_reconciliation">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            </div>
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+                 t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                 t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+            <div t-attf-class="footer o_company_#{company.id}_layout">
+            </div>
+        </template>
+
+        <template id="report_reconciliation_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="modifier_sg_bank_reconcile.modifier_external_layout_report_reconciliation">
+                        <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                        <t t-set="company" t-value="o.company_id.sudo()"/>
+                        <style>
+                            .page {
+
+                            }
+                            .table-line td{
+                                padding-left: 0.25rem;
+                                padding-right: 0.25rem;
+                                font-size: 13px;
+                            }
+                            .table-line thead td{
+                                padding: 0.1rem 0.25rem;
+                                border-top: 1px solid black;
+                                border-bottom: 1px solid black;
+                                font-size: 14px;
+                            }
+                            .table-line tr.total-line td{
+                                padding: 0.1rem 0.25rem;
+                                border-bottom: 1px double black;
+                                font-size: 14px;
+                            }
+                        </style>
+                        <div class="page" style="margin-top:5px;padding-bottom:15px">
+                            <div class="text-center">
+                                <p>
+                                    <span><t t-esc="o.company_id.name"/></span><br/>
+                                    <b><span t-field="o.account_id"/>, Period Ending <span t-esc="o.ending_date and o.ending_date.strftime('%d/%m/%Y') or ''"/></b><br/>
+                                    <b>RECONCILIATION REPORT</b><br/>
+                                    Reconciled on: <t t-esc="datetime.datetime.now().strftime('%d/%m/%Y')" /><br/>
+                                    Reconciled by: <t t-esc="user.name"/>
+                                </p>
+                            </div>
+                            <div style="border-bottom: 1px solid black">
+                                Any changes made to transactions after this date aren't included in this report.
+                            </div>
+                            <table style="width: 100%">
+                                <tr>
+                                    <td style="width: 60%">
+                                        <b>Summary</b>
+                                    </td>
+                                    <td style="width: 40%" class="text-right">
+                                        <span t-field="o.account_id.currency_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-top: 15px">
+                                        <span>
+                                            Statement beginning balance
+                                        </span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="o.starting_balance"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>
+                                            Cheques and payments cleared
+                                        </span>
+                                    </td>
+                                    <td class="text-right">
+                                        -<span t-field="o.sum_of_credits"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>
+                                            Deposits and other credits cleared
+                                        </span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="o.sum_of_debits"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>
+                                            Statement ending balance
+                                        </span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="o.ending_balance"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-top: 15px">
+                                        <span>
+                                            Register balance as of <span t-esc="o.ending_date and o.ending_date.strftime('%d/%m/%Y') or ''"/>
+                                        </span>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-set="register_balance" t-value="sum(o.credit_move_line_ids.mapped('amount')) - sum(o.debit_move_line_ids.mapped('amount'))"/>
+                                        <span t-esc="'{0:,.2f}'.format(register_balance)"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>
+                                            Uncleared deposit
+                                        </span>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-set="uncleared_deposit" t-value="sum(o.debit_move_line_ids.filtered(lambda l: not l.cleared_bank_account).mapped('amount'))"/>
+                                        -<span t-esc="'{0:,.2f}'.format(uncleared_deposit)"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>
+                                            Uncleared withdrawal
+                                        </span>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-set="uncleared_withdrawal" t-value="sum(o.credit_move_line_ids.filtered(lambda l: not l.cleared_bank_account).mapped('amount'))"/>
+                                        <span t-esc="'{0:,.2f}'.format(uncleared_withdrawal)"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>
+                                            Expected bank balance
+                                        </span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="'{0:,.2f}'.format(register_balance - uncleared_deposit + uncleared_withdrawal)"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div style="margin-top: 20px; width: 100%">
+                                <p>
+                                    <b>Details</b>
+                                </p>
+                                <p>
+                                    <span>
+                                        Cheques and payments cleared (<t t-esc="len(o.credit_move_line_ids.filtered(lambda l: l.cleared_bank_account))"/> )
+                                    </span>
+                                </p>
+
+                                <table style="width: 100%" class="table-line">
+                                    <thead>
+                                        <tr>
+                                            <td style="width: 12%">
+                                                <span>DATE</span>
+                                            </td>
+                                            <td style="width: 14%">
+                                                <span>TYPE</span>
+                                            </td>
+                                            <td style="width: 25%">
+                                                <span>REF NO.</span>
+                                            </td>
+                                            <td style="width: 31%">
+                                                <span>PAYEE</span>
+                                            </td>
+                                            <td class="text-right" style="width: 18%">
+                                                <span>AMOUNT (<t t-esc="o.account_id.currency_id.name"/>)</span>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="o.credit_move_line_ids.filtered(lambda l: l.cleared_bank_account)" t-as="line">
+                                            <td>
+                                                <span t-esc="line.date and line.date.strftime('%d/%m/%Y') or ''"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.line_type"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.ref"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.partner_id"/>
+                                            </td>
+                                            <td class="text-right">
+                                                -<span t-esc="'{0:,.2f}'.format(line.amount)"/>
+                                            </td>
+                                        </tr>
+                                        <tr class="total-line">
+                                            <td>
+                                                <span>
+                                                    Total
+                                                </span>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-right">
+                                                -<span t-esc="'{0:,.2f}'.format(sum(o.credit_move_line_ids.filtered(lambda l: l.cleared_bank_account).mapped('amount')))"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div style="margin-top: 5px; width: 100%">
+                                <p>
+                                    <span>
+                                        Deposits and other credits cleared (<t t-esc="len(o.debit_move_line_ids.filtered(lambda l: l.cleared_bank_account))"/> )
+                                    </span>
+                                </p>
+
+                                <table style="width: 100%" class="table-line">
+                                    <thead>
+                                        <tr>
+                                            <td style="width: 12%">
+                                                <span>DATE</span>
+                                            </td>
+                                            <td style="width: 14%">
+                                                <span>TYPE</span>
+                                            </td>
+                                            <td style="width: 25%">
+                                                <span>REF NO.</span>
+                                            </td>
+                                            <td style="width: 31%">
+                                                <span>PAYEE</span>
+                                            </td>
+                                            <td class="text-right" style="width: 18%">
+                                                <span>AMOUNT (<t t-esc="o.account_id.currency_id.name"/>)</span>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="o.debit_move_line_ids.filtered(lambda l: l.cleared_bank_account)" t-as="line">
+                                            <td>
+                                                <span t-esc="line.date and line.date.strftime('%d/%m/%Y') or ''"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.line_type"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.ref"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.partner_id"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="'{0:,.2f}'.format(line.amount)"/>
+                                            </td>
+                                        </tr>
+                                        <tr class="total-line">
+                                            <td>
+                                                <span>
+                                                    Total
+                                                </span>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-right">
+                                                <span t-esc="'{0:,.2f}'.format(sum(o.debit_move_line_ids.filtered(lambda l: l.cleared_bank_account).mapped('amount')))"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div style="margin-top: 5px; width: 100%">
+                                <p>
+                                    <b>Additional Information</b>
+                                </p>
+                                <p>
+                                    <span>
+                                        Uncleared cheques and payments after <span t-esc="o.ending_date and o.ending_date.strftime('%d/%m/%Y') or ''"/>
+                                    </span>
+                                </p>
+
+                                <table style="width: 100%" class="table-line">
+                                    <thead>
+                                        <tr>
+                                            <td style="width: 12%">
+                                                <span>DATE</span>
+                                            </td>
+                                            <td style="width: 14%">
+                                                <span>TYPE</span>
+                                            </td>
+                                            <td style="width: 25%">
+                                                <span>REF NO.</span>
+                                            </td>
+                                            <td style="width: 31%">
+                                                <span>PAYEE</span>
+                                            </td>
+                                            <td class="text-right" style="width: 18%">
+                                                <span>AMOUNT (<t t-esc="o.account_id.currency_id.name"/>)</span>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="o.credit_move_line_ids.filtered(lambda l: not l.cleared_bank_account)" t-as="line">
+                                            <td>
+                                                <span t-esc="line.date and line.date.strftime('%d/%m/%Y') or ''"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.line_type"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.ref"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.partner_id"/>
+                                            </td>
+                                            <td class="text-right">
+                                                -<span t-esc="'{0:,.2f}'.format(line.amount)"/>
+                                            </td>
+                                        </tr>
+                                        <tr class="total-line">
+                                            <td>
+                                                <span>
+                                                    Total
+                                                </span>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-right">
+                                                -<span t-esc="'{0:,.2f}'.format(sum(o.credit_move_line_ids.filtered(lambda l: not l.cleared_bank_account).mapped('amount')))"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div style="margin-top: 5px; width: 100%">
+                                <p>
+                                    <span>
+                                        Uncleared deposits and other credits after <span t-esc="o.ending_date and o.ending_date.strftime('%d/%m/%Y') or ''"/>
+                                    </span>
+                                </p>
+
+                                <table style="width: 100%" class="table-line">
+                                    <thead>
+                                        <tr>
+                                            <td style="width: 12%">
+                                                <span>DATE</span>
+                                            </td>
+                                            <td style="width: 14%">
+                                                <span>TYPE</span>
+                                            </td>
+                                            <td style="width: 25%">
+                                                <span>REF NO.</span>
+                                            </td>
+                                            <td style="width: 31%">
+                                                <span>PAYEE</span>
+                                            </td>
+                                            <td class="text-right" style="width: 18%">
+                                                <span>AMOUNT (<t t-esc="o.account_id.currency_id.name"/>)</span>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="o.debit_move_line_ids.filtered(lambda l: not l.cleared_bank_account)" t-as="line">
+                                            <td>
+                                                <span t-esc="line.date and line.date.strftime('%d/%m/%Y') or ''"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.line_type"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.ref"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.partner_id"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="'{0:,.2f}'.format(line.amount)"/>
+                                            </td>
+                                        </tr>
+                                        <tr class="total-line">
+                                            <td>
+                                                <span>
+                                                    Total
+                                                </span>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-right">
+                                                <span t-esc="'{0:,.2f}'.format(sum(o.debit_move_line_ids.filtered(lambda l: not l.cleared_bank_account).mapped('amount')))"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <record id="bank_reconciliation_paperformat" model="report.paperformat">
+            <field name="name">Bank Reconciliation Report</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">10</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+            id="report_reconciliation"
+            string="Print Reconciliation"
+            model="bank.acc.rec.statement"
+            report_type="qweb-pdf"
+            file="modifier_sg_bank_reconcile.report_reconciliation_template"
+            name="modifier_sg_bank_reconcile.report_reconciliation_template"
+            print_report_name="'Bank Reconciliation'"
+            paperformat="modifier_sg_bank_reconcile.bank_reconciliation_paperformat"
+            menu="True"
+        />
+    </data>
+</odoo>

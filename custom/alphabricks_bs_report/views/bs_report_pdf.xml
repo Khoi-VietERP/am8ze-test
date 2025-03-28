@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="alphabricks_bs_report.balance_sheet_report_template">
+            <t t-call="web.html_container">
+                <t t-call="web.internal_layout">
+                    <style>
+                        .span-bold {
+                             font-weight: bold
+                        }
+                    </style>
+                    <div class="page">
+                        <div class="span-bold" style="font-size:15px;text-align: center;">
+                            <b>
+                                <span t-esc="company_name"/>
+                                <br/>
+                            </b>
+                            <b>
+                                <span>Balance Sheet</span>
+                                <br/>
+                            </b>
+                            <b>
+                                As of <span t-esc="end_date"/>
+                                <br/>
+                            </b>
+                        </div>
+                        <div style="margin-top: 20px">
+                            <t t-if="check_cmp">
+                                <table width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:30%"></th>
+                                            <t t-foreach="label_filter_list" t-as="lable">
+                                                <th class="span-bold text-center"><t t-esc="lable"/> </th>
+                                            </t>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="lines_data" t-as="line">
+                                            <t t-set="style" t-value="'font-weight:normal'"/>
+                                            <t t-if="line['type'] != 'line'">
+                                                <t t-set="style" t-value="'font-weight:bold;'"/>
+                                            </t>
+                                            <tr t-att-style="style">
+                                                <td>
+                                                    <t t-foreach="line['list_len']" t-as="i">
+                                                        <span>&amp;nbsp;</span>
+                                                        <span>&amp;nbsp;</span>
+                                                    </t>
+                                                    <t t-esc="line['name']"/>
+                                                </td>
+                                                <t t-if="line['type'] == 'view'">
+                                                    <td t-att-colspan="month_run"></td>
+                                                </t>
+                                                <t t-else="">
+                                                    <t t-foreach="balance_cmp_list" t-as="balance_cmp">
+                                                        <td style="text-align: right;"><t t-esc="line[balance_cmp]"/></td>
+                                                    </t>
+                                                </t>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </t>
+                            <t t-else="">
+                                <table width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th class="span-bold text-center">
+                                                <span>Balance</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="lines_data" t-as="line">
+                                            <t t-set="style" t-value="'font-weight:normal'"/>
+                                            <t t-if="line['type'] != 'line'">
+                                                <t t-set="style" t-value="'font-weight:bold;'"/>
+                                            </t>
+                                            <t t-if="line['type'] == 'total'">
+                                                <t t-set="style" t-value="style + 'border-top:1px solid black;'"/>
+                                            </t>
+                                            <tr t-att-style="style">
+                                                <td>
+                                                    <t t-foreach="line['list_len']" t-as="i">
+                                                        <span>&amp;nbsp;</span>
+                                                        <span>&amp;nbsp;</span>
+                                                    </t>
+                                                    <t t-esc="line['name']"/>
+                                                </td>
+                                                <t t-if="line['type'] == 'view'">
+                                                    <td colspan="2"></td>
+                                                </t>
+                                                <t t-else="">
+                                                    <td style="text-align: right;">
+                                                        <t t-esc="line['balance']"/>
+                                                    </td>
+                                                </t>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <report id="balance_sheet_report_pdf"
+                string="BS Report"
+                model="balance.sheet.report"
+                report_type="qweb-pdf"
+                name="alphabricks_bs_report.balance_sheet_report_template"
+                file="alphabricks_bs_report.balance_sheet_report_template"
+                menu="False"/>
+
+        <record id="paperformat_balance_sheet_report" model="report.paperformat">
+            <field name="name">A4</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">28</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+            <field name="report_ids" eval="[(6, 0, [ref('alphabricks_bs_report.balance_sheet_report_pdf')])]"/>
+        </record>
+
+        <report
+            id="action_balance_sheet_report_xlsx"
+            model="balance.sheet.report"
+            string="BS Report"
+            report_type="xlsx"
+            name="alphabricks_bs_report.balance_sheet_report_xlsx"
+            file="alphabricks_bs_report.balance_sheet_report_xlsx"
+            attachment_use="False"
+            print_report_name="'Balance Sheet Report - %s/%s' % (object.start_date,object.end_date)"
+        />
+    </data>
+</odoo>

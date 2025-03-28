@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="change_company_info_form" model="ir.ui.view">
+            <field name="name">change.company.info.inherit</field>
+            <field name="model">change.company.info</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Entity Information">
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <notebook attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <page string="Change in Company's Name" name="tab_1">
+                                <div>
+                                    <field name="tick_to_change_tab1"/>
+                                    <label for="tick_to_change_tab1"/>
+                                </div>
+
+                                <div attrs="{'invisible' : [('tick_to_change_tab1', '=', False)]}">
+                                    <label for="current_entity_name"/><br/>
+                                    <field name="current_entity_name"/>
+                                </div>
+
+                                <div attrs="{'invisible' : [('tick_to_change_tab1', '=', False)]}">
+                                    <label for="current_company_type"/><br/>
+                                    <field name="current_company_type" />
+                                </div>
+
+                                <div attrs="{'invisible' : [('tick_to_change_tab1', '=', False)]}">
+                                    <field name="tab1_check1"/>
+                                    <label for="tab1_check1" style="display: contents;"/>
+                                </div>
+
+                                <div>
+                                    <field name="tab1_check2" attrs="{'invisible' : [('tick_to_change_tab1', '=', False)]}"/>
+                                    <label for="tab1_check2" style="display: contents;" attrs="{'invisible' : [('tick_to_change_tab1', '=', False)]}"/>
+                                </div>
+
+                                <group attrs="{'invisible' : [('tick_to_change_tab1', '=', False)]}">
+                                    <group>
+                                        <field name="entity_new_name" attrs="{'required' : [('tick_to_change_tab1', '=', True)]}"/>
+                                        <field name="suffix" attrs="{'required' : [('tick_to_change_tab1', '=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="inprinciple_approval" widget="radio"/>
+                                        <field name="referral_authority_id" attrs="{'required' : [('tick_to_change_tab1', '=', True),('inprinciple_approval', '=', 'yes')], 'invisible' : [('inprinciple_approval', '!=', 'yes')]}"/>
+                                        <field name="tab1_attachment" attrs="{'required' : [('tick_to_change_tab1', '=', True),('inprinciple_approval', '=', 'yes')], 'invisible' : [('inprinciple_approval', '!=', 'yes')]}"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Change in Activity" name="tab_2">
+                                <div>
+                                    <field name="tick_to_change_tab2"/>
+                                    <label for="tick_to_change_tab2"/>
+                                </div>
+                                <group attrs="{'invisible' : [('tick_to_change_tab2', '=', False)]}">
+                                    <group string="Primary Activity">
+                                        <field name="current_primary_activity"/>
+                                        <field name="new_primary_activity"/>
+                                        <field name="current_primary_described"/>
+                                        <field name="new_primary_described"/>
+                                    </group>
+                                    <group string="Secondary Activity">
+                                        <field name="current_secondary_activity"/>
+                                        <field name="new_secondary_activity"/>
+                                        <field name="current_secondary_described"/>
+                                        <field name="new_secondary_described"/>
+                                    </group>
+                                    <group>
+                                        <field name="effective_date_of_change_tab2"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Change in Registered Office Address/Office Hours" name="tab_3">
+                                <div>
+                                    <field name="tick_to_change_tab3"/>
+                                    <label for="tick_to_change_tab3"/>
+                                </div>
+                                <div attrs="{'invisible' : [('tick_to_change_tab3', '=', False)]}">
+                                    <label for="current_address" style="display: contents;"/><br/>
+                                    <field name="current_address"/>
+                                </div>
+                                <group attrs="{'invisible' : [('tick_to_change_tab3', '=', False)]}">
+                                    <group string="New Registered Office Address">
+                                        <field name="postal_code"/>
+                                        <field name="block_house_number" attrs="{'required' : [('tick_to_change_tab3', '=', True)]}"/>
+                                        <field name="street"/>
+                                        <field name="level"/>
+                                        <field name="unit_number"/>
+                                        <field name="building"/>
+                                    </group>
+                                </group>
+                                <separator string="Office Hours" attrs="{'invisible' : [('tick_to_change_tab3', '=', False)]}"/>
+                                <label for="" string="Current Office Hours" attrs="{'invisible' : [('tick_to_change_tab3', '=', False)]}"/>
+                                <div attrs="{'invisible' : [('tick_to_change_tab3', '=', False)]}">
+                                    <field name="curent_hours_work_5"/>
+                                    <label for="curent_hours_work_5" style="display: contents;"/>
+                                </div>
+                                <div attrs="{'invisible' : [('tick_to_change_tab3', '=', False)]}">
+                                    <field name="curent_hours_work_3"/>
+                                    <label for="curent_hours_work_3" style="display: contents;"/>
+                                </div>
+                                <label for="" string="New Office Hours" attrs="{'invisible' : [('tick_to_change_tab3', '=', False)]}"/>
+                                <div attrs="{'invisible' : [('tick_to_change_tab3', '=', False)]}">
+                                    <field name="hours_work_5"/>
+                                    <label for="hours_work_5" style="display: contents;"/>
+                                </div>
+                                <div attrs="{'invisible' : [('tick_to_change_tab3', '=', False)]}">
+                                    <field name="hours_work_3"/>
+                                    <label for="hours_work_3" style="display: contents;"/>
+                                </div>
+                                <label for="hours_work_3_hours1" style="display: contents;" attrs="{'invisible' : ['|',('hours_work_3', '=', False),('tick_to_change_tab3', '=', False)]}"/>
+                                <div attrs="{'invisible' : ['|',('hours_work_3', '=', False),('tick_to_change_tab3', '=', False)]}">
+                                    <field name="hours_work_3_hours1" style="width:auto" attrs="{'required' : [('hours_work_3', '=', True),('tick_to_change_tab3', '=', True)]}"/>
+                                    <span>.</span>
+                                    <field name="hours_work_3_hours2" style="width:auto" attrs="{'required' : [('hours_work_3', '=', True),('tick_to_change_tab3', '=', True)]}"/>
+                                    <span>hrs</span>
+                                </div>
+                                <label for="effective_date_of_change_tab3" style="display: contents;" attrs="{'invisible' : [('tick_to_change_tab3', '=', False)]}"/>
+                                <div attrs="{'invisible' : [('tick_to_change_tab3', '=', False)]}">
+                                    <field name="effective_date_of_change_tab3" attrs="{'required' : [('tick_to_change_tab3', '=', True)]}"/>
+                                </div>
+                            </page>
+
+                            <page string="Notice of Change of Situation of Office where Branch Register of Members are kept" name="tab_4">
+                                <div>
+                                    <field name="tick_to_change_tab4"/>
+                                    <label for="tick_to_change_tab4"/>
+                                </div>
+                                <group attrs="{'invisible' : [('tick_to_change_tab4', '=', False)]}">
+                                    <group>
+                                        <field name="type_of_notice" attrs="{'required' : [('tick_to_change_tab4', '=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="data_of_open"/>
+                                    </group>
+                                    <group string="New Address where Register is kept">
+                                        <field name="address_type" widget="radio" attrs="{'required' : [('tick_to_change_tab4', '=', True)]}"/>
+                                    </group>
+                                    <group string="New Local Address where Register is kept" attrs="{'invisible' : [('address_type', '!=', 'local_address')]}">
+                                        <field name="postal_code_tab4" attrs="{'required' : [('address_type', '=', 'local_address'),('tick_to_change_tab4', '=', True)]}"/>
+                                        <field name="block_house_number_tab4"/>
+                                        <field name="street_tab4"/>
+                                        <field name="level_tab4"/>
+                                        <field name="unit_number_tab4"/>
+                                        <field name="building_tab4"/>
+                                    </group>
+                                    <group string="New Froreign Address where Register is kept" attrs="{'invisible' : [('address_type', '!=', 'foreign_address')]}">
+                                        <field name="foreign_address_line1" attrs="{'required' : [('address_type', '=', 'foreign_address'),('tick_to_change_tab4', '=', True)]}"/>
+                                        <field name="foreign_address_line2"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Notice of place where register of Holders of debentures is kept" name="tab_5">
+                                <div>
+                                    <field name="tick_to_change_tab5"/>
+                                    <label for="tick_to_change_tab5"/>
+                                </div>
+                                <group string="New Local Address where Register is kept" attrs="{'invisible' : [('tick_to_change_tab5', '=', False)]}">
+                                    <group>
+                                        <field name="postal_code_tab5" attrs="{'required' : [('tick_to_change_tab5', '=', True)]}"/>
+                                        <field name="block_house_number_tab5" attrs="{'required' : [('tick_to_change_tab5', '=', True)]}"/>
+                                        <field name="street_tab5"/>
+                                        <field name="level_tab5"/>
+                                        <field name="unit_number_tab5"/>
+                                        <field name="building_tab5"/>
+                                    </group>
+                                    <group>
+                                        <field name="effective_date_of_change_tab5"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Notice of place where register of Members and index is kept" name="tab_6">
+                                <div>
+                                    <field name="tick_to_change_tab6"/>
+                                    <label for="tick_to_change_tab6"/>
+                                </div>
+                                <group string="New Local Address where Register is kept" attrs="{'invisible' : [('tick_to_change_tab6', '=', False)]}">
+                                    <group>
+                                        <field name="postal_code_tab6" attrs="{'required' : [('tick_to_change_tab5', '=', True)]}"/>
+                                        <field name="block_house_number_tab6" attrs="{'required' : [('tick_to_change_tab5', '=', True)]}"/>
+                                        <field name="street_tab6"/>
+                                        <field name="level_tab6"/>
+                                        <field name="unit_number_tab6"/>
+                                        <field name="building_tab6"/>
+                                    </group>
+                                    <group>
+                                        <field name="effective_date_of_change_tab6"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Appointment or Cessation of Company Officers or Auditors" name="tab_7">
+                                <div>
+                                    <field name="tick_to_change_tab7"/>
+                                    <label for="tick_to_change_tab7"/>
+                                </div>
+                                <field name="appointment_cessation_ids" attrs="{'invisible' : [('tick_to_change_tab7', '=', False)]}">
+                                    <tree>
+                                        <field name="number"/>
+                                        <field name="identification_no"/>
+                                        <field name="name"/>
+                                        <field name="position_held_id"/>
+                                        <field name="withdrawal_date"/>
+                                        <field name="date_appointment" invisible="1"/>
+                                        <field name="check_withdrawal" invisible="1"/>
+                                    </tree>
+                                    <form>
+                                        <div attrs="{'invisible' : [('check_withdrawal', '=', False)]}">
+                                            <div>
+                                                <label for="identification_no" style="font-weight: bold;"/><br/>
+                                                <field name="identification_no" readonly="1" class="color-text-ff8d06"/>
+                                                <field name="check_withdrawal" invisible="1"/>
+                                            </div>
+                                            <div>
+                                                <label for="name" style="font-weight: bold;"/><br/>
+                                                <field name="name" readonly="1" class="color-text-ff8d06"/>
+                                            </div>
+                                            <div>
+                                                <label for="position_held_id" style="font-weight: bold;"/><br/>
+                                                <field name="position_held_id" readonly="1" class="color-text-ff8d06"/>
+                                            </div>
+                                            <div>
+                                                <span style="font-weight: bold;">Nationality</span><br/>
+                                            </div>
+                                            <div>
+                                                <label for="date_appointment" style="font-weight: bold;"/><br/>
+                                                <field name="date_appointment" readonly="1" class="color-text-ff8d06"/>
+                                            </div>
+                                            <div>
+                                                <span style="font-weight: bold;">Withdraw Details</span><br/>
+                                            </div>
+                                            <div>
+                                                <label for="date_cessation" style="font-weight: bold;"/><br/>
+                                                <field name="date_cessation" style="width: 15%;"/>
+                                            </div>
+                                            <div>
+                                                <label for="reason_for_cessation" style="font-weight: bold;"/><br/>
+                                                <field name="reason_for_cessation" style="width: 30%;"/>
+                                            </div>
+                                            <div attrs="{'invisible' : [('reason_for_cessation', '!=', 'deceased')]}">
+                                                <label for="attach_death_certificate" style="font-weight: bold;"/><br/>
+                                                <field name="attach_death_certificate" style="width: 30%;"/>
+                                            </div>
+                                            <div attrs="{'invisible' : [('reason_for_cessation', '!=', 'disqualified')]}">
+                                                <label for="disqualified_reasons_id" style="font-weight: bold;"/><br/>
+                                                <field name="disqualified_reasons_id" style="width: 30%;"/>
+                                            </div>
+                                            <div attrs="{'invisible' : [('reason_for_cessation', '!=', 'disqualified')]}">
+                                                <label for="disqualified_reasons_subsection_id" style="font-weight: bold;"/><br/>
+                                                <field name="disqualified_reasons_subsection_id" style="width: 30%;"/>
+                                            </div>
+                                            <div attrs="{'invisible' : [('reason_for_cessation', '!=', 'others')]}">
+                                                <label for="other_reason" style="font-weight: bold;"/><br/>
+                                                <field name="other_reason" style="width: 30%;"/>
+                                            </div>
+                                        </div>
+                                        <div attrs="{'invisible' : [('check_withdrawal', '!=', False)]}">
+                                            <div>
+                                                <field name="position_held" widget="radio" style="flex-flow: row nowrap;"/>
+                                            </div>
+                                            <div>
+                                                <label for="category" style="font-weight: bold;"/><br/>
+                                                <field name="category" widget="radio" style="flex-flow: row nowrap;"/>
+                                            </div>
+                                            <div>
+                                                <label for="date_appointment_input" style="font-weight: bold;"/><br/>
+                                                <field name="date_appointment_input" style="width: 15%;"/>
+                                            </div>
+                                            <div>
+                                                <span style="font-weight: bold;">Corporate Details</span><br/>
+                                                <label for="entity_id" style="font-weight: bold;"/><br/>
+                                                <field name="entity_id" style="width: 30%;"/>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

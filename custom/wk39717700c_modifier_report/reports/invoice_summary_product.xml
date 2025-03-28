@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="paperformat_invoice_summary_product" model="report.paperformat">
+            <field name="name">Invoice Summary A4</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">45</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">45</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+            id="invoice_summary_product_report"
+            model="report.invoice.summary.product"
+            string="Invoice - Summary Product"
+            report_type="qweb-pdf"
+            name="wk39717700c_modifier_report.report_invoice_summary_product"
+            file="wk39717700c_modifier_report.report_invoice_summary_product"
+            paperformat="wk39717700c_modifier_report.paperformat_invoice_summary_product"
+            />
+
+        <template id="wk39717700c_layout">
+            <div class="header">
+                <div class="row" id="company">
+                    <div name="company_address" style="font-size:14px;width:100%">
+                        <ul class="list-unstyled">
+                            <strong>
+                                <li t-if="company.name">
+                                    <h3 t-field="company.name"/>
+                                </li>
+                            </strong>
+                            <li>
+                                <span t-field="company.street"/>
+                                <br/>
+                            </li>
+                            <li>
+                                Email: <span t-field="company.email"/>
+                            </li>
+                            <li>
+                                Tel: <span class="o_force_ltr" style="margin-right:10px" t-field="company.phone"/>
+                                Fax: <span class="o_force_ltr" t-field="company.phone"/>
+                            </li>
+                            <li>
+                                Co Reg No: <span class="o_force_ltr" style="margin-right:10px" t-field="company.phone"/>
+                                GST Reg. No: <span class="o_force_ltr" t-field="company.phone"/>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row" id="header_id" style="margin-top: 20px">
+                    <div style="font-size:14px;width:70%">
+                        <ul class="list-unstyled">
+                            <li>
+                                Print Date: <span class="o_force_ltr" t-esc="date"/>
+                            </li>
+                            <li>
+                                Invoice Summary by Product Report From <span class="o_force_ltr" t-esc="start_date"/> To <span class="o_force_ltr" t-esc="end_date"/>
+                            </li>
+                        </ul>
+                    </div>
+                    <div style="font-size:14px;width:30%">
+                        <ul class="list-unstyled">
+                            <li>
+                                Page no: <span class="page"/> / <span class="topage"/>
+                            </li>
+                            <li>
+                                Salesman : <t t-esc="salesman"/>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="article" t-att-data-oe-model="o and docs[0]._name" t-att-data-oe-id="o and docs[0].id" t-att-data-oe-lang="o and docs[0].env.context.get('lang')">
+                <t t-raw="0"/>
+            </div>
+        </template>
+
+        <template id="report_invoice_summary_product">
+            <t t-call="web.html_container">
+                <t t-call="wk39717700c_modifier_report.wk39717700c_layout">
+                    <t t-set="company" t-value="res_company"/>
+                    <style>
+                        .table-detail th, .table-detail td {
+                            padding: 0.25rem 0.75rem;
+                        }
+                    </style>
+                    <div class="page">
+                        <table class="table table-detail" style="margin-top: 20px">
+                            <thead>
+                                <tr>
+                                    <th class="text-center"><strong>SINo</strong></th>
+                                    <th class="text-left"><strong>Product Code</strong></th>
+                                    <th class="text-left"><strong>Product Name</strong></th>
+                                    <th class="text-right"><strong>PcsPerCarton</strong></th>
+                                    <th class="text-right"><strong>Carton</strong></th>
+                                    <th class="text-right"><strong>Loose</strong></th>
+                                    <th class="text-right"><strong>Qty</strong></th>
+                                    <th class="text-right"><strong>Foc</strong></th>
+                                    <th class="text-right"><strong>Ex.Qty</strong></th>
+                                    <th class="text-right"><strong>Price</strong></th>
+                                    <th class="text-right"><strong>Sub Total</strong></th>
+                                    <th class="text-right"><strong>Tax</strong></th>
+                                    <th class="text-right"><strong>Net Total</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="data" t-as="line">
+                                    <t t-if="line['product_name'] == 'Grand Total'">
+                                        <td class="text-center" style="font-weight:bold"><span t-esc="line['sino']"/></td>
+                                        <td class="text-left" style="font-weight:bold"><span t-esc="line['product_code']"/></td>
+                                        <td class="text-left" style="font-weight:bold"><span t-esc="line['product_name']"/></td>
+                                        <td class="text-right" style="font-weight:bold"><span t-esc="line['pcs_per_carton']"/></td>
+                                        <td class="text-right" style="font-weight:bold"><span t-esc="line['carton']"/></td>
+                                        <td class="text-right" style="font-weight:bold"><span t-esc="line['loose']"/></td>
+                                        <td class="text-right" style="font-weight:bold"><span t-esc="line['qty']"/></td>
+                                        <td class="text-right" style="font-weight:bold"><span t-esc="line['foc']"/></td>
+                                        <td class="text-right" style="font-weight:bold"><span t-esc="line['ex_qty']"/></td>
+                                        <td class="text-right" style="font-weight:bold"><span t-esc="line['price']"/></td>
+                                        <td class="text-right" style="font-weight:bold"><span t-esc="line['subtotal']"/></td>
+                                        <td class="text-right" style="font-weight:bold"><span t-esc="line['tax']"/></td>
+                                        <td class="text-right" style="font-weight:bold"><span t-esc="line['net_total']"/></td>
+                                    </t>
+                                    <t t-else="">
+                                        <td class="text-center"><span t-esc="line['sino']"/></td>
+                                        <td class="text-left"><span t-esc="line['product_code']"/></td>
+                                        <td class="text-left"><span t-esc="line['product_name']"/></td>
+                                        <td class="text-right"><span t-esc="line['pcs_per_carton']"/></td>
+                                        <td class="text-right"><span t-esc="line['carton']"/></td>
+                                        <td class="text-right"><span t-esc="line['loose']"/></td>
+                                        <td class="text-right"><span t-esc="line['qty']"/></td>
+                                        <td class="text-right"><span t-esc="line['foc']"/></td>
+                                        <td class="text-right"><span t-esc="line['ex_qty']"/></td>
+                                        <td class="text-right"><span t-esc="line['price']"/></td>
+                                        <td class="text-right"><span t-esc="line['subtotal']"/></td>
+                                        <td class="text-right"><span t-esc="line['tax']"/></td>
+                                        <td class="text-right"><span t-esc="line['net_total']"/></td>
+                                    </t>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <report
+            id="invoice_summary_product_xlsx_report"
+            model="report.invoice.summary.product"
+            string="Print to XLSX"
+            report_type="xlsx"
+            name="wk39717700c_modifier_report.inv_summary_product_excel"
+            file="wk39717700c_modifier_report.inv_summary_product_excel"
+            attachment_use="False"
+            print_report_name="'Invoice - Summary Product - %s To %s %s' % (object.start_date.strftime('%b'),object.end_date.strftime('%b'),object.start_date.strftime('%y'))"
+        />
+    </data>
+</odoo>

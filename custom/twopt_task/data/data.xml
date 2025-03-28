@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="0">
+        <record id="reason_for_application_1" model="reason.for.application">
+            <field name="name">Company has not started to carry on business or begin operation</field>
+        </record>
+        <record id="reason_for_application_2" model="reason.for.application">
+            <field name="name">Company has ceased to carry on business or operate</field>
+        </record>
+    </data>
+</odoo>

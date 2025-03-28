@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!--TODO MS Word Report CreditNote-->
+        <report
+            id="ms_word_report_creditnote"
+            model="account.move"
+            string="MS Word Report CreditNote"
+            report_type="qweb-pdf"
+            name="create_ms_word_report.report_ms_word_report_creditnote"
+            file="create_ms_word_report.report_ms_word_report_creditnote"
+            menu="True"
+        />
+        <record id="ms_word_report_creditnote" model="ir.actions.report">
+            <field name="file_template_data" type="base64" file="create_ms_word_report/data/CreditNote.docx"/>
+            <field name="populating_ms_word_template" eval="True"/>
+            <field name="ms_model_select">account.move</field>
+        </record>
+
+        <!--TODO MS Word Report Invoice-->
+        <report
+            id="ms_word_report_invoice"
+            model="account.move"
+            string="MS Word Report Invoice"
+            report_type="qweb-pdf"
+            name="create_ms_word_report.report_ms_word_report_invoice"
+            file="create_ms_word_report.report_ms_word_report_invoice"
+            menu="True"
+        />
+        <record id="ms_word_report_invoice" model="ir.actions.report">
+            <field name="file_template_data" type="base64" file="create_ms_word_report/data/Invoice.docx"/>
+            <field name="populating_ms_word_template" eval="True"/>
+            <field name="ms_model_select">account.move</field>
+        </record>
+
+        <!--TODO MS Word Report PurchaseOrder-->
+        <report
+            id="ms_word_report_purchaseorder"
+            model="purchase.order"
+            string="MS Word Report Purchase"
+            report_type="qweb-pdf"
+            name="create_ms_word_report.report_ms_word_report_purchaseorder"
+            file="create_ms_word_report.report_ms_word_report_purchaseorder"
+            menu="True"
+        />
+        <record id="ms_word_report_purchaseorder" model="ir.actions.report">
+            <field name="file_template_data" type="base64" file="create_ms_word_report/data/PurchaseOrder.docx"/>
+            <field name="populating_ms_word_template" eval="True"/>
+            <field name="ms_model_select">purchase.order</field>
+        </record>
+
+        <!--TODO MS Word Report Quote-->
+        <report
+            id="ms_word_report_quote"
+            model="sale.order"
+            string="MS Word Report Quote"
+            report_type="qweb-pdf"
+            name="create_ms_word_report.report_ms_word_report_quote"
+            file="create_ms_word_report.report_ms_word_report_quote"
+            menu="True"
+        />
+        <record id="ms_word_report_quote" model="ir.actions.report">
+            <field name="file_template_data" type="base64" file="create_ms_word_report/data/Quote.docx"/>
+            <field name="populating_ms_word_template" eval="True"/>
+            <field name="ms_model_select">sale.order</field>
+        </record>
+
+        <!--TODO MS Word Statement-->
+        <report
+            id="ms_word_report_statement"
+            model="res.partner"
+            string="MS Word Report Statement"
+            report_type="qweb-pdf"
+            name="create_ms_word_report.report_ms_word_report_statement"
+            file="create_ms_word_report.report_ms_word_report_statement"
+            menu="True"
+        />
+        <record id="ms_word_report_statement" model="ir.actions.report">
+            <field name="file_template_data" type="base64" file="create_ms_word_report/data/Statement.docx"/>
+            <field name="populating_ms_word_template" eval="True"/>
+            <field name="ms_model_select">res.partner</field>
+        </record>
+    </data>
+</odoo>

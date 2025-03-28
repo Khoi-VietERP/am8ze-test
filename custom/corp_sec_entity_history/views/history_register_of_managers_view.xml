@@ -1,0 +1,54 @@
+<odoo>
+    <data>
+        <record id="history_register_of_managers_tree" model="ir.ui.view">
+            <field name="name">history.register.of.managers.tree</field>
+            <field name="model">history.register.of.managers</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="entity_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="history_register_of_managers_form" model="ir.ui.view">
+            <field name="name">history.register.of.managers.form</field>
+            <field name="model">history.register.of.managers</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="entity_id"/>
+                        </group>
+                        <group/>
+                    </group>
+                    <field name="line_ids">
+                        <tree editable="bottom">
+                            <field name="no"/>
+                            <field name="name"/>
+                            <field name="date_of_birth"/>
+                            <field name="nric"/>
+                            <field name="country_id"/>
+                            <field name="address"/>
+                            <field name="date_of_appointment"/>
+                            <field name="date_ceased_as_manager"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="no"/>
+                                <field name="name"/>
+                                <field name="date_of_birth"/>
+                                <field name="nric"/>
+                            </group>
+                            <group>
+                                <field name="country_id"/>
+                                <field name="address"/>
+                                <field name="date_of_appointment"/>
+                                <field name="date_ceased_as_manager"/>
+                            </group>
+                        </form>
+                    </field>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

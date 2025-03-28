@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_payroll_admin_hr_contract,hr.contract.admin,model_hr_contract,l10n_sg_hr_payroll.group_hr_payroll_admin,1,1,1,1
+access_rights_admin_hr_contract_income_tax,hr_contract_income_tax_admin,model_hr_contract_income_tax,l10n_sg_hr_payroll.group_hr_payroll_admin,1,1,1,1
+access_rights_manager_hr_contract_income_tax,hr_contract_income_tax_manager,model_hr_contract_income_tax,hr.group_hr_manager,1,1,1,1
+access_rights_emp_hr_contract_income_tax,hr_contract_income_tax_user,model_hr_contract_income_tax,base.group_user,1,0,0,0

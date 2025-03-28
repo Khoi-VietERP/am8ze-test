@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+        <template id="assets_backend" name="account_dynamic_reports assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/h202102879_modifier_gst_f5/static/src/js/script.js"></script>
+                <script type="text/javascript" src="/h202102879_modifier_gst_f5/static/src/js/gstf5_return.js"></script>
+            </xpath>
+        </template>
+
+        <record id="gst_returnf5_trans_view_inherit" model="ir.ui.view">
+            <field name="name">account.gstf5.trans.form</field>
+            <field name="model">account.gstf5.trans</field>
+            <field name="inherit_id" ref="gst_f5.gst_returnf5_trans_view"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='check_report']" position="after">
+                    <button name="action_xlsx" string="XLSX" type="object" default_focus="1" class="oe_highlight"/>
+                    <button name="action_view" string="View" type="object" default_focus="1" class="oe_highlight"/>
+                </xpath>
+            </field>
+        </record>
+
+        <report
+            id="js_acc_xlsx_gstf5_report"
+            model="account.gstf5.trans"
+            string="Print to XLSX"
+            report_type="xlsx"
+            name="h202102879_modifier_gst_f5.report_gstf5_trans_excel"
+            file="GST F5 with transactions detail"
+            attachment_use="False"
+        />
+    </data>
+</odoo>

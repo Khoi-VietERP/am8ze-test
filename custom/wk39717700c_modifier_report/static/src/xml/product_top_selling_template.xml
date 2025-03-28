@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="TempProductTopSelling">
+        <div class="py-main-container">
+            <div class="py-filter-container">
+                <div class="py-control-panel">
+                </div>
+            </div>
+            <div class="py-data-container">
+                <div class="py-data-container-orig">
+                </div>
+                <div id="loader">
+                    <div id="top"></div>
+                    <div id="bottom"></div>
+                    <div id="line"></div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="FilterProductTopSelling">
+        <div class="py-control-div">
+            <div class="py-cntrl-left">
+                <div class="py-ctrl-buttons">
+                    <button type="button" class="btn py-btn-primary" id="pdf" action="print_pdf" style="position: relative;">Print (Pdf)</button>
+                </div>
+            </div>
+            <div class="py_cntrl_right">
+                <div class="py-search-buttons">
+                    <button type="button" id="filter_apply_button" class="btn py-btn-secondary" action="apply_filter" style="position: relative;">Apply</button>
+                    <div class="py-search-btn-date">
+                        <a type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="fa fa-calendar" title="Dates" role="img" aria-label="Dates"></span>
+                        Custom
+                        </a>
+                        <div class="dropdown-menu py-filters-menu" role="menu">
+                            <div role="separator" class="dropdown-divider"></div>
+                            <span role="menuitem" class="dropdown-item" data-filter="custom_filter_date">Custom</span>
+                            <div class="o_foldable_menu  o_account_report_search" data-filter="custom_filter_date">
+                                <label class="custom-date" for="date_from">Start Date :</label>
+                                <div class="form-group custom-date">
+                                    <div class="o_datepicker" aria-atomic="true" id="datepicker10" data-target-input="nearest">
+                                        <input type="date" id="date_from"></input>
+                                    </div>
+                                </div>
+                                <label class="custom-date" for="date_to">End Date :</label>
+                                <div class="form-group custom-date">
+                                    <div class="o_datepicker" aria-atomic="true" id="datepicker11" data-target-input="nearest">
+                                        <input type="date" id="date_to"></input>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="separator" class="dropdown-divider"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="TempProductTopSellingMain">
+        <div class="row" style="width: 100%; margin: 5px">
+            <div class="col-11" style="font-size: 15px">
+                 <b style="font-size: 20px;">
+                    <t t-esc="get_info['company_name']"/>
+                </b><br/>
+                <br/>
+                <strong>TopSelling Products Report From <t t-esc="get_info['start_date']"/> To <t t-esc="get_info['end_date']"/></strong>
+            </div>
+        </div>
+        <table style="width: 100%;margin-top: 20px">
+             <thead>
+                <tr style="border-top: 1px solid black; border-bottom: 1px solid black">
+                    <th style="text-align:left">Product Code</th>
+                    <th style="text-align:left">Product Name</th>
+                    <th style="text-align:center">Qty</th>
+                    <th style="text-align:right">Invoice NetTotal</th>
+                    <th style="text-align:right">Return NetTotal</th>
+                    <th style="text-align:right">NetTotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <t t-foreach="get_info['product_data']" t-as="product_line">
+                    <tr>
+                        <td style="text-align:left">
+                            <t t-esc="product_line['product_code']"/>
+                        </td>
+                        <td style="text-align:left">
+                            <t t-esc="product_line['product_name']"/>
+                        </td>
+                        <td style="text-align:center">
+                            <t t-esc="product_line['quantity']"/>
+                        </td>
+                        <td style="text-align:right">
+                            <t t-esc="product_line['invoice_net_total']"/>
+                        </td>
+                        <td style="text-align:right">
+                            <t t-esc="product_line['return_net_total']"/>
+                        </td>
+                        <td style="text-align:right">
+                            <t t-esc="product_line['net_total']"/>
+                        </td>
+                    </tr>
+                </t>
+            </tbody>
+        </table>
+    </t>
+</templates>

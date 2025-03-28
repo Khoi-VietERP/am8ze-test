@@ -1,0 +1,90 @@
+<odoo>
+    <data>
+        <record id="accounting_tax_report_view_inherit" model="ir.ui.view">
+            <field name="name">Tax Reports</field>
+            <field name="model">account.tax.report</field>
+            <field name="inherit_id" ref="sg_account_report.accounting_tax_report_view"/>
+            <field name="arch" type="xml">
+                <data>
+                     <xpath expr="//form/group" position="before">
+                        <group>
+                            <group>
+                                <field name="taxes_ids" widget="many2many_tags"/>
+                            </group>
+                            <group></group>
+                        </group>
+                    </xpath>
+                    <xpath expr="//button[@name='check_report']" position="attributes">
+                        <attribute name="string">Print PDF</attribute>
+                    </xpath>
+                    <xpath expr="//button[@name='check_report']" position="after">
+                        <button name="check_report_excel" string="Print Excel" type="object" default_focus="1" class="oe_highlight"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <report
+            id="action_report_account_tax_excel"
+            model="account.tax.report"
+            string="Tax Report"
+            report_type="xlsx"
+            name="modifier_sg_account_report.report_tax_excel"
+            file="modifier_sg_account_report.report_tax_excel"
+            attachment_use="False"
+            />
+
+        <template id="sg_account_report.report_tax">
+            <t t-call="web.html_container">
+                <t t-call="web.internal_layout">
+                    <div class="page">
+                        <h4><center> Tax Report</center></h4>
+                        <div>
+                            <div>
+                                <t t-if="data['date_from']"><strong style="font-size:14px;">From</strong> <span style="font-size:13px;" t-esc="data['date_from']"/><br/></t>
+                                <t t-if="data['date_to']"><strong style="font-size:14px;">to </strong><span style="font-size:13px;" t-esc="data['date_to']"/></t>
+                            </div>
+                        </div>
+                        <table class="table table-sm" style="margin-top:20px;">
+                            <thead>
+                                <tr style="font-size:14px;border-top: 1px solid white;">
+                                    <th style="border-top: 1px solid white;">Date</th>
+                                    <th style="border-top: 1px solid white;">Ref No</th>
+                                    <th style="border-top: 1px solid white;">Customer/Supplier Name</th>
+                                    <th style="border-top: 1px solid white;">Rate %</th>
+                                    <th style="border-top: 1px solid white;">Sale Value</th>
+                                    <th style="border-top: 1px solid white;">Purchase Value</th>
+                                    <th style="border-top: 1px solid white;">Tax Value</th>
+                                </tr>
+                            </thead>
+                            <t t-foreach="lines['sale']" t-as="line" style="font-size:13px;">
+                                <tr t-foreach="line['move_lines']" t-as="ml">
+                                    <td><span t-esc="ml.get('date')"/></td>
+                                    <td><span t-esc="ml.get('ref')"/></td>
+                                    <td><span t-esc="ml.get('partner')"/></td>
+                                    <td><span t-esc="ml.get('amount')"/></td>
+                                    <td><span t-att-style="style" t-esc="ml.get('sale_value')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                    <td><span t-att-style="style" t-esc="ml.get('purchase_value')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                    <td><span t-att-style="style" t-esc="ml.get('tax')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                </tr>
+                            </t>
+                            <tr style="font-size:13px;"><td colspan="3"><strong>Purchase</strong></td>
+                            </tr>
+                            <t t-foreach="lines['purchase']" t-as="line" style="font-size:13px;">
+                               <tr t-foreach="line['move_lines']" t-as="ml">
+                                    <td><span t-esc="ml.get('date')"/></td>
+                                    <td><span t-esc="ml.get('ref')"/></td>
+                                    <td><span t-esc="ml.get('partner')"/></td>
+                                    <td><span t-esc="ml.get('amount')"/></td>
+                                    <td><span t-att-style="style" t-esc="ml.get('sale_value')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                    <td><span t-att-style="style" t-esc="ml.get('purchase_value')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                    <td><span t-att-style="style" t-esc="ml.get('tax')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

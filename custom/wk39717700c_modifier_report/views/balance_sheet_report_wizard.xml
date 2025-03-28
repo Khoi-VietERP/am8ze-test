@@ -1,0 +1,8 @@
+<odoo>
+    <data>
+
+        <record id="alphabricks_bs_report.menu_balance_sheet_report" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6, 0, [ref('wk39717700c_modifier_report.pl_and_balance')])]"/>
+        </record>
+    </data>
+</odoo>

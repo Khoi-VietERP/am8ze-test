@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="GstTransTaxMain">
+        <div class="py-main-container">
+            <div class="py-filter-container">
+                <div class="py-control-panel">
+                </div>
+            </div>
+            <div class="py-data-container">
+                <div class="py-data-container-orig">
+                </div>
+                <div id="loader">
+                    <div id="top"></div>
+                    <div id="bottom"></div>
+                    <div id="line"></div>
+                </div>
+            </div>
+        </div>
+    </t>
+    <t t-name="FilterGstTransTax">
+        <div class="py-control-div">
+            <div class="py-cntrl-left">
+                <div class="py-ctrl-buttons">
+<!--                    <button type="button" class="btn py-btn-primary" id="pdf" action="print_pdf" style="position: relative;">Print (Pdf)</button>-->
+                    <button type="button" class="btn py-btn-primary" id="xlsx" action="print_xlsx" style="position: relative;">Export (XLSX)</button>
+                </div>
+            </div>
+            <div class="py_cntrl_right">
+                <div class="py-search-buttons">
+                    <button type="button" id="filter_apply_button" class="btn py-btn-secondary" action="apply_filter" style="position: relative;">Apply</button>
+                    <div class="py-search-btn-date">
+                        <a type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="fa fa-calendar" title="Dates" role="img" aria-label="Dates"></span>
+                        Custom
+                        </a>
+                        <div class="dropdown-menu py-filters-menu" role="menu">
+                            <div role="separator" class="dropdown-divider"></div>
+                            <span role="menuitem" class="dropdown-item" data-filter="custom_filter_date">Custom</span>
+                            <div class="o_foldable_menu o_closed_menu o_account_report_search" data-filter="custom_filter_date">
+                                <label class="custom-date" for="date_from">Start Date :</label>
+                                <div class="form-group custom-date">
+                                    <div class="o_datepicker" aria-atomic="true" id="datepicker10" data-target-input="nearest">
+                                        <input type="date" id="date_from"></input>
+                                    </div>
+                                </div>
+                                <label class="custom-date" for="date_to">End Date :</label>
+                                <div class="form-group custom-date">
+                                    <div class="o_datepicker" aria-atomic="true" id="datepicker11" data-target-input="nearest">
+                                        <input type="date" id="date_to"></input>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="separator" class="dropdown-divider"></div>
+                        </div>
+                    </div>
+                    <div class="py-search-extra">
+                        <a type="button" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="fa fa-book"></span>
+                            Tax Code:
+                        </a>
+                        <select class="dropdown-menu py-filters-menu tax-code-multiple" name="states[]" multiple="multiple">
+                            <option value="sr">SR</option>
+                            <option value="zr">ZR</option>
+                            <option value="im">IM</option>
+                            <option value="tx">TX</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="font-size:13px;text-align: center;border-top: 1px solid #6c757d;margin-top: 5px;">
+            <h3>
+                <span t-esc="get_info['company_name']"/>
+                <br/>
+            </h3>
+            <h3>
+                <span>GST Report Transactions by Tax Code</span>
+                <br/>
+            </h3>
+            <t t-if="get_info">
+                <h5>
+                    <span t-esc="get_info['start_date']"/>
+                    to
+                    <span t-esc="get_info['end_date']"/>
+                    <br/>
+                </h5>
+            </t>
+        </div>
+    </t>
+
+    <t t-name="GstTransTaxMainList">
+            <style>
+                .move_line {
+                    cursor: pointer;
+                    text-decoration: none;
+                }
+                .move_line:hover {
+                  background-color: #e5e5e5;
+                }
+                .table-gst5 table {
+                    position: relative;
+                    top: -10px;
+                }
+                .table-gst5 th {
+                    position: sticky;
+                    top: -10px;
+                    background-color: #e5e5e5;
+                }
+            </style>
+            <br/>
+        <div>
+            <table width="100%" class="table table-bordered table-gst5">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Doc No.</th>
+                        <th>Type</th>
+                        <th>A/C No.</th>
+                        <th>Description</th>
+                        <th>Tax Rate</th>
+                        <th>Total Amt.</th>
+                        <th>Local Taxable Amt.</th>
+                        <th>Local Tax Amt.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-if="get_info['sr_move_list']">
+                        <td>
+                            <strong>SR</strong>
+                        </td>
+                        <td colspan="8">
+                            <strong>Standard-rated supplies with GST charged</strong>
+                        </td>
+                    </tr>
+                    <t t-if="get_info['sr_move_list']">
+                        <tr t-foreach="get_info['sr_move_list']" t-as="sr_move" t-att-data-move-id="sr_move['move_id']" class="move_line">
+                            <td><span t-esc="sr_move['date']"/></td>
+                            <td><span t-esc="sr_move['name']"/></td>
+                            <td><span t-esc="sr_move['type']"/></td>
+                            <td><span t-esc="sr_move['account_code']"/></td>
+                            <td><span t-esc="sr_move['des']"/></td>
+                            <td><span t-esc="sr_move['tax_rate']"/></td>
+                            <td style="text-align: right;"><span t-esc="sr_move['net_amount']"/></td>
+                            <td style="text-align: right;"><span t-esc="sr_move['local_net_amount']"/> </td>
+                            <td style="text-align: right;"><span t-esc="sr_move['tax_amount']"/> </td>
+                        </tr>
+                    </t>
+                    <tr t-if="get_info['sr_move_list']">
+                        <td colspan="4"></td>
+                        <td colspan="2">
+                            <strong>Total : SR Standard-rated supplies with GST charged</strong>
+                        </td>
+                        <td style="text-align: right;"><strong t-esc="get_info['sr_total']['net_amount']"/></td>
+                        <td style="text-align: right;"><strong t-esc="get_info['sr_total']['local_net_amount']"/> </td>
+                        <td style="text-align: right;"><strong t-esc="get_info['sr_total']['tax_amount']"/> </td>
+                    </tr>
+
+                    <tr t-if="get_info['zr_move_list']">
+                        <td>
+                            <strong>ZR</strong>
+                        </td>
+                        <td colspan="8">
+                            <strong>Zero-rated supplies</strong>
+                        </td>
+                    </tr>
+                    <t t-if="get_info['zr_move_list']">
+                        <tr t-foreach="get_info['zr_move_list']" t-as="zr_move" t-att-data-move-id="zr_move['move_id']" class="move_line">
+                            <td><span t-esc="zr_move['date']"/></td>
+                            <td><span t-esc="zr_move['name']"/></td>
+                            <td><span t-esc="zr_move['type']"/></td>
+                            <td><span t-esc="zr_move['account_code']"/></td>
+                            <td><span t-esc="zr_move['des']"/></td>
+                            <td><span t-esc="zr_move['tax_rate']"/></td>
+                            <td style="text-align: right;"><span t-esc="zr_move['net_amount']"/></td>
+                            <td style="text-align: right;"><span t-esc="zr_move['local_net_amount']"/> </td>
+                            <td style="text-align: right;"><span t-esc="zr_move['tax_amount']"/> </td>
+                        </tr>
+                    </t>
+                    <tr t-if="get_info['zr_move_list']">
+                        <td colspan="4"></td>
+                        <td colspan="2">
+                            <strong>Total : ZR Zero-rated supplies</strong>
+                        </td>
+                        <td style="text-align: right;"><strong t-esc="get_info['zr_total']['net_amount']"/></td>
+                        <td style="text-align: right;"><strong t-esc="get_info['zr_total']['local_net_amount']"/> </td>
+                        <td style="text-align: right;"><strong t-esc="get_info['zr_total']['tax_amount']"/> </td>
+                    </tr>
+
+                    <tr t-if="get_info['im_move_list']">
+                        <td>
+                            <strong>IM</strong>
+                        </td>
+                        <td colspan="8">
+                            <strong>GST paid to Singapore Customs on the import of goods into Singapore</strong>
+                        </td>
+                    </tr>
+                    <t t-if="get_info['im_move_list']">
+                        <tr t-foreach="get_info['im_move_list']" t-as="im_move" t-att-data-move-id="im_move['move_id']" class="move_line">
+                            <td><span t-esc="im_move['date']"/></td>
+                            <td><span t-esc="im_move['name']"/></td>
+                            <td><span t-esc="im_move['type']"/></td>
+                            <td><span t-esc="im_move['account_code']"/></td>
+                            <td><span t-esc="im_move['des']"/></td>
+                            <td><span t-esc="im_move['tax_rate']"/></td>
+                            <td style="text-align: right;"><span t-esc="im_move['net_amount']"/></td>
+                            <td style="text-align: right;"><span t-esc="im_move['local_net_amount']"/> </td>
+                            <td style="text-align: right;"><span t-esc="im_move['tax_amount']"/> </td>
+                        </tr>
+                    </t>
+                    <tr t-if="get_info['im_move_list']">
+                        <td colspan="4"></td>
+                        <td colspan="2">
+                            <strong>Total : IM GST paid to Singapore Customs on the import of goods into Singapore</strong>
+                        </td>
+                        <td style="text-align: right;"><strong t-esc="get_info['im_total']['net_amount']"/></td>
+                        <td style="text-align: right;"><strong t-esc="get_info['im_total']['local_net_amount']"/> </td>
+                        <td style="text-align: right;"><strong t-esc="get_info['im_total']['tax_amount']"/> </td>
+                    </tr>
+
+                    <tr t-if="get_info['tx_move_list']">
+                        <td>
+                            <strong>TX</strong>
+                        </td>
+                        <td colspan="8">
+                            <strong>Purchases from GST-registered suppliers that are subject to GST</strong>
+                        </td>
+                    </tr>
+                    <t t-if="get_info['tx_move_list']">
+                        <tr t-foreach="get_info['tx_move_list']" t-as="tx_move" t-att-data-move-id="tx_move['move_id']" class="move_line">
+                            <td><span t-esc="tx_move['date']"/></td>
+                            <td><span t-esc="tx_move['name']"/></td>
+                            <td><span t-esc="tx_move['type']"/></td>
+                            <td><span t-esc="tx_move['account_code']"/></td>
+                            <td><span t-esc="tx_move['des']"/></td>
+                            <td><span t-esc="tx_move['tax_rate']"/></td>
+                            <td style="text-align: right;"><span t-esc="tx_move['net_amount']"/></td>
+                            <td style="text-align: right;"><span t-esc="tx_move['local_net_amount']"/> </td>
+                            <td style="text-align: right;"><span t-esc="tx_move['tax_amount']"/> </td>
+                        </tr>
+                    </t>
+                    <tr t-if="get_info['im_move_list']">
+                        <td colspan="4"></td>
+                        <td colspan="2">
+                            <strong>Total : TX Purchases from GST-registered suppliers that are subject to GST</strong>
+                        </td>
+                        <td style="text-align: right;"><strong t-esc="get_info['tx_total']['net_amount']"/></td>
+                        <td style="text-align: right;"><strong t-esc="get_info['tx_total']['local_net_amount']"/> </td>
+                        <td style="text-align: right;"><strong t-esc="get_info['tx_total']['tax_amount']"/> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </t>
+</templates>

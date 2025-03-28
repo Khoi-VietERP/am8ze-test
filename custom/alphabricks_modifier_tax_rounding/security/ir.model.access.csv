@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_alphabricks_modifier_tax_rounding_alphabricks_modifier_tax_rounding,alphabricks_modifier_tax_rounding.alphabricks_modifier_tax_rounding,model_alphabricks_modifier_tax_rounding_alphabricks_modifier_tax_rounding,base.group_user,1,1,1,1

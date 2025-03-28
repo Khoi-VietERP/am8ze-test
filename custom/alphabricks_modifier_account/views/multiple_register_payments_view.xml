@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_multiple_register_payments_inherit">
+            <field name="name">multiple.register.payments.form</field>
+            <field name="model">multiple.register.payments</field>
+            <field name="inherit_id" ref="mass_payments_for_multiple_vendors_customers.view_multiple_register_payments"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="replace">
+                    <form string="Vendor/Customer Summary Details">
+                        <sheet>
+                            <group>
+                                <group>
+                                    <field name="journal_id"
+                                           options="{'no_create': True, 'no_create_edit':True,'no_quick_create': True}"/>
+                                    <field name="partner_ids" widget="many2many_tags"/>
+                                </group>
+                                <group>
+                                    <field name="payment_id"/>
+                                    <field name="payment_date"/>
+                                    <field name="deposit_to_id"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="payment_type" invisible="1"/>
+                                <field name="partner_type" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="memo"/>
+                                <field name="invoice_ids" widget="many2many_tags"
+                                       options="{'no_create': True, 'no_create_edit':True,'no_quick_create': True}"/>
+                            </group>
+                            <notebook>
+                                <page string="Payment_line">
+                                    <field name="payment_lines" nolabel="1">
+                                        <tree create="false" edit="true" delete="true" editable="bottom">
+                                            <field name="payment_id" invisible='1'/><!--O2M-->
+                                            <field name="partner_id" invisible='1'/>
+                                            <field name="partner_name"/>
+                                            <field name="vendor_bill_name"/>
+                                            <field name="invoice_date"/>
+                                            <field name="amount_total" sum="amount_total"/>
+                                            <field name="amount_due" sum="amount_due"/>
+                                            <field name="payment_method_id"
+                                                   options="{'no_create': True, 'no_open': True}"
+                                                   domain="[('payment_type', '=', parent.payment_type)]"/>
+                                            <field name="amount" sum="amount"/>
+                                            <field name="communication"/>
+                                            <field name="invoice_id" invisible="1"/>
+                                            <field name="currency_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                    <separator string="Outstanding Credit Note"/>
+                                    <field name="payment_line_credit_ids">
+                                        <tree create="false" edit="true" delete="true" editable="bottom">
+                                            <field name="payment_id" invisible='1'/>
+                                            <field name="partner_id" invisible='1'/>
+                                            <field name="invoice_id" invisible="1"/>
+                                            <field name="currency_id" invisible="1"/>
+                                            <field name="check_payment"/>
+                                            <field name="partner_name"/>
+                                            <field name="name"/>
+                                            <field name="invoice_date"/>
+                                            <field name="amount_total" sum="amount_total"/>
+                                            <field name="amount_due" sum="amount_due"/>
+                                            <field name="amount" readonly="1"/>
+                                        </tree>
+                                    </field>
+                                    <group class="oe_subtotal_footer">
+                                        <field name="total_applied_amount"/>
+                                        <label for="account_amount"/>
+                                        <div>
+                                            <field name="account_amount_id" class="oe_inline"
+                                                   options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"
+                                                   attrs="{'required' : [('account_amount', '!=', 0)]}"/>
+                                            <field name="account_amount" nolabel="1" class="oe_inline"/>
+                                        </div>
+                                        <field name="total_received_amount"/>
+                                        <field name="out_of_balance_amount"/>
+                                    </group>
+                                    <group>
+                                        <group>
+                                            <field name="is_required" invisible="1"/>
+                                            <field name="bank_charge_journal_id"
+                                                   attrs="{'invisible': [('is_required', '=', False)], 'required': [('is_required', '=', True)]}"/>
+                                        </group>
+                                        <group>
+                                            <field name="bank_charge_amount"
+                                                   attrs="{'invisible': [('is_required', '=', False)], 'required': [('is_required', '=', True)]}"/>
+                                        </group>
+                                    </group>
+                                </page>
+                            </notebook>
+                        </sheet>
+                        <footer>
+                            <button string='Validate' name="create_payment" type="object" class="btn-primary"/>
+                            <button string="Cancel" class="btn-default" special="cancel"/>
+                        </footer>
+                    </form>
+                </xpath>
+                <xpath expr="//form" position="attributes">
+                    <attribute name="create">false</attribute>
+                    <attribute name="edit">false</attribute>
+                    <attribute name="delete">false</attribute>
+                </xpath>
+                <xpath expr="//footer" position="attributes">
+                    <attribute name="invisible">context.get('view_payment', False)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='deposit_to_id']" position="after">
+                    <field name="company_id" invisible="1"/>
+                    <field name="company_currency_id" invisible="1"/>
+                    <field name="active_manual_currency_rate" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='total_applied_amount']" position="replace">
+                    <field name="total_applied_amount" widget="monetary" options="{'currency_field':'currency_id'}"/>
+                </xpath>
+                <xpath expr="//field[@name='total_received_amount']" position="replace">
+                    <field name="total_received_amount" widget="monetary" options="{'currency_field':'currency_id'}"/>
+                </xpath>
+
+                <field name="out_of_balance_amount" position="replace">
+                    <field name="out_of_balance_amount" widget="monetary" options="{'currency_field':'currency_id'}"/>
+                    <field name="currency_id" options='{"no_open": True, "no_create": True}' style="text-align: left !important;"/>
+					<field name="apply_manual_currency_exchange" style="text-align: left !important;"/>
+					<field name="manual_currency_exchange_rate" style="text-align: left !important;"
+						attrs="{'invisible': ['|',('apply_manual_currency_exchange', '=', False)],'required':[('apply_manual_currency_exchange', '=', True)]}" />
+                    <field name="amount_total_signed" widget="monetary" options="{'currency_field':'company_currency_id'}"
+                           attrs="{'invisible': [('active_manual_currency_rate', '=', False)]}"  style="text-align: left !important;"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="multiple_register_payments_form_view_inherit">
+            <field name="name">multiple.register.payments.form</field>
+            <field name="model">multiple.register.payments</field>
+            <field name="inherit_id" ref="modifier_payments_for_multiple_vendors_customers.multiple_register_payments_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="replace">
+                    <form string="Vendor/Customer Summary Details">
+                        <sheet>
+                        <div class="oe_button_box" name="button_box" modifiers="{}">
+			                <button class="oe_stat_button" name="button_open_payment" string="Payments" type="object" icon="fa-bars"/>
+                        </div>
+                            <group>
+                                <group>
+                                    <field name="journal_id"
+                                           options="{'no_create': True, 'no_create_edit':True,'no_quick_create': True}"/>
+                                    <field name="partner_ids" widget="many2many_tags"/>
+                                </group>
+                                <group>
+                                    <field name="payment_id"/>
+                                    <field name="payment_date"/>
+                                    <field name="deposit_to_id"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="payment_type" invisible="1"/>
+                                <field name="partner_type" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="memo"/>
+                                <field name="invoice_ids" widget="many2many_tags"
+                                       options="{'no_create': True, 'no_create_edit':True,'no_quick_create': True}"/>
+                            </group>
+                            <notebook>
+                                <page string="Payment_line">
+                                    <field name="payment_lines" nolabel="1">
+                                        <tree create="false" edit="true" delete="true" editable="bottom">
+                                            <field name="payment_id" invisible='1'/><!--O2M-->
+                                            <field name="partner_id" invisible='1'/>
+                                            <field name="partner_name"/>
+                                            <field name="vendor_bill_name"/>
+                                            <field name="invoice_date"/>
+                                            <field name="amount_total" sum="amount_total"/>
+                                            <field name="amount_due" sum="amount_due"/>
+                                            <field name="payment_method_id"
+                                                   options="{'no_create': True, 'no_open': True}"
+                                                   domain="[('payment_type', '=', parent.payment_type)]"/>
+                                            <field name="amount" sum="amount"/>
+                                            <field name="communication"/>
+                                            <field name="invoice_id" invisible="1"/>
+                                            <field name="currency_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                    <separator string="Outstanding Credit Note"/>
+                                    <field name="payment_line_credit_ids">
+                                        <tree create="false" edit="true" delete="true" editable="bottom">
+                                            <field name="payment_id" invisible='1'/>
+                                            <field name="partner_id" invisible='1'/>
+                                            <field name="invoice_id" invisible="1"/>
+                                            <field name="currency_id" invisible="1"/>
+                                            <field name="check_payment"/>
+                                            <field name="partner_name"/>
+                                            <field name="name"/>
+                                            <field name="invoice_date"/>
+                                            <field name="amount_total" sum="amount_total"/>
+                                            <field name="amount_due" sum="amount_due"/>
+                                            <field name="amount" readonly="1"/>
+                                        </tree>
+                                    </field>
+                                    <group class="oe_subtotal_footer">
+                                        <field name="total_applied_amount"/>
+                                        <label for="account_amount"/>
+                                        <div>
+                                            <field name="account_amount_id" class="oe_inline"
+                                                   options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"
+                                                   attrs="{'required' : [('account_amount', '!=', 0)]}"/>
+                                            <field name="account_amount" nolabel="1" class="oe_inline"/>
+                                        </div>
+                                        <field name="total_received_amount"/>
+                                        <field name="out_of_balance_amount"/>
+                                    </group>
+                                    <group>
+                                        <group>
+                                            <field name="is_required" invisible="1"/>
+                                            <field name="bank_charge_journal_id"
+                                                   attrs="{'invisible': [('is_required', '=', False)], 'required': [('is_required', '=', True)]}"/>
+                                        </group>
+                                        <group>
+                                            <field name="bank_charge_amount"
+                                                   attrs="{'invisible': [('is_required', '=', False)], 'required': [('is_required', '=', True)]}"/>
+                                        </group>
+                                    </group>
+                                </page>
+                            </notebook>
+                        </sheet>
+                        <footer>
+                            <button string='Validate' name="create_payment" type="object" class="btn-primary"/>
+                            <button string="Cancel" class="btn-default" special="cancel"/>
+                        </footer>
+                    </form>
+                </xpath>
+                <xpath expr="//form" position="attributes">
+                    <attribute name="create">false</attribute>
+                    <attribute name="edit">false</attribute>
+                    <attribute name="delete">false</attribute>
+                </xpath>
+                <xpath expr="//footer" position="attributes">
+                    <attribute name="invisible">context.get('view_payment', False)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='deposit_to_id']" position="after">
+                    <field name="company_id" invisible="1"/>
+                    <field name="company_currency_id" invisible="1"/>
+                    <field name="active_manual_currency_rate" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='total_applied_amount']" position="replace">
+                    <field name="total_applied_amount" widget="monetary" options="{'currency_field':'currency_id'}"/>
+                </xpath>
+                <xpath expr="//field[@name='total_received_amount']" position="replace">
+                    <field name="total_received_amount" widget="monetary" options="{'currency_field':'currency_id'}"/>
+                </xpath>
+
+                <field name="out_of_balance_amount" position="replace">
+                    <field name="out_of_balance_amount" widget="monetary" options="{'currency_field':'currency_id'}"/>
+                    <field name="currency_id" options='{"no_open": True, "no_create": True}' style="text-align: left !important;"/>
+					<field name="apply_manual_currency_exchange" style="text-align: left !important;"/>
+					<field name="manual_currency_exchange_rate" style="text-align: left !important;"
+						attrs="{'invisible': ['|',('apply_manual_currency_exchange', '=', False)],'required':[('apply_manual_currency_exchange', '=', True)]}" />
+                    <field name="amount_total_signed" widget="monetary" options="{'currency_field':'company_currency_id'}"
+                           attrs="{'invisible': [('active_manual_currency_rate', '=', False)]}"  style="text-align: left !important;"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="multiple_register_payments_form_view_inherit">
+            <field name="name">multiple.register.payments.form</field>
+            <field name="model">multiple.register.payments</field>
+            <field name="inherit_id" ref="modifier_payments_for_multiple_vendors_customers.multiple_register_payments_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="before">
+                    <header>
+                        <button string='Validate' name="create_payment" type="object" states="draft" class="btn-primary"/>
+                        <button string='Force Delete' name="action_force_delete" type="object" states="draft" class="btn-primary"/>
+                        <button string='Set to Draft' name="set_to_draft" type="object" states="posted" class="btn-primary"/>
+                        <field name="state" widget="statusbar" nolabel="1"/>
+                    </header>
+                </xpath>
+                <xpath expr="//field[@name='deposit_to_id']" position="after">
+                    <field name="company_id" invisible="1"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="company_currency_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='total_applied_amount']" position="replace">
+                    <field name="total_applied_amount" widget="monetary" options="{'currency_field':'currency_id'}"/>
+                </xpath>
+                <xpath expr="//field[@name='total_received_amount']" position="replace">
+                    <field name="total_received_amount" widget="monetary" options="{'currency_field':'currency_id'}"/>
+                </xpath>
+                <xpath expr="//field[@name='out_of_balance_amount']" position="replace">
+                    <field name="out_of_balance_amount" widget="monetary" options="{'currency_field':'currency_id'}"/>
+                </xpath>
+<!--                <xpath expr="//sheet/group" position="before">-->
+<!--                    <div class="oe_button_box" name="button_box">-->
+<!--                        <button class="oe_stat_button" name="action_open_payment" type="object" icon="fa-bars" groups="base.group_no_one">-->
+<!--                            <span>Payments</span>-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                </xpath>-->
+                <field name="payment_lines" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                    <attribute name="attrs">{'readonly' : [('state', '=', 'posted')]}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_account_payment_form_inheirt" model="ir.ui.view">
+            <field name="name">account.payment.inherit</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='journal_id']" position="after">
+                   <field name="deposit_to_id" attrs="{'readonly' : [('state', '!=', 'draft')]}" string="Deposit Account"/>
+                    <field name="multi_payment_id" readonly="1"
+                           context="{'form_view_ref': 'modifier_payments_for_multiple_vendors_customers.multiple_register_payments_form_view'}"/>
+                </xpath>
+                <field name="partner_id" position="after">
+                    <field name="partner_account_id" attrs="{'readonly' : [('state', '!=', 'draft')]}"/>
+                </field>
+            </field>
+        </record>
+        <record id="multiple_register_payments_tree_view_ihr" model="ir.ui.view">
+            <field name="name">multiple.register.payments.tree.ihr</field>
+            <field name="model">multiple.register.payments</field>
+            <field name="inherit_id" ref="modifier_payments_for_multiple_vendors_customers.multiple_register_payments_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_ids']" position="after">
+                    <field name="memo"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

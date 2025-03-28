@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_customer_product_listing,access_customer_product_listing,model_report_customer_product_listing,,1,1,1,1
+access_customer_top_selling,access_customer_top_selling,model_report_customer_top_selling,,1,1,1,1
+access_invoice_summary,access_invoice_summary,model_report_invoice_summary,,1,1,1,1
+access_invoice_summary_product,access_invoice_summary_product,model_report_invoice_summary_product,,1,1,1,1
+access_product_customer_listing,access_product_customer_listing,model_report_product_customer_listing,,1,1,1,1
+access_product_top_selling,access_product_top_selling,model_report_product_top_selling,,1,1,1,1
+access_product_batch_stock,name_product_batch_stock,model_product_batch_stock,,1,1,1,1
+access_product_batch_stock_movement,name_product_batch_stock_movement,model_product_batch_stock_movement,,1,1,1,1
+access_product_foc_report,name_product_foc_report,model_product_foc_report,,1,1,1,1

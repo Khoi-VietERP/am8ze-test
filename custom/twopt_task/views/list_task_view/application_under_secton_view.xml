@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="application_under_secton_form" model="ir.ui.view">
+            <field name="name">application.under.secton.form</field>
+            <field name="model">application.under.secton</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div>
+                            <label for="check_box_1"/><br/>
+                            <field name="check_box_1" widget="radio" style="flex-flow: row nowrap;"/>
+                        </div>
+                        <div attrs="{'invisible' : [('check_box_1', '!=', 'yes')]}">
+                            <label for="check_box_2"/><br/>
+                            <field name="check_box_2" widget="radio" style="flex-flow: row nowrap;"/>
+                        </div>
+                        <div attrs="{'invisible' : ['|',('check_box_1', '!=', 'yes'),('check_box_2', '!=', 'yes')]}">
+                            <span>
+                                Please not that S29A of the Companies Act allows charities to omit "Limited" from their companies names.
+                                You can diretly change your company name via Bizfile "Change particulars" -> Change of local Company
+                            </span>
+                        </div>
+                        <group attrs="{'invisible' : ['|',('check_box_1', '!=', 'yes'),('check_box_2', '!=', 'no')]}">
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <group attrs="{'invisible' : ['|','|',('check_box_1', '!=', 'yes'),('check_box_2', '!=', 'no'),('entity_id', '=', False)]}">
+                            <group>
+                                <field name="curent_email"/>
+                            </group>
+                            <group></group>
+                        </group>
+                        <group attrs="{'invisible' : ['|','|',('check_box_1', '!=', 'yes'),('check_box_2', '!=', 'no'),('entity_id', '=', False)]}">
+                            <group>
+                                <field name="letter"/>
+                            </group>
+                            <group>
+                                <field name="draft_constitution"/>
+                            </group>
+                        </group>
+                        <div attrs="{'invisible' : ['|','|',('check_box_1', '!=', 'yes'),('check_box_2', '!=', 'no'),('entity_id', '=', False)]}">
+                            <field name="check_box_3"/>
+                            <label for="check_box_3" style="display: contents;"/>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

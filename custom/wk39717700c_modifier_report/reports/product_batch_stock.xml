@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <template id="report_product_batch_stock_layout">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+            <t t-call="wk39717700c_modifier_report.external_layout_report_product_batch_stock_header_logo">
+                <t t-raw="0"/>
+            </t>
+
+        </template>
+
+        <template id="external_layout_report_product_batch_stock_header_logo">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                <div class="row" style="width: 100%;">
+                    <div class="col-1">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 100px;"
+                                 alt="Logo"/>
+                    </div>
+                    <div class="col-11 text-center" style="font-size: 15px">
+                        <b style="font-size: 20px;">
+                            <t t-esc="company.name"/>
+                        </b><br/>
+                        <span><t t-esc="company.street"/> </span>
+                        <span> <t t-esc="company.street2"/>, <t t-esc="company.city"/> <t t-esc="company.zip"/></span><br/>
+                        <span>Email : <t t-esc="company.email"/></span>
+                        <span>Co.Reg.No : 39717700-C</span>
+                    </div>
+                </div>
+                <div class="row" style="width: 100%;">
+                    <div class="col-10">
+                        <span>
+                            <strong>Print Date: </strong>
+                            <t t-esc="date"/>
+                        </span>
+                    </div>
+                     <div class="col-2">
+                        <span>
+                            <strong>Page no: </strong>
+                            <span class="page"/> / <span class="topage"/>
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <strong>Product Stock For Location: <t t-esc="location_id"/>, Product: <t t-esc="docs.product_id.name"/></strong>
+                </div>
+            </div>
+
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+                 t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                 t-att-data-oe-lang="o and o.env.context.get('lang')"
+            >
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+        </template>
+
+        <template id="report_product_batch_stock_template">
+            <t t-call="web.html_container">
+                <t t-call="wk39717700c_modifier_report.report_product_batch_stock_layout">
+                    <div class="page">
+                        <table class="table table-bordered" style="width: 100%;">
+                            <thead>
+                                <tr style="background:#c0c0c0">
+                                    <th style="border-color:black;text-align:left">Batch No</th>
+                                    <th style="border-color:black;text-align:left">ExpiryDate</th>
+                                    <th style="border-color:black;text-align:left">Mfg Date</th>
+                                    <th style="border-color:black;text-align:center">Pcs/Ctn</th>
+                                    <th style="border-color:black;text-align:right">CQty</th>
+                                    <th style="border-color:black;text-align:right">LQty</th>
+                                    <th style="border-color:black;text-align:right">Qty</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="product_data" t-as="batch_stock_line">
+                                    <t t-set="total_cqty" t-value="0"/>
+                                    <t t-set="total_lqty" t-value="0"/>
+                                    <t t-set="total_qty" t-value="0"/>
+                                    <tr>
+                                        <td style="text-align:left; text-decoration:underline;font-weight: bold">
+                                            <t t-esc="batch_stock_line.get('product_code')"/>
+                                        </td>
+                                        <td  colspan="2" style="text-align:left; text-decoration:underline; font-weight: bold">
+                                            <t t-esc="batch_stock_line.get('product_name')"/>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <t t-foreach="batch_stock_line.get('data')" t-as="line">
+                                        <tr>
+                                            <td style="text-align:left">
+                                                <t t-esc="line.get('batch_no')"/>
+                                            </td>
+                                            <td style="text-align:left">
+                                                <t t-esc="line.get('expiry_date')"/>
+                                            </td>
+                                            <td style="text-align:left">
+                                                <t t-esc="line.get('mfg_date')"/>
+                                            </td>
+                                            <td style="text-align:right">
+                                                <t t-esc="'{0:,.2f}'.format(line.get('pcs_ctn'))"/>
+                                            </td>
+                                            <td style="text-align:right">
+                                                <t t-esc="'{0:,.2f}'.format(line.get('cqty'))"/>
+                                            </td>
+                                            <td style="text-align:right">
+                                                <t t-esc="'{0:,.2f}'.format(line.get('lqty'))"/>
+                                            </td>
+                                            <td style="text-align:right">
+                                                <t t-esc="'{0:,.2f}'.format(line.get('qty'))"/>
+                                            </td>
+                                            <t t-set="total_cqty" t-value="total_cqty+int(line.get('cqty',''))"/>
+                                            <t t-set="total_lqty" t-value="total_lqty+int(line.get('lqty',''))"/>
+                                            <t t-set="total_qty" t-value="total_qty+int(line.get('qty',''))"/>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td style="text-align:right; text-decoration:underline; font-weight: bold">
+                                            <strong>Total:</strong>
+                                        </td>
+                                         <td style="text-align:right">
+                                            <t t-esc="total_cqty"/>
+                                        </td>
+                                         <td style="text-align:right">
+                                            <t t-esc="total_lqty"/>
+                                         </td>
+                                         <td style="text-align:right">
+                                            <t t-esc="total_qty"/>
+                                         </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <template id="wk39717700c_modifier_report.report_product_batch_stock">
+            <t t-call="web.html_container">
+                <t t-call="wk39717700c_modifier_report.report_product_batch_stock_template"/>
+            </t>
+        </template>
+        <record id="paper_format_product_batch_stock" model="report.paperformat">
+            <field name="name">Product Batch Stock</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">45</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+                id="report_product_batch_stock_id"
+                string="Product Batch Stock"
+                model="product.batch.stock"
+                report_type="qweb-pdf"
+                file="wk39717700c_modifier_report.report_product_batch_stock"
+                name="wk39717700c_modifier_report.report_product_batch_stock"
+                print_report_name="'Product Batch Stock'"
+                paperformat="wk39717700c_modifier_report.paper_format_product_batch_stock"
+                menu="False"
+        />
+    </data>
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- 
+            Financial Reports
+        -->
+        <!-- # Commented by Rashik -->
+       <!--  <record id="account_financial_report_gl_test_data0" model="account.financial.report">
+            <field name="name">GL Data</field>
+            <field name="sign" eval="1" />
+            <field name="display_detail">detail_with_hierarchy</field>
+            <field name="type">account_type</field>
+            <field name="account_type_ids" eval="[(4,ref('account.data_account_type_receivable')),
+                                                  (4,ref('account.data_account_type_payable')),
+                                                  (4,ref('account.data_account_type_liquidity')),
+                                                  (4,ref('account.data_account_type_credit_card')),
+                                                  (4,ref('account.data_account_type_current_assets')),
+                                                  (4,ref('account.data_account_type_non_current_assets')),
+                                                  (4,ref('account.data_account_type_prepayments')),
+                                                  (4,ref('account.data_account_type_fixed_assets')),
+                                                  (4,ref('account.data_account_type_current_liabilities')),
+                                                  (4,ref('account.data_account_type_non_current_liabilities')),
+                                                  (4,ref('account.data_account_type_equity')),
+                                                  (4,ref('account.data_unaffected_earnings')),
+                                                  (4,ref('account.data_account_type_other_income')),
+                                                  (4,ref('account.data_account_type_revenue')),
+                                                  (4,ref('account.data_account_type_depreciation')),
+                                                  (4,ref('account.data_account_type_expenses')),
+                                                  (4,ref('account.data_account_type_direct_costs')),
+                                                  (4,ref('asme_accounting_excel_reports.data_account_type_cost_of_sale')),
+                                                  (4,ref('asme_accounting_excel_reports.data_account_type_taxation'))]"/>
+        </record> -->
+
+    </data>
+</odoo>

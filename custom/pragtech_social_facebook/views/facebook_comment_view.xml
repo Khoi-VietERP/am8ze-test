@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <record id="action_facebook_comment" model="ir.actions.act_window">
+        <field name="name">Facebook Comment</field>
+        <field name="res_model">facebook.comment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="facebook_comment_view_form" model="ir.ui.view">
+        <field name="model">facebook.comment</field>
+        <field name="arch" type="xml">
+            <form string="Facebook Comment">
+                <sheet>
+                    <group col="4">
+                        <field name="fb_post_id"/>
+                        <field name="fb_comment_id"/>
+                        <field name="fb_comment_text"/>
+                        <field name="fb_comment_image" widget="image"/>
+                        <field name="fb_comment_likes"/>
+                    </group>
+                    <notebook>
+                        <page string="Inner Comments">
+                            <field name="fb_inner_comment" string="Inner Comments">
+                                <tree>
+                                    <field name="comment_id"/>
+                                    <field name="fb_comment_text"/>
+                                    <field name="fb_comment_image"/>
+                                    <field name="fb_comment_likes"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="facebook_comment_view_tree" model="ir.ui.view">
+        <field name="model">facebook.comment</field>
+        <field name="arch" type="xml">
+            <tree string="Facebook Comment">
+                <field name="fb_post_id"/>
+                <field name="fb_comment_text"/>
+                <field name="fb_comment_likes"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

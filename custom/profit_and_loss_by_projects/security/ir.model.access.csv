@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_profit_and_loss_by_projects_profit_and_loss_by_projects,profit_and_loss_by_projects.profit_and_loss_by_projects,model_profit_and_loss_by_projects_profit_and_loss_by_projects,base.group_user,1,1,1,1

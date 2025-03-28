@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+        <record id="task_non_filing_tree" model="ir.ui.view">
+            <field name="name">task.non.filing.tree</field>
+            <field name="model">task.non.filing</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="task_non_filing_form" model="ir.ui.view">
+            <field name="name">task.non.filing.form</field>
+            <field name="model">task.non.filing</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="col-12" style="margin-left: 100px;">
+                        <p>
+                            <span>Declaration of dividend</span><br/>
+                            <span>Asset hold in trust</span><br/>
+                            <span>Authorize to sign / purchase</span><br/>
+                        </p>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="task_non_filing_action" model="ir.actions.act_window">
+            <field name="name">Non Filing</field>
+            <field name="res_model">task.non.filing</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="task_non_filing_menu" name="Non Filing" action="task_non_filing_action" parent="twopt_task_menu" sequence="2" />
+
+    </data>
+</odoo>

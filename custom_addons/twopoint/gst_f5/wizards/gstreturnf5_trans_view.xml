@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<!--Account Moves -->
+		<record id="gst_returnf5_trans_view" model="ir.ui.view">
+			<field name="name">gst.returnf5.trans.view</field>
+			<field name="model">account.gstf5.trans</field>
+			<field name="inherit_id" ref="account.account_common_report_view" />
+			<field name="arch" type="xml">
+				<field name="journal_ids" position="replace" />
+				<field name="date_from" position="replace" />
+				<field name="date_to" position="replace" />
+
+				<field name="target_move" position="after">
+					<notebook tabpos="up" colspan="4">
+						<page string="Dates" name="dates">
+							<group>
+								<field name="date_from" />
+								<field name="date_to" />
+							</group>
+						</page>
+						<page string="Journals" name="journal_ids">
+							<field name="journal_ids" />
+						</page>
+					</notebook>
+				</field>
+			</field>
+		</record>
+
+		<!-- action of GST Return F8 report -->
+		<record id="action_gst_returnf5_trans" model="ir.actions.act_window">
+			<field name="name">GST Form F5 (with transactions)</field>
+			<field name="res_model">account.gstf5.trans</field>
+			<!-- <field name="view_type">form</field> -->
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="gst_returnf5_trans_view" />
+			<field name="target">new</field>
+		</record>
+		<!-- # Commented by Rashik -->
+		<!-- menu item of GST Return F8 -->
+		<menuitem name="GST Form F5 (with transactions)" parent="sg_account_report.menu_finance_legal_statement"
+			action="action_gst_returnf5_trans" id="menu_gst_returnf5_trans" />
+	</data>
+</odoo>

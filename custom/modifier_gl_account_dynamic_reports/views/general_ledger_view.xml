@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="general_ledger_inherit" inherit_id="account_dynamic_reports.general_ledger">
+            <xpath expr="//div[@class='page']/h3/span" position="replace">
+                <span t-esc="Filters['company_name']"/>
+            </xpath>
+            <xpath expr="//div[@class='page']/div/table" position="replace">
+                <table class="pims_report_line_table pims_report_content">
+                    <thead>
+                        <t t-if="not Filters['include_details']">
+                            <tr class="text-center">
+                                <th colspan="5" class="text-center">Partner</th>
+                                <th style="text-align:right;padding-bottom:10px;">Debit</th>
+                                <th style="text-align:right">Credit</th>
+                                <th style="text-align:right">Balance</th>
+                            </tr>
+                        </t>
+                        <t t-if="Filters['include_details']">
+                            <tr class="text-center">
+                                <th t-if="Filters['show_date']" style="text-align:center; ">Date</th>
+                                <th t-if="Filters['show_jrnl']" style="text-align:center">JRNL</th>
+                                <th t-if="Filters['show_partner']" style="text-align:center">Partner</th>
+                                <th t-if="Filters['show_move']" style="text-align:center">Move</th>
+                                <th t-if="Filters['show_entry_label']" style="text-align:center">Entry Label</th>
+                                <th t-if="Filters['show_reference']" style="text-align:center">Reference</th>
+                                <th t-if="Filters['show_remarks']" style="text-align:center">Remarks</th>
+                                <th t-if="Filters['show_debit']" style="text-align:center;padding-bottom:10px">Debit</th>
+                                <th t-if="Filters['show_credit']" style="text-align:center">Credit</th>
+                                <th t-if="Filters['show_debit_fc']" style="text-align:center">Debit (FC)</th>
+                                <th t-if="Filters['show_credit_fc']" style="text-align:center">Credit (FC)</th>
+                                <th t-if="Filters['show_balance']" style="text-align:center">Balance</th>
+                                <th t-if="Filters['show_balance_in_fc']" style="text-align:center">Balance in FC</th>
+                                <th t-if="Filters['show_project_name']" style="text-align:center">Project Name</th>
+                            </tr>
+                        </t>
+                    </thead>
+                    <t t-foreach="Ledger_data" t-as="line">
+                        <tr class="pims_report_line_main_tr">
+                            <td colspan="7">
+                                <span style="color: white;" t-esc="'..'"/>
+                                <span t-esc="Ledger_data[line]['name']"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="Ledger_data[line]['debit']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="Ledger_data[line]['credit']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                            </td>
+                            <td colspan="2"></td>
+                            <td class="text-right">
+                                <span t-esc="Ledger_data[line]['balance']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                            </td>
+                            <td colspan="2"></td>
+                        </tr>
+
+                        <t t-foreach="Ledger_data[line]['lines']" t-as="sub_line">
+                            <t t-if="sub_line['initial_bal']">
+                                <tr class="pims_report_line_initial_tr">
+                                    <td colspan="6" class="text-right">
+                                        <span>Initial Balance</span>
+                                    </td>
+                                    <td/>
+                                    <td class="text-right">
+                                        <span t-esc="sub_line['debit']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="sub_line['credit']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                    </td>
+                                    <td colspan="2"></td>
+                                    <td class="text-right">
+                                        <span t-esc="sub_line['balance']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                    </td>
+                                    <td colspan="2"></td>
+                                </tr>
+                            </t>
+                            <t t-if="Filters['include_details']">
+                                <t t-if="not sub_line['initial_bal'] and not sub_line['ending_bal']">
+                                    <tr class="pims_report_line_data_tr">
+                                        <td t-if="Filters['show_date']" style="padding: 0.1rem 0.75rem"><t t-esc="sub_line.get('ldate')" t-options='{"widget": "date"}'/></td>
+                                        <td t-if="Filters['show_jrnl']" style="padding: 0.1rem 0.75rem"><t t-esc="sub_line.get('lcode')"/></td>
+                                        <td t-if="Filters['show_partner']" style="padding: 0.1rem 0.75rem"><t t-esc="sub_line.get('partner_name')"/></td>
+                                        <td t-if="Filters['show_move']" style="padding: 0.1rem 0.75rem"><t t-esc="sub_line.get('move_name')"/></td>
+                                        <td t-if="Filters['show_entry_label']" style="padding: 0.1rem 0.75rem"><t t-esc="sub_line.get('lname')"/></td>
+                                        <td t-if="Filters['show_reference']" style="padding: 0.1rem 0.75rem"><t t-esc="sub_line.get('ref')"/></td>
+                                        <td t-if="Filters['show_remarks']" style="padding: 0.1rem 0.75rem"><t t-esc="sub_line.get('remarks')"/></td>
+                                        <td t-if="Filters['show_debit']" class="text-right" style="padding: 0.1rem 0.75rem"><t t-esc="sub_line.get('debit')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                        <td t-if="Filters['show_credit']" class="text-right" style="padding: 0.1rem 0.75rem"><t t-esc="sub_line.get('credit')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                        <td t-if="Filters['show_debit_fc']" style="padding: 0.1rem 0.75rem">
+                                            <t t-if="sub_line.get('debit')">
+                                                <t t-if="sub_line.get('amount_currency')">
+                                                    <t t-if="sub_line.get('currency_position') == 'before'">
+                                                        <span t-esc="sub_line.get('currency_symbol')"/>
+                                                        <span t-esc="sub_line.get('amount_currency')"/>
+                                                    </t>
+                                                    <t t-if="sub_line.get('currency_position') == 'after'">
+                                                        <span t-esc="sub_line.get('amount_currency')"/>
+                                                        <span t-esc="sub_line.get('currency_symbol')"/>
+                                                    </t>
+                                                </t>
+                                                <t t-else="">
+                                                    -
+                                                </t>
+                                            </t>
+                                            <t t-else="">
+                                                -
+                                            </t>
+                                        </td>
+                                        <td t-if="Filters['show_credit_fc']" style="padding: 0.1rem 0.75rem">
+                                            <t t-if="sub_line.get('credit')">
+                                                <t t-if="sub_line.get('amount_currency')">
+                                                    <t t-if="sub_line.get('currency_position') == 'before'">
+                                                        <span t-esc="sub_line.get('currency_symbol')"/>
+                                                        <span t-esc="sub_line.get('amount_currency')"/>
+                                                    </t>
+                                                    <t t-if="sub_line.get('currency_position') == 'after'">
+                                                        <span t-esc="sub_line.get('amount_currency')"/>
+                                                        <span t-esc="sub_line.get('currency_symbol')"/>
+                                                    </t>
+                                                </t>
+                                                <t t-else="">
+                                                    -
+                                                </t>
+                                            </t>
+                                            <t t-else="">
+                                                -
+                                            </t>
+                                        </td>
+                                        <td t-if="Filters['show_balance']" class="text-right" style="padding: 0.1rem 0.75rem"><t t-esc="sub_line.get('balance')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                        <td t-if="Filters['show_balance_in_fc']" style="padding: 0.1rem 0.75rem">
+                                            <t t-if="sub_line.get('currency_symbol') != sub_line.get('company_currency_symbol')">
+                                                <t t-if="sub_line.get('currency_position') == 'before'">
+                                                    <span t-esc="sub_line.get('currency_symbol')"/>
+                                                    <span t-esc="sub_line.get('amount_currency')"/>
+                                                </t>
+                                                <t t-if="sub_line.get('currency_position') == 'after'">
+                                                    <span t-esc="sub_line.get('amount_currency')"/>
+                                                    <span t-esc="sub_line.get('currency_symbol')"/>
+                                                </t>
+                                            </t>
+                                        </td>
+                                        <td t-if="Filters['show_project_name']" style="padding: 0.1rem 0.75rem"><t t-esc="sub_line.get('project_name')"/></td>
+                                    </tr>
+                                </t>
+                            </t>
+                            <t t-if="sub_line['ending_bal']">
+                                <tr class="pims_report_line_initial_tr">
+                                    <td colspan="6" class="text-right">
+                                        <span>Ending Balance</span>
+                                    </td>
+                                    <td/>
+                                    <td class="text-right">
+                                        <span t-esc="sub_line['debit']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="sub_line['credit']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                    </td>
+                                    <td colspan="2"></td>
+                                    <td class="text-right">
+                                        <span t-esc="sub_line['balance']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                    </td>
+                                    <td colspan="2"></td>
+                                </tr>
+                            </t>
+                        </t>
+                    </t>
+                </table>
+            </xpath>
+        </template>
+
+        <record id="report_a4_landscape" model="report.paperformat">
+            <field name="name">report A4 Landscape</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">35</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_spacing">17</field>
+            <field name="dpi">90</field>
+            <field name="report_ids" eval="[(6, 0, [ref('account_dynamic_reports.action_print_general_ledger')])]"/>
+        </record>
+
+        <template id="assets_backend" name="account_dynamic_reports assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/modifier_gl_account_dynamic_reports/static/src/js/script.js"/>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

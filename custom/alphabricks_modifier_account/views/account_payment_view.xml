@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_supplier_payment_tree" model="ir.ui.view">
+        <field name="name">account.supplier.payment.tree</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="string">Number</attribute>
+            </xpath>
+            <xpath expr="//field[@name='payment_date']" position="before">
+                <field name="payment_id"/>
+                <field name="payment_with_state" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="payment_user_id" optional="show"/>
+                <field name="invoice_payment_ids" widget="many2many_tags" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_payment_search_payment_with" model="ir.ui.view">
+        <field name="name">account.payment.search.payment.with</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <separator/>
+                <filter name="payment_with_invoice" string="Payment with Invoice"
+                        domain="[('payment_with_state', '=', 'with_invoice')]"/>
+                <filter name="payment_with_spend_money" string="Payment with Receive / Spend Money"
+                        domain="[('payment_with_state', '=', 'with_spend_money')]"/>
+                <separator/>
+                <filter string="Payment with ..." name="payment_with" domain="[]" context="{'group_by': 'payment_with_state'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_payment_tree_ihr" model="ir.ui.view">
+        <field name="name">account.payment.tree.ihr</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount']" position="before">
+                <field name="memo"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

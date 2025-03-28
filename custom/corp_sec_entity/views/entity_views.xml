@@ -1,0 +1,460 @@
+<odoo>
+    <data>
+        <record id="corp_entity_view_tree" model="ir.ui.view">
+            <field name="name">corp.entity.tree</field>
+            <field name="model">corp.entity</field>
+            <field name="arch" type="xml">
+                <tree string="Entity">
+                    <field name="name"/>
+                    <field name="uen"/>
+                    <field name="type"/>
+                    <field name="sub_type"/>
+                    <field name="state"/>
+                    <field name="incorporation_date"/>
+                    <field name="fye_day"/>
+                    <field name="fye_month"/>
+                    <field name="source"/>
+                    <field name="jurisdiction_id"/>
+                    <field name="new_takeover_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="corp_entity_view_form" model="ir.ui.view">
+            <field name="name">corp.entity.form</field>
+            <field name="model">corp.entity</field>
+            <field name="arch" type="xml">
+                <form string="IAP Account">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" string="Name" placeholder="" required="True"/></h1>
+                        </div>
+                        <group string="Entity Information">
+                            <group name="entity_info">
+                                <field name="type" required="True"/>
+                                <field name="check_type" invisible="1" readony="1"/>
+                                <field name="sub_type"/>
+                                <field name="uen"/>
+                                <field name="incorporation_date"/>
+                                <field name="fye_day" required="True"/>
+                                <field name="fye_month" required="True"/>
+                                <field name="state"/>
+                            </group>
+                            <group>
+                                <field name="source" required="True"/>
+                                <field name="jurisdiction_id"/>
+                                <field name="new_takeover_date"/>
+                                <field name="suffix" attrs="{'invisible': [('check_type', '!=', 'local')]}"/>
+                                <field name="in_charge"/>
+                                <field name="hours_work_5"/>
+                                <field name="hours_work_3"/>
+                                <field name="task_state"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Business Activity" name="business_activity">
+                                <group>
+                                    <group string="Primary Activity">
+                                        <field name="ssic_code"/>
+                                        <field name="ssic_title"/>
+                                        <field name="primary_activity_description"/>
+                                    </group>
+                                    <group string="Secondary Activity">
+                                        <field name="secondary_ssic_code"/>
+                                        <field name="secondary_ssic_title"/>
+                                        <field name="secondary_primary_activity_description"/>
+                                    </group>
+                                </group>
+                                <div class="oe_title">
+                                    <label for="register_professional_partnership" string="Are you reistering a professional partnership ?"/>
+                                    <field name="register_professional_partnership" class="oe_inline"/>
+                                </div>
+                            </page>
+
+                            <page string="In-Principle Approval Obtained From Authorities" name="authority_approval">
+                                <div class="oe_title">
+                                    <label for="authority_approval_obtained" string="In-Principle Approval Obtained From Authorities"/>
+                                    <field name="authority_approval_obtained" class="oe_inline"/>
+                                </div>
+                                <field name="authority_approval_ids" widget="section_and_note_one2many" mode="tree" attrs="{'invisible': [('authority_approval_obtained', '=', False)]}">
+                                    <tree string="Approval Obtained From Authorities" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="file_name"/>
+                                        <field name="description"/>
+                                        <field name="attachment"/>
+                                        <field name="user_id" options="{'no_create_edit': True}"/>
+                                    </tree>
+                                    <form string="Approval Obtained From Authorities">
+                                        <group name="approval">
+                                            <field name="name"/>
+                                            <field name="file_name"/>
+                                            <field name="description"/>
+                                            <field name="attachment"/>
+                                            <field name="user_id"/>
+                                        </group>
+                                     </form>
+                                </field>
+                            </page>
+
+                            <page string="Officer/Position Details" name="officer_position">
+                                <field name="contact_ids" widget="section_and_note_one2many" mode="tree">
+                                    <tree string="Officer / Position Details" editable="bottom">
+                                        <field name="category_type"/>
+                                        <field name="position_detail_id"/>
+                                        <field name="date_appointment"/>
+                                        <field name="identification_type" attrs="{'readonly': [('category_type', '!=', 'individual')]}"/>
+                                        <field name="nric" attrs="{'readonly': [('category_type', '!=', 'individual')]}"/>
+                                        <field name="contact_id"/>
+                                        <field name="name" invisible="1"/>
+                                        <field name="uen" attrs="{'readonly': [('category_type', '!=', 'corporate')]}"/>
+                                        <field name="check_signed"/>
+                                    </tree>
+                                    <form string="Officer / Position Details">
+                                        <group name="approval">
+                                            <field name="category_type"/>
+                                            <field name="position_detail_id"/>
+                                            <field name="date_appointment"/>
+                                            <field name="identification_type"/>
+                                            <field name="nric"/>
+                                            <field name="contact_id"/>
+                                            <field name="name" invisible="1"/>
+                                            <field name="uen"/>
+                                            <field name="check_signed"/>
+                                        </group>
+                                     </form>
+                                </field>
+                            </page>
+
+                            <page string="Address" name="address">
+                                <field name="address_ids" widget="section_and_note_one2many" mode="tree">
+                                    <tree string="Address" editable="bottom">
+                                        <field name="address_type" required="True"/>
+                                        <field name="address_lf"/>
+                                        <field name="block_house_number"/>
+                                        <field name="street"/>
+                                        <field name="building"/>
+                                        <field name="unit_number"/>
+                                        <field name="postal_code"/>
+                                        <field name="country"/>
+                                    </tree>
+                                    <form string="Address">
+                                        <group name="approval">
+                                            <field name="address_type"/>
+                                            <field name="address_lf"/>
+                                            <field name="block_house_number"/>
+                                            <field name="street"/>
+                                            <field name="building"/>
+                                            <field name="unit_number"/>
+                                            <field name="postal_code"/>
+                                            <field name="country"/>
+                                        </group>
+                                     </form>
+                                </field>
+                            </page>
+
+                            <page string="Communications" name="communications">
+                                <separator string="Communications"/>
+                                <field name="communications_ids" widget="section_and_note_one2many" mode="tree">
+                                    <tree string="Communications" editable="bottom">
+                                        <field name="communications_type"/>
+                                        <field name="sub_communications_type"/>
+                                        <field name="detail"/>
+                                        <field name="country_code" attrs="{'readonly': [('sub_communications_type', '=', 'required')]}"/>
+                                        <field name="area_code" attrs="{'readonly': [('sub_communications_type', '=', 'required')]}"/>
+                                        <field name="phone" attrs="{'readonly': [('sub_communications_type', '=', 'required')]}"/>
+                                    </tree>
+                                    <form string="Communications">
+                                        <group name="approval">
+                                            <field name="communications_type"/>
+                                            <field name="detail"/>
+                                            <field name="country_code"/>
+                                            <field name="area_code"/>
+                                            <field name="phone"/>
+                                        </group>
+                                     </form>
+                                </field>
+                                <separator string="Entity"/>
+                                <field name="communications_entity_ids" widget="section_and_note_one2many" mode="tree">
+                                    <tree string="Entity" editable="bottom">
+                                        <field name="entity_type" required="True"/>
+                                        <field name="jurisdiction" required="True"/>
+                                        <field name="working_hours"/>
+                                    </tree>
+                                    <form string="Entity">
+                                        <group name="approval">
+                                            <field name="entity_type"/>
+                                            <field name="jurisdiction"/>
+                                            <field name="working_hours"/>
+                                        </group>
+                                     </form>
+                                </field>
+                            </page>
+
+                            <page string="Filing Record" name="other_attachment">
+                                <!--<separator string="Constitution"/>-->
+                                <!--<field name="constitution_ids" widget="section_and_note_one2many" mode="tree">-->
+                                    <!--<tree string="Constitution" editable="bottom">-->
+                                        <!--<field name="file_name"/>-->
+                                        <!--<field name="description"/>-->
+                                        <!--<field name="attachment"/>-->
+                                        <!--<field name="date"/>-->
+                                        <!--<field name="user_id" options="{'no_create_edit': True}"/>-->
+                                    <!--</tree>-->
+                                    <!--<form string="Constitution">-->
+                                        <!--<group name="attachment">-->
+                                            <!--<field name="file_name"/>-->
+                                            <!--<field name="description"/>-->
+                                            <!--<field name="attachment"/>-->
+                                            <!--<field name="date"/>-->
+                                            <!--<field name="user_id"/>-->
+                                        <!--</group>-->
+                                     <!--</form>-->
+                                <!--</field>-->
+                                <separator string="Filing Record"/>
+                                <field name="attachment_other_ids" widget="section_and_note_one2many" mode="tree">
+                                    <tree string="Other Attachment" editable="bottom">
+                                        <field name="category_id"/>
+                                        <field name="file_name"/>
+                                        <field name="description"/>
+                                        <field name="attachment"/>
+                                        <field name="date"/>
+                                        <field name="user_id" options="{'no_create_edit': True}"/>
+                                    </tree>
+                                    <form string="Other Attachment">
+                                        <group name="attachment">
+                                            <field name="category_id"/>
+                                            <field name="file_name"/>
+                                            <field name="description"/>
+                                            <field name="attachment"/>
+                                            <field name="date"/>
+                                            <field name="user_id"/>
+                                        </group>
+                                     </form>
+                                </field>
+                                <!--<separator string="Incorporation Document"/>-->
+                                <!--<field name="incorporation_document_ids" widget="section_and_note_one2many" mode="tree">-->
+                                    <!--<tree string="Incorporation Document" editable="bottom">-->
+                                        <!--<field name="file_name"/>-->
+                                        <!--<field name="state"/>-->
+                                        <!--<field name="description"/>-->
+                                        <!--<field name="attachment"/>-->
+                                        <!--<field name="date"/>-->
+                                        <!--<field name="user_id" options="{'no_create_edit': True}"/>-->
+                                    <!--</tree>-->
+                                    <!--<form string="Incorporation Document">-->
+                                        <!--<group name="attachment">-->
+                                            <!--<field name="file_name"/>-->
+                                            <!--<field name="state"/>-->
+                                            <!--<field name="description"/>-->
+                                            <!--<field name="attachment"/>-->
+                                            <!--<field name="date"/>-->
+                                            <!--<field name="user_id"/>-->
+                                        <!--</group>-->
+                                     <!--</form>-->
+                                <!--</field>-->
+                            </page>
+                            <page string="Other Entity Name" name="orther_entity_name">
+                                <field name="entiry_proposaed_name_ids" widget="section_and_note_one2many" mode="tree">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="formar_name"/>
+                                    </tree>
+                                    <form >
+                                        <group>
+                                            <field name="name"/>
+                                            <field name="formar_name"/>
+                                        </group>
+                                     </form>
+                                </field>
+
+                                <field name="entiry_merging_companies_ids" widget="section_and_note_one2many" mode="tree">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                    </tree>
+                                    <form >
+                                        <group>
+                                            <field name="name"/>
+                                        </group>
+                                     </form>
+                                </field>
+                            </page>
+                            <page name="shares" string="Shares">
+                                <separator string="Shares Held"/>
+                                <field name="shares_held_ids" widget="section_and_note_one2many" mode="tree">
+                                    <tree editable="bottom">
+                                        <field name="type"/>
+                                        <field name="name"/>
+                                        <field name="currency_id"/>
+                                        <field name="no_of_share"/>
+                                        <field name="issued_capital"/>
+                                        <field name="paid_up_capital"/>
+                                        <field name="description"/>
+                                        <field name="mode_of_allotment"/>
+                                        <field name="nature_of_allotment"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="type"/>
+                                                <field name="name"/>
+                                                <field name="currency_id"/>
+                                                <field name="no_of_share"/>
+                                            </group>
+                                            <group>
+                                                <field name="issued_capital"/>
+                                                <field name="paid_up_capital"/>
+                                                <field name="description"/>
+                                                <field name="mode_of_allotment"/>
+                                                <field name="nature_of_allotment"/>
+                                            </group>
+                                        </group>
+                                     </form>
+                                </field>
+                                <separator string="Transaction"/>
+                                <field name="shares_transaction_ids" widget="section_and_note_one2many" mode="tree">
+                                    <tree editable="bottom">
+                                        <field name="transaction_date"/>
+                                        <field name="type"/>
+                                        <field name="name"/>
+                                        <field name="currency_id"/>
+                                        <field name="transaction_type"/>
+                                        <field name="no_of_share"/>
+                                        <field name="issued_capital"/>
+                                        <field name="paid_up_capital"/>
+                                        <field name="nature"/>
+                                        <field name="state"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="transaction_date"/>
+                                                <field name="type"/>
+                                                <field name="name"/>
+                                                <field name="currency_id"/>
+                                                <field name="transaction_type"/>
+                                            </group>
+                                            <group>
+                                                <field name="no_of_share"/>
+                                                <field name="issued_capital"/>
+                                                <field name="paid_up_capital"/>
+                                                <field name="nature"/>
+                                                <field name="state"/>
+                                            </group>
+                                        </group>
+                                     </form>
+                                </field>
+                                <separator string="SHARES"/>
+                                <group>
+                                    <group>
+                                        <field name="transaction_type"/>
+                                        <field name="shares_type"/>
+                                        <field name="shares_class"/>
+                                    </group>
+                                    <group>
+                                        <field name="shares_currency_id"/>
+                                        <field name="shares_date" required="1"/>
+                                        <field name="shares_description"/>
+                                    </group>
+                                </group>
+                                <separator string="Allottees"/>
+                                <field name="shares_allottees_ids" widget="section_and_note_one2many" mode="tree">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="share_cert"/>
+                                        <field name="type"/>
+                                        <field name="no_of_share"/>
+                                        <field name="issued_capital"/>
+                                        <field name="paid_up_capital"/>
+                                        <field name="price_per_share"/>
+                                        <field name="share_group"/>
+                                        <field name="shares_held_in_trust"/>
+                                        <field name="name_of_the_trust"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="name"/>
+                                                <field name="share_cert"/>
+                                                <field name="type"/>
+                                                <field name="no_of_share"/>
+                                                <field name="shares_held_in_trust"/>
+                                                <field name="name_of_the_trust"/>
+                                            </group>
+                                            <group>
+                                                <field name="issued_capital"/>
+                                                <field name="paid_up_capital"/>
+                                                <field name="price_per_share"/>
+                                                <field name="share_group"/>
+                                            </group>
+                                        </group>
+                                     </form>
+                                </field>
+                                <separator string="Other Attachment"/>
+                                <field name="shares_attachment_other_ids" widget="section_and_note_one2many" mode="tree">
+                                    <tree string="Other Attachment" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="file_name"/>
+                                        <field name="description"/>
+                                        <field name="attachment"/>
+                                        <field name="date"/>
+                                        <field name="user_id" options="{'no_create_edit': True}"/>
+                                    </tree>
+                                    <form string="Other Attachment">
+                                        <group name="attachment">
+                                            <field name="name"/>
+                                            <field name="file_name"/>
+                                            <field name="description"/>
+                                            <field name="attachment"/>
+                                            <field name="date"/>
+                                            <field name="user_id"/>
+                                        </group>
+                                     </form>
+                                </field>
+                            </page>
+                            <page string="AGM">
+                                <field name="entity_agm_ids" widget="section_and_note_one2many" mode="tree">
+                                    <tree editable="bottom">
+                                        <field name="fye_date" attrs="{'readonly' : [('entity_agm_id', '!=', False)]}"/>
+                                        <field name="agm_date" attrs="{'readonly' : [('entity_agm_id', '!=', False)]}"/>
+                                        <field name="agm_due_date" attrs="{'readonly' : [('entity_agm_id', '!=', False)]}"/>
+                                        <field name="extension_175" attrs="{'readonly' : [('entity_agm_id', '!=', False)]}"/>
+                                        <field name="annual_return_date" attrs="{'readonly' : [('entity_agm_id', '!=', False)]}"/>
+                                        <field name="annual_return_due_date" attrs="{'readonly' : [('entity_agm_id', '!=', False)]}"/>
+                                        <field name="extension_197" attrs="{'readonly' : [('entity_agm_id', '!=', False)]}"/>
+                                        <field name="last_agm_date" attrs="{'readonly' : [('entity_agm_id', '!=', False)]}"/>
+                                        <field name="entity_agm_id" invisible="1"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="fye_date" attrs="{'readonly' : [('entity_agm_id', '!=', False)]}"/>
+                                            <field name="agm_date" attrs="{'readonly' : [('entity_agm_id', '!=', False)]}"/>
+                                            <field name="agm_due_date" attrs="{'readonly' : [('entity_agm_id', '!=', False)]}"/>
+                                            <field name="extension_175" attrs="{'readonly' : [('entity_agm_id', '!=', False)]}"/>
+                                            <field name="annual_return_date" attrs="{'readonly' : [('entity_agm_id', '!=', False)]}"/>
+                                            <field name="annual_return_due_date" attrs="{'readonly' : [('entity_agm_id', '!=', False)]}"/>
+                                            <field name="extension_197" attrs="{'readonly' : [('entity_agm_id', '!=', False)]}"/>
+                                            <field name="last_agm_date" attrs="{'readonly' : [('entity_agm_id', '!=', False)]}"/>
+                                            <field name="entity_agm_id" invisible="1"/>
+                                        </group>
+                                     </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="corp_entity_action" model="ir.actions.act_window">
+            <field name="name">Entity</field>
+            <field name="res_model">corp.entity</field>
+            <field name='view_mode'>tree,form</field>
+        </record>
+
+        <menuitem id="corp_sec_entity" name="Corp Sec" sequence="1"/>
+
+        <menuitem id="corp_entity_menu" name="Entity" parent="corp_sec_entity" action="corp_entity_action" sequence="2"/>
+
+    </data>
+</odoo>

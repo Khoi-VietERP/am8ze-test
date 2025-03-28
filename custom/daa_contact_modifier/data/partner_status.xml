@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="partner_status_contactable" model="partner.status">
+            <field name="name"><![CDATA[Contactable]]></field>
+        </record>
+        <record id="partner_status_uncontactable" model="partner.status">
+            <field name="name"><![CDATA[Uncontactable]]></field>
+        </record>
+    </data>
+</odoo>

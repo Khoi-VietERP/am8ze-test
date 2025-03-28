@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="account.report_invoice_with_payments">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="alphabricks_modifier_account.modifier_external_layout">
+                    <div id="__header" class="row" style="padding: 0px 35px 0px 35px">
+                        <div class="col-5" style="margin-left:30px">
+                            <p>Bill to:</p>
+                            <span t-field="o.partner_id"
+                                  t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;,
+                                    &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                        </div>
+                        <div class="col-2">
+                        </div>
+                        <div class="col-4">
+                            <h3 style="text-align: center;">INVOICE</h3>
+                            <table style="margin: auto;">
+                                <tr>
+                                    <td style="text-align: right">Invoice No:</td>
+                                    <td>
+                                        <span><![CDATA[&nbsp;&nbsp;]]>
+                                            <t t-esc="o.name"/>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right">Date:</td>
+                                    <td>
+                                        <span><![CDATA[&nbsp;&nbsp;]]>
+                                            <t t-esc="o.invoice_date.strftime('%-d/%m/%y') if o.invoice_date else ''"/>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right">Term:</td>
+                                    <td>
+                                        <span><![CDATA[&nbsp;&nbsp;]]>
+                                            <t t-esc="o.invoice_payment_term_id.name or o.invoice_date_due.strftime('%-d/%m/%y') if o.invoice_date_due else ''"/>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="__main" style="margin-top:40px">
+                        <style>
+                            .table thead th {
+                                border: 1px solid #000;
+                            }
+                            .table td.full-border {
+                                border: 1px solid #000;
+                            }
+                            .table td.no-border {
+                                border: None;
+                            }
+                            .table td.top-border {
+                                border-top: 1px solid #000;
+                            }
+                            .table td.left-right-border {
+                                border-left: 1px solid #000;
+                                border-right: 1px solid #000;
+                                border-top : None;
+                                border-bottom : None;
+                            }
+                            .table th, .table td {
+                                padding: 0.3rem 0.75rem;
+                                border-top: none;
+                            }
+                        </style>
+                        <table style="width: 100%" class="table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" colspan="2">Description</th>
+                                    <th class="text-center" >Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-if="o.invoice_line_ids">
+                                    <t t-foreach="o.invoice_line_ids" t-as="line">
+                                        <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else
+                                        'font-italic o_line_note' if line.display_type == 'line_note' else ''">
+                                            <t t-if="not line.display_type" name="account_invoice_line_accountable">
+                                                <td class="left-right-border" colspan="2">
+                                                    <span t-field="line.name" t-options="{'widget': 'text'}"/>
+                                                </td>
+                                                <td class="text-right left-right-border">
+                                                    <t t-esc="line.price_total"
+                                                       t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                                </td>
+                                            </t>
+                                            <t t-if="line.display_type == 'line_section'">
+                                                <td colspan="3" class="left-right-border">
+                                                    <span t-field="line.name"/>
+                                                </td>
+                                            </t>
+                                            <t t-if="line.display_type == 'line_note'">
+                                                <td colspan="3" class="left-right-border">
+                                                    <span t-field="line.name"/>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td rowspan="4" style="width:25%;padding-top:30px" class="top-border text-center">
+                                        <img t-if="o.barcode" t-attf-src="data:image/png;base64,{{o.barcode}}"
+                                             style="height:120px;width:120px;" class="img img-fluid"/>
+                                    </td>
+                                    <td style="text-align: right;width:45%" class="top-border">
+                                        <span>Total Amount:
+                                        </span>
+                                    </td>
+                                    <td class="full-border text-right" style="width:30%">
+                                        <span t-esc="o.amount_total"
+                                              t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}">
+                                        </span>
+                                    </td>
+                                </tr>
+                                <t t-if="o.invoice_payments_widget != 'false'">
+                                    <t t-foreach="json.loads(o.invoice_payments_widget)['content']" t-as="payment">
+                                        <tr>
+                                            <td style="text-align: right;" class="no-border">
+                                                <span t-esc="payment['payment_method_name']"/> <span>Paid:</span>
+                                            </td>
+                                            <td class="full-border text-right">
+                                                <span t-esc="payment['currency']"/> <span t-esc="payment['amount']"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </t>
+                                <tr>
+                                    <td style="text-align: right;" class="no-border">
+                                        <span>Balance Due:
+                                        </span>
+                                    </td>
+                                    <td class="full-border text-right">
+                                        <span t-esc="o.amount_residual"
+                                              t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}">
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="no-border"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div id="__foot" style="padding: 20px 35px 0px 35px; font-size: 14px">
+                        <span>Payment can be made by Paynow, Paylah, bank transfer or credit card.<br/>
+                            Bank Transfer detail:<br/>
+<!--                            FORTE MUSICADEMY (WATERLOO)<br/>-->
+<!--                            OCBC Account Number 712 346 402 001<br/>-->
+<!--                            (Bank Code 7339, Branch No. 712)<br/>-->
+                            Kindly state the invoice number in the remark.<br/>
+                            <br/>A late fee of S$50.00 will be charged if payment is made after the due date stated as above.
+                        </span>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <record id="paperformat_invoice_euro_fit" model="report.paperformat">
+        <field name="name">Invoice Paperformat A4 (Fit)</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">35</field>
+        <field name="margin_bottom">28</field>
+        <field name="margin_left">3</field>
+        <field name="margin_right">3</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+    </record>
+    <report id="print_invoice_report_pdf'"
+            string="Invoice Report"
+            model="account.move"
+            report_type="qweb-pdf"
+            name="account.report_invoice_with_payments"
+            file="account.report_invoice_with_payments"
+            paperformat="alphabricks_modifier_account.paperformat_invoice_euro_fit"
+            attachment="((object.name or 'INV').replace('/','_')+'.pdf')"
+            print_report_name="((object.name or 'INV').replace('/','_'))"
+            menu="True"/>
+
+</odoo>

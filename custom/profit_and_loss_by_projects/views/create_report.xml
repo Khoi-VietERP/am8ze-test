@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <function model="ins.financial.report" name="create_profit_and_loss_by_projects"/>
+    </data>
+</odoo>

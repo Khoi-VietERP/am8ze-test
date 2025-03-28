@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_partner_form_iherit" model="ir.ui.view">
+            <field name="name">view.res.partner.form.website</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field eval="17" name="priority"/>
+            <field name="arch" type="xml">
+                <field name="vat" position="after">
+                    <field name="uen" attrs="{'invisible' : ['|',('customer_rank' ,'=', 0),('company_type', '!=', 'company')]}"/>
+                    <field name="staff_strength_id" attrs="{'invisible' : ['|',('customer_rank' ,'=', 0),('company_type', '!=', 'company')]}"/>
+                    <field name="industry_sector_id" attrs="{'invisible' : ['|',('customer_rank' ,'=', 0),('company_type', '!=', 'company')]}"/>
+                    <!--<field name="personal_email_address" attrs="{'invisible' : [('customer_rank' ,'=', 0)]}"/>-->
+                    <!--<field name="officical_designation" attrs="{'invisible' : [('customer_rank' ,'=', 0)]}"/>-->
+                </field>
+                <field name="category_id" position="after">
+                    <field name="receive_update" attrs="{'invisible' : [('customer_rank' ,'=', 0)]}"/>
+                    <field name="date_of_signing" attrs="{'invisible' : [('customer_rank' ,'=', 0)]}"/>
+                    <field name="remarks" attrs="{'invisible' : [('customer_rank' ,'=', 0)]}"/>
+                    <field name="referred_by" attrs="{'invisible' : [('customer_rank' ,'=', 0)]}"/>
+                    <field name="approved_by" attrs="{'invisible' : [('customer_rank' ,'=', 0)]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="industry_sector_tree" model="ir.ui.view">
+            <field name="name">industry.sector.tree</field>
+            <field name="model">industry.sector</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="industry_sector_action" model="ir.actions.act_window">
+            <field name="name">Industry Sector</field>
+            <field name="res_model">industry.sector</field>
+            <field name="view_id" ref="industry_sector_tree"/>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem
+        id="industry_sector_menu"
+        parent="sale.menu_sale_config"
+        action="industry_sector_action"/>
+
+    </data>
+</odoo>

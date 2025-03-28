@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_model_wms_budget,access_model_wms_budget,model_wms_budget,base.group_user,1,1,1,1
+access_model_wms_budget_line,access_model_wms_budget_line,model_wms_budget_line,base.group_user,1,1,1,1
+access_model_wms_plan,access_model_wms_plan,model_wms_plan,base.group_user,1,1,1,1
+access_model_wms_plan_line,access_model_wms_plan_line,model_wms_plan_line,base.group_user,1,1,1,1
+access_model_wms_distance,access_model_wms_distance,model_wms_distance,base.group_user,1,1,1,1
+access_model_wms_distance_from,access_model_wms_distance_from,model_wms_distance_from,base.group_user,1,1,1,1
+access_model_wms_distance_to,access_model_wms_distance_to,model_wms_distance_to,base.group_user,1,1,1,1

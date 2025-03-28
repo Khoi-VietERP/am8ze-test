@@ -1,0 +1,142 @@
+<odoo>
+
+    <record id="paper_format_dunning_letter" model="report.paperformat">
+	    <field name="name">Portrait A4</field>
+	    <field name="default" eval="True"/>
+	    <field name="format">A4</field>
+	    <field name="orientation">Portrait</field>
+	    <field name="margin_top">10</field>
+	    <field name="margin_bottom">23</field>
+	    <field name="margin_left">15</field>
+	    <field name="margin_right">20</field>
+	    <field name="header_line" eval="False"/>
+	    <field name="header_spacing">35</field>
+	    <field name="dpi">90</field>
+	</record>
+
+    <report
+            id="dunning_letter_report"
+            model="daa.case"
+            string="Dunning letter"
+            report_type="qweb-pdf"
+            name="daa_case.dunning_letter_template"
+            file="daa_case.dunning_letter_template"
+            paperformat="daa_case.paper_format_dunning_letter"/>
+
+    <template id="dunning_letter_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="row border-bottom" style="padding-bottom: 30px;">
+                        <div class="col-8" style="font-size: 14px;">
+                            <img src="/daa_case/static/img/image.png"/>
+                            <br/>
+                            <span>Credit Colection &amp; Credit Management (202020563G)</span>
+                        </div>
+                        <div class="col-4" style="font-size: 14px;">
+                            <span>INFO CAPITAL PTE LTD</span>
+                            <br/>
+                            <span>A: 50 Raffles Place, #37-00, Singapore 048623</span>
+                            <br/>
+                            <span>T: 6256 5418</span>
+                            <br/>
+                            <span>W: www.infocapital.com.sg</span>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-9" style="font-size: 11px;">
+                            <span class="border-bottom font-weight-bold">PRIVATE &amp; CONFIDENTIAL - FOR ADDRESSEE ONLY</span>
+                            <br/>
+                            <t t-if="data['company_type'] == 'person'">Individual</t>
+                            <t t-else="">Debtor Company</t>
+                        </div>
+                        <div class="col-3" style="font-size: 11px;">
+                            <span>Date: </span>
+                            <span t-esc="data['date']"/>
+                            <br/>
+                            <span class="font-weight-bold">WITHOUT PREJUDICE</span>
+                            <br/>
+                            <span class="font-weight-bold">By Post</span>
+                        </div>
+                    </div>
+                    <br/>
+                    <div style="font-size: 12px;">
+                        <span t-esc="data['blk_no']"> </span>
+                        <span t-esc="data['street']"/>
+                        <br/>
+                        <span t-esc="data['unit']"> </span>
+                        <span t-esc="data['building_name']"/>
+                        <br/>
+                        <span>SINGAPORE </span>
+                        <span t-esc="data['postal_code']"/>
+                    </div>
+                    <div class="text-center font-weight-bold">
+                        <span class="border-bottom" style="font-size: 20px;">REMINDER</span>
+                    </div>
+                    <div class="font-weight-bold" style="font-size: 12px;">
+                        <span>Dear Sir/Madam,</span>
+                        <br/>
+                        <span>CLAIM BY : </span>
+                        <span t-esc="data['name']"/>
+                        <br/>
+                        <span>CASE REFERENT : </span>
+                        <span t-esc="data['case_ref']"/>
+                    </div>
+                    <div class="text-justify">
+                        <span style="font-size: 12px;">
+                            We are appointed by <span t-esc="data['name']"/> as the collecting agent and are instructed that you are
+                            indebted to our client in the sum of S<span t-esc="data['balance']"/> You are advised to make FULL payment
+                            within Five (5) Working Days from the date hereof, failing which Additional Costs &amp; Charges will be
+                            incurred on your account.
+                        </span>
+                        <br/>
+                        <br/>
+                        <span style="font-size: 12px;">
+                            We are informed that unless you pay the said sum upon receipt of this letter, our client
+                            shall take all steps against you to enforce payment as they may be advised without further notice.
+                        </span>
+                        <br/>
+                        <br/>
+                        <span style="font-size: 12px;">
+                            You are advised to make FULL payment within Five (5) Working Days from the date hereof. You may make
+                            the payment to directly to <span t-esc="data['name']"/>
+                        </span>
+                        <br/>
+                        <br/>
+                        <span style="font-size: 12px;">
+                            Kindly indicate your case reference on the payment and email the receipt to sales@infocapital.com.sg.
+                        </span>
+                        <br/>
+                        <br/>
+                        <span style="font-size: 12px;">
+                            For all Cash payment, kindly contact our office above with this reminder.
+                        </span>
+                        <br/>
+                        <br/>
+                        <span style="font-size: 12px;">
+                            If you fail to make payment or contact our office for any discussion within Seven (7) Working Days, we
+                            intend to dispatch our Credit Officers to conduct site visits and understand how we can assist to resolve
+                            the matter. You may contact our office at +65 6265 5418 (Monday to Friday 10:00hrs to 19:00hrs) with your
+                            case reference number for any clarification.
+                        </span>
+                        <br/>
+                        <br/>
+                        <span style="font-size: 9px;">
+                            This message contains information, which may be confidential and privileged, unless you are the intended
+                            addressee (or authorized to receive for the addresses), any distribution, copying or disclosure of the
+                            message or any information contained in the message is strictly prohibited. If you have received the
+                            message in error, please advise us immediately by telephone or fax.
+                        </span>
+                    </div>
+                    <div class="text-center font-weight-bold">
+                        <span style="font-size: 12px;">
+                            THIS IS A COMPUTER-GENERATED LETTER AND DOES NOT REQUIRE A SIGNATURE.
+                        </span>
+                    </div>
+
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--TODO F45 Director-->
+    <report
+        id="f45_director_doc"
+        model="project.task"
+        string="F45 Director"
+        report_type="qweb-pdf"
+        name="twopt_task.report_f45_director_doc"
+        file="twopt_task.report_f45_director_doc"
+        menu="False"
+    />
+    <record id="f45_director_doc" model="ir.actions.report">
+        <field name="file_template_data" type="base64" file="twopt_task/views/report/f45_director.docx"/>
+        <field name="populating_ms_word_template" eval="True"/>
+    </record>
+
+    <template id="report_f45_director_doc">
+        <t t-call="web.basic_layout">
+            <div class="page">
+            </div>
+        </t>
+    </template>
+
+    <!--TODO FistDirectors'Resolution-->
+    <report
+        id="fist_directors_resolution"
+        model="project.task"
+        string="FistDirectors'Resolution"
+        report_type="qweb-pdf"
+        name="twopt_task.report_fist_directors_resolution"
+        file="twopt_task.report_fist_directors_resolution"
+        menu="False"
+    />
+    <record id="fist_directors_resolution" model="ir.actions.report">
+        <field name="file_template_data" type="base64" file="twopt_task/views/report/FistDirectors'Resolution.docx"/>
+        <field name="populating_ms_word_template" eval="True"/>
+    </record>
+
+    <template id="report_fist_directors_resolution">
+        <t t-call="web.basic_layout">
+            <div class="page">
+            </div>
+        </t>
+    </template>
+
+    <!--TODO Form 45B_Secretary-->
+    <report
+        id="form_45b_secretary"
+        model="project.task"
+        string="Form 45B_Secretary"
+        report_type="qweb-pdf"
+        name="twopt_task.report_form_45b_secretary"
+        file="twopt_task.report_form_45b_secretary"
+        menu="False"
+    />
+    <record id="form_45b_secretary" model="ir.actions.report">
+        <field name="file_template_data" type="base64" file="twopt_task/views/report/Form 45B_Secretary.docx"/>
+        <field name="populating_ms_word_template" eval="True"/>
+    </record>
+
+    <template id="report_form_45b_secretary">
+        <t t-call="web.basic_layout">
+            <div class="page">
+            </div>
+        </t>
+    </template>
+
+    <!--TODO Strike off documents-->
+    <report
+        id="strike_off_documents"
+        model="project.task"
+        string="Strike off documents"
+        report_type="qweb-pdf"
+        name="twopt_task.report_strike_off_documents"
+        file="twopt_task.report_strike_off_documents"
+        menu="False"
+
+    />
+    <record id="strike_off_documents" model="ir.actions.report">
+        <field name="file_template_data" type="base64" file="twopt_task/views/report/Strike off documents.docx"/>
+        <field name="populating_ms_word_template" eval="True"/>
+    </record>
+
+    <template id="report_strike_off_documents">
+        <t t-call="web.basic_layout">
+            <div class="page">
+            </div>
+        </t>
+    </template>
+
+    <!--TODO DR_Change of Name-->
+    <report
+        id="dr_change_of_name"
+        model="project.task"
+        string="DR_Change of Name"
+        report_type="qweb-pdf"
+        name="twopt_task.report_dr_change_of_name"
+        file="twopt_task.report_dr_change_of_name"
+        menu="False"
+    />
+    <record id="dr_change_of_name" model="ir.actions.report">
+        <field name="file_template_data" type="base64" file="twopt_task/views/report/DR_Change of Name.docx"/>
+        <field name="populating_ms_word_template" eval="True"/>
+    </record>
+
+    <template id="report_dr_change_of_name">
+        <t t-call="web.basic_layout">
+            <div class="page">
+            </div>
+        </t>
+    </template>
+
+    <!--TODO DR_Change of Name-->
+    <report
+        id="dr_change_of_reg_address"
+        model="project.task"
+        string="DR_Change of Reg Address"
+        report_type="qweb-pdf"
+        name="twopt_task.report_dr_change_of_reg_address"
+        file="twopt_task.report_dr_change_of_reg_address"
+        menu="False"
+    />
+    <record id="dr_change_of_reg_address" model="ir.actions.report">
+        <field name="file_template_data" type="base64" file="twopt_task/views/report/DR_Change of Reg Address.docx"/>
+        <field name="populating_ms_word_template" eval="True"/>
+    </record>
+
+    <template id="report_dr_change_of_reg_address">
+        <t t-call="web.basic_layout">
+            <div class="page">
+            </div>
+        </t>
+    </template>
+
+    <!--TODO Prior approval of the Company in general meeting to issue shares-->
+    <report
+        id="general_meeting_issue_shares"
+        model="project.task"
+        string="Prior approval of the Company in general meeting to issue shares"
+        report_type="qweb-pdf"
+        name="twopt_task.report_general_meeting_issue_shares"
+        file="twopt_task.report_general_meeting_issue_shares"
+        menu="False"
+    />
+    <record id="general_meeting_issue_shares" model="ir.actions.report">
+        <field name="file_template_data" type="base64" file="twopt_task/views/report/Prior approval of the Company in general meeting to issue shares.docx"/>
+        <field name="populating_ms_word_template" eval="True"/>
+    </record>
+
+    <template id="report_general_meeting_issue_shares">
+        <t t-call="web.basic_layout">
+            <div class="page">
+            </div>
+        </t>
+    </template>
+
+    <!--TODO DR_Allotment of Shares-->
+    <report
+        id="dr_allotment_of_shares"
+        model="project.task"
+        string="DR_Allotment of Shares"
+        report_type="qweb-pdf"
+        name="twopt_task.report_dr_allotment_of_shares"
+        file="twopt_task.report_dr_allotment_of_shares"
+        menu="False"
+    />
+    <record id="dr_allotment_of_shares" model="ir.actions.report">
+        <field name="file_template_data" type="base64" file="twopt_task/views/report/DR_Allotment of Shares.docx"/>
+        <field name="populating_ms_word_template" eval="True"/>
+    </record>
+
+    <template id="report_dr_allotment_of_shares">
+        <t t-call="web.basic_layout">
+            <div class="page">
+            </div>
+        </t>
+    </template>
+
+    <!--TODO DR_Share transfer, Transfer form.docx-->
+    <report
+        id="dr_share_transfer"
+        model="project.task"
+        string="DR Share transfer, Transfer form"
+        report_type="qweb-pdf"
+        name="twopt_task.report_dr_share_transfer"
+        file="twopt_task.report_dr_share_transfer"
+        menu="False"
+    />
+    <record id="dr_share_transfer" model="ir.actions.report">
+        <field name="file_template_data" type="base64" file="twopt_task/views/report/DR_Share transfer, Transfer form.docx"/>
+        <field name="populating_ms_word_template" eval="True"/>
+    </record>
+
+    <template id="report_dr_share_transfer">
+        <t t-call="web.basic_layout">
+            <div class="page">
+            </div>
+        </t>
+    </template>
+
+    <!--TODO AGM - More than 1 Member.docx-->
+    <report
+        id="agm_more_than_1_member"
+        model="project.task"
+        string="AGM - More than 1 Member"
+        report_type="qweb-pdf"
+        name="twopt_task.report_agm_more_than_1_member"
+        file="twopt_task.report_agm_more_than_1_member"
+        menu="False"
+    />
+    <record id="agm_more_than_1_member" model="ir.actions.report">
+        <field name="file_template_data" type="base64" file="twopt_task/views/report/AGM - More than 1 Member.docx"/>
+        <field name="populating_ms_word_template" eval="True"/>
+    </record>
+
+    <template id="report_agm_more_than_1_member">
+        <t t-call="web.basic_layout">
+            <div class="page">
+            </div>
+        </t>
+    </template>
+
+    <!--TODO Change of Company financial year end.docx-->
+    <report
+        id="change_of_company_financial_year_end"
+        model="project.task"
+        string="Change of Company financial year end"
+        report_type="qweb-pdf"
+        name="twopt_task.report_change_of_company_financial_year_end"
+        file="twopt_task.report_change_of_company_financial_year_end"
+        menu="False"
+    />
+    <record id="change_of_company_financial_year_end" model="ir.actions.report">
+        <field name="file_template_data" type="base64" file="twopt_task/views/report/Change of Company financial year end.docx"/>
+        <field name="populating_ms_word_template" eval="True"/>
+    </record>
+
+    <template id="report_change_of_company_financial_year_end">
+        <t t-call="web.basic_layout">
+            <div class="page">
+            </div>
+        </t>
+    </template>
+
+    <!--TODO DR_Director Resignation.docx-->
+    <report
+        id="dr_director_resignation"
+        model="project.task"
+        string="DR_Director Resignation"
+        report_type="qweb-pdf"
+        name="twopt_task.report_dr_director_resignation"
+        file="twopt_task.report_dr_director_resignation"
+        menu="False"
+    />
+    <record id="dr_director_resignation" model="ir.actions.report">
+        <field name="file_template_data" type="base64" file="twopt_task/views/report/DR_Director Resignation.docx"/>
+        <field name="populating_ms_word_template" eval="True"/>
+    </record>
+
+    <template id="report_dr_director_resignation">
+        <t t-call="web.basic_layout">
+            <div class="page">
+            </div>
+        </t>
+    </template>
+
+    <!--TODO DR_Appt of Director.docx-->
+    <report
+        id="dr_appt_of_director"
+        model="project.task"
+        string="DR_Appt of Director"
+        report_type="qweb-pdf"
+        name="twopt_task.report_dr_appt_of_director"
+        file="twopt_task.report_dr_appt_of_director"
+        menu="False"
+    />
+    <record id="dr_appt_of_director" model="ir.actions.report">
+        <field name="file_template_data" type="base64" file="twopt_task/views/report/DR_Appt of Director.docx"/>
+        <field name="populating_ms_word_template" eval="True"/>
+    </record>
+
+    <template id="report_dr_appt_of_director">
+        <t t-call="web.basic_layout">
+            <div class="page">
+            </div>
+        </t>
+    </template>
+
+    <!--TODO Share Certificate No 1.docx-->
+    <report
+        id="share_certificate_no"
+        model="project.task"
+        string="Share Certificate No 1"
+        report_type="qweb-pdf"
+        name="twopt_task.report_share_certificate_no"
+        file="twopt_task.report_share_certificate_no"
+        menu="False"
+    />
+    <record id="share_certificate_no" model="ir.actions.report">
+        <field name="file_template_data" type="base64" file="twopt_task/views/report/Share Certificate No 1.docx"/>
+        <field name="populating_ms_word_template" eval="True"/>
+    </record>
+
+    <template id="report_share_certificate_no">
+        <t t-call="web.basic_layout">
+            <div class="page">
+            </div>
+        </t>
+    </template>
+</odoo>

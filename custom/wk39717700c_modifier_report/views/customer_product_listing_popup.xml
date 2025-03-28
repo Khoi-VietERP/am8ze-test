@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="customer_product_listing_popup">
+            <field name="name">customer.product.listing.popup</field>
+            <field name="model">report.customer.product.listing</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="partner_ids" widget="many2many_tags"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Export PDF" name="export_report" type="object" class="btn-primary"/>
+                        <button string="Export XLSX" name="action_xlsx" type="object" class="btn-primary"/>
+                        <button string="View" name="action_view" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="customer_product_listing_action" model="ir.actions.act_window">
+            <field name="name">Customer Product Listing</field>
+            <field name="res_model">report.customer.product.listing</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="customer_product_listing_menu" name="Report Customer Product Listing" action="customer_product_listing_action" parent="account.menu_finance_reports" sequence="50"/>
+    </data>
+</odoo>

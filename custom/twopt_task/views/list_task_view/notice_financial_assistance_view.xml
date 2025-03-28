@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="notice_financial_assistance_form" model="ir.ui.view">
+            <field name="name">notice.financial.assistance.form</field>
+            <field name="model">notice.financial.assistance</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <div>
+                            <label for="under_selection"/><br/>
+                            <field name="under_selection" widget="radio"/>
+                        </div>
+                        <separator string="Notice to Member on giving Financial Assistance under S76(9A)"
+                                   attrs="{'invisible' : ['|',('entity_id', '=', False),('under_selection', '!=', '9a')]}"/>
+                        <group col="2" attrs="{'invisible' : ['|',('entity_id', '=', False),('under_selection', '!=', '9a')]}">
+                            <div>
+                                <label for="date_of_providing" style="font-weight: bold;"/><br/>
+                                <field name="date_of_providing" style="width: 50%;"/>
+                            </div>
+                            <div>
+                                <label for="date_of_notice" style="font-weight: bold;"/><br/>
+                                <field name="date_of_notice" style="width: 50%;"/>
+                            </div>
+                            <div>
+                                <label for="copy_of_notice" style="font-weight: bold;"/><br/>
+                                <field name="copy_of_notice" style="width: 80%;"/>
+                            </div>
+                            <div>
+                                <label for="copy_of_director_9a" style="font-weight: bold;"/><br/>
+                                <field name="copy_of_director_9a" style="width: 80%;"/>
+                            </div>
+                        </group>
+
+                        <separator string="Notice to Member on giving Financial Assistance under S76(9B)"
+                                    attrs="{'invisible' : ['|',('entity_id', '=', False),('under_selection', '!=', '9b')]}"/>
+                        <group col="2" attrs="{'invisible' : ['|',('entity_id', '=', False),('under_selection', '!=', '9b')]}">
+                            <div>
+                                <label for="date_of_passing" style="font-weight: bold;"/><br/>
+                                <field name="date_of_passing" style="width: 50%;"/>
+                            </div>
+                            <div>
+                                <label for="copy_of_member" style="font-weight: bold;"/><br/>
+                                <field name="copy_of_member" style="width: 80%;"/>
+                            </div>
+                            <div>
+                                <label for="copy_of_director_9b" style="font-weight: bold;"/><br/>
+                                <field name="copy_of_director_9b" style="width: 80%;"/>
+                            </div>
+                            <div></div>
+                        </group>
+
+                        <separator string="Notice to Member on giving Financial Assistance under S76(10E)"
+                                   attrs="{'invisible' : ['|',('entity_id', '=', False),('under_selection', '!=', '10e')]}"/>
+                        <group col="2" attrs="{'invisible' : ['|',('entity_id', '=', False),('under_selection', '!=', '10e')]}">
+                            <div>
+                                <label for="date_notice" style="font-weight: bold;"/><br/>
+                                <field name="date_notice" style="width: 50%;"/>
+                            </div>
+                            <div>
+                                <label for="copy_of_notice_10e" style="font-weight: bold;"/><br/>
+                                <field name="copy_of_notice_10e" style="width: 80%;"/>
+                            </div>
+                            <div>
+                                <label for="copy_of_statement" style="font-weight: bold;"/><br/>
+                                <field name="copy_of_statement" style="width: 80%;"/>
+                            </div>
+                            <div></div>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

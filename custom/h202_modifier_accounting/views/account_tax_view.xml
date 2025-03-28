@@ -1,0 +1,23 @@
+<odoo>
+    <record id="view_tax_tree_inherit" model="ir.ui.view">
+        <field name="name">account.tax.tree.view.inherit</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_tree"/>
+        <field name="arch" type="xml">
+            <field name="active" position="after">
+                <field name="note" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_tax_form_inherit" model="ir.ui.view">
+        <field name="name">account.tax.form.view.inherit</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form"/>
+        <field name="arch" type="xml">
+            <field name="active" position="after">
+                <field name="note" optional="show"/>
+            </field>
+        </field>
+    </record>
+</odoo>

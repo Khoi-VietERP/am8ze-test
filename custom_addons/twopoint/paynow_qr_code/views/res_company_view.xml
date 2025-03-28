@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_company_form_paynow" model="ir.ui.view">
+        <field name="name">res.company.form.paynow</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='email']" position="after">
+                <field name="paynow_suffix" string="Pay Now Suffix"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="res_partner_form_view_inherit_larson" model="ir.ui.view">
+        <field name="name">Model Data res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="currency_id" readonly="0" force_save="1"/>
+            </xpath>
+            <xpath expr="//field[@name='phone']" position="after">
+                <field name="phone2"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

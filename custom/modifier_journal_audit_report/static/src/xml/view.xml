@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<div xml:space="preserve">
+    <t t-name="JournalAuditMainList">
+        <div class="JournalAuditMain">
+            <div class="py-filter-container">
+                <div class="py-control-panel">
+                    <div class="py-control-div">
+                        <div class="py-cntrl-left">
+                            <div class="py-ctrl-buttons">
+                                <button type="button" class="btn btn-primary" id="print_pdf" action="print_pdf" style="position: relative;">Print (Pdf)</button>
+                            </div>
+                        </div>
+                        <div class="py_cntrl_right">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="py-data-container">
+                <div class="py-data-container-orig" style="padding-left: 40px;height: 750px;">
+                </div>
+                <div id="loader">
+                    <div id="top"></div>
+                    <div id="bottom"></div>
+                    <div id="line"></div>
+                </div>
+            </div>
+        </div>
+    </t>
+</div>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="satisfaction_of_charge_form" model="ir.ui.view">
+            <field name="name">satisfaction.of.charge.form</field>
+            <field name="model">satisfaction.of.charge</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Entity Information">
+                            <group name="entity_info">
+                                <field name="uen"/>
+                                <field name="charge_no_id"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <group col="2" string="Notification for Satisfaction of Charge" attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <div>
+                                <label for="date_of_satisfaction" style="font-weight: bold;"/><br/>
+                                <field name="date_of_satisfaction" style="width: 50%;"/>
+                            </div>
+                            <div>
+                                <label for="nature_of_satisfaction" style="font-weight: bold;"/><br/>
+                                <field name="nature_of_satisfaction" style="width: 80%;"/>
+                            </div>
+                            <div>
+                                <label for="charge_status" style="font-weight: bold;"/><br/>
+                                <field name="charge_status" style="width: 80%;"/>
+                            </div>
+                            <div>
+                                <label for="attach_satisfaction_of_charge" style="font-weight: bold;"/><br/>
+                                <field name="attach_satisfaction_of_charge" style="width: 80%;"/>
+                            </div>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="TempCustomerProductListingReport">
+        <div class="py-main-container">
+            <div class="py-filter-container">
+                <div class="py-control-panel">
+                </div>
+            </div>
+            <div class="py-data-container">
+                <div class="py-data-container-orig">
+                </div>
+                <div id="loader">
+                    <div id="top"></div>
+                    <div id="bottom"></div>
+                    <div id="line"></div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="FilterCustomerProductListingReport">
+        <div class="py-control-div">
+            <div class="py-cntrl-left">
+                <div class="py-ctrl-buttons">
+                    <button type="button" class="btn py-btn-primary" id="pdf" action="print_pdf" style="position: relative;">Print (Pdf)</button>
+                    <button type="button" class="btn py-btn-primary" id="xlsx" action="print_xlsx" style="position: relative;">Export (XLSX)</button>
+                </div>
+            </div>
+            <div class="py_cntrl_right">
+                <div class="py-search-buttons">
+                    <button type="button" id="filter_apply_button" class="btn py-btn-secondary" action="apply_filter" style="position: relative;">Apply</button>
+                    <div class="py-search-btn-date">
+                        <a type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="fa fa-calendar" title="Dates" role="img" aria-label="Dates"></span>
+                        Custom
+                        </a>
+                        <div class="dropdown-menu py-filters-menu" role="menu">
+                            <div role="separator" class="dropdown-divider"></div>
+                            <span role="menuitem" class="dropdown-item" data-filter="custom_filter_date">Custom</span>
+                            <div class="o_foldable_menu  o_account_report_search" data-filter="custom_filter_date">
+                                <label class="custom-date" for="date_from">Start Date :</label>
+                                <div class="form-group custom-date">
+                                    <div class="o_datepicker" aria-atomic="true" id="datepicker10" data-target-input="nearest">
+                                        <input type="date" id="date_from"></input>
+                                    </div>
+                                </div>
+                                <label class="custom-date" for="date_to">End Date :</label>
+                                <div class="form-group custom-date">
+                                    <div class="o_datepicker" aria-atomic="true" id="datepicker11" data-target-input="nearest">
+                                        <input type="date" id="date_to"></input>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="separator" class="dropdown-divider"></div>
+                        </div>
+                    </div>
+                    <div class="py-search-extra">
+                        <a type="button" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="fa fa-filter"></span>
+                            Customer Range
+                        </a>
+                        <select class="dropdown-menu py-filters-menu customer-multiple" name="states[]" multiple="multiple">
+                            <t t-foreach="get_info['customer_list']" t-as="customer">
+                                <option t-attf-value="{{customer[0]}}"><t t-esc="customer[1]"/></option>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="TempCustomerProductListingReportMain">
+        <div class="row" id="header_id" style="margin: auto; width:50%">
+            <t t-if="get_info">
+                <div style="font-size:14px;width:70%">
+                    <ul class="list-unstyled">
+                        <strong>
+                            <h4 t-esc="get_info['company']"/>
+                        </strong>
+                        <li>
+                            <span>Customers Products Listing</span>
+                        </li>
+                        <li>
+                            Date Range <span class="o_force_ltr" t-esc="get_info['start_date']"/> to <span class="o_force_ltr" t-esc="get_info['end_date']"/>
+                        </li>
+                        <li>
+                            Customer Range <span class="o_force_ltr"  t-esc="get_info['customer']"/>
+                        </li>
+                    </ul>
+                </div>
+                <div style="font-size:14px;width:30%">
+                    <ul class="list-unstyled">
+                        <li>
+                            Date: <span class="o_force_ltr" t-esc="get_info['date']"/>
+                        </li>
+                    </ul>
+                </div>
+            </t>
+        </div>
+        <table class="table" style="margin-top: 20px">
+            <thead>
+                <tr>
+                    <th class="text-left"><strong>Cust Code Date</strong></th>
+                    <th class="text-left"><strong>Type</strong></th>
+                    <th class="text-left"><strong>Customer Name Doc.No</strong></th>
+                    <th class="text-left"><strong>Product Code</strong></th>
+                    <th class="text-right"><strong>StockOut</strong></th>
+                    <th class="text-right"><strong>UOM</strong></th>
+                    <th class="text-right"><strong>Unit Price</strong></th>
+                    <th class="text-right"><strong>Total</strong></th>
+                    <th class="text-left"><strong>Description of Transaction</strong></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tbody>
+                    <t t-foreach="get_info['customer_data']" t-as="customer">
+                        <tr>
+                            <td colspan="2">
+                                <b><t t-esc="customer['customer_code']"/></b>
+                            </td>
+                            <td colspan="2">
+                                <b><t t-esc="customer['customer_name']"/></b>
+                            </td>
+                            <td colspan="5"></td>
+                        </tr>
+                        <tr t-foreach="customer['move_line']" t-as="line">
+                            <td><span t-esc="line['cust_code_date']"/></td>
+                            <td><span t-esc="line['type']"/></td>
+                            <td><span t-esc="line['inv_name']"/></td>
+                            <td><span t-esc="line['product_code']"/></td>
+                            <td class="text-right"><span t-esc="line['stock_out']"/></td>
+                            <td class="text-center"><span t-esc="line['uom']"/></td>
+                            <td class="text-right"><span t-esc="line['uint_price']"/></td>
+                            <td class="text-right"><span t-esc="line['total']"/></td>
+                            <td><span t-esc="line['description']"/></td>
+                        </tr>
+                        <tr style="padding-top: 10px">
+                            <td colspan="4" class="text-right">
+                                <b>
+                                    Grand Total:
+                                </b>
+                            </td>
+                            <td class="text-right">
+                                <b>
+                                    <t t-esc="customer['total_stock_out']"/>
+                                </b>
+                            </td>
+                            <td/>
+                            <td class="text-right">
+                                <b>
+                                    <t t-esc="customer['total_uint_price']"/>
+                                </b>
+                            </td>
+                            <td class="text-right">
+                                <b>
+                                    <t t-esc="customer['total_total']"/>
+                                </b>
+                            </td>
+                            <td/>
+                        </tr>
+                    </t>
+                </tbody>
+            </tbody>
+        </table>
+    </t>
+</templates>

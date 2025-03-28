@@ -1,0 +1,347 @@
+<odoo>
+    <data>
+        <template id="picking_assets_frontend" name="account assets" inherit_id="web.assets_frontend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/my_picking/static/src/js/picking_portal_sidebar.js"></script>
+            </xpath>
+        </template>
+
+        <template id="portal_my_home_menu_picking" name="Portal layout : picking menu entries" inherit_id="portal.portal_breadcrumbs" priority="40">
+            <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+                <li t-if="page_name == 'picking'" t-attf-class="breadcrumb-item #{'active ' if not picking else ''}">
+                    <a t-if="picking" t-attf-href="/my/pickings?{{ keep_query() }}">D.O Documents</a>
+                    <t t-else="">D.O Documents</t>
+                </li>
+                <li t-if="picking" class="breadcrumb-item active">
+                    <t t-esc="picking.name" t-if="picking.name != '/'"/>
+                    <t t-else=""><em>Draft Picking</em></t>
+                </li>
+            </xpath>
+        </template>
+
+        <template id="portal_my_home_picking" name="Portal My Home : picking entries" inherit_id="portal.portal_my_home" priority="40">
+            <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+                <t t-if="picking_count" t-call="portal.portal_docs_entry">
+                    <t t-set="title">D.O Documents</t>
+                    <t t-set="url" t-value="'/my/pickings'"/>
+                    <t t-set="count" t-value="picking_count"/>
+                </t>
+            </xpath>
+        </template>
+
+        <template id="portal_my_pickings" name="My Pickings">
+            <t t-call="portal.portal_layout">
+                <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+                <t t-call="portal.portal_searchbar">
+                    <t t-set="title">D.O Documents</t>
+                </t>
+                <t t-if="not pickings">
+                    <p>There are currently no Delivery Order for your account.</p>
+                </t>
+                <t t-if="pickings" t-call="portal.portal_table">
+                    <thead>
+                        <tr class="active">
+                            <th>Picking #</th>
+                            <th>Source Document</th>
+                            <th class='d-none d-md-table-cell'>Scheduled Date</th>
+                            <th class="text-right">State</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="pickings" t-as="picking">
+                            <tr>
+                                <td>
+                                    <a t-att-href="picking.get_portal_url()" t-att-title="picking.name">
+                                        <t t-esc="picking.name" t-if="picking.name != '/'"/>
+                                        <em t-else="">Draft D.O</em>
+                                    </a>
+                                </td>
+                                <td><span t-field="picking.origin"/></td>
+                                <td class='d-none d-md-table-cell'><span t-field="picking.scheduled_date"/></td>
+                                <td class="tx_status">
+                                    <span t-field="picking.state"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </t>
+            </t>
+        </template>
+
+        <template id="portal_picking_page" name="Picking Portal Template" inherit_id="portal.portal_sidebar" primary="True">
+            <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+                <div class="row mt16 o_portal_picking_sidebar">
+                    <!-- Sidebar -->
+                    <t t-call="portal.portal_record_sidebar">
+                        <t t-set="entries">
+                            <ul class="list-group list-group-flush flex-wrap flex-row flex-lg-column" style="max-width: 330px;">
+                                <li class="list-group-item flex-grow-1">
+                                    <div class="o_download_pdf btn-toolbar flex-sm-nowrap">
+                                        <div class="btn-group  flex-grow-1 mr-1 mb-1">
+                                            <a class="btn btn-secondary btn-block o_download_btn" t-att-href="picking.get_portal_url(report_type='pdf', download=True)" title="Download"><i class="fa fa-download"/> Download</a>
+                                        </div>
+                                        <div class="btn-group flex-grow-1 mb-1">
+                                            <a class="btn btn-secondary btn-block o_print_btn o_portal_picking_print" t-att-href="picking.get_portal_url(report_type='pdf')" id="print_picking_report" title="Print" target="_blank"><i class="fa fa-print"/> Print</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li t-if="picking.partner_id" class="list-group-item flex-grow-1">
+                                    <div class="small mb-1"><strong class="text-muted">Salesperson</strong></div>
+                                    <div class="row">
+                                        <div class="col flex-grow-0 pr-2">
+                                            <img t-if="picking.partner_id.image_1024" class="rounded-circle mt-1 o_portal_contact_img" t-att-src="image_data_uri(picking.partner_id.image_1024)" alt="Contact"/>
+                                            <img t-else="" class="rounded-circle mt-1 o_portal_contact_img" src="/web/static/src/img/user_menu_avatar.png" alt="Contact"/>
+                                        </div>
+                                        <div class="col pl-0">
+                                            <span t-field="picking.partner_id" t-options='{"widget": "contact", "fields": ["name", "phone"], "no_marker": True}'/>
+                                            <a href="#discussion" class="small"><i class="fa fa-fw fa-comments"/><b>Send message</b></a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </t>
+                    </t>
+                    <!-- Page Content -->
+                    <div id="picking_content" class="col-12 col-lg">
+                        <t t-if="error or warning" t-call="my_picking.portal_picking_error"/>
+                        <t t-if="success and (not error and not warning)" t-call="my_picking.portal_picking_success"/>
+
+                        <div class="o_portal_html_view shadow p-3">
+                            <div class="o_portal_html_loader text-center">
+                                <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw text-black-50"></i>
+                            </div>
+                            <iframe id="picking_html" class="mt8 mb8" width="100%" height="100%" frameborder="0" scrolling="no" t-att-src="picking.get_portal_url(report_type='html')"/>
+                        </div>
+                        <!-- chatter -->
+                        <div id="picking_communication" class="mt-4">
+                            <h2>History</h2>
+                            <t t-call="portal.message_thread">
+                                <t t-set="object" t-value="picking"/>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="portal_picking_error" name="picking error/warning display">
+            <div class="row mr16">
+                <div t-attf-class="'col-lg-12 mr16 ml16 alert alert-dismissable' #{'alert-danger' if error else 'alert-warning'}" role="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                    <t t-if="error == 'generic'" name="generic">
+                        There was an error processing this page.
+                    </t>
+                </div>
+            </div>
+        </template>
+
+        <template id="portal_picking_success" name="picking success display">
+            <div class="row mr16">
+                <div class="col-lg-12 mr16 ml16 alert alert-dismissable alert-success" role="status">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                </div>
+            </div>
+        </template>
+
+        <template id="report_delivery_document_inherit" inherit_id="stock.report_delivery_document">
+            <!--<xpath expr="//div[hasclass('page')]/p" position="after">-->
+                <!--<div class="row" style="margin-top:20px">-->
+                    <!--<div class="col-7"/>-->
+                    <!--<div class="col-5 text-center">-->
+                        <!--<strong>Signature</strong><br/><br/>-->
+                        <!--<t t-if="o.signature_image">-->
+                            <!--<img t-att-src="'data:image/png;base64,%s' % to_text(o.signature_image)"-->
+                                 <!--style="height:auto; max-width:100%;" />-->
+                        <!--</t>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</xpath>-->
+            <xpath expr="//t[@t-set='address']" position="replace">
+                <div class="row">
+                    <div class="col-8">
+                        <h3><t t-esc="o.company_id.name"/> </h3>
+                        <span t-esc="o.company_id.street"/><br/>
+                        <span t-esc="o.company_id.street2"/><br/>
+                        <span t-esc="o.company_id.city"/> <span t-esc="o.company_id.zip"/><br/>
+                        <span>Voice: 65-62646900</span><br/>
+                        <span>Fax: <t t-esc="o.company_id.fax"/></span><br/>
+                        <br/><br/>
+                    </div>
+                    <div class="col-4">
+                        <h2>
+                            <t>
+                                <span>Delivery Order</span>
+                            </t>
+                        </h2>
+                        <span>Delivery Number: </span><span t-field="o.name"/><br/>
+                        <span>Delivery Order Date: </span><span t-esc="o.date" t-options="{'widget': 'date'}"/><br/>
+                    </div>
+                </div>
+                <!-- <t t-set="address"> -->
+                <t t-set="sale_id" t-value="o.get_sale_order()"/>
+                <div class="row">
+                    <div class="col-6">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <td style="background-color:white;color:black;border-top:black">To:</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="background-color:white;color:black">
+                                        <div>
+                                            <span t-field="sale_id.partner_invoice_id.name"/><br/>
+                                            <t t-if="sale_id.partner_invoice_id.house_no">
+                                                <span t-field="sale_id.partner_invoice_id.house_no"/>
+                                            </t>
+                                            <span t-field="sale_id.partner_invoice_id.street"/><br/>
+                                            <t t-if="sale_id.partner_invoice_id.level_no">
+                                                #<span t-field="sale_id.partner_invoice_id.level_no"/>
+                                            </t>
+                                            <t t-if="sale_id.partner_invoice_id.unit_no">
+                                                - <span t-field="sale_id.partner_invoice_id.unit_no"/>
+                                            </t>
+                                            <t t-if="sale_id.partner_invoice_id.street2">
+                                                <span t-field="sale_id.partner_invoice_id.street2"/><br/>
+                                            </t>
+                                            <t t-if="sale_id.partner_invoice_id.city">
+                                                <span t-field="sale_id.partner_invoice_id.city"/>
+                                            </t>
+                                            <t t-if="sale_id.partner_invoice_id.state_id">
+                                                <span t-field="sale_id.partner_invoice_id.state_id.name"/><br/>
+                                            </t>
+                                            <t t-if="sale_id.partner_invoice_id.country_id">
+                                                <span t-field="sale_id.partner_invoice_id.country_id.name"/>
+                                            </t>
+                                            <span t-field="sale_id.partner_invoice_id.zip"/><br/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-6">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <td style="background-color:white;color:black;border-top:black">Ship To:</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="background-color:white;color:black">
+                                        <div>
+                                            <span t-field="sale_id.partner_shipping_id.name"/><br/>
+                                            <t t-if="sale_id.partner_shipping_id.house_no">
+                                                <span t-field="sale_id.partner_shipping_id.house_no"/>
+                                            </t>
+                                            <span t-field="sale_id.partner_shipping_id.street"/><br/>
+                                            <t t-if="sale_id.partner_shipping_id.level_no">
+                                                #<span t-field="sale_id.partner_shipping_id.level_no"/>
+                                            </t>
+                                            <t t-if="sale_id.partner_shipping_id.unit_no">
+                                                 - <span t-field="sale_id.partner_shipping_id.unit_no"/>
+                                            </t>
+                                            <t t-if="sale_id.partner_shipping_id.street2">
+                                                <span t-field="sale_id.partner_shipping_id.street2"/><br/>
+                                            </t>
+                                            <t t-if="sale_id.partner_shipping_id.city">
+                                                <span t-field="sale_id.partner_shipping_id.city"/>
+                                            </t>
+                                            <t t-if="sale_id.partner_shipping_id.state_id">
+                                                <span t-field="sale_id.partner_shipping_id.state_id.name"/><br/>
+                                            </t>
+                                            <t t-if="sale_id.partner_shipping_id.country_id">
+                                                <span t-field="sale_id.partner_shipping_id.country_id.name"/>
+                                            </t>
+                                            <span t-field="sale_id.partner_shipping_id.zip"/><br/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <span>Remarks : <t t-esc="o.note"/> </span>
+                    </div>
+                </div>
+                <!-- </t> -->
+            </xpath>
+            <xpath expr="//div[hasclass('page')]" position="replace">
+                <div class="row mt32 mb32" id="informations">
+                    <div class="col-12">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <td style="background-color:white;color:black;border-top:black">Customer ID</td>
+                                    <td style="background-color:white;color:black;border-top:black">PO Number</td>
+                                    <td style="background-color:white;color:black;border-top:black">Payment Terms</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="background-color:white;color:black;border-right: 1px solid black;"><span t-esc="sale_id.partner_shipping_id.customer_id_ref"/> </td>
+                                    <td style="background-color:white;color:black;"><span t-esc="sale_id.po_number"/></td>
+                                    <td style="background-color:white;color:black"><span t-field="sale_id.payment_term_id.name"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <table class="table table-sm o_main_table" name="picking_line_table">
+                    <thead>
+                        <tr>
+                            <th class="text-left">Quantity</th>
+                            <th class="text-left">Item</th>
+                            <th class="text-left">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty)"/>
+                        <tr t-foreach="lines" t-as="move">
+                            <td class="text-center">
+                                <span t-esc="o.format_quantity(move.product_uom_qty)"/>
+                            </td>
+                            <td class="text-center"><span t-field="move.product_id.default_code"/></td>
+                            <td><span t-field="move.product_id.name"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-sm o_main_table" style="border:white">
+                    <tbody>
+                        <tr style="border:white">
+                            <td style="width:55%;border:white">
+                                <span>Received the goods in good order.</span><br/>
+                                <span>Goods sold after three days are non refundable</span>
+                            </td>
+                            <td style="width:5%;border:white">
+                                <p/>
+                            </td>
+                            <td style="width:40%;border:white">
+                                <!--<p><b>For Top 1 Enterprise Pte Ltd</b></p>-->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br/><br/> <br/> <br/>
+                <table class="table table-sm o_main_table">
+                    <tbody>
+                        <tr>
+                            <td style="width:45%;border-top: 2px solid black;border-right: 2px solid white;border-left: 2px solid white;border-bottom: 2px solid white;">
+                                <p>Received by</p>
+                            </td>
+                            <td style="width:10%;border-top: 2px solid white;border-right: 2px solid white;border-left: 2px solid white;border-bottom: 2px solid white;">
+                                <p/>
+                            </td>
+                            <td style="width:45%;border-top: 2px solid white;border-right: 2px solid white;border-left: 2px solid white;border-bottom: 2px solid white;">
+                                <!--<p>Authorised Signature</p>-->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </xpath>
+        </template>
+    </data>
+</odoo>

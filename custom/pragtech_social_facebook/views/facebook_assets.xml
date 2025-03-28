@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="assets_facebook_backend" name="facebook assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/pragtech_social_facebook/static/src/scss/social_dashboard.scss"/>
+                <script type="text/javascript" src="/pragtech_social_facebook/static/src/js/comments.js"></script>
+                <script type="text/javascript" src="/pragtech_social_facebook/static/src/js/facebook_posts.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

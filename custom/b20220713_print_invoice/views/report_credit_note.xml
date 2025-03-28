@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <template id="modifier_external_layout_credit_note">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <!-- Multicompany -->
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+
+            <t t-call="b20220713_print_invoice.external_layout_standard_inf_credit_note">
+                <t t-raw="0"/>
+            </t>
+
+        </template>
+
+        <template id="external_layout_standard_inf_credit_note">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            </div>
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+                 t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                 t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+            <div t-attf-class="footer o_company_#{company.id}_layout">
+                <div class="text-center">
+                    <div t-if="report_type == 'pdf'">
+                        Page:
+                        <span class="page"/>
+                        of
+                        <span class="topage"/>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="b20220713_print_invoice.report_credit_note_template">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="b20220713_print_invoice.modifier_external_layout_credit_note">
+                    <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                    <div class="page" style="margin-top:5px;padding-bottom:15px">
+                        <style>
+                            .table-new th, .table-new td {
+                            padding: 0.25rem 0.75rem;
+                            vertical-align: top;
+                            page-break-inside:avoid
+                            }
+                        </style>
+                        <div class="row" id="header_id" style="border-bottom: 10px solid black;">
+                            <div style="width:15%">
+                                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)"
+                                     style="max-height:100px;margin-left:16px"
+                                     alt="Logo"/>
+                            </div>
+                            <div name="company_address" style="font-size:14px;width:45%">
+                                <ul class="list-unstyled">
+                                    <strong>
+                                        <li t-if="company.name">
+                                            <h5 t-field="company.name"/>
+                                        </li>
+                                    </strong>
+                                    <li>
+<!--                                        <span t-field="company.house_no"/>-->
+<!--                                        <span t-field="company.unit_no"/>-->
+<!--                                        <br/>-->
+                                        <span t-field="company.street"/>
+                                        <br/>
+                                    </li>
+                                    <li t-if="company.phone">Tel:
+                                        <span class="o_force_ltr" t-field="company.phone"/>
+                                    </li>
+                                    <li t-if="company.email">Email:
+                                        <span t-field="company.email"/>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div style="width:40%; margin-top: 50px;">
+                                <span style="font-size: 45px; font-weight: bold">Credit Note</span>
+                            </div>
+                        </div>
+                        <div id="information" class="row">
+                            <t t-foreach="o._get_report_values()" t-as="value">
+                                <div style="width:60%;padding:5px 15px 0px 15px">
+                                    <table style="width: 90%">
+                                        <tbody>
+                                            <tr>
+                                                <td width="40%">
+                                                    <span class="font-weight-bold">Bill to:</span>
+                                                    <br/>
+                                                    <span>
+                                                        <t t-raw="value.get('bill_to', '').replace('\n', '&lt;br&gt;')"/>
+                                                    </span>
+                                                </td>
+                                                <td/>
+                                                <td width="50%">
+                                                    <div style="width:80%">
+                                                        <span class="font-weight-bold">Ship to:</span>
+                                                        <br/>
+                                                        <span t-raw="value.get('shipping_address', '').replace('\n', '&lt;br&gt;')"/>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">
+                                                    <span class="font-weight-bold" style="margin-top:30px">Attention
+                                                        to:
+                                                    </span>
+                                                    <span>
+                                                        <t t-esc="value.get('attention', '')"/>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="font-weight-bold" style="margin-top:10px">Phone:</span>
+                                                    <span>
+                                                        <t t-esc="value.get('phone', '')"/>
+                                                    </span>
+                                                </td>
+                                                <td colspan="2">
+                                                    <span class="font-weight-bold" style="margin-top:30px">Fax:</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div style="width:40%;padding:5px 15px 0px 15px">
+                                    <div>
+                                        <span>
+                                            <strong>UEN No:</strong>
+                                            <span>
+                                                <t t-esc="company.l10n_sg_unique_entity_number"/>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <strong>GST Reg No:</strong>
+                                            <span>
+                                                <t t-esc="company.vat"/>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <table class="table table-bordered text-center" style="margin-top:5px">
+                                                <tbody style="border-color:black;">
+                                                    <tr>
+                                                        <td style="border: 1px solid #000;font-weight-bold">CN No.:
+                                                        </td>
+                                                        <td style="border: 1px solid #000;">
+                                                            <span t-esc="value.get('invoice_no', '')"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="border: 1px solid #000;font-weight-bold">Date:</td>
+                                                        <td style="border: 1px solid #000;">
+                                                            <t t-esc="value.get('date','')"/>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </span>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                        <div id="main_inf" style="width:100%">
+                            <table class="table-new text-center" style="border-color:black;margin-top:5px">
+                                <thead>
+                                    <tr style="text-align: center;width:100%">
+                                        <th style="border: 1px solid #000;width:5%">
+                                            <p class="font-weight-bold">Qty(KG)</p>
+                                        </th>
+                                        <th style="border: 1px solid #000;width:65%">
+                                            <p class="font-weight-bold">Description</p>
+                                        </th>
+                                        <th style="border: 1px solid #000;width:15%">
+                                            <p class="font-weight-bold">Price(S$)</p>
+                                        </th>
+                                        <th style="border: 1px solid #000;width:15%">
+                                            <p class="font-weight-bold">Amount(S$)</p>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.invoice_line_ids" t-as="line">
+                                        <t t-if="not line.display_type">
+                                            <tr style="height:5px !important;text-align: left">
+                                                <td style="border-right: 1px solid #000;border-left: 1px solid #000;vertical-align:middle;text-align:center">
+                                                    <t t-esc="line.quantity"/>
+                                                </td>
+                                                <td style="border-right: 1px solid #000;vertical-align:middle;text-align:left">
+                                                   <span t-field="line.name"/>
+                                                </td>
+                                                <td style="border-right: 1px solid #000;vertical-align:middle;text-align:center">
+                                                    <t t-esc="line.price_unit" t-options='{"widget": "float", "decimal_precision": "Product Price"}'/>
+                                                </td>
+                                                <td style="border-right: 1px solid #000;vertical-align:middle;text-align:right">
+                                                    <t t-esc="line.price_subtotal" t-options='{"widget": "float", "decimal_precision": "Product Price"}'/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <t t-else="">
+                                            <tr style="height:5px !important;text-align: left">
+                                                <td style="border-right: 1px solid #000;border-left: 1px solid #000;vertical-align:middle;text-align:center">
+                                                </td>
+                                                <td style="border-right: 1px solid #000;vertical-align:middle;text-align:left">
+                                                    <b><span t-field="line.name"/></b>
+                                                </td>
+                                                <td style="border-right: 1px solid #000;vertical-align:middle;text-align:center">
+                                                </td>
+                                                <td style="border-right: 1px solid #000;vertical-align:middle;text-align:right">
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                    <t t-foreach="o._get_report_values()" t-as="value">
+                                        <tr>
+                                            <td colspan="2" align="left"
+                                                style="border-top: 1px solid #000;">
+                                                <p t-field="company.report_footer"/>
+                                            </td>
+                                            <td style="border-top: 1px solid #000;border-left: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;">
+                                                Subtotal
+                                                <br/>
+                                                Add:GST
+                                                <br/>
+                                                Grand Total
+                                            </td>
+                                            <td style="border-top: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;text-align:right">
+                                                <t t-esc="value.get('amount_untaxed_product', '-')"/>
+                                                <br/>
+                                                <t t-esc="value.get('amount_tax_signed', '-')"/>
+                                                <br/>
+                                                <t t-esc="value.get('amount_total', '-')"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                            <div class="row" style="page-break-inside:auto">
+                                <div class="col-7">
+                                    <div style="padding: 15px; max-height: 150px!important;max-width: 150px!important;">
+                                        <img t-if="o.barcode"
+                                             t-attf-src="data:image/png;base64,{{o.barcode}}"
+                                             class="img img-fluid"/>
+                                    </div>
+                                    <span>Please indicate invoice no.</span>
+                                </div>
+                                <div class="col-5" style="margin-top:30px;margin-left:22px">
+                                    <div style="text-align: left;">
+                                        <span>Received by:</span>
+                                    </div>
+                                    <div style="border-bottom: 2px solid #000;height:80px;width: 95%"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <template id="b20220713_print_invoice.report_credit_note">
+            <t t-call="web.html_container">
+                <t t-call="b20220713_print_invoice.report_credit_note_template"/>
+            </t>
+        </template>
+        <record id="paper_format" model="report.paperformat">
+            <field name="name">Credit Note Report</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">5</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+                id="report_credit_note_id"
+                string="Credit Note"
+                model="account.move"
+                report_type="qweb-pdf"
+                file="b20220713_print_invoice.report_credit_note"
+                name="b20220713_print_invoice.report_credit_note"
+                print_report_name="(object._get_report_base_filename())"
+                paperformat="b20220713_print_invoice.paper_format"
+                menu="False"
+        />
+        <record id="action_credit_note_print_menu" model="ir.actions.act_window">
+            <field name="name">Credit Note</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.credit.note.popup</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="b20220713_print_invoice.view_credit_note_report_popup_form"/>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

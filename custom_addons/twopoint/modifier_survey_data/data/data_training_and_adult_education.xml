@@ -1,0 +1,740 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record model="survey.survey" id="survey_1">
+            <field name="title">Training and Adult Education</field>
+            <field name="users_can_go_back" eval="True"/>
+            <field name="questions_layout">page_per_section</field>
+        </record>
+
+        <record id="survey_1_page_1" model="survey.question">
+            <field name="title">Keen to find out how digital-ready your business is and the steps to take to further your digital efforts?</field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="is_page" eval="True"/>
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="survey_1_page_1_select" model="survey.question">
+            <field name="title">Take the self-test to find out for the following sectors:
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">multiple_choice</field>
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="survey_1_page_1_select_label_1" model="survey.label">
+            <field name="value">1. Environmental Services</field>
+            <field name="question_id" ref="survey_1_page_1_select"/>
+        </record>
+
+        <record id="survey_1_page_1_select_label_2" model="survey.label">
+            <field name="value">2. Food Services</field>
+            <field name="question_id" ref="survey_1_page_1_select"/>
+        </record>
+
+        <record id="survey_1_page_1_select_label_3" model="survey.label">
+            <field name="value">3. Retail</field>
+            <field name="question_id" ref="survey_1_page_1_select"/>
+        </record>
+
+        <record id="survey_1_page_1_select_label_4" model="survey.label">
+            <field name="value">4. Logistics</field>
+            <field name="question_id" ref="survey_1_page_1_select"/>
+        </record>
+
+        <record id="survey_1_page_1_select_label_5" model="survey.label">
+            <field name="value">5. Wholesale Trade</field>
+            <field name="question_id" ref="survey_1_page_1_select"/>
+        </record>
+
+        <record id="survey_1_page_1_select_label_6" model="survey.label">
+            <field name="value">6. Security</field>
+            <field name="question_id" ref="survey_1_page_1_select"/>
+        </record>
+
+        <record id="survey_1_page_1_select_label_7" model="survey.label">
+            <field name="value">7. Sea Transport – Harbour Craft</field>
+            <field name="question_id" ref="survey_1_page_1_select"/>
+        </record>
+
+        <record id="survey_1_page_1_select_label_8" model="survey.label">
+            <field name="value">8. Sea Transport – Ship Agency</field>
+            <field name="question_id" ref="survey_1_page_1_select"/>
+        </record>
+
+        <record id="survey_1_page_1_select_label_9" model="survey.label">
+            <field name="value">9. Sea Transport – Bunkering</field>
+            <field name="question_id" ref="survey_1_page_1_select"/>
+        </record>
+
+        <record id="survey_1_page_1_select_label_10" model="survey.label">
+            <field name="value">10. Accountancy</field>
+            <field name="question_id" ref="survey_1_page_1_select"/>
+        </record>
+
+        <record id="survey_1_page_1_select_label_11" model="survey.label">
+            <field name="value">11. Cybersecurity</field>
+            <field name="question_id" ref="survey_1_page_1_select"/>
+        </record>
+
+        <record id="survey_1_page_1_select_label_12" model="survey.label">
+            <field name="value">12. Training and Adult Education</field>
+            <field name="question_id" ref="survey_1_page_1_select"/>
+        </record>
+
+        <record id="survey_1_page_1_select_label_13" model="survey.label">
+            <field name="value">13. Construction &amp; Facilities Management</field>
+            <field name="question_id" ref="survey_1_page_1_select"/>
+        </record>
+
+        <record id="survey_1_page_1_select_label_14" model="survey.label">
+            <field name="value">14. Early Childhood Education</field>
+            <field name="question_id" ref="survey_1_page_1_select"/>
+        </record>
+
+        <record id="survey_1_page_1_select_label_15" model="survey.label">
+            <field name="value">15. Land Transport – Chartered Bus Services</field>
+            <field name="question_id" ref="survey_1_page_1_select"/>
+        </record>
+
+        <record id="survey_1_page_1_select_label_16" model="survey.label">
+            <field name="value">16. Food Manufacturing</field>
+            <field name="question_id" ref="survey_1_page_1_select"/>
+        </record>
+
+        <record id="survey_1_page_1_select_label_17" model="survey.label">
+            <field name="value">17. Marine &amp; Offshore Engineering</field>
+            <field name="question_id" ref="survey_1_page_1_select"/>
+        </record>
+
+        <record id="survey_1_page_1_select_label_18" model="survey.label">
+            <field name="value">18. Process Construction and Maintenance</field>
+            <field name="question_id" ref="survey_1_page_1_select"/>
+        </record>
+
+        <record id="survey_1_page_2" model="survey.question">
+            <field name="title">Company Infomation</field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="is_page" eval="True"/>
+            <field name="sequence">3</field>
+        </record>
+
+        <record id="survey_1_uen_number" model="survey.question">
+            <field name="survey_id" ref="survey_1"/>
+            <field name="title">UEN Number</field>
+            <field name="question_type">textbox</field>
+            <field name="sequence">4</field>
+        </record>
+
+        <record id="survey_1_company_name" model="survey.question">
+            <field name="survey_id" ref="survey_1"/>
+            <field name="title">Company Name</field>
+            <field name="question_type">textbox</field>
+            <field name="sequence">5</field>
+        </record>
+
+        <record id="survey_1_staff_strength" model="survey.question">
+            <field name="survey_id" ref="survey_1"/>
+            <field name="title">Staff Strength</field>
+            <field name="question_type">textbox</field>
+            <field name="sequence">6</field>
+        </record>
+
+        <record id="survey_1_revenue" model="survey.question">
+            <field name="survey_id" ref="survey_1"/>
+            <field name="title">Revenue</field>
+            <field name="question_type">textbox</field>
+            <field name="sequence">7</field>
+        </record>
+
+        <record id="survey_1_years_of_operation" model="survey.question">
+            <field name="survey_id" ref="survey_1"/>
+            <field name="title">Years of Operation</field>
+            <field name="question_type">textbox</field>
+            <field name="sequence">8</field>
+        </record>
+
+        <record id="survey_1_page_3" model="survey.question">
+            <field name="title">Question</field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="is_page" eval="True"/>
+            <field name="sequence">9</field>
+        </record>
+
+        <record id="survey_1_question_1" model="survey.question">
+            <field name="title">1.	Human Resource Management (including payroll). Do you use any solution
+                that assists your company to manage your human resources operations (e.g. employee profile,
+                claims, leave, entitlements / benefits, appraisal, training and time attendance)?
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <record id="survey_1_question_1_label_1" model="survey.label">
+            <field name="value">Yes</field>
+            <field name="question_id" ref="survey_1_question_1"/>
+        </record>
+
+        <record id="survey_1_question_1_label_2" model="survey.label">
+            <field name="value">No</field>
+            <field name="question_id" ref="survey_1_question_1"/>
+        </record>
+
+        <record id="survey_1_question_2" model="survey.question">
+            <field name="title">2. Cybersecurity. Do you use any solution to protect your computer
+                systems, networks, and digital solutions from cyber-attacks?
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">11</field>
+        </record>
+
+        <record id="survey_1_question_2_label_1" model="survey.label">
+            <field name="value">Yes</field>
+            <field name="question_id" ref="survey_1_question_2"/>
+        </record>
+
+        <record id="survey_1_question_2_label_2" model="survey.label">
+            <field name="value">No</field>
+            <field name="question_id" ref="survey_1_question_2"/>
+        </record>
+
+        <record id="survey_1_question_3" model="survey.question">
+            <field name="title">3. How many training places do you generate annually?
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">12</field>
+        </record>
+
+        <record id="survey_1_question_3_label_1" model="survey.label">
+            <field name="value">&lt; 100</field>
+            <field name="question_id" ref="survey_1_question_3"/>
+        </record>
+
+        <record id="survey_1_question_3_label_2" model="survey.label">
+            <field name="value">100 - 1000</field>
+            <field name="question_id" ref="survey_1_question_3"/>
+        </record>
+
+        <record id="survey_1_question_3_label_3" model="survey.label">
+            <field name="value">1001 - 10000</field>
+            <field name="question_id" ref="survey_1_question_3"/>
+        </record>
+
+        <record id="survey_1_question_3_label_4" model="survey.label">
+            <field name="value">10000</field>
+            <field name="question_id" ref="survey_1_question_3"/>
+        </record>
+
+        <record id="survey_1_question_4" model="survey.question">
+            <field name="title">4. What type of training organisation are you?
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">13</field>
+        </record>
+
+        <record id="survey_1_question_4_label_1" model="survey.label">
+            <field name="value">Private Education Institutions</field>
+            <field name="question_id" ref="survey_1_question_4"/>
+        </record>
+
+        <record id="survey_1_question_4_label_2" model="survey.label">
+            <field name="value">Post-Secondary Education Institutions</field>
+            <field name="question_id" ref="survey_1_question_4"/>
+        </record>
+
+        <record id="survey_1_question_4_label_3" model="survey.label">
+            <field name="value">Institutes of Higher Learning</field>
+            <field name="question_id" ref="survey_1_question_4"/>
+        </record>
+
+        <record id="survey_1_question_4_label_4" model="survey.label">
+            <field name="value">Business Training Consultancy Organisations</field>
+            <field name="question_id" ref="survey_1_question_4"/>
+        </record>
+
+        <record id="survey_1_question_4_label_5" model="survey.label">
+            <field name="value">Public Sector Training Institutions</field>
+            <field name="question_id" ref="survey_1_question_4"/>
+        </record>
+
+        <record id="survey_1_question_4_label_6" model="survey.label">
+            <field name="value">Associations and Professional Bodies Training Arms/Functions</field>
+            <field name="question_id" ref="survey_1_question_4"/>
+        </record>
+
+        <record id="survey_1_question_5" model="survey.question">
+            <field name="title">5. How do you capture learner's attendance?
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">14</field>
+        </record>
+
+        <record id="survey_1_question_5_label_1" model="survey.label">
+            <field name="value">Paper and pen</field>
+            <field name="question_id" ref="survey_1_question_5"/>
+        </record>
+
+        <record id="survey_1_question_5_label_2" model="survey.label">
+            <field name="value">Digital Forms (e.g. Survey Monkey, Google Forms, etc)</field>
+            <field name="question_id" ref="survey_1_question_5"/>
+        </record>
+
+        <record id="survey_1_question_5_label_3" model="survey.label">
+            <field name="value">Digital Attendance Software</field>
+            <field name="question_id" ref="survey_1_question_5"/>
+        </record>
+
+        <record id="survey_1_question_6" model="survey.question">
+            <field name="title">6. How do you keep track of learner's attendance to facilitate follow up task (e.g. payment process)?
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">15</field>
+        </record>
+
+        <record id="survey_1_question_6_label_1" model="survey.label">
+            <field name="value">Hardcopy records and manual tabulations</field>
+            <field name="question_id" ref="survey_1_question_6"/>
+        </record>
+
+        <record id="survey_1_question_6_label_2" model="survey.label">
+            <field name="value">Excel, Word and/or equivalent</field>
+            <field name="question_id" ref="survey_1_question_6"/>
+        </record>
+
+        <record id="survey_1_question_6_label_3" model="survey.label">
+            <field name="value">Digital Attendance Software</field>
+            <field name="question_id" ref="survey_1_question_6"/>
+        </record>
+
+        <record id="survey_1_question_7" model="survey.question">
+            <field name="title">7. How do you provide certification for your learners?
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">16</field>
+        </record>
+
+        <record id="survey_1_question_7_label_1" model="survey.label">
+            <field name="value">No certificates</field>
+            <field name="question_id" ref="survey_1_question_7"/>
+        </record>
+
+        <record id="survey_1_question_7_label_2" model="survey.label">
+            <field name="value">Physical Certificates</field>
+            <field name="question_id" ref="survey_1_question_7"/>
+        </record>
+
+        <record id="survey_1_question_7_label_3" model="survey.label">
+            <field name="value">Digital Certificates</field>
+            <field name="question_id" ref="survey_1_question_7"/>
+        </record>
+
+        <record id="survey_1_question_7_label_4" model="survey.label">
+            <field name="value">Both Physical and Digital Certificates</field>
+            <field name="question_id" ref="survey_1_question_7"/>
+        </record>
+
+        <record id="survey_1_question_8" model="survey.question">
+            <field name="title">8. How do you ensure that certifications are authentic, valid and trackable?
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">17</field>
+        </record>
+
+        <record id="survey_1_question_8_label_1" model="survey.label">
+            <field name="value">Manual checking of signature and organisation's stamp</field>
+            <field name="question_id" ref="survey_1_question_8"/>
+        </record>
+
+        <record id="survey_1_question_8_label_2" model="survey.label">
+            <field name="value">Contact issuing organisations for verification and authentication</field>
+            <field name="question_id" ref="survey_1_question_8"/>
+        </record>
+
+        <record id="survey_1_question_8_label_3" model="survey.label">
+            <field name="value">Digital Certificate Authentication software</field>
+            <field name="question_id" ref="survey_1_question_8"/>
+        </record>
+
+        <record id="survey_1_question_9" model="survey.question">
+            <field name="title">9. How do you manage your training operations?
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">18</field>
+        </record>
+
+        <record id="survey_1_question_9_label_1" model="survey.label">
+            <field name="value">Hardcopy records and manual filing</field>
+            <field name="question_id" ref="survey_1_question_9"/>
+        </record>
+
+        <record id="survey_1_question_9_label_2" model="survey.label">
+            <field name="value">Excel, Word and/or equivalent documents</field>
+            <field name="question_id" ref="survey_1_question_9"/>
+        </record>
+
+        <record id="survey_1_question_9_label_3" model="survey.label">
+            <field name="value">Training Management System</field>
+            <field name="question_id" ref="survey_1_question_9"/>
+        </record>
+
+        <record id="survey_1_question_10" model="survey.question">
+            <field name="title">10. Where do you store training records?
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">19</field>
+        </record>
+
+        <record id="survey_1_question_10_label_1" model="survey.label">
+            <field name="value">Hardcopy records</field>
+            <field name="question_id" ref="survey_1_question_10"/>
+        </record>
+
+        <record id="survey_1_question_10_label_2" model="survey.label">
+            <field name="value">In own laptop and portable hard drives</field>
+            <field name="question_id" ref="survey_1_question_10"/>
+        </record>
+
+        <record id="survey_1_question_10_label_3" model="survey.label">
+            <field name="value">All on internal network server</field>
+            <field name="question_id" ref="survey_1_question_10"/>
+        </record>
+
+        <record id="survey_1_question_10_label_4" model="survey.label">
+            <field name="value">All on cloud storage (OneDrive, Google Drive etc.)</field>
+            <field name="question_id" ref="survey_1_question_10"/>
+        </record>
+
+        <record id="survey_1_question_10_label_5" model="survey.label">
+            <field name="value">All on Training Management System (on cloud)</field>
+            <field name="question_id" ref="survey_1_question_10"/>
+        </record>
+
+        <record id="survey_1_question_11" model="survey.question">
+            <field name="title">11. Do you have complete oversight of your training business?
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">20</field>
+        </record>
+
+        <record id="survey_1_question_11_label_1" model="survey.label">
+            <field name="value">No</field>
+            <field name="question_id" ref="survey_1_question_11"/>
+        </record>
+
+        <record id="survey_1_question_11_label_2" model="survey.label">
+            <field name="value">Partial, I only have some oversight of the business and I need time to retrieve information regarding the business.</field>
+            <field name="question_id" ref="survey_1_question_11"/>
+        </record>
+
+        <record id="survey_1_question_11_label_3" model="survey.label">
+            <field name="value">Yes, I have the complete oversight of the business and I can retrieve information as and when I need.</field>
+            <field name="question_id" ref="survey_1_question_11"/>
+        </record>
+
+        <record id="survey_1_question_12" model="survey.question">
+            <field name="title">12. How do you track your learners' progress?
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">21</field>
+        </record>
+
+        <record id="survey_1_question_12_label_1" model="survey.label">
+            <field name="value">No tracking is done</field>
+            <field name="question_id" ref="survey_1_question_12"/>
+        </record>
+
+        <record id="survey_1_question_12_label_2" model="survey.label">
+            <field name="value">Tracking is done by Excel</field>
+            <field name="question_id" ref="survey_1_question_12"/>
+        </record>
+
+        <record id="survey_1_question_12_label_3" model="survey.label">
+            <field name="value">Tracking is done with a Learning Management System</field>
+            <field name="question_id" ref="survey_1_question_12"/>
+        </record>
+
+        <record id="survey_1_question_13" model="survey.question">
+            <field name="title">13. Do you use a digital solution (e.g. Learning Management System) to improve the learners' training process?
+                This may include creation and delivery of digital content, facilitation of blended learning, and aggregation of digital resources for ease of access.
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">22</field>
+        </record>
+
+        <record id="survey_1_question_13_label_1" model="survey.label">
+            <field name="value">No</field>
+            <field name="question_id" ref="survey_1_question_13"/>
+        </record>
+
+        <record id="survey_1_question_13_label_2" model="survey.label">
+            <field name="value">Yes, with a learning management tool</field>
+            <field name="question_id" ref="survey_1_question_13"/>
+        </record>
+
+        <record id="survey_1_question_14" model="survey.question">
+            <field name="title">14. Have you used data analytics in your business? If yes, what tools do you use?
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">23</field>
+        </record>
+
+        <record id="survey_1_question_14_label_1" model="survey.label">
+            <field name="value">No</field>
+            <field name="question_id" ref="survey_1_question_14"/>
+        </record>
+
+        <record id="survey_1_question_14_label_2" model="survey.label">
+            <field name="value">Yes, using Excel</field>
+            <field name="question_id" ref="survey_1_question_14"/>
+        </record>
+
+        <record id="survey_1_question_14_label_3" model="survey.label">
+            <field name="value">Yes, using standalone Data Analytic software</field>
+            <field name="question_id" ref="survey_1_question_14"/>
+        </record>
+
+        <record id="survey_1_question_14_label_4" model="survey.label">
+            <field name="value">Yes, Data Analytics software integrated with Training Management System and/or Learning Management System</field>
+            <field name="question_id" ref="survey_1_question_14"/>
+        </record>
+
+        <record id="survey_1_question_15" model="survey.question">
+            <field name="title">15. Do you use a digital solution that helps your decision making process through analysis and smart presentation of data?
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">24</field>
+        </record>
+
+        <record id="survey_1_question_15_label_1" model="survey.label">
+            <field name="value">No</field>
+            <field name="question_id" ref="survey_1_question_15"/>
+        </record>
+
+        <record id="survey_1_question_15_label_2" model="survey.label">
+            <field name="value">Yes, using Excel</field>
+            <field name="question_id" ref="survey_1_question_15"/>
+        </record>
+
+        <record id="survey_1_question_15_label_3" model="survey.label">
+            <field name="value">Yes, using standalone Data Analytic software</field>
+            <field name="question_id" ref="survey_1_question_15"/>
+        </record>
+
+        <record id="survey_1_question_15_label_4" model="survey.label">
+            <field name="value">Yes, Data Analytics software integrated with Training Management System and/or Learning Management System</field>
+            <field name="question_id" ref="survey_1_question_15"/>
+        </record>
+
+        <record id="survey_1_question_16" model="survey.question">
+            <field name="title">16. How can learners find out about your products and services?
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">25</field>
+        </record>
+
+        <record id="survey_1_question_16_label_1" model="survey.label">
+            <field name="value">Learners contact us directly to find out about classes, via phone calls, emails, or walk-ins</field>
+            <field name="question_id" ref="survey_1_question_16"/>
+        </record>
+
+        <record id="survey_1_question_16_label_2" model="survey.label">
+            <field name="value">Learners can find out about us on our website or social media pages</field>
+            <field name="question_id" ref="survey_1_question_16"/>
+        </record>
+
+        <record id="survey_1_question_16_label_3" model="survey.label">
+            <field name="value">Learners can find our products and services listed on course directory like SSG' s platform or other equivalent platforms</field>
+            <field name="question_id" ref="survey_1_question_16"/>
+        </record>
+
+        <record id="survey_1_question_17" model="survey.question">
+            <field name="title">17. Are you using any digital solution to increase your outreach for products and services?
+                This may include promotion of courses through online platforms.
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">26</field>
+        </record>
+
+        <record id="survey_1_question_17_label_1" model="survey.label">
+            <field name="value">No</field>
+            <field name="question_id" ref="survey_1_question_17"/>
+        </record>
+
+        <record id="survey_1_question_17_label_2" model="survey.label">
+            <field name="value">Yes</field>
+            <field name="question_id" ref="survey_1_question_17"/>
+        </record>
+
+        <record id="survey_1_question_18" model="survey.question">
+            <field name="title">18. Are you using any Jobs-Skills Insights tools and products to facilitate identification of opportunities
+                for training and interventions based on skills and workforce demand?
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">27</field>
+        </record>
+
+        <record id="survey_1_question_18_label_1" model="survey.label">
+            <field name="value">No</field>
+            <field name="question_id" ref="survey_1_question_18"/>
+        </record>
+
+        <record id="survey_1_question_18_label_2" model="survey.label">
+            <field name="value">Yes</field>
+            <field name="question_id" ref="survey_1_question_18"/>
+        </record>
+
+        <record id="survey_1_question_19" model="survey.question">
+            <field name="title">19. Are you using any digital solution that helps with the rapid creation of content for quick market testing?
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">28</field>
+        </record>
+
+        <record id="survey_1_question_19_label_1" model="survey.label">
+            <field name="value">No</field>
+            <field name="question_id" ref="survey_1_question_19"/>
+        </record>
+
+        <record id="survey_1_question_19_label_2" model="survey.label">
+            <field name="value">Yes</field>
+            <field name="question_id" ref="survey_1_question_19"/>
+        </record>
+
+        <record id="survey_1_question_20" model="survey.question">
+            <field name="title">20. Are you using any digital solution that can provide predictive analysis for the improvement of customer service and experience?
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">29</field>
+        </record>
+
+        <record id="survey_1_question_20_label_1" model="survey.label">
+            <field name="value">No</field>
+            <field name="question_id" ref="survey_1_question_20"/>
+        </record>
+
+        <record id="survey_1_question_20_label_2" model="survey.label">
+            <field name="value">Yes</field>
+            <field name="question_id" ref="survey_1_question_20"/>
+        </record>
+
+        <record id="survey_1_question_21" model="survey.question">
+            <field name="title">21. Are you using any AI-driven solution to predict class demand and to
+                facilitate smart resource allocation for business operation optimisation?
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">30</field>
+        </record>
+
+        <record id="survey_1_question_21_label_1" model="survey.label">
+            <field name="value">No</field>
+            <field name="question_id" ref="survey_1_question_21"/>
+        </record>
+
+        <record id="survey_1_question_21_label_2" model="survey.label">
+            <field name="value">Yes</field>
+            <field name="question_id" ref="survey_1_question_21"/>
+        </record>
+
+        <record id="survey_1_question_22" model="survey.question">
+            <field name="title">22. Are you using any AI-driven solution to recommend courses based on the learner's profile?
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">31</field>
+        </record>
+
+        <record id="survey_1_question_22_label_1" model="survey.label">
+            <field name="value">No</field>
+            <field name="question_id" ref="survey_1_question_22"/>
+        </record>
+
+        <record id="survey_1_question_22_label_2" model="survey.label">
+            <field name="value">Yes</field>
+            <field name="question_id" ref="survey_1_question_22"/>
+        </record>
+
+        <record id="survey_1_question_23" model="survey.question">
+            <field name="title">23. Are you using any AI-driven solution to provide learners with adaptive coaching?
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">32</field>
+        </record>
+
+        <record id="survey_1_question_23_label_1" model="survey.label">
+            <field name="value">No</field>
+            <field name="question_id" ref="survey_1_question_23"/>
+        </record>
+
+        <record id="survey_1_question_23_label_2" model="survey.label">
+            <field name="value">Yes</field>
+            <field name="question_id" ref="survey_1_question_23"/>
+        </record>
+
+        <record id="survey_1_question_24" model="survey.question">
+            <field name="title">24. Please indicate if your staff have been trained in the following areas?
+            </field>
+            <field name="survey_id" ref="survey_1"/>
+            <field name="question_type">simple_choice</field>
+            <field name="sequence">33</field>
+        </record>
+
+        <record id="survey_1_question_24_label_1" model="survey.label">
+            <field name="value">Digital Mindset</field>
+            <field name="question_id" ref="survey_1_question_24"/>
+        </record>
+
+        <record id="survey_1_question_24_label_2" model="survey.label">
+            <field name="value">Blended Learning Facilitation</field>
+            <field name="question_id" ref="survey_1_question_24"/>
+        </record>
+
+        <record id="survey_1_question_24_label_3" model="survey.label">
+            <field name="value">Digital Strategies</field>
+            <field name="question_id" ref="survey_1_question_24"/>
+        </record>
+
+        <record id="survey_1_question_24_label_4" model="survey.label">
+            <field name="value">Cybersecurity</field>
+            <field name="question_id" ref="survey_1_question_24"/>
+        </record>
+
+        <record id="survey_1_question_24_label_5" model="survey.label">
+            <field name="value">Digital Marketing</field>
+            <field name="question_id" ref="survey_1_question_24"/>
+        </record>
+
+        <record id="survey_1_question_24_label_6" model="survey.label">
+            <field name="value">Digital Business</field>
+            <field name="question_id" ref="survey_1_question_24"/>
+        </record>
+
+        <record id="survey_1_question_24_label_7" model="survey.label">
+            <field name="value">A.I. and machine learning</field>
+            <field name="question_id" ref="survey_1_question_24"/>
+        </record>
+
+    </data>
+</odoo>

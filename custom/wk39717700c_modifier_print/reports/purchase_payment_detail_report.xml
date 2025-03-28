@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="modifier_external_layout">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+            <t t-call="wk39717700c_modifier_print.external_layout_standard_modifier_header_logo">
+                <t t-raw="0"/>
+            </t>
+
+        </template>
+
+        <template id="external_layout_standard_modifier_header_logo">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                <div class="row" style="width: 100%;">
+                    <div class="col-1">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 100px;"
+                                 alt="Logo"/>
+                    </div>
+                    <div class="col-11 text-center" style="font-size: 15px">
+                        <b style="font-size: 20px;">
+                            <t t-esc="company.name"/>
+                        </b><br/>
+                        <span><t t-esc="company.street"/> </span><br/>
+                        <span> <t t-esc="company.street2"/>, <t t-esc="company.city"/> <t t-esc="company.zip"/></span><br/>
+                        <span>Email : <t t-esc="company.email"/></span>
+                        <span>Tel : <t t-esc="company.phone"/>, Fax : 67436789</span><br/>
+                        <span>Co.Reg.No : 39717700-C</span>
+                    </div>
+                </div>
+            </div>
+
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+                 t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                 t-att-data-oe-lang="o and o.env.context.get('lang')"
+            >
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+        </template>
+
+        <record id="paperformat_purchase_payment_detail" model="report.paperformat">
+            <field name="name">Purchase Payment Detail Paperformat A4 (Fit)</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">28</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <template id="purchase_payment_detail_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="wk39717700c_modifier_print.modifier_external_layout">
+                        <style>
+                            .page {
+                                font-size: 15px
+                            }
+                            .table-product th, .table-product td {
+                                border: 1px solid #000;
+                                padding: 0.2rem 0.2rem;
+                            }
+                            .table-cheque td {
+                                padding: 0.2rem 0rem;
+                            }
+                        </style>
+                        <div class="page">
+                            <div class="text-center" style="width: 100%">
+                                <h5>Payment Detail</h5>
+                            </div>
+                            <div class="row" style="width: 100%">
+                                <div class="col-8">
+                                    <b>TO :</b>
+                                    <div style="margin-top: 10px; margin-left: 10px">
+                                        <t t-foreach="o.partner_ids" t-as="partner_id">
+                                            <b>
+                                                <t t-esc="partner_id.name"/>
+                                            </b><br/>
+                                            <t t-if="partner_id.street or partner_id.street2">
+                                                <t t-if="partner_id.street">
+                                                    <t t-esc="partner_id.street"/>,
+                                                </t>
+                                                <t t-esc="partner_id.street2"/>
+                                                <br/>
+                                            </t>
+                                            <t t-if="partner_id.city">
+                                                <t t-esc="partner_id.city"/><br/>
+                                            </t>
+                                            <t t-if="partner_id.zip">
+                                                <t t-esc="partner_id.zip"/><br/>
+                                            </t>
+                                            <span><t t-esc="partner_id.email"/></span><br/>
+                                        </t>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <b>Purchase Payment</b>
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td style="width: 50%">Payment No</td>
+                                            <td style="width: 50%">: <t t-esc="o.payment_id"/> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Payment Date</td>
+                                            <td>: <t t-esc="o.payment_date and o.payment_date.strftime('%-d %b %Y') or ''"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Paymode Code</td>
+                                            <td>: <t t-esc="o.journal_id.type and o.journal_id.type.title() or ''"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div style="margin-top: 20px">
+                                <b>Account Detail :</b><br/><br/>
+                                <table class="table-product" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th>GRA No</th>
+                                            <th>GRA Date</th>
+                                            <th>Invoice No</th>
+                                            <th class="text-right">Paid Amount</th>
+                                            <th class="text-right">Credit Amount</th>
+                                            <th class="text-right">Total</th>
+                                        </tr>
+                                        <t t-set="total" t-value="0"/>
+                                        <t t-foreach="o.payment_lines" t-as="line">
+                                            <t t-set="total" t-value="total + line.amount"/>
+                                            <tr>
+                                                <td>
+                                                    <t t-esc="line.invoice_id.name"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="line.invoice_id.invoice_date"/>
+                                                </td>
+                                                <td></td>
+                                                <td class="text-right">
+                                                    <t t-esc="'{0:,.2f}'.format(line.amount)"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <t t-esc="'{0:,.2f}'.format(0)"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <t t-esc="'{0:,.2f}'.format(line.amount)"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-right">
+                                                <b><t t-esc="'{0:,.2f}'.format(total)"/> </b>
+                                            </td>
+                                            <td></td>
+                                            <td class="text-right">
+                                                <b><t t-esc="'{0:,.2f}'.format(total)"/></b>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <table class="table-cheque" style="margin-top: 20px">
+                                <tr>
+                                    <td colspan="2">
+                                        <b>Cheque No</b>
+                                    </td>
+                                    <td>: </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <b>PayMode</b>
+                                    </td>
+                                    <td>: <t t-esc="o.journal_id.type and o.journal_id.type.title() or ''"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <b>Bank Code</b>
+                                    </td>
+                                    <td>: </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <b>Amount</b>
+                                    </td>
+                                    <td>: <t t-esc="'{0:,.2f}'.format(o.total_received_amount)"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <b>ExcessAmount</b>
+                                    </td>
+                                    <td>: <t t-esc="'{0:,.2f}'.format(o.account_amount)"/></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Remarks :</b>
+                                    </td>
+                                    <td colspan="2"><t t-esc="o.memo"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <b>Amount (in words)</b>
+                                    </td>
+                                    <td>: <t t-esc="o.currency_id.name"/> <span t-esc="o.currency_id.amount_to_text(o.total_received_amount)"></span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 10%"></td>
+                                    <td style="width: 8%"></td>
+                                    <td style="width: 82%"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <report id="purchase_payment_detail_print"
+            string="Payment Invoice"
+            model="multiple.register.payments"
+            report_type="qweb-pdf"
+            name="wk39717700c_modifier_print.purchase_payment_detail_template"
+            file="wk39717700c_modifier_print.purchase_payment_detail_template"
+            paperformat="wk39717700c_modifier_print.paperformat_purchase_payment_detail"
+            print_report_name="'Payment Invoice'"
+            menu="True"/>
+    </data>
+</odoo>

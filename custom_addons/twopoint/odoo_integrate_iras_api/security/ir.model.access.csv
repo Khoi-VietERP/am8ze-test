@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_iras_api_config,name_iras_api_config,model_iras_api_config,,1,1,0,0
+access_iras_api_history,name_iras_api_history,model_iras_api_history,,1,1,1,0
+access_iras_api_submit,name_iras_api_submit,model_iras_api_submit,,1,1,1,1

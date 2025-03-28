@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="GstF5Main">
+        <div class="py-main-container">
+            <div class="py-filter-container">
+                <div class="py-control-panel">
+                </div>
+            </div>
+            <div class="py-data-container">
+                <div class="py-data-container-orig">
+                </div>
+                <div id="loader">
+                    <div id="top"></div>
+                    <div id="bottom"></div>
+                    <div id="line"></div>
+                </div>
+            </div>
+        </div>
+    </t>
+    <t t-name="FilterGstF5">
+        <div class="py-control-div">
+            <div class="py-cntrl-left">
+                <div class="py-ctrl-buttons">
+                    <button type="button" class="btn py-btn-primary" id="pdf" action="print_pdf" style="position: relative;">Print (Pdf)</button>
+                    <button type="button" class="btn py-btn-primary" id="xlsx" action="print_xlsx" style="position: relative;">Export (XLSX)</button>
+                </div>
+            </div>
+            <div class="py_cntrl_right">
+                <div class="py-search-buttons">
+                    <button type="button" id="filter_apply_button" class="btn py-btn-secondary" action="apply_filter" style="position: relative;">Apply</button>
+                    <div class="py-search-btn-date">
+                        <a type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="fa fa-calendar" title="Dates" role="img" aria-label="Dates"></span>
+                        Custom
+                        </a>
+                        <div class="dropdown-menu py-filters-menu" role="menu">
+                            <div role="separator" class="dropdown-divider"></div>
+                            <span role="menuitem" class="dropdown-item" data-filter="custom_filter_date">Custom</span>
+                            <div class="o_foldable_menu o_closed_menu o_account_report_search" data-filter="custom_filter_date">
+                                <label class="custom-date" for="date_from">Start Date :</label>
+                                <div class="form-group custom-date">
+                                    <div class="o_datepicker" aria-atomic="true" id="datepicker10" data-target-input="nearest">
+                                        <input type="text" id="date_from"></input>
+                                        <span class="o_datepicker_button"></span>
+                                    </div>
+                                </div>
+                                <label class="custom-date" for="date_to">End Date :</label>
+                                <div class="form-group custom-date">
+                                    <div class="o_datepicker" aria-atomic="true" id="datepicker11" data-target-input="nearest">
+                                        <input type="text" id="date_to"></input>
+                                        <span class="o_datepicker_button"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="separator" class="dropdown-divider"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="font-size:13px;text-align: center;border-top: 1px solid #6c757d;margin-top: 5px;">
+            <h3>
+                <span t-esc="get_info[0]['name']"></span>
+                <br/>
+            </h3>
+            <h3>
+                <span>GST Detail Report</span>
+                <br/>
+            </h3>
+            <t t-if="get_info">
+                <h5>
+                    <span t-esc="get_info[0]['date_start']"/>
+                    to
+                    <span t-esc="get_info[0]['date_end']"/>
+                    <br/>
+                </h5>
+            </t>
+        </div>
+    </t>
+
+    <t t-name="GstF5MainList">
+            <style>
+                .move_line {
+                    cursor: pointer;
+                    text-decoration: none;
+                }
+                .move_line:hover {
+                  background-color: #e5e5e5;
+                }
+                .table-gst5 table {
+                    position: relative;
+                    top: -10px;
+                }
+                .table-gst5 th {
+                    position: sticky;
+                    top: -10px;
+                    background-color: #e5e5e5;
+                }
+            </style>
+            <br/>
+        <div>
+            <t t-foreach="get_info" t-as="rec">
+            <table width="100%" class="table table-bordered table-gst5">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Date</th>
+                        <th>Account</th>
+                        <th>Transaction Type</th>
+                        <th>No.</th>
+                        <th>Name</th>
+                        <th>GST Code</th>
+                        <th>GST Rate</th>
+                        <th>Net Amount</th>
+                        <th>Balance</th>
+<!--                        <th>Balance</th>-->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <strong>Box 1 Total value of standard-rated supplies (excluding GST)</strong>
+                        </td>
+                        <td colspan="10"/>
+                    </tr>
+                    <t t-if="rec['detail_box1']">
+                        <tr t-foreach="rec['detail_box1']" t-as="box_line1" t-att-data-move-id="box_line1['move_id']" class="move_line">
+                            <td></td>
+                            <td><span t-esc="box_line1['date']"/></td>
+                            <td><span t-esc="box_line1['account']"/></td>
+                            <td><span t-esc="box_line1['move_type']"/></td>
+                            <td><span t-esc="box_line1['move_name']"/></td>
+                            <td><span t-esc="box_line1['move_partner']"/></td>
+                            <td><span t-esc="box_line1['gst_code']"/></td>
+                            <td><span t-esc="box_line1['gst_rate']"/></td>
+                            <td style="text-align: right;"><span t-esc="box_line1['net_amount']"/></td>
+<!--                            <td style="text-align: right;"><span t-esc="box_line1['amount']"/> </td>-->
+                            <td style="text-align: right;"><span t-esc="box_line1['balance']"/> </td>
+                        </tr>
+                    </t>
+                    <tr>
+                        <td>
+                            <strong>Total for Box 1 Total value of standard-rated supplies (excluding GST)</strong>
+                        </td>
+                        <td colspan="7"/>
+<!--                        <td style="text-align: right;"></td>-->
+                        <td style="text-align: right;"><span t-esc="rec['box1_tot_net_amount']"></span></td>
+                        <td style="text-align: right;"></td>
+                        <td style="text-align: right;"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Box 2 Total value of zero-rated supplies (excluding GST)</strong>
+                        </td>
+                        <td colspan="10"/>
+                    </tr>
+                    <t t-if="rec['detail_box2']">
+                        <tr t-foreach="rec['detail_box2']" t-as="box_line2" t-att-data-move-id="box_line2['move_id']" class="move_line">
+                            <td></td>
+                            <td><span t-esc="box_line2['date']"/></td>
+                            <td><span t-esc="box_line2['account']"/></td>
+                            <td><span t-esc="box_line2['move_type']"/></td>
+                            <td><span t-esc="box_line2['move_name']"/></td>
+                            <td><span t-esc="box_line2['move_partner']"/></td>
+                            <td><span t-esc="box_line2['gst_code']"/></td>
+                            <td><span t-esc="box_line2['gst_rate']"/></td>
+                            <td style="text-align: right;"><span t-esc="box_line2['net_amount']"/></td>
+                            <td style="text-align: right;"><span t-esc="box_line2['balance']"/> </td>
+                        </tr>
+                    </t>
+                    <tr>
+                        <td>
+                            <strong>Total for Box 2 Total value of zero-rated supplies (excluding GST)</strong>
+                        </td>
+                        <td colspan="7"/>
+<!--                        <td style="text-align: right;"></td>-->
+                        <td style="text-align: right;"><span t-esc="rec['box2_tot_net_amount']"></span></td>
+                        <td style="text-align: right;"></td>
+                        <td style="text-align: right;"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Box 3 Total value of exempt supplies (excluding GST)</strong>
+                        </td>
+                        <td colspan="10"/>
+                    </tr>
+                    <t t-if="rec['detail_box3']">
+                        <tr t-foreach="rec['detail_box3']" t-as="box_line3" t-att-data-move-id="box_line3['move_id']" class="move_line">
+                            <td></td>
+                            <td><span t-esc="box_line3['date']"/></td>
+                            <td><span t-esc="box_line3['account']"/></td>
+                            <td><span t-esc="box_line3['move_type']"/></td>
+                            <td><span t-esc="box_line3['move_name']"/></td>
+                            <td><span t-esc="box_line3['move_partner']"/></td>
+                            <td><span t-esc="box_line3['gst_code']"/></td>
+                            <td><span t-esc="box_line3['gst_rate']"/></td>
+                            <td style="text-align: right;"><span t-esc="box_line3['net_amount']"/></td>
+                            <td style="text-align: right;"><span t-esc="box_line3['balance']"/> </td>
+                        </tr>
+                    </t>
+                    <tr>
+                        <td>
+                            <strong>Total for Box 3 Total value of exempt supplies (excluding GST)</strong>
+                        </td>
+                        <td colspan="7"/>
+<!--                        <td style="text-align: right;"></td>-->
+                        <td style="text-align: right;"><span t-esc="rec['box3_tot_net_amount']"></span></td>
+                        <td style="text-align: right;"></td>
+                        <td style="text-align: right;"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Box 5 Total value of taxable purchases (excluding GST)</strong>
+                        </td>
+                        <td colspan="10"/>
+                    </tr>
+                    <t t-if="rec['detail_box5']">
+                        <tr t-foreach="rec['detail_box5']" t-as="box_line5" t-att-data-move-id="box_line5['move_id']" class="move_line">
+                            <td></td>
+                            <td><span t-esc="box_line5['date']"/></td>
+                            <td><span t-esc="box_line5['account']"/></td>
+                            <td><span t-esc="box_line5['move_type']"/></td>
+                            <td><span t-esc="box_line5['move_name']"/></td>
+                            <td><span t-esc="box_line5['move_partner']"/></td>
+                            <td><span t-esc="box_line5['gst_code']"/></td>
+                            <td><span t-esc="box_line5['gst_rate']"/></td>
+                            <td style="text-align: right;"><span t-esc="box_line5['net_amount']"/></td>
+<!--                            <td style="text-align: right;"><span t-esc="box_line5['amount']"/> </td>-->
+                            <td style="text-align: right;"><span t-esc="box_line5['balance']"/> </td>
+                        </tr>
+                    </t>
+                    <tr>
+                        <td>
+                            <strong>Total for Box 5 Total value of taxable purchases (excluding GST)</strong>
+                        </td>
+                        <td colspan="7"/>
+<!--                        <td style="text-align: right;"></td>-->
+                        <td style="text-align: right;"><span t-esc="rec['box5_tot_net_amount']"></span></td>
+                        <td style="text-align: right;"></td>
+                        <td style="text-align: right;"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Box 6 Output tax due</strong>
+                        </td>
+                        <td colspan="10"/>
+                    </tr>
+                    <t t-if="rec['detail_box6']">
+                        <tr t-foreach="rec['detail_box6']" t-as="box_line6" t-att-data-move-id="box_line6['move_id']" class="move_line">
+                            <td></td>
+                            <td><span t-esc="box_line6['date']"/></td>
+                            <td><span t-esc="box_line6['account']"/></td>
+                            <td><span t-esc="box_line6['move_type']"/></td>
+                            <td><span t-esc="box_line6['move_name']"/></td>
+                            <td><span t-esc="box_line6['move_partner']"/></td>
+                            <td><span t-esc="box_line6['gst_code']"/></td>
+                            <td><span t-esc="box_line6['gst_rate']"/></td>
+                            <td style="text-align: right;"><span t-esc="box_line6['net_amount']"/></td>
+<!--                            <td style="text-align: right;"><span t-esc="box_line6['amount']"/> </td>-->
+                            <td style="text-align: right;"><span t-esc="box_line6['balance']"/> </td>
+                        </tr>
+                    </t>
+                    <tr>
+                        <td>
+                            <strong>Total for Box 6 Output tax due</strong>
+                        </td>
+                        <td colspan="7"/>
+<!--                        <td style="text-align: right;"></td>-->
+                        <td style="text-align: right;"><span t-esc="rec['box6_tot_net_amount']"></span></td>
+                        <td style="text-align: right;"></td>
+                        <td style="text-align: right;"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Box 7 Input tax and refunds claimed</strong>
+                        </td>
+                        <td colspan="10"/>
+                    </tr>
+                    <t t-if="rec['detail_box7']">
+                        <tr t-foreach="rec['detail_box7']" t-as="box_line7" t-att-data-move-id="box_line7['move_id']" class="move_line">
+                            <td></td>
+                            <td><span t-esc="box_line7['date']"/></td>
+                            <td><span t-esc="box_line7['account']"/></td>
+                            <td><span t-esc="box_line7['move_type']"/></td>
+                            <td><span t-esc="box_line7['move_name']"/></td>
+                            <td><span t-esc="box_line7['move_partner']"/></td>
+                            <td><span t-esc="box_line7['gst_code']"/></td>
+                            <td><span t-esc="box_line7['gst_rate']"/></td>
+                            <td style="text-align: right;"><span t-esc="box_line7['net_amount']"/></td>
+<!--                            <td style="text-align: right;"><span t-esc="box_line7['amount']"/> </td>-->
+                            <td style="text-align: right;"><span t-esc="box_line7['balance']"/> </td>
+                        </tr>
+                    </t>
+                    <tr>
+                        <td>
+                            <strong>Total for Box 7 Input tax and refunds claimed</strong>
+                        </td>
+                        <td colspan="7"/>
+<!--                        <td style="text-align: right;"></td>-->
+                        <td style="text-align: right;"><span t-esc="rec['box7_tot_net_amount']"></span></td>
+                        <td style="text-align: right;"></td>
+                        <td style="text-align: right;"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </t>
+        </div>
+    </t>
+</templates>

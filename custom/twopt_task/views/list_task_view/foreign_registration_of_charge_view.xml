@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="foreign_registration_of_charge_form" model="ir.ui.view">
+            <field name="name">foreign.registration.of.charge.form</field>
+            <field name="model">foreign.registration.of.charge</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <div>
+                                <label for="type_of_logment" style="font-weight: bold;"/><br/>
+                                <field name="type_of_logment" style="width: 50%;"/>
+                            </div>
+                            <separator string="Chargee Details / Amount Secured By This Charge"/>
+                            <field name="line_ids">
+                                <tree>
+                                    <field name="chargee_name"/>
+                                    <field name="identification_no" string="Chargee ID"/>
+                                </tree>
+                                <form>
+                                     <div>
+                                        <label for="chargee_type" style="font-weight: bold;"/><br/>
+                                        <field name="chargee_type" widget="radio" style="flex-flow: row nowrap;"/>
+                                    </div>
+                                    <div attrs="{'invisible' : [('chargee_type', '!=', 'corporate')]}">
+                                        <span style="font-weight: bold;">
+                                            Entity Information
+                                        </span><br/>
+                                        <group col="2">
+                                            <div>
+                                                <label for="uen_search" style="font-weight: bold;"/><br/>
+                                                <field name="uen_search" style="width: 50%;"/>
+                                            </div>
+                                            <div>
+                                                <label for="entity_name_serch" style="font-weight: bold;"/><br/>
+                                                <field name="entity_name_serch" style="width: 50%;"/>
+                                                <field name="entity_id" invisible="1"/>
+                                            </div>
+                                            <br/><br/>
+                                            <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                                                <label for="uen" style="font-weight: bold;"/><br/>
+                                                <field name="uen" style="width: 50%;" class="color-text-ff8d06"/>
+                                            </div>
+                                            <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                                                <label for="entity_name" style="font-weight: bold;"/><br/>
+                                                <field name="entity_name" style="width: 50%;" class="color-text-ff8d06"/>
+                                            </div>
+                                             <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                                                <label for="current_address" style="font-weight: bold;"/><br/>
+                                                <field name="current_address" style="width: 50%;" class="color-text-ff8d06"/>
+                                            </div>
+                                        </group>
+                                        <div attrs="{'invisible' : [('entity_id', '!=', False)]}">
+                                            <span>
+                                                This Entity does not exist in system
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div attrs="{'invisible' : [('chargee_type', '!=', 'individual')]}">
+                                        <group col="2">
+                                            <div>
+                                                <label for="chargee_name" style="font-weight: bold;"/><br/>
+                                                <field name="chargee_name" style="width: 50%;"/>
+                                            </div>
+                                            <div>
+                                                <label for="id_type_another" style="font-weight: bold;"/><br/>
+                                                <field name="id_type_another" style="width: 50%;"/>
+                                            </div>
+                                            <div>
+                                                <label for="identification_no" style="font-weight: bold;"/><br/>
+                                                <field name="identification_no" style="width: 50%;"/>
+                                            </div>
+                                            <div/>
+                                            <div>
+                                                <label for="mobile_1" style="font-weight: bold;" class="color-text-ff8d06"/>
+                                                <field name="mobile_1" style="width: 50%;"/>
+                                            </div>
+                                            <div>
+                                                <label for="mobile_2" style="font-weight: bold;" class="color-text-ff8d06"/>
+                                                <field name="mobile_2" style="width: 50%;"/>
+                                            </div>
+                                        </group>
+                                        <span>Residential Address</span><br/>
+                                        <div>
+                                            <label for="address_type" style="font-weight: bold;"/><br/>
+                                            <field name="address_type" widget="radio" style="flex-flow: row nowrap;"/>
+                                        </div><br/><br/>
+                                        <div attrs="{'invisible' : [('address_type', '!=', 'local_address')]}">
+                                            <span>
+                                                local Address
+                                            </span>
+                                            <div>
+                                                <div>
+                                                    <label for="postal_code" style="font-weight: bold;"/><br/>
+                                                    <field name="postal_code" style="width: 50%;"/>
+                                                </div>
+                                                <div/>
+                                                <div>
+                                                    <label for="block_house_number" style="font-weight: bold;"/><br/>
+                                                    <field name="block_house_number" style="width: 50%;"/>
+                                                </div>
+                                                <div/>
+                                                <div>
+                                                    <label for="street" style="font-weight: bold;"/><br/>
+                                                    <field name="street" style="width: 50%;"/>
+                                                </div>
+                                                <div/>
+                                                <div style="width: 50%;">
+                                                    <group col="2">
+                                                        <div>
+                                                            <label for="level" style="font-weight: bold;"/><br/>
+                                                            <field name="level" style="width: 50%;"/>
+                                                        </div>
+                                                        <div>
+                                                            <label for="unit_number" style="font-weight: bold;"/><br/>
+                                                            <field name="unit_number" style="width: 50%;"/>
+                                                        </div>
+                                                    </group>
+                                                </div>
+                                                <div/>
+                                                <div>
+                                                    <label for="building" style="font-weight: bold;"/><br/>
+                                                    <field name="building" style="width: 50%;"/>
+                                                </div>
+                                            </div><br/>
+                                        </div>
+                                        <div attrs="{'invisible' : [('address_type', '!=', 'foreign_address')]}">
+                                            <span>
+                                                Foreign Address
+                                            </span>
+                                            <group col="2">
+                                                <div>
+                                                    <label for="foreign_address_line1" style="font-weight: bold;"/><br/>
+                                                    <field name="foreign_address_line1" style="width: 50%;"/>
+                                                </div>
+                                                <div>
+                                                    <label for="foreign_address_line2" style="font-weight: bold;"/><br/>
+                                                    <field name="foreign_address_line2" style="width: 50%;"/>
+                                                </div>
+                                            </group>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <br/><br/>
+                                        <div>
+                                            <label for="did_the_charge" style="font-weight: bold;"/><br/>
+                                            <field name="did_the_charge" widget="radio" style="flex-flow: row nowrap;"/>
+                                        </div>
+                                        <div attrs="{'invisible' : [('did_the_charge', '!=', 'no')]}">
+                                            <field name="line_ids">
+                                                <tree>
+                                                    <field name="currency_id"/>
+                                                    <field name="amount_secured"/>
+                                                    <field name="amount_description"/>
+                                                </tree>
+                                                <form>
+                                                    <group col="2">
+                                                        <div>
+                                                            <label for="currency_id" style="font-weight: bold;"/><br/>
+                                                            <field name="currency_id" style="width: 50%;"/>
+                                                        </div>
+                                                        <div>
+                                                            <label for="amount_secured" style="font-weight: bold;"/><br/>
+                                                            <field name="amount_secured" style="width: 50%;"/>
+                                                        </div>
+                                                        <div>
+                                                            <label for="amount_description" style="font-weight: bold;"/><br/>
+                                                            <field name="amount_description" style="width: 50%;"/>
+                                                        </div>
+                                                    </group>
+                                                </form>
+                                            </field>
+                                        </div>
+                                    </div>
+                                </form>
+                            </field>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

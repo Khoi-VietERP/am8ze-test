@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+        <record id="close_financial_year_form" model="ir.ui.view">
+            <field name="name">close.financial.year.form</field>
+            <field name="model">close.financial.year</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="fiscal_year_id"/>
+                                <field name="apply_date"/>
+                                <field name="account_id" options="{'no_create_edit':1, 'no_quick_create': True}"/>
+                            </group>
+                            <group></group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="action_apply" string="Apply" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="close_financial_year_action" model="ir.actions.act_window">
+            <field name="name">Close Financial Years</field>
+            <field name="res_model">close.financial.year</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="close_financial_year_menu"
+                  name="Close Financial Years"
+                  sequence="10"
+                  action="close_financial_year_action"
+                  parent="account.account_account_menu"/>
+    </data>
+</odoo>

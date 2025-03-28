@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <record id="view_partner_property_form_inherit_account" model="ir.ui.view">
+            <field name="name">res.partner.inherit.account</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <field name="property_account_payable_id" position="after">
+                    <field name="property_account_income_partner_id" domain="[('internal_type','=','other'),('deprecated', '=', False)]"/>
+                    <field name="property_account_expense_partner_id" domain="[('internal_type','=','other'),('deprecated', '=', False)]"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

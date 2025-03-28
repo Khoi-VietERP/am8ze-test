@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form_inherit" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='invite_users']" position="after">
+                <div id="dates_lock">
+                    <h2>Lock Dates</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-7 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Lock dates stop data from being changed for a specific period. You can change these at any time.
+                                </div>
+                                <div class="o_form_label">
+                                    stop all users (except advisers) making changes on and before
+                                </div>
+                                <div class="mt8">
+                                    <field name="date_lock" class="o_light_label"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

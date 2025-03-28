@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="wk39717700c_modifier_print assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/wk39717700c_modifier_print/static/src/js/supplier_outstanding.js"></script>
+                <script type="text/javascript" src="/wk39717700c_modifier_print/static/src/js/salesman_invoice_detail.js"></script>
+                <script type="text/javascript" src="/wk39717700c_modifier_print/static/src/js/ageing_summary.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

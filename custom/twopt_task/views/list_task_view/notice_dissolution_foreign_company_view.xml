@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="notice_dissolution_foreign_company_form" model="ir.ui.view">
+            <field name="name">notice.dissolution.foreign.company.form</field>
+            <field name="model">notice.dissolution.foreign.company</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <div>
+                                <label for="select_the_option" style="font-weight: bold;"/><br/>
+                                <field name="select_the_option" widget="radio"/>
+                            </div>
+                            <div>
+                                <label for="date_of_dissolved" style="font-weight: bold;"/><br/>
+                                <field name="date_of_dissolved" style="width: 30%;" />
+                            </div>
+                            <separator string="Liquidator (s) Details (appointed for Singapore branch)"/>
+                            <field name="line_ids" style="width: 100%;">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="identification_number"/>
+                                    <field name="liquidator_type"/>
+                                </tree>
+                                <form>
+                                    <group col="2">
+                                        <div>
+                                            <label for="name" style="font-weight: bold;"/><br/>
+                                            <field name="name" style="width: 50%;" />
+                                        </div>
+                                        <div>
+                                            <label for="identification_number" style="font-weight: bold;"/><br/>
+                                            <field name="identification_number" style="width: 50%;" />
+                                        </div>
+                                        <div>
+                                            <label for="liquidator_type" style="font-weight: bold;"/><br/>
+                                            <field name="liquidator_type" widget="radio"/>
+                                        </div>
+                                    </group>
+                                </form>
+                            </field>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

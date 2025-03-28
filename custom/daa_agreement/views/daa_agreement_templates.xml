@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="paper_format_agreement" model="report.paperformat">
+            <field name="name">Portrait A4</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">25</field>
+            <field name="margin_bottom">30</field>
+            <field name="margin_left">20</field>
+            <field name="margin_right">20</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">30</field>
+            <field name="dpi">72</field>
+        </record>
+
+        <template id="credit_collection_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-set="currency" t-value="doc.currency_id"/>
+                    <t t-call="web.external_layout">
+                        <div class="page">
+<style type="text/css">
+span.cls_002{font-family:"Calibri",serif;font-size:12.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_002{font-family:"Calibri",serif;font-size:12.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_004{font-family:Arial,serif;font-size:20.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_004{font-family:Arial,serif;font-size:20.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_005{font-family:Arial,serif;font-size:18.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_005{font-family:Arial,serif;font-size:18.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_006{font-family:Arial,serif;font-size:9.9px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_006{font-family:Arial,serif;font-size:9.9px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_007{font-family:Arial,serif;font-size:9.9px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_007{font-family:Arial,serif;font-size:9.9px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_010{font-family:Arial,serif;font-size:9.9px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: underline}
+div.cls_010{font-family:Arial,serif;font-size:9.9px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_011{font-family:Arial,serif;font-size:9.9px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: underline}
+div.cls_011{font-family:Arial,serif;font-size:9.9px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_008{font-family:"Calibri Bold",serif;font-size:9.9px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_008{font-family:"Calibri Bold",serif;font-size:9.9px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_009{font-family:"Calibri",serif;font-size:9.9px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_009{font-family:"Calibri",serif;font-size:9.9px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+</style>
+<div style="position:absolute;left:50%;margin-left:-297px;top:0px;width:595px;height:842px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="/daa_agreement/static/img/collection/background1.jpg" width="595" height="842"/></div>
+<div style="position:absolute;left:360.00px;top:71.52px" class="cls_002"><span class="cls_002">Sales In-Charge: <t t-esc="doc.saleperson_id and doc.saleperson_id.name or ''"/></span></div>
+<div style="position:absolute;left:74.76px;top:86.16px" class="cls_002"><span class="cls_002">___________________________________________________________________________</span></div>
+<div style="position:absolute;left:127.48px;top:127.44px" class="cls_004"><span class="cls_004">CREDIT COLLECTION AGREEMENT</span></div>
+<div style="position:absolute;left:72.00px;top:306.96px" class="cls_002"><span class="cls_002">___________________________________________________________________________</span></div>
+<div style="position:absolute;left:192.46px;top:363.12px" class="cls_005"><span class="cls_005">DATED <t t-esc="doc.contract_date and doc.contract_date.strftime('%d %B %Y') or ''"/></span></div>
+<div style="position:absolute;left:253.00px;top:411.60px" class="cls_005"><span class="cls_005">BETWEEN</span></div>
+<div style="position:absolute;left:196.48px;top:473.52px" class="cls_005"><span class="cls_005">INFO CAPITAL PTE LTD</span></div>
+<div style="position:absolute;left:215.45px;top:494.16px" class="cls_005"><span class="cls_005">(UEN: 202020563G)</span></div>
+<div style="position:absolute;left:291.50px;top:535.68px" class="cls_005"><span class="cls_005">&amp;</span></div>
+<div style="position:absolute;left:220.50px;top:597.84px" class="cls_005"><span class="cls_005"><t t-esc="doc.client_id.name or ''"/></span></div>
+<div style="position:absolute;left:232.00px;top:618.48px" class="cls_005"><span class="cls_005"><t t-esc="'(UEN: %s)' %(doc.client_id.l10n_sg_unique_entity_number or '',)"/></span></div>
+<div style="position:absolute;left:516.96px;top:791.52px" class="cls_002"><span class="cls_002">1</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-297px;top:782px;width:595px;height:842px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="/daa_agreement/static/img/collection/background2.jpg" width="595" height="842"/></div>
+<div style="position:absolute;left:72.00px;top:91.92px" class="cls_006"><span class="cls_006">THIS AGREEMENT</span><span class="cls_007"> is made on <t t-esc="doc.contract_date and doc.contract_date.strftime('%d %B %Y') or ''"/></span></div>
+<div style="position:absolute;left:72.00px;top:114.96px" class="cls_007"><span class="cls_007">BETWEEN:</span></div>
+<div style="position:absolute;left:75.30px;top:138.00px" class="cls_007"><span class="cls_007">1. </span><span class="cls_006">  INFO CAPITAL PTE LTD</span><span class="cls_007">, a company incorporated in Singapore
+    and having its registered office and place of business at 50 Raffles Place,
+    Singapore Land Tower, #37-00, Singapore 048623 (hereinafter called “IFC”);</span></div>
+<div style="position:absolute;left:93.30px;top:184.08px" class="cls_007"><span class="cls_007">And</span></div>
+<div style="position:absolute;left:75.30px;top:206.88px" class="cls_007"><span class="cls_007">2.</span></div>
+<div style="position:absolute;left:93.30px;top:206.88px" class="cls_007"><span class="cls_007"><t t-esc="doc.client_id.name or ''"/>, a company / individual in
+    Singapore and having its registered office and place of business / residential at <t t-esc="doc.client_id.street or ''"/>,
+    <t t-esc="doc.client_id.state_id and doc.client_id.state_id.name or ''"/>, <t t-esc="doc.client_id.blk_no or ''"/>-<t t-esc="doc.client_id.unit_level or ''"/>,
+    <t t-esc="doc.client_id.country_id and doc.client_id.country_id.name or ''"/> <t t-esc="doc.client_id.zip or ''"/>. (hereinafter called “CLIENT”).</span></div>
+<div style="position:absolute;left:75.30px;top:264.48px" class="cls_006"><span class="cls_006">WHEREAS:</span></div>
+<div style="position:absolute;left:75.30px;top:287.52px" class="cls_007"><span class="cls_007">A.  IFC is in the business of Credit Collection and Credit Management.</span></div>
+<div style="position:absolute;left:75.30px;top:314.56px" class="cls_007"><span class="cls_007">B.  CLIENT is in the business of <t t-esc="doc.client_id.industry_code_id and doc.client_id.industry_code_id.name or ''"/>(if CLIENT is an individual, indicate “NIL”)</span></div>
+<div style="position:absolute;left:75.30px;top:337.36px" class="cls_007"><span class="cls_007">C.  CLIENT wishes to engage the services of IFC for Credit Collection and Credit Management (each term as defined below)
+    upon and subject to the terms and conditions set out in this Agreement.</span></div>
+<div style="position:absolute;left:75.30px;top:377.44px" class="cls_007"><span class="cls_007">D.  IFC and CLIENT are collectively known as Parties.</span></div>
+<div style="position:absolute;left:72.00px;top:402.48px" class="cls_006"><span class="cls_006">NOW IT IS HEREBY AGREED AS FOLLOWS:</span></div>
+<div style="position:absolute;left:75.30px;top:425.52px" class="cls_006"><span class="cls_006">1.   DEFINITIONS</span></div>
+<div style="position:absolute;left:93.30px;top:448.56px" class="cls_007"><span class="cls_007">1.1 </span><span class="cls_006">“</span><span class="cls_007">Account” refers to the credit facilities granted by the CLIENT to their customers pursuant to
+    an instalment or other agreement;</span></div>
+<div style="position:absolute;left:93.30px;top:482.88px" class="cls_007"><span class="cls_007">1.2 “Commencement Date” means the date on which this Agreement shall commence as set out
+    in Clause 2 or such date as the parties may agree;</span></div>
+<div style="position:absolute;left:93.30px;top:517.44px" class="cls_007"><span class="cls_007">1.3 “Credit Collection” refers to debt collection activities on assigned Accounts;</span></div>
+<div style="position:absolute;left:93.30px;top:540.48px" class="cls_007"><span class="cls_007">1.4 “Credit Management” refers to the investigation of the current status of an assigned Account.</span></div>
+<div style="position:absolute;left:93.30px;top:563.52px" class="cls_007"><span class="cls_007">1.5 “Debtor” refers to CLIENT’S customer who is the owing party</span></div>
+<div style="position:absolute;left:93.30px;top:586.32px" class="cls_007"><span class="cls_007">1.6 “Term” means the duration of this Agreement as stated under Clause 2;</span></div>
+<div style="position:absolute;left:93.30px;top:609.36px" class="cls_007"><span class="cls_007">1.7 “Validity” refers to the lifespan of each Account upon receiving;</span></div>
+<div style="position:absolute;left:93.30px;top:632.40px" class="cls_007"><span class="cls_007">1.8 “Commission Fees” refers to payment entitled to IFC;</span></div>
+<div style="position:absolute;left:93.30px;top:655.44px" class="cls_007"><span class="cls_007">1.9 “Collected Sums” refers to monies collected from each Account;</span></div>
+<div style="position:absolute;left:82.35px;top:678.48px" class="cls_007"><span class="cls_007">1.10</span></div>
+<div style="position:absolute;left:108.00px;top:678.48px" class="cls_007"><span class="cls_007">“Payment Terms” refers to the payment terms and mode between IFC and CLIENT;</span></div>
+<div style="position:absolute;left:82.35px;top:701.52px" class="cls_007"><span class="cls_007">1.11</span></div>
+<div style="position:absolute;left:108.00px;top:701.52px" class="cls_007"><span class="cls_007">“Instalment Terms” refers to time taken by each Accounts to clear the credit given;</span></div>
+<div style="position:absolute;left:82.35px;top:724.32px" class="cls_007"><span class="cls_007">1.12 “Instalment Agreement” refers to an agreement enter into by each Account to fulfil their credit</span></div>
+<div style="position:absolute;left:107.45px;top:735.84px" class="cls_007"><span class="cls_007">liability;</span></div>
+<!--<div style="position:absolute;left:516.96px;top:791.52px" class="cls_002"><span class="cls_002">2</span></div>-->
+</div>
+<div style="position:absolute;left:50%;margin-left:-297px;top:1564px;width:595px;height:842px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="/daa_agreement/static/img/collection/background3.jpg" width="595" height="842"/></div>
+<div style="position:absolute;left:82.35px;top:71.28px" class="cls_007"><span class="cls_007">1.13 “Subscription Fees” refers to the fees payable by CLIENT upon engaging IFC’s services.</span></div>
+<div style="position:absolute;left:82.35px;top:94.32px" class="cls_007"><span class="cls_007">1.14 “PDPA” Singapore Personal Data Protection Act 2012;</span></div>
+<div style="position:absolute;left:82.35px;top:117.36px" class="cls_007"><span class="cls_007">1.15 “Personal Data” As its definition under PDPA.</span></div>
+<div style="position:absolute;left:75.30px;top:151.68px" class="cls_006"><span class="cls_006">2.</span></div>
+<div style="position:absolute;left:93.30px;top:151.68px" class="cls_006"><span class="cls_006">APPOINTMENT &amp; SUBSCRIPTION FEES</span></div>
+<div style="position:absolute;left:93.30px;top:174.72px" class="cls_007"><span class="cls_007">2.1 CLIENT hereby appoints IFC for Credit Collection and Credit Management. IFC hereby accepts the appointment, upon and subject to the terms and conditions of this Agreement.</span></div>
+<div style="position:absolute;left:111.30px;top:197.76px" class="cls_007"><span class="cls_007">This appointment shall commence on <t t-esc="doc.contract_date and doc.contract_date.strftime('%d %B %Y') or ''"/> and continue for a term of </span><span class="cls_010"><t t-esc="doc.term_id.name or ''"/>
+    months therefrom unless terminated in accordance with the provisions of this Agreement.</span></div>
+<div style="position:absolute;left:93.30px;top:232.32px" class="cls_007"><span class="cls_007">2.2 The CLIENT agrees to subscribe IFC’s services for </span><span class="cls_010"><t t-esc="doc.sub_fees or 0" t-options='{"widget": "monetary", "display_currency": currency}'/></span></div>
+<div style="position:absolute;left:93.30px;top:255.36px" class="cls_007"><span class="cls_007">2.3 All Subscription Fees, if any, are non-refundable and non-inclusive of Commission Fees.</span></div>
+<div style="position:absolute;left:75.30px;top:279.16px" class="cls_006"><span class="cls_006">3.</span></div>
+<div style="position:absolute;left:93.30px;top:279.16px" class="cls_006"><span class="cls_006">ENTITLEMENT</span></div>
+<div style="position:absolute;left:93.30px;top:301.20px" class="cls_007"><span class="cls_007">3.1 CLIENT is entitled to handover </span><span class="cls_010">one (1)</span><span class="cls_007"> Accounts to IFC during the Term. The CLIENT will do</span></div>
+<div style="position:absolute;left:111.30px;top:312.72px" class="cls_007"><span class="cls_007">as deem fit on the number of Accounts and value of each Accounts during the Term.</span></div>
+<div style="position:absolute;left:93.30px;top:335.76px" class="cls_007"><span class="cls_007">3.2 IFC is entitled to include administrative, visitation and miscellaneous fees to each</span></div>
+<div style="position:absolute;left:111.30px;top:347.28px" class="cls_007"><span class="cls_007">Account(s).</span></div>
+<div style="position:absolute;left:93.30px;top:370.32px" class="cls_007"><span class="cls_007">3.3 IFC is entitled at its own discretion, negotiate any Instalment Agreement amount at</span></div>
+<div style="position:absolute;left:111.30px;top:381.84px" class="cls_007"><span class="cls_007">CLIENTS’ interest, in view of Debtors’ financial status.</span></div>
+<div style="position:absolute;left:75.30px;top:404.64px" class="cls_006"><span class="cls_006">4.</span></div>
+<div style="position:absolute;left:93.30px;top:404.64px" class="cls_006"><span class="cls_006">VALIDITY</span></div>
+<div style="position:absolute;left:93.30px;top:427.68px" class="cls_007"><span class="cls_007">Upon receiving each Account, each Account has a validity of minimum </span><span class="cls_010">three (3</span><span class="cls_007">)
+    Months before expiry on Unworkable Accounts.</span></div>
+<div style="position:absolute;left:75.30px;top:462.24px" class="cls_006"><span class="cls_006">5.</span></div>
+<div style="position:absolute;left:93.30px;top:462.24px" class="cls_006"><span class="cls_006">COMMISSION FEES</span></div>
+<div style="position:absolute;left:93.30px;top:485.28px" class="cls_007"><span class="cls_007">5.1 Upon successful Debt Collection on each Account, in full or in part, DAA will be entitled to 30%</span><span class="cls_007"> commission.</span></div>
+<div style="position:absolute;left:93.30px;top:519.84px" class="cls_007"><span class="cls_007">5.2 Any payment in kind in term or Credit Note or Waiver or merchandises accepted by
+    CLIENT in lieu of debts are deemed to be direct and/or partial settlement on the Account. IFC will beentitled to </span>
+    <span class="cls_010">30%</span><span class="cls_007"> commission of the same value.</span></div>
+<div style="position:absolute;left:75.30px;top:565.68px" class="cls_006"><span class="cls_006">6.</span></div>
+<div style="position:absolute;left:93.30px;top:565.68px" class="cls_006"><span class="cls_006">PAYMENT TERMS</span></div>
+<div style="position:absolute;left:93.30px;top:588.72px" class="cls_007"><span class="cls_007">6.1 IFC will accumulate all Collected Sums within one (1) month and release such payment to CLIENT within thirty (30) days.
+    IFC shall not withhold any Collected Sums due to CLIENT without valid reasons.</span></div>
+<div style="position:absolute;left:93.30px;top:634.80px" class="cls_007"><span class="cls_007">6.2 CLIENT may accumulate all Collected Sums within one (1) month that it received and release
+    Commission Fees to IFC within thirty (30) days. CLIENT shall not withhold any
+    Commission Fees due to IFC without valid reasons.</span></div>
+<div style="position:absolute;left:93.30px;top:680.64px" class="cls_007"><span class="cls_007">6.3 IFC reserves the right to deduct its commission directly from any monies collected
+    from the Debtor or to withhold monies or cheques collected from Debtor if its invoices are not paid on time.</span></div>
+<div style="position:absolute;left:93.30px;top:726.72px" class="cls_007"><span class="cls_007">6.4 All Collected Sums due to CLIENT shall be issue to “<t t-esc="doc.client_id.name or ''"/>”</span></div>
+<!--<div style="position:absolute;left:516.96px;top:791.52px" class="cls_002"><span class="cls_002">3</span></div>-->
+</div>
+<div style="position:absolute;left:50%;margin-left:-297px;top:2326px;width:595px;height:842px;border-style:outset">
+<div style="position:absolute;left:0px;top:0px">
+<img src="/daa_agreement/static/img/collection/background4.jpg" width="595" height="842"/></div>
+<div style="position:absolute;left:75.30px;top:71.28px" class="cls_006"><span class="cls_006">7.</span></div>
+<div style="position:absolute;left:93.30px;top:71.28px" class="cls_006"><span class="cls_006">UNDERTAKING</span></div>
+<div style="position:absolute;left:93.30px;top:94.32px" class="cls_007"><span class="cls_007">7.1 </span><span class="cls_011">IFC undertakes</span><span class="cls_007"> during the Term that it will:</span></div>
+<div style="position:absolute;left:111.30px;top:117.36px" class="cls_007"><span class="cls_007">a.   ensure that no methods or tactics used or proposed to be used in providing services
+    under this Agreement shall be repugnant to any applicable laws, guidelines and regulations;</span></div>
+<div style="position:absolute;left:111.30px;top:163.20px" class="cls_007"><span class="cls_007">b.   represent itself or hold itself out as the appointed Credit Collection Agent however have
+    no right or authority to create or confer any obligation of any kind in CLIENT’s name or on CLIENT’s behalf.</span></div>
+<div style="position:absolute;left:111.30px;top:209.28px" class="cls_007"><span class="cls_007">c.   Maintain professional field team;</span></div>
+<div style="position:absolute;left:111.30px;top:232.32px" class="cls_007"><span class="cls_007">d.   Act on each Account by phone, place of residence or any place of interests;</span></div>
+<div style="position:absolute;left:111.30px;top:255.36px" class="cls_007"><span class="cls_007">e.   Maintain communication with CLIENT and provided any necessary assistances and advices where possible;</span></div>
+<div style="position:absolute;left:111.30px;top:289.68px" class="cls_007"><span class="cls_007">f.   Maintained preferred payment mode and anti-bribery on each Account;</span></div>
+<div style="position:absolute;left:111.30px;top:312.72px" class="cls_007"><span class="cls_007">g.   Enforce due diligence on each Account to ensure actions are taken within reasonable timeframe;</span></div>
+<div style="position:absolute;left:111.30px;top:347.28px" class="cls_007"><span class="cls_007">h.   Notify CLIENT immediately when IFC becomes aware of any information
+    (eg. Death, Bankrupt, Liquidation, Permanent Disability, Critical Illness, imprisonment, etc)
+    whatsoever relating to or affecting the outcome of any Accounts that has been referred or allocated to IFC;</span></div>
+<div style="position:absolute;left:111.30px;top:404.64px" class="cls_007"><span class="cls_007">i. Ensure all information, documents and other materials relating to or obtained as a result
+    of this Agreement, in particular but without limitation on the Accounts’ information are strictly private and confidential.</span></div>
+<div style="position:absolute;left:93.30px;top:450.72px" class="cls_007"><span class="cls_007">7.2 </span><span class="cls_011">CLIENT undertakes</span><span class="cls_007"> during the Term that it will:</span></div>
+<div style="position:absolute;left:111.30px;top:473.76px" class="cls_007"><span class="cls_007">a.   Not withdraw any Accounts given and/or allocated to IFC during the Term; otherwise full commission is chargeable on the unpaid balance;</span></div>
+<div style="position:absolute;left:111.30px;top:508.32px" class="cls_007"><span class="cls_007">b.   Not withdraw any Accounts under Instalment Agreement as Instalment Terms may be beyond the Term of this Agreement;</span></div>
+<div style="position:absolute;left:111.30px;top:542.64px" class="cls_007"><span class="cls_007">c.   Provide all documents and ensure the legality of all documents;</span></div>
+<div style="position:absolute;left:111.30px;top:565.68px" class="cls_007"><span class="cls_007">d.   Notify IFC immediately when CLIENT (eg. Death, Bankrupt, Liquidation, Permanent
+    Disability, Critical Illness, imprisonment, etc) becomes aware if any information
+    whatsoever relating or affecting to the Accounts provided by CLIENT;</span></div>
+<div style="position:absolute;left:111.30px;top:611.76px" class="cls_007"><span class="cls_007">e.   Agrees that with regard to each account accepted for collection, IFC may either make
+    the collection itself directly or forward, on behalf of the CLIENT, the account accepted for
+    collection to a firm of solicitors or other third-party agents, who shall accordingly be
+    deemed to be the CLIENT solicitors or agents.</span></div>
+<div style="position:absolute;left:111.30px;top:669.12px" class="cls_007"><span class="cls_007">f.   In the event that the CLIENT does not designate the solicitors or third-party agent to
+    whom any particular account or accounts shall be forwarded to, IFC shall be authorised,
+    as the CLIENT agent, to appoint a solicitor or third-party agent and forward such
+    accounts to the solicitor or third-party agent for collection.</span></div>
+<!--<div style="position:absolute;left:516.96px;top:791.52px" class="cls_002"><span class="cls_002">4</span></div>-->
+</div>
+<div style="position:absolute;left:50%;margin-left:-297px;top:3068px;width:595px;height:842px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="/daa_agreement/static/img/collection/background5.jpg" width="595" height="842"/></div>
+<div style="position:absolute;left:75.30px;top:71.28px" class="cls_006"><span class="cls_006">8.   TERMINATION &amp; CLAIMS</span></div>
+<div style="position:absolute;left:93.30px;top:94.32px" class="cls_007"><span class="cls_007">8.1 This Agreement may be terminated by either party giving two (2) calendar month’s prior written notice to the other.</span></div>
+<div style="position:absolute;left:93.30px;top:128.88px" class="cls_007"><span class="cls_007">8.2 CLIENT will be liable for any losses incurred by IFC due to unauthorize withdrawal of
+    Accounts and Instalment Agreement which includes withholding any entitled Commission Fees.</span></div>
+<div style="position:absolute;left:93.30px;top:174.72px" class="cls_007"><span class="cls_007">8.3 IFC will be liable for any losses incurred by CLIENT due to unauthorize withdrawal of
+    Accounts which includes withholding any Collected Sums.</span></div>
+<div style="position:absolute;left:75.30px;top:209.28px" class="cls_006"><span class="cls_006">9.   DISCLAIMER</span></div>
+<div style="position:absolute;left:82.35px;top:232.32px" class="cls_007"><span class="cls_007">9.1   IFC do not guarantee 100% recovery of any Accounts and CLIENT shall not hold IFC
+    responsible for any shortfall of each Account.</span></div>
+<div style="position:absolute;left:75.30px;top:266.88px" class="cls_006"><span class="cls_006">10. CONFIDENTIALITY</span></div>
+<div style="position:absolute;left:82.35px;top:289.68px" class="cls_007"><span class="cls_007">10.1 Each party shall, in respect of the Personal Data for which it is the recipient:</span></div>
+<div style="position:absolute;left:90.00px;top:312.72px" class="cls_007"><span class="cls_007">(i)</span></div>
+<div style="position:absolute;left:126.00px;top:312.72px" class="cls_007"><span class="cls_007">keep the Personal Data strictly confidential and not disclose any part of it to any person
+    apart from its employees who require it to perform the recipient’s obligations under this Agreement;</span></div>
+<div style="position:absolute;left:90.00px;top:347.28px" class="cls_007"><span class="cls_007">(ii)</span></div>
+<div style="position:absolute;left:126.00px;top:347.28px" class="cls_007"><span class="cls_007">its auditors and professional advisors solely for the purposes of providing professional advice;</span></div>
+<div style="position:absolute;left:90.00px;top:370.32px" class="cls_007"><span class="cls_007">(iii)</span></div>
+<div style="position:absolute;left:126.00px;top:370.32px" class="cls_007"><span class="cls_007">its agents and sub-contractors involved in performing of that recipients under this
+    Agreement, and its group companies.</span></div>
+<div style="position:absolute;left:75.30px;top:404.64px" class="cls_006"><span class="cls_006">11. RENEWAL</span></div>
+<div style="position:absolute;left:82.35px;top:427.68px" class="cls_007"><span class="cls_007">11.1 IFC’s appointment under this Agreement will be auto-renewed upon expiry unless otherwise
+    stated or another agreement has been entered which supersedes the current agreement.</span></div>
+<div style="position:absolute;left:75.30px;top:462.24px" class="cls_006"><span class="cls_006">12. ANTI-BRIBERY CLAUSE</span></div>
+<div style="position:absolute;left:82.35px;top:485.28px" class="cls_007"><span class="cls_007">12.1 IFC has a duty to ensure that any employees given access to any information in connection
+    with the Accounts provided by CLIENT, must comply with any applicable bribery laws.</span></div>
+<div style="position:absolute;left:82.35px;top:519.84px" class="cls_007"><span class="cls_007">12.2 Without prejudice to Clause 11, IFC, if found to have perform its due diligence on anti-bribery
+    laws, shall not be held responsible if any of its employees have proven to commit such acts.</span></div>
+<div style="position:absolute;left:75.30px;top:554.16px" class="cls_006"><span class="cls_006">13. LIMITATION ON LIABILITY</span></div>
+<div style="position:absolute;left:82.35px;top:577.20px" class="cls_007"><span class="cls_007">13.1 Neither party shall be liable to the other (whether in contract, negligence, for breach of
+    statutory duty or under Indemnity or otherwise and not withstanding any notice of the possibility of such loss for:</span></div>
+<div style="position:absolute;left:100.35px;top:623.28px" class="cls_007"><span class="cls_007">i)</span></div>
+<div style="position:absolute;left:136.35px;top:623.28px" class="cls_007"><span class="cls_007">Any indirect or consequential loss;</span></div>
+<div style="position:absolute;left:100.35px;top:634.80px" class="cls_007"><span class="cls_007">ii)</span></div>
+<div style="position:absolute;left:136.35px;top:634.80px" class="cls_007"><span class="cls_007">Pure economic loss including loss of profits; loss of earning; loss of business or goodwill; or</span></div>
+<div style="position:absolute;left:100.35px;top:657.84px" class="cls_007"><span class="cls_007">iii)</span></div>
+<div style="position:absolute;left:136.35px;top:657.84px" class="cls_007"><span class="cls_007">Anticipated or incidental losses; including loss of anticipated savings; increase in bad debt; failure to reduce bad debt.</span></div>
+<div style="position:absolute;left:82.35px;top:692.16px" class="cls_007"><span class="cls_007">13.2 Neither party excludes or limits its liability to the other for:</span></div>
+<div style="position:absolute;left:100.35px;top:715.20px" class="cls_007"><span class="cls_007">i)</span></div>
+<div style="position:absolute;left:136.35px;top:715.20px" class="cls_007"><span class="cls_007">Personal or death resulting from its or its employees, agents and/or sub-contractors’ negligence;</span></div>
+<div style="position:absolute;left:100.35px;top:738.24px" class="cls_007"><span class="cls_007">ii)</span></div>
+<div style="position:absolute;left:136.35px;top:738.24px" class="cls_007"><span class="cls_007">For breach of confidentiality;</span></div>
+<div style="position:absolute;left:100.35px;top:749.76px" class="cls_007"><span class="cls_007">iii)</span></div>
+<div style="position:absolute;left:136.35px;top:749.76px" class="cls_007"><span class="cls_007">For any matter which it would be illegal for that party to exclude and/or limit;</span></div>
+<!--<div style="position:absolute;left:516.96px;top:791.52px" class="cls_002"><span class="cls_002">5</span></div>-->
+</div>
+<div style="position:absolute;left:50%;margin-left:-297px;top:3850px;width:595px;height:842px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="/daa_agreement/static/img/collection/background6.jpg" width="595" height="842"/></div>
+<div style="position:absolute;left:100.35px;top:68.28px" class="cls_007"><span class="cls_007">iv)</span></div>
+<div style="position:absolute;left:136.35px;top:68.28px" class="cls_007"><span class="cls_007">For that party’s wilful default, fraud or fraudulent misrepresentation.</span></div>
+<div style="position:absolute;left:75.30px;top:94.32px" class="cls_006"><span class="cls_006">14. GOVERNING LAW</span></div>
+<div style="position:absolute;left:82.35px;top:117.36px" class="cls_007"><span class="cls_007">14.1 This Agreement and all matters arising out of or in connection with it shall be governed by,
+    and construed in accordance with, the laws of the Republic of Singapore and submitted to
+    exclusive jurisdiction of Singapore courts.</span></div>
+<div style="position:absolute;left:82.35px;top:163.20px" class="cls_007"><span class="cls_007">14.2 This Agreement sets out all the terms agreed between the parties relating to the subject
+    matter of this Agreement and supersedes any previous agreement between the parties relating
+    to the same subject matters. Neither of the parties shall be bound by, or liable to other party for,
+    any representation, promise or inducement (other than fraudulent misrepresentations) made by
+    it or by any agent or person on its behalf which is not expressly contained in this Agreement.</span></div>
+<div style="position:absolute;left:72.00px;top:266.88px" class="cls_007"><span class="cls_007">IN WITNESS WHEREOF the parties hereto have executed this Agreement on the day and year first above-written.</span></div>
+<div style="position:absolute;left:72.00px;top:359.04px" class="cls_008"><span class="cls_008">SIGNED</span><span class="cls_009"> by <t t-esc="doc.saleperson_id.name or ''"/>
+     for and on behalf of “</span><span class="cls_007">IFC</span><span class="cls_009">”</span></div>
+<div style="position:absolute;left:324.00px;top:359.04px" class="cls_009"><span class="cls_009">)</span></div>
+<div style="position:absolute;left:324.00px;top:371.28px" class="cls_009"><span class="cls_009">)</span></div>
+<div style="position:absolute;left:72.00px;top:383.52px" class="cls_008"><span class="cls_008">INFO CAPITAL PTE LTD</span></div>
+<div style="position:absolute;left:324.00px;top:383.52px" class="cls_009"><span class="cls_009">)</span></div>
+<div style="position:absolute;left:324.00px;top:395.52px" class="cls_009"><span class="cls_009">)</span></div>
+<div style="position:absolute;left:72.00px;top:407.76px" class="cls_009"><span class="cls_009">DATE: <t t-esc="doc.contract_date and doc.contract_date.strftime('%d %B %Y') or ''"/></span></div>
+<div style="position:absolute;left:324.00px;top:407.76px" class="cls_009"><span class="cls_009">)</span></div>
+<div style="position:absolute;left:324.00px;top:420.00px" class="cls_009"><span class="cls_009">)</span></div>
+<div style="position:absolute;left:333.83px;top:420.00px" class="cls_009"><span class="cls_009">____________________________________</span></div>
+<div style="position:absolute;left:324.00px;top:432.24px" class="cls_009"><span class="cls_009">*Sign with company stamp</span></div>
+<div style="position:absolute;left:72.00px;top:554.40px" class="cls_008"><span class="cls_008">SIGNED</span><span class="cls_009"> by <t t-esc="doc.client_contact_name or ''"/>
+    for and on behalf of the “</span><span class="cls_007">CLIENT</span><span class="cls_009">”</span></div>
+<div style="position:absolute;left:324.00px;top:554.40px" class="cls_009"><span class="cls_009">)</span></div>
+<div style="position:absolute;left:324.00px;top:566.40px" class="cls_009"><span class="cls_009">)</span></div>
+<div style="position:absolute;left:72.00px;top:578.64px" class="cls_009"><span class="cls_009"><t t-esc="doc.client_id.name or ''"/></span></div>
+<div style="position:absolute;left:324.00px;top:578.64px" class="cls_009"><span class="cls_009">)</span></div>
+<div style="position:absolute;left:324.00px;top:590.88px" class="cls_009"><span class="cls_009">)</span></div>
+<div style="position:absolute;left:72.00px;top:603.12px" class="cls_009"><span class="cls_009">DATE: <t t-esc="doc.contract_date and doc.contract_date.strftime('%d %B %Y') or ''"/></span></div>
+<div style="position:absolute;left:324.00px;top:603.12px" class="cls_009"><span class="cls_009">)</span></div>
+<div style="position:absolute;left:324.00px;top:615.36px" class="cls_009"><span class="cls_009">)</span></div>
+<div style="position:absolute;left:333.81px;top:615.36px" class="cls_009"><span class="cls_009">____________________________________</span></div>
+<div style="position:absolute;left:324.00px;top:627.60px" class="cls_009"><span class="cls_009">*Sign with company stamp</span></div>
+<!--<div style="position:absolute;left:516.96px;top:791.52px" class="cls_002"><span class="cls_002">6</span></div>-->
+</div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <template id="credit_management_template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-foreach="docs" t-as="doc">
+                        <t t-set="currency" t-value="doc.currency_id"/>
+                        <div class="page">
+    <style type="text/css">
+    span.cls_003{font-family:"Calibri",serif;font-size:12.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+    div.cls_003{font-family:"Calibri",serif;font-size:12.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+    span.cls_005{font-family:Arial,serif;font-size:20.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+    div.cls_005{font-family:Arial,serif;font-size:20.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+    span.cls_006{font-family:Arial,serif;font-size:18.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+    div.cls_006{font-family:Arial,serif;font-size:18.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+    span.cls_002{font-family:"Calibri",serif;font-size:12.1px;color:rgb(127,126,127);font-weight:normal;font-style:normal;text-decoration: none}
+    div.cls_002{font-family:"Calibri",serif;font-size:12.1px;color:rgb(127,126,127);font-weight:normal;font-style:normal;text-decoration: none}
+    span.cls_007{font-family:Arial,serif;font-size:9.9px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+    div.cls_007{font-family:Arial,serif;font-size:9.9px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+    span.cls_008{font-family:Arial,serif;font-size:9.9px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+    div.cls_008{font-family:Arial,serif;font-size:9.9px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+    span.cls_011{font-family:Arial,serif;font-size:9.9px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: underline}
+    div.cls_011{font-family:Arial,serif;font-size:9.9px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+    span.cls_012{font-family:Arial,serif;font-size:9.9px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: underline}
+    div.cls_012{font-family:Arial,serif;font-size:9.9px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+    span.cls_009{font-family:"Calibri Bold",serif;font-size:9.9px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+    div.cls_009{font-family:"Calibri Bold",serif;font-size:9.9px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+    span.cls_010{font-family:"Calibri",serif;font-size:9.9px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+    div.cls_010{font-family:"Calibri",serif;font-size:9.9px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+    </style>
+    <div style="position:absolute;left:50%;margin-left:-297px;top:0px;width:595px;height:842px;border-style:outset;overflow:hidden">
+    <div style="position:absolute;left:0px;top:0px">
+    <img src="/daa_agreement/static/img/management/background1.jpg" width="595" height="842"/></div>
+    <div style="position:absolute;left:345.72px;top:71.52px" class="cls_003"><span class="cls_003">Sales In-Charge: <t t-esc="doc.saleperson_id.name or ''"/></span></div>
+    <div style="position:absolute;left:74.76px;top:86.16px" class="cls_003"><span class="cls_003">___________________________________________________________________________</span></div>
+    <div style="position:absolute;left:119.71px;top:127.44px" class="cls_005"><span class="cls_005">CREDIT MANAGEMENT AGREEMENT</span></div>
+    <div style="position:absolute;left:72.00px;top:309.60px" class="cls_003"><span class="cls_003">___________________________________________________________________________</span></div>
+    <div style="position:absolute;left:187.95px;top:366.00px" class="cls_006"><span class="cls_006">DATED <t t-esc="doc.contract_date and doc.contract_date.strftime('%d %B %Y') or ''"/></span></div>
+    <div style="position:absolute;left:253.00px;top:414.24px" class="cls_006"><span class="cls_006">BETWEEN</span></div>
+    <div style="position:absolute;left:196.48px;top:476.16px" class="cls_006"><span class="cls_006">INFO CAPITAL PTE LTD</span></div>
+    <div style="position:absolute;left:215.45px;top:497.04px" class="cls_006"><span class="cls_006">(UEN: 202020563G)</span></div>
+    <div style="position:absolute;left:291.50px;top:538.32px" class="cls_006"><span class="cls_006">&amp;</span></div>
+    <div style="position:absolute;left:177.97px;top:621.12px" class="cls_006"><span class="cls_006"><t t-esc="doc.client_id.name or ''"/></span></div>
+    <div style="position:absolute;left:215.96px;top:641.76px" class="cls_006"><span class="cls_006"><t t-esc="'(UEN: %s)' %(doc.client_id.l10n_sg_unique_entity_number or '',)"/></span></div>
+    <div style="position:absolute;left:516.96px;top:749.52px" class="cls_003"><span class="cls_003">1</span></div>
+    <div style="position:absolute;left:150.72px;top:791.28px" class="cls_002"><span class="cls_002">Copyright Info Capital Pte Ltd @ 2020 - First Edition</span></div>
+    </div>
+    <div style="position:absolute;left:50%;margin-left:-297px;top:762px;width:595px;height:842px;border-style:outset;overflow:hidden">
+    <div style="position:absolute;left:0px;top:0px">
+    <img src="/daa_agreement/static/img/management/background2.jpg" width="595" height="842"/></div>
+    <div style="position:absolute;left:72.00px;top:112.56px" class="cls_007"><span class="cls_007">THIS AGREEMENT</span><span class="cls_008"> is made on <t t-esc="doc.contract_date and doc.contract_date.strftime('%d %B %Y') or ''"/></span></div>
+    <div style="position:absolute;left:72.00px;top:135.60px" class="cls_008"><span class="cls_008">BETWEEN:</span></div>
+    <div style="position:absolute;left:75.30px;top:158.64px" class="cls_008"><span class="cls_008">1. </span><span class="cls_007">  INFO CAPITAL PTE LTD</span><span class="cls_008">, a company incorporated in Singapore and having its registered office
+        and place of business at 51 Bukit Batok Crescent, Unity Centre, #01-01, Singapore 520131 (hereinafter called “IFC”);</span></div>
+    <div style="position:absolute;left:93.30px;top:204.72px" class="cls_008"><span class="cls_008">And</span></div>
+    <div style="position:absolute;left:75.30px;top:227.76px" class="cls_008"><span class="cls_008">2. </span><span class="cls_007">  <t t-esc="doc.client_id.name or ''"/></span><span class="cls_008">, a company incorporated in Singapore and having its previous
+        registered office and place of business at <t t-esc="doc.client_id.street or ''"/>, <t t-esc="doc.client_id.state_id and doc.client_id.state_id.name or ''"/>,
+        <t t-esc="doc.client_id.blk_no or ''"/>-<t t-esc="doc.client_id.unit_level or ''"/>, <t t-esc="doc.client_id.country_id and doc.client_id.country_id.name or ''"/>
+        <t t-esc="doc.client_id.zip or ''"/> (hereinafter called “CLIENT”).</span></div>
+    <div style="position:absolute;left:75.30px;top:273.60px" class="cls_007"><span class="cls_007">WHEREAS:</span></div>
+    <div style="position:absolute;left:75.30px;top:296.64px" class="cls_008"><span class="cls_008">A.  IFC is in the business of Credit Collection and Credit Management.</span></div>
+    <div style="position:absolute;left:75.30px;top:319.68px" class="cls_008"><span class="cls_008">B.  CLIENT is in the business of <t t-esc="doc.client_id.industry_code_id and doc.client_id.industry_code_id.name or ''"/>. (Indicate “Nil” if the Client is an individual)</span></div>
+    <div style="position:absolute;left:75.30px;top:342.72px" class="cls_008"><span class="cls_008">C.  CLIENT wishes to engage the services of IFC for Credit Collection and Credit Management
+        (each term as defined below) upon and subject to the terms and conditions set out in this Agreement.</span></div>
+    <div style="position:absolute;left:75.30px;top:388.56px" class="cls_008"><span class="cls_008">D.  IFC and CLIENT are collectively known as Parties.</span></div>
+    <div style="position:absolute;left:72.00px;top:411.60px" class="cls_007"><span class="cls_007">NOW IT IS HEREBY AGREED AS FOLLOWS:</span></div>
+    <div style="position:absolute;left:75.30px;top:434.64px" class="cls_007"><span class="cls_007">1.   DEFINITIONS</span></div>
+    <div style="position:absolute;left:93.30px;top:457.68px" class="cls_008"><span class="cls_008">1.1 </span><span class="cls_007">“</span><span class="cls_008">Account” refers to the credit facilities granted by the CLIENT to their customers pursuant to
+        an instalment or other agreement;</span></div>
+    <div style="position:absolute;left:93.30px;top:492.24px" class="cls_008"><span class="cls_008">1.2 “Commencement Date” means the date on which this Agreement shall commence as set out
+        in Clause 2 or such date as the parties may agree;</span></div>
+    <div style="position:absolute;left:93.30px;top:526.56px" class="cls_008"><span class="cls_008">1.3 “Credit Collection” refers to Credit collection activities on assigned Accounts;</span></div>
+    <div style="position:absolute;left:93.30px;top:549.60px" class="cls_008"><span class="cls_008">1.4 “Credit Management” refers to the Account Receivables Management of the current status of an assigned Account.</span></div>
+    <div style="position:absolute;left:93.30px;top:584.16px" class="cls_008"><span class="cls_008">1.5 “Debtor” refers to CLIENT’S customer who is the owing party</span></div>
+    <div style="position:absolute;left:93.30px;top:607.20px" class="cls_008"><span class="cls_008">1.6 “Term” means the duration of this Agreement as stated under Clause 2;</span></div>
+    <div style="position:absolute;left:93.30px;top:630.24px" class="cls_008"><span class="cls_008">1.7 “Validity” refers to the lifespan of each Account upon receiving;</span></div>
+    <div style="position:absolute;left:93.30px;top:653.04px" class="cls_008"><span class="cls_008">1.8 “Commission Fees” refers to payment entitled to IFC;</span></div>
+    <div style="position:absolute;left:93.30px;top:676.08px" class="cls_008"><span class="cls_008">1.9 “Collected Sums” refers to monies collected from each Account;</span></div>
+    <div style="position:absolute;left:82.35px;top:699.12px" class="cls_008"><span class="cls_008">1.10</span></div>
+    <div style="position:absolute;left:108.00px;top:699.12px" class="cls_008"><span class="cls_008">“Payment Terms” refers to the payment terms and mode between IFC and CLIENT;</span></div>
+    <div style="position:absolute;left:82.35px;top:722.16px" class="cls_008"><span class="cls_008">1.11</span></div>
+    <div style="position:absolute;left:108.00px;top:722.16px" class="cls_008"><span class="cls_008">“Instalment Terms” refers to time taken by each Accounts to clear the credit given;</span></div>
+    <!--<div style="position:absolute;left:516.96px;top:749.52px" class="cls_003"><span class="cls_003">2</span></div>-->
+    <!--<div style="position:absolute;left:150.72px;top:791.28px" class="cls_002"><span class="cls_002">Copyright Info Capital Pte Ltd @ 2020 - First Edition</span></div>-->
+    </div>
+    <div style="position:absolute;left:50%;margin-left:-297px;top:1544px;width:595px;height:842px;border-style:outset;overflow:hidden">
+    <div style="position:absolute;left:0px;top:0px">
+    <img src="/daa_agreement/static/img/management/background3.jpg" width="595" height="842"/></div>
+    <div style="position:absolute;left:82.35px;top:71.28px" class="cls_008"><span class="cls_008">1.12 “Instalment Agreement” refers to an agreement enter into by each Account to fulfil their credit liability;</span></div>
+    <div style="position:absolute;left:82.35px;top:105.84px" class="cls_008"><span class="cls_008">1.13 “Subscription Fees” refers to the fees payable by CLIENT upon engaging IFC’s services.</span></div>
+    <div style="position:absolute;left:82.35px;top:128.88px" class="cls_008"><span class="cls_008">1.14 “PDPA” Singapore Personal Data Protection Act 2012;</span></div>
+    <div style="position:absolute;left:82.35px;top:151.68px" class="cls_008"><span class="cls_008">1.15 “Personal Data” As its definition under PDPA.</span></div>
+    <div style="position:absolute;left:75.30px;top:186.24px" class="cls_007"><span class="cls_007">2.</span></div>
+    <div style="position:absolute;left:93.30px;top:186.24px" class="cls_007"><span class="cls_007">APPOINTMENT &amp; SUBSCRIPTION FEES</span></div>
+    <div style="position:absolute;left:93.30px;top:209.28px" class="cls_008"><span class="cls_008">2.1 CLIENT hereby appoints IFC for Credit Management. IFC hereby accepts the appointment,
+        upon and subject to the terms and conditions of this Agreement. This appointment shall
+        commence on <t t-esc="doc.contract_date and doc.contract_date.strftime('%d %B %Y') or ''"/> and continue for a term of </span><span class="cls_011"><t t-esc="doc.term_id.name or ''"/></span><span class="cls_008"> months therefrom
+        unless terminated in accordance with the provisions of this Agreement.</span></div>
+    <div style="position:absolute;left:93.30px;top:266.88px" class="cls_008"><span class="cls_008">2.2 The CLIENT agrees to subscribe to IFC services for </span><span class="cls_007"><t t-esc="doc.sub_fees or 0" t-options='{"widget": "monetary", "display_currency": currency}'/> / month</span><span class="cls_008">.</span></div>
+    <div style="position:absolute;left:93.30px;top:289.68px" class="cls_008"><span class="cls_008">2.3 All Subscription Fees are non-refundable.</span></div>
+    <div style="position:absolute;left:75.30px;top:312.72px" class="cls_007"><span class="cls_007">3.</span></div>
+    <div style="position:absolute;left:93.30px;top:312.72px" class="cls_007"><span class="cls_007">ENTITLEMENT</span></div>
+    <div style="position:absolute;left:93.30px;top:335.76px" class="cls_008"><span class="cls_008">3.1 CLIENT is entitled to handover up to</span><span class="cls_012"> Twenty (20)</span><span class="cls_007"> </span><span class="cls_008">Accounts to IFC during the Term. CLIENT
+        will do as deem fit on the number of Accounts and value of each Accounts during the Term.</span></div>
+    <div style="position:absolute;left:93.30px;top:370.32px" class="cls_008"><span class="cls_008">3.2 IFC is entitled at its own discretion to perform emails, invoicing and tele calls.</span></div>
+    <div style="position:absolute;left:75.30px;top:404.64px" class="cls_007"><span class="cls_007">4.</span></div>
+    <div style="position:absolute;left:93.30px;top:404.64px" class="cls_007"><span class="cls_007">COMMISSION FEES (For Credit Collection)</span></div>
+    <div style="position:absolute;left:93.30px;top:427.68px" class="cls_008"><span class="cls_008">4.1 Upon successful Credit Collection on each Account, in full or in part, IFC will be entitled to
+        30</span><span class="cls_012">%</span><span class="cls_011"> </span><span class="cls_008">commission.</span></div>
+    <div style="position:absolute;left:93.30px;top:462.24px" class="cls_008"><span class="cls_008">4.2 Any payment in kind in term or Credit Note or Waiver or merchandises accepted by CLIENT
+        in lieu of debts are deemed to be direct and/or partial settlement on the Account. IFC will be
+        entitled to </span><span class="cls_011">30</span><span class="cls_012">%</span><span class="cls_011"> </span><span class="cls_008">commission of the same value.</span></div>
+    <div style="position:absolute;left:75.30px;top:508.32px" class="cls_007"><span class="cls_007">5.</span></div>
+    <div style="position:absolute;left:93.30px;top:508.32px" class="cls_007"><span class="cls_007">PAYMENT TERMS</span></div>
+    <div style="position:absolute;left:93.30px;top:531.36px" class="cls_008"><span class="cls_008">5.1 All payments made shall go direct to the CLIENT.</span></div>
+    <div style="position:absolute;left:93.30px;top:554.16px" class="cls_008"><span class="cls_008">5.2 IFC is </span><span class="cls_011">NOT</span><span class="cls_008"> authorised to receive any payment on behalf of the CLIENT.</span></div>
+    <div style="position:absolute;left:93.30px;top:577.20px" class="cls_008"><span class="cls_008">5.3 IFC shall invoice the CLIENT once a month or yearly for the subscription fees.</span></div>
+    <div style="position:absolute;left:75.30px;top:600.24px" class="cls_007"><span class="cls_007">6.</span></div>
+    <div style="position:absolute;left:93.30px;top:600.24px" class="cls_007"><span class="cls_007">UNDERTAKING</span></div>
+    <div style="position:absolute;left:93.30px;top:623.28px" class="cls_008"><span class="cls_008">6.1 </span><span class="cls_012">IFC undertakes</span><span class="cls_008"> during the Term that it will:</span></div>
+    <div style="position:absolute;left:111.30px;top:646.32px" class="cls_008"><span class="cls_008">a.   ensure that no methods or tactics used or proposed to be used in providing services
+        under this Agreement shall be repugnant to any applicable laws, guidelines and regulations;</span></div>
+    <div style="position:absolute;left:111.30px;top:692.16px" class="cls_008"><span class="cls_008">b.   represent itself or hold itself out as the appointed Credit Management Agent however
+        have no right or authority to create or confer any obligation of any kind in CLIENT’s name or on CLIENT’s behalf.</span></div>
+    <!--<div style="position:absolute;left:516.96px;top:749.52px" class="cls_003"><span class="cls_003">3</span></div>-->
+    <!--<div style="position:absolute;left:150.72px;top:791.28px" class="cls_002"><span class="cls_002">Copyright Info Capital Pte Ltd @ 2020 - First Edition</span></div>-->
+    </div>
+    <div style="position:absolute;left:50%;margin-left:-297px;top:2316px;width:595px;height:842px;border-style:outset;overflow:hidden">
+    <div style="position:absolute;left:0px;top:0px">
+    <img src="/daa_agreement/static/img/management/background4.jpg" width="595" height="842"/></div>
+    <div style="position:absolute;left:111.30px;top:71.28px" class="cls_008"><span class="cls_008">c.   Maintain professional field team;</span></div>
+    <div style="position:absolute;left:111.30px;top:94.32px" class="cls_008"><span class="cls_008">d.   Act on each Account by phone, place of residence or any place of interests;</span></div>
+    <div style="position:absolute;left:111.30px;top:117.36px" class="cls_008"><span class="cls_008">e.   Maintain communication with CLIENT and provided any necessary assistances and advices where possible;</span></div>
+    <div style="position:absolute;left:111.30px;top:151.68px" class="cls_008"><span class="cls_008">f.</span></div>
+    <div style="position:absolute;left:129.30px;top:151.68px" class="cls_008"><span class="cls_008">Maintained preferred payment mode and anti-bribery on each Account;</span></div>
+    <div style="position:absolute;left:111.30px;top:174.72px" class="cls_008"><span class="cls_008">g.   Enforce due diligence on each Account to ensure actions are taken within reasonable timeframe;</span></div>
+    <div style="position:absolute;left:111.30px;top:209.28px" class="cls_008"><span class="cls_008">h.   Notify CLIENT immediately when IFC becomes aware of any information (eg. Death,
+        Bankrupt, Liquidation, Permanent Disability, Critical Illness, imprisonment, etc)
+        whatsoever relating to or affecting the outcome of any Accounts that has been referred or allocated to IFC;</span></div>
+    <div style="position:absolute;left:111.30px;top:266.88px" class="cls_008"><span class="cls_008">i.</span></div>
+    <div style="position:absolute;left:129.30px;top:266.88px" class="cls_008"><span class="cls_008">Ensure all information, documents and other materials relating to or obtained as a result
+        of this Agreement, in particular but without limitation on the Accounts’ information are strictly private and confidential.</span></div>
+    <div style="position:absolute;left:93.30px;top:312.72px" class="cls_008"><span class="cls_008">6.2 </span><span class="cls_012">CLIENT undertakes</span><span class="cls_008"> during the Term that it will:</span></div>
+    <div style="position:absolute;left:111.30px;top:335.76px" class="cls_008"><span class="cls_008">a.   Not withdraw any Accounts given and/or allocated to IFC during the Term; otherwise full commission is chargeable on the unpaid balance;</span></div>
+    <div style="position:absolute;left:111.30px;top:370.32px" class="cls_008"><span class="cls_008">b.   Not withdraw any Accounts under Instalment Agreement as Instalment Terms may be beyond the Term of this Agreement;</span></div>
+    <div style="position:absolute;left:111.30px;top:404.64px" class="cls_008"><span class="cls_008">c.   Provide all documents and ensure the legality of all documents;</span></div>
+    <div style="position:absolute;left:111.30px;top:427.68px" class="cls_008"><span class="cls_008">d.   Notify IFC immediately when CLIENT becomes aware if any information (eg. Death,
+        Bankrupt, Liquidation, Permanent Disability, Critical Illness, imprisonment, etc)
+        whatsoever relating or affecting to the Accounts provided by CLIENT;</span></div>
+    <div style="position:absolute;left:111.30px;top:473.76px" class="cls_008"><span class="cls_008">e.   Agrees that with regard to each account accepted for collection, IFC may ONLY make
+        the collection itself directly and shall not forward to any third parties for the same
+        services unless prior approve by CLIENT in writing.</span></div>
+    <div style="position:absolute;left:111.30px;top:519.84px" class="cls_008"><span class="cls_008">f.</span></div>
+    <div style="position:absolute;left:129.30px;top:519.84px" class="cls_008"><span class="cls_008">IFC shall not designate the solicitors or third-party agent to make collection of any account forwarded to IFC.</span></div>
+    <div style="position:absolute;left:75.30px;top:565.68px" class="cls_007"><span class="cls_007">7.</span></div>
+    <div style="position:absolute;left:93.30px;top:565.68px" class="cls_007"><span class="cls_007">TERMINATION &amp; CLAIMS</span></div>
+    <div style="position:absolute;left:93.30px;top:588.72px" class="cls_008"><span class="cls_008">7.1 This Agreement may be terminated by either party giving two (2) calendar month’s prior
+        written notice to the other.</span></div>
+    <div style="position:absolute;left:93.30px;top:623.28px" class="cls_008"><span class="cls_008">7.2 CLIENT will be liable for any losses incurred by IFC due to unauthorize withdrawal of
+        Accounts and Instalment Agreement which includes withholding any entitled Commission Fees.</span></div>
+    <div style="position:absolute;left:93.30px;top:669.12px" class="cls_008"><span class="cls_008">7.3 IFC will be liable for any losses incurred by CLIENT due to unauthorize withdrawal of Accounts which includes withholding any Collected Sums.</span></div>
+    <!--<div style="position:absolute;left:516.96px;top:749.52px" class="cls_003"><span class="cls_003">4</span></div>-->
+    <!--<div style="position:absolute;left:150.72px;top:791.28px" class="cls_002"><span class="cls_002">Copyright Info Capital Pte Ltd @ 2020 - First Edition</span></div>-->
+    </div>
+    <div style="position:absolute;left:50%;margin-left:-297px;top:3088px;width:595px;height:822px;border-style:outset;overflow:hidden">
+    <div style="position:absolute;left:0px;top:0px">
+    <img src="/daa_agreement/static/img/management/background5.jpg" width="595" height="842"/></div>
+    <div style="position:absolute;left:75.30px;top:71.28px" class="cls_007"><span class="cls_007">8.   DISCLAIMER</span></div>
+    <div style="position:absolute;left:82.35px;top:94.32px" class="cls_008"><span class="cls_008">8.1   IFC do not guarantee 100% recovery of any Accounts and CLIENT shall not hold IFC responsible for any shortfall of each Account.</span></div>
+    <div style="position:absolute;left:75.30px;top:128.88px" class="cls_007"><span class="cls_007">9.   CONFIDENTIALITY</span></div>
+    <div style="position:absolute;left:82.35px;top:151.68px" class="cls_008"><span class="cls_008">9.1   Each party shall, in respect of the Personal Data for which it is the recipient:</span></div>
+    <div style="position:absolute;left:90.00px;top:174.72px" class="cls_008"><span class="cls_008">(i)</span></div>
+    <div style="position:absolute;left:126.00px;top:174.72px" class="cls_008"><span class="cls_008">keep the Personal Data strictly confidential and not disclose any part of it to any person
+        apart from its employees who require it to perform the recipient’s obligations under this Agreement;</span></div>
+    <div style="position:absolute;left:90.00px;top:209.28px" class="cls_008"><span class="cls_008">(ii)</span></div>
+    <div style="position:absolute;left:126.00px;top:209.28px" class="cls_008"><span class="cls_008">its auditors and professional advisors solely for the purposes of providing professional advice;</span></div>
+    <div style="position:absolute;left:90.00px;top:232.32px" class="cls_008"><span class="cls_008">(iii)</span></div>
+    <div style="position:absolute;left:126.00px;top:232.32px" class="cls_008"><span class="cls_008">its agents and sub-contractors involved in performing of that recipients under this Agreement, and its group companies.</span></div>
+    <div style="position:absolute;left:75.30px;top:266.88px" class="cls_007"><span class="cls_007">10. RENEWAL</span></div>
+    <div style="position:absolute;left:82.35px;top:289.68px" class="cls_008"><span class="cls_008">10.1 IFC’s appointment under this Agreement will be auto-renewed upon expiry unless otherwise
+        stated or another agreement has been entered which supersedes the current agreement.</span></div>
+    <div style="position:absolute;left:75.30px;top:324.24px" class="cls_007"><span class="cls_007">11. ANTI-BRIBERY CLAUSE</span></div>
+    <div style="position:absolute;left:82.35px;top:347.28px" class="cls_008"><span class="cls_008">11.1 IFC has a duty to ensure that any employees given access to any information in connection
+        with the Accounts provided by CLIENT, must comply with any applicable bribery laws.</span></div>
+    <div style="position:absolute;left:82.35px;top:381.84px" class="cls_008"><span class="cls_008">11.2 Without prejudice to Clause 11, IFC, if found to have perform its due diligence on anti-bribery laws, shall not be held responsible if any of its employees have proven to commit such acts.</span></div>
+    <div style="position:absolute;left:75.30px;top:416.16px" class="cls_007"><span class="cls_007">12. LIMITATION ON LIABILITY</span></div>
+    <div style="position:absolute;left:82.35px;top:439.20px" class="cls_008"><span class="cls_008">12.1 Neither party shall be liable to the other (whether in contract, negligence, for breach of
+        statutory duty or under Indemnity or otherwise and not withstanding any notice of the possibility of such loss for:</span></div>
+    <div style="position:absolute;left:100.35px;top:480.28px" class="cls_008"><span class="cls_008">i)</span></div>
+    <div style="position:absolute;left:136.35px;top:480.28px" class="cls_008"><span class="cls_008">Any indirect consequential loss</span></div>
+    <div style="position:absolute;left:100.35px;top:491.80px" class="cls_008"><span class="cls_008">ii)</span></div>
+    <div style="position:absolute;left:136.35px;top:491.80px" class="cls_008"><span class="cls_008">Pure economic loss including loss of profits; loss of earning; loss of business or goodwill; or</span></div>
+    <div style="position:absolute;left:100.35px;top:505.84px" class="cls_008"><span class="cls_008">iii)</span></div>
+    <div style="position:absolute;left:136.35px;top:505.84px" class="cls_008"><span class="cls_008">Anticipated or incidental losses; including loss of anticipated savings; increase in bad debt; failure to reduce bad debt.</span></div>
+    <div style="position:absolute;left:82.35px;top:539.16px" class="cls_008"><span class="cls_008">12.2 Neither party excludes or limits its liability to the other for:</span></div>
+    <div style="position:absolute;left:100.35px;top:562.20px" class="cls_008"><span class="cls_008">i)</span></div>
+    <div style="position:absolute;left:136.35px;top:562.20px" class="cls_008"><span class="cls_008">Personal or death resulting from its or its employees, agents and/or sub-contractors’ negligence;</span></div>
+    <div style="position:absolute;left:100.35px;top:593.24px" class="cls_008"><span class="cls_008">ii)</span></div>
+    <div style="position:absolute;left:136.35px;top:593.24px" class="cls_008"><span class="cls_008">For breach of confidentiality;</span></div>
+    <div style="position:absolute;left:100.35px;top:604.76px" class="cls_008"><span class="cls_008">iii)</span></div>
+    <div style="position:absolute;left:136.35px;top:604.76px" class="cls_008"><span class="cls_008">For any matter which it would be illegal for that party to exclude and/or limit</span></div>
+    <div style="position:absolute;left:100.35px;top:623.28px" class="cls_008"><span class="cls_008">iv)</span></div>
+    <div style="position:absolute;left:136.35px;top:623.28px" class="cls_008"><span class="cls_008">For that party’s wilful default, fraud or fraudulent misrepresentation.</span></div>
+    <div style="position:absolute;left:75.30px;top:646.32px" class="cls_007"><span class="cls_007">13. GOVERNING LAW</span></div>
+    <div style="position:absolute;left:82.35px;top:669.12px" class="cls_008"><span class="cls_008">13.1 This Agreement and all matters arising out of or in connection with it shall be governed by,
+        and construed in accordance with, the laws of the Republic of Singapore and submitted to exclusive jurisdiction of Singapore courts.</span></div>
+    <div style="position:absolute;left:82.35px;top:715.20px" class="cls_008"><span class="cls_008">13.2 This Agreement sets out all the terms agreed between the parties relating to the subject
+        matter of this Agreement and supersedes any previous agreement between the parties relating</span></div>
+    <!--<div style="position:absolute;left:516.96px;top:749.52px" class="cls_003"><span class="cls_003">5</span></div>-->
+    <!--<div style="position:absolute;left:150.72px;top:791.28px" class="cls_002"><span class="cls_002">Copyright Info Capital Pte Ltd @ 2020 - First Edition</span></div>-->
+    </div>
+    <div style="position:absolute;left:50%;margin-left:-297px;top:3840px;width:595px;height:842px;border-style:outset;overflow:hidden">
+    <div style="position:absolute;left:0px;top:0px">
+    <img src="/daa_agreement/static/img/management/background6.jpg" width="595" height="842"/></div>
+    <div style="position:absolute;left:100.35px;top:71.28px" class="cls_008"><span class="cls_008">to the same subject matters. Neither of the parties shall be bound by, or liable to other party for,
+        any representation, promise or inducement (other than fraudulent misrepresentations) made by
+        it or by any agent or person on its behalf which is not expressly contained in this Agreement.
+        IN WITNESS WHEREOF the parties hereto have executed this Agreement on the day and year first above-written.</span></div>
+    <div style="position:absolute;left:72.00px;top:244.08px" class="cls_009"><span class="cls_009">SIGNED</span><span class="cls_010"> by <t t-esc="doc.saleperson_id.name or ''"/>for and on behalf of “IFC”</span></div>
+    <div style="position:absolute;left:324.00px;top:244.08px" class="cls_010"><span class="cls_010">)</span></div>
+    <div style="position:absolute;left:324.00px;top:256.32px" class="cls_010"><span class="cls_010">)</span></div>
+    <div style="position:absolute;left:72.00px;top:268.32px" class="cls_009"><span class="cls_009">INFO CAPITAL PTE LTD</span></div>
+    <div style="position:absolute;left:324.00px;top:268.32px" class="cls_010"><span class="cls_010">)</span></div>
+    <div style="position:absolute;left:324.00px;top:280.56px" class="cls_010"><span class="cls_010">)</span></div>
+    <div style="position:absolute;left:72.00px;top:292.80px" class="cls_010"><span class="cls_010">DATE: <t t-esc="doc.contract_date and doc.contract_date.strftime('%d %B %Y') or ''"/></span></div>
+    <div style="position:absolute;left:324.00px;top:292.80px" class="cls_010"><span class="cls_010">)</span></div>
+    <div style="position:absolute;left:324.00px;top:305.04px" class="cls_010"><span class="cls_010">)</span></div>
+    <div style="position:absolute;left:333.83px;top:305.04px" class="cls_010"><span class="cls_010">____________________________________</span></div>
+    <div style="position:absolute;left:324.00px;top:317.28px" class="cls_010"><span class="cls_010">*Sign with company stamp</span></div>
+    <div style="position:absolute;left:72.00px;top:439.20px" class="cls_009"><span class="cls_009">SIGNED</span><span class="cls_010"> by <t t-esc="doc.client_contact_name or ''"/> for and on behalf of “</span><span class="cls_008">CLIENT</span><span class="cls_010">”</span></div>
+    <div style="position:absolute;left:324.00px;top:439.20px" class="cls_010"><span class="cls_010">)</span></div>
+    <div style="position:absolute;left:324.00px;top:451.44px" class="cls_010"><span class="cls_010">)</span></div>
+    <div style="position:absolute;left:72.00px;top:463.68px" class="cls_009"><span class="cls_009"><t t-esc="doc.client_id.name or ''"/></span></div>
+    <div style="position:absolute;left:324.00px;top:463.68px" class="cls_010"><span class="cls_010">)</span></div>
+    <div style="position:absolute;left:324.00px;top:475.92px" class="cls_010"><span class="cls_010">)</span></div>
+    <div style="position:absolute;left:72.00px;top:488.16px" class="cls_010"><span class="cls_010">DATE: <t t-esc="doc.contract_date and doc.contract_date.strftime('%d %B %Y') or ''"/></span></div>
+    <div style="position:absolute;left:324.00px;top:488.16px" class="cls_010"><span class="cls_010">)</span></div>
+    <div style="position:absolute;left:324.00px;top:500.40px" class="cls_010"><span class="cls_010">)</span></div>
+    <div style="position:absolute;left:333.83px;top:500.40px" class="cls_010"><span class="cls_010">____________________________________</span></div>
+    <div style="position:absolute;left:324.00px;top:512.64px" class="cls_010"><span class="cls_010">*Sign with company stamp</span></div>
+    <!--<div style="position:absolute;left:516.96px;top:749.52px" class="cls_003"><span class="cls_003">6</span></div>-->
+    <!--<div style="position:absolute;left:150.72px;top:791.28px" class="cls_002"><span class="cls_002">Copyright Info Capital Pte Ltd @ 2020 - First Edition</span></div>-->
+    </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <report
+            id="credit_collection_aggreement"
+            model="daa.agreement"
+            string="Credit Collection Agreement"
+            report_type="qweb-pdf"
+            name="daa_agreement.credit_collection_template"
+            file="daa_agreement.credit_collection_template"
+            paperformat="daa_agreement.paper_format_agreement"/>
+
+        <report
+            id="credit_management_aggreement"
+            model="daa.agreement"
+            string="Credit Management Agreement"
+            report_type="qweb-pdf"
+            name="daa_agreement.credit_management_template"
+            file="daa_agreement.credit_management_template"
+            paperformat="daa_agreement.paper_format_agreement"/>
+    </data>
+</odoo>

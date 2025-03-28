@@ -1,0 +1,407 @@
+<odoo>
+    <data>
+		<template id="modifier_external_layout_soa">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <!-- Multicompany -->
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+
+            <t t-call="alphabricks_statement_of_accounts.external_layout_standard_soa">
+                <t t-raw="0"/>
+            </t>
+
+        </template>
+
+        <template id="external_layout_standard_soa">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            </div>
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+                 t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                 t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+            <div t-attf-class="footer o_company_#{company.id}_layout">
+				<div class="text-center" style="border-top: 1px solid black; width: 100%">
+					<ul class="list-inline mb4" style="font-size:13px; width: 100%">
+						<li t-if="company.phone" class="list-inline-item d-inline">Phone:
+							<span class="o_force_ltr" t-esc="company.phone"/>
+						</li>
+						<li t-if="company.email" class="list-inline-item d-inline">Email:
+							<span t-field="company.email"/>
+						</li>
+						<li t-if="company.website" class="list-inline-item d-inline">Web:
+							<span t-field="company.website"/>
+						</li>
+						<li t-if="company.vat" class="list-inline-item d-inline"><t
+								t-esc="company.country_id.vat_label or 'Tax ID'"/>:
+							<span t-field="company.vat"/>
+						</li>
+					</ul>
+					<h6 t-field="company.name"/>
+					<div t-if="report_type == 'pdf'" class="text-muted">
+						Page:
+						<span class="page"/>
+						/
+						<span class="topage"/>
+					</div>
+				</div>
+            </div>
+        </template>
+
+        <template id="statement_of_accounts_template">
+			<t t-call="alphabricks_statement_of_accounts.modifier_external_layout_soa">
+				<t t-set="partner_id" t-value="partner_id.with_context({'lang':lang})"/>
+				<t t-set="company" t-value="res_company"/>
+
+				<div class="page">
+					<style>
+						.header-table th, .header-table td {
+							padding: 0.20rem 0rem;
+						}
+					</style>
+					<div class="row" id="header_id">
+						<div style="width:15%">
+							<img t-if="company.logo" t-att-src="image_data_uri(company.logo)"
+								 style="max-height:100px;margin-left:16px"
+								 alt="Logo"/>
+						</div>
+						<div name="company_address" style="font-size:14px;width:45%">
+							<ul class="list-unstyled">
+								<strong>
+									<li t-if="company.name">
+										<h5 t-field="company.name"/>
+									</li>
+								</strong>
+								<li>
+<!--									<span t-field="company.house_no"/>-->
+<!--									<span t-field="company.unit_no"/>-->
+<!--									<br/>-->
+									<span t-field="company.street"/>
+									<br/>
+								</li>
+								<li t-if="company.phone">Tel:
+									<span class="o_force_ltr" t-field="company.phone"/>
+								</li>
+								<li t-if="company.email">Email:
+									<span t-field="company.email"/>
+								</li>
+							</ul>
+						</div>
+<!--						<div style="width:6%"/>-->
+						<div style="width:30%; margin-top: 42px;" class="text-right">
+							<span style="font-size: 20px; font-weight: bold">Statement of Accounts</span>
+							<div style="font-size: 20px;width: 100%; border-top: 1px solid black; border-bottom: 1px solid black">
+								<t t-esc="doc.start_date or ''"/> to <t t-esc="doc.end_date or ''"/>
+							</div>
+						</div>
+						<div style="width:10%"/>
+					</div>
+					<t t-set="opening_balance" t-value="doc.get_opening_balance(partner_id)"/>
+					<t t-set="i" t-value="0.0" />
+					<t t-set="j" t-value="0.0" />
+					<t t-set="k" t-value="opening_balance" />
+					<t t-foreach="doc.get_balance_invoice(partner_id)" t-as="line">
+						<t t-set="i" t-value="i+ line.amount_total_signed" />
+						<t t-set="j" t-value="j+line.credit_amount" />
+						<t t-set="k" t-value="k+line.result" />
+					</t>
+					<div class="row" style="font-size:14px; margin-bottom: 50px">
+						<div style="width:55%">
+							<br/>
+							<br/>
+							<span>To:</span><br/>
+							<span>Company name/ Name :<![CDATA[&nbsp;]]></span><span t-esc="partner_id.name"></span><br/>
+							<span>Address :<![CDATA[&nbsp;]]><t t-esc="doc.get_partner_address(partner_id)"/> </span><br/>
+							<span>Phone number :<![CDATA[&nbsp;]]><t t-esc="partner_id.mobile"/> </span><br/>
+							<span>Email :<![CDATA[&nbsp;]]><t t-esc="partner_id.email"/></span><br/>
+						</div>
+						<div style="width:5%"/>
+						<div style="width:30%">
+							<table class="header-table" style="width: 100%">
+								<tr>
+									<td colspan="2" style="background-color: #ebebeb">
+										<b>
+											Account Summary
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td style="width: 50%">
+										Opening Balance
+									</td>
+									<td style="width: 50%" class="text-right">
+										<t t-esc="'{0:,.2f}'.format(opening_balance)"/>
+									</td>
+								</tr>
+								<tr>
+									<td style="width: 50%">
+										<t t-if="doc.type != 'bill'">
+											Invoiced Amount
+										</t>
+										<t t-else="">
+											Bill Amount
+										</t>
+									</td>
+									<td style="width: 50%" class="text-right">
+										<t t-esc="'{0:,.2f}'.format(i)"/>
+									</td>
+								</tr>
+								<tr style="border-bottom: 1px solid black">
+									<td style="width: 50%">
+										Amount Paid
+									</td>
+									<td style="width: 50%" class="text-right">
+										<t t-esc="'{0:,.2f}'.format(j)"/>
+									</td>
+								</tr>
+								<tr>
+									<td style="width: 50%">
+										Balance Due
+									</td>
+									<td style="width: 50%" class="text-right">
+										<t t-esc="'{0:,.2f}'.format(k)"/>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div style="width:10%"/>
+					</div>
+					<table class="table table-bordered">
+						<thead>
+							<tr class="text-center">
+								<th>Date</th>
+								<th>
+									<t t-if="doc.type != 'bill'">
+										Invoice Number
+									</t>
+									<t t-else="">
+										Bill Number
+									</t>
+
+								</th>
+								<th>Amount/Debit</th>
+								<th>Payments/Credit</th>
+								<th>Balance</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td></td>
+								<td class="text-center">
+									<b>Initial Balance</b>
+								</td>
+								<td></td>
+								<td></td>
+								<td class="text-right">
+									<b><span t-esc="opening_balance" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></b>
+								</td>
+							</tr>
+   							<t t-set="grand_total" t-value="0.0" />
+							<t t-set="bal" t-value="0.0" />
+							<t t-set="sub_total" t-value="0.0" />
+							<tr t-foreach="doc.get_balance_invoice(partner_id)" t-as="line">
+								<t t-set="bal" t-value="bal +sub_total "/>
+									<td class="text-center">
+										<span t-esc="line.invoice_date" />
+									</td>
+									<td class="text-center">
+										<span t-esc="line.name" />
+									</td>
+									<td class="text-right">
+										<t t-if="doc.type != 'bill'">
+											<span t-esc="line.amount_total_signed"
+												t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}" />
+										</t>
+										<t t-else="">
+											<span t-esc="line.credit_amount"
+												t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}" />
+										</t>
+									</td>
+									<td class="text-right">
+										<t t-if="doc.type != 'bill'">
+											<span t-esc="line.credit_amount"
+												t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}" />
+										</t>
+										<t t-else="">
+											<span t-esc="line.amount_total_signed"
+												t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}" />
+										</t>
+									</td>
+									<td class="text-right">
+										 <t t-set="sub_total" t-value="line.amount_total_signed-line.credit_amount" />
+										 <t t-set="grand_total" t-value="sub_total + bal"/>
+										<span t-esc="sub_total + bal"
+											t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}" />
+									</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td class="text-center">
+									<b>Ending Balance</b>
+								</td>
+								<td></td>
+								<td></td>
+								<td class="text-right">
+									<b><span t-esc="grand_total" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></b>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-right"></td>
+								<td></td>
+								<td class="text-right">
+									<t t-if="doc.type != 'bill'">
+										<span t-esc="'{0:,.2f}'.format(i)" />
+									</t>
+									<t t-else="">
+										<span t-esc="'{0:,.2f}'.format(j)" />
+									</t>
+								</td>
+								<td class="text-right">
+									<t t-if="doc.type != 'bill'">
+										<span t-esc="'{0:,.2f}'.format(j)" />
+									</t>
+									<t t-else="">
+										<span t-esc="'{0:,.2f}'.format(i)" />
+									</t>
+								</td>
+								<td class="text-right"><span t-esc="'{0:,.2f}'.format(k)" /></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<div class="col-xs-4 pull-right">
+						<table class="table table-condensed">
+							<tr class="border-black">
+								<td>
+									<strong>Total Amount Due :</strong>
+								</td>
+								<td class="text-right">
+									<strong>
+										<span t-esc="k"
+											t-options='{"widget": "monetary", "display_currency": res_company.currency_id}' />
+									</strong>
+								</td>
+							</tr>
+							<tr class="border-black">
+								<td>
+									<strong>Balance Due :</strong>
+								</td>
+								<td class="text-right">
+									<strong>
+										<span t-esc="k"
+											t-options='{"widget": "monetary", "display_currency": res_company.currency_id}' />
+									</strong>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<br/>
+					<t t-set="data_amount" t-value="doc.get_balance_amount_date(partner_id)"/>
+					<table t-if="doc.type != 'bill'" t-attf-class="table table-sm" name="days_table" style="page-break-inside: avoid;">
+						<thead>
+							<tr >
+								<th></th>
+								<th>0-30</th>
+								<th>30-60</th>
+								<th>60-90</th>
+								<th>90+</th>
+								<th>Total</th>
+							</tr>
+						</thead>
+						<tr>
+							<td></td>
+							<td><span t-esc="data_amount.get('first_thirty_day')" /></td>
+							<td><span t-esc="data_amount.get('thirty_sixty_days')" /></td>
+							<td><span t-esc="data_amount.get('sixty_ninty_days')" /></td>
+							<td><span t-esc="data_amount.get('ninty_plus_days')" /></td>
+							<td><span t-esc="data_amount.get('total')" /></td>
+						</tr>
+					</table>
+				</div>
+			</t>
+		</template>
+
+		<template id="report_statement_of_accounts">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="doc">
+					<t t-foreach="doc.partner_ids" t-as="partner_id">
+						<t t-set="lang" t-value="partner_id.sudo().lang"/>
+						<t t-call="alphabricks_statement_of_accounts.statement_of_accounts_template" t-lang="lang"/>
+					</t>
+				</t>
+			</t>
+		</template>
+
+		<record id="paper_format" model="report.paperformat">
+            <field name="name">SOA Report</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">5</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+            id="statement_of_accounts_print"
+            string="Statement of Accounts"
+            model="statement.of.accounts"
+            report_type="qweb-pdf"
+            file="alphabricks_statement_of_accounts.report_statement_of_accounts"
+            name="alphabricks_statement_of_accounts.report_statement_of_accounts"
+            attachment="('Customer_Statement.pdf')"
+			paperformat="alphabricks_statement_of_accounts.paper_format"
+			menu="False"
+        />
+
+        <record id="view_statement_of_accounts_form" model="ir.ui.view">
+            <field name="name">statement.of.accounts.form</field>
+            <field name="model">statement.of.accounts</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+							<field name="type"/>
+                            <field name="partner_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="outstanding_payment"/>
+                        </group>
+                        <group></group>
+                    </group>
+                    <footer>
+                        <button name="print_pdf" type="object" string="PDF" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_statement_of_accounts_menu" model="ir.actions.act_window">
+            <field name="name">Statement of Accounts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">statement.of.accounts</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="alphabricks_statement_of_accounts.view_statement_of_accounts_form"/>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+            <field name="binding_type">report</field>
+            <field name="binding_view_types">form,list</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="supplier_outstanding_modifier_external_layout">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+            <t t-call="wk39717700c_modifier_print.supplier_outstanding_external_layout_standard_modifier_header_logo">
+                <t t-raw="0"/>
+            </t>
+
+        </template>
+
+        <template id="supplier_outstanding_external_layout_standard_modifier_header_logo">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                <div class="row" style="width: 100%;">
+                    <div class="col-1" style="text-align: left;padding: 0px;">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 90px"
+                     alt="Logo"/>
+                    </div>
+                    <div class="col-11 text-center">
+                        <b style="font-size: 20px;">
+                            <t t-esc="company.name"/>
+                        </b><br/>
+                        <span><t t-esc="company.street"/> </span>
+                        <span> <t t-esc="company.street2"/>, <t t-esc="company.city"/> <t t-esc="company.zip"/></span><br/>
+                        <span>Email : <t t-esc="company.email"/></span>
+                        <span>Tel : <t t-esc="company.phone"/>, Fax : 67436789</span><br/>
+                        <span>GST ID NO : M8-8003615-7 , GST Reg. No : M8-8003615-7</span>
+                    </div>
+                </div>
+                <div class="row" style="width: 100%;">
+                    <div class="col-10">
+                        <b>Print Date :</b> 10/07/2023 <br/><br/>
+                    </div>
+                    <div class="col-2">
+                        <b>Page No : </b> <span class="page"/> / <span class="topage"/>
+                    </div>
+                </div>
+            </div>
+
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout">
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+        </template>
+
+        <record id="paperformat_supplier_outstanding" model="report.paperformat">
+            <field name="name">Supplier Outstanding Summary Paperformat A4 (Fit)</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">28</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">40</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <template id="wk39717700c_modifier_print.supplier_outstanding_summary_template">
+            <t t-call="web.html_container">
+                <t t-call="wk39717700c_modifier_print.supplier_outstanding_modifier_external_layout">
+                    <style>
+                        .page {
+                            font-size: 15px;
+                        }
+                        .table-product {
+                            margin-top: 30px
+                        }
+                        .table-product th {
+                            background-color: #808080;
+                        }
+                        .table-product th, .table-product td {
+                            border: 1px solid #000;
+                            padding: 0.2rem 0.2rem;
+                        }
+                    </style>
+                    <div class="page">
+                        <div style="width: 100%;font-size: 15px">
+                            <b>Supplier OutStanding Summary Report <t t-esc="header_partner"/> From <t t-esc="start_date"/> To <t t-esc="end_date"/></b>
+                        </div>
+                        <table style="width: 100%" class="table-product">
+                            <thead>
+                                <tr>
+                                    <th>Supplier Code</th>
+                                    <th>Supplier Name</th>
+                                    <th>Net Total</th>
+                                    <th>Received Amount</th>
+                                    <th>Balance Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="supplier_data" t-as="supplier">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="supplier['code']"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="supplier['name']"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="supplier['net_total']"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="supplier['received_amount']"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="supplier['balance_amount']"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td></td>
+                                    <td class="text-right">
+                                        <b>Grand Total</b>
+                                    </td>
+                                    <td class="text-right">
+                                        <b><t t-esc="total_net_total"/> </b>
+                                    </td>
+                                    <td class="text-right">
+                                        <b><t t-esc="total_received_amount"/> </b>
+                                    </td>
+                                    <td class="text-right">
+                                        <b><t t-esc="total_balance_amount"/> </b>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <report id="supplier_outstanding_summary_report"
+            string="Supplier Outstanding"
+            model="supplier.outstanding"
+            report_type="qweb-pdf"
+            name="wk39717700c_modifier_print.supplier_outstanding_summary_template"
+            file="wk39717700c_modifier_print.supplier_outstanding_summary_template"
+            paperformat="wk39717700c_modifier_print.paperformat_supplier_outstanding"
+            print_report_name="'Supplier Outstanding'"
+            menu="False"/>
+    </data>
+</odoo>

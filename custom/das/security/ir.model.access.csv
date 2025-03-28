@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pallet_type,name_pallet_type,model_pallet_type,base.group_user,1,1,1,1
+access_das_carrier,name_das_carrier,model_das_carrier,base.group_user,1,1,1,1
+access_das_carrier_type,name_das_carrier_type,model_das_carrier_type,base.group_user,1,1,1,1
+access_das_calendar_document,name_das_calendar_document,model_das_calendar_document,base.group_user,1,1,1,1
+access_das_calendar_document_type,name_das_calendar_document_type,model_das_calendar_document_type,base.group_user,1,1,1,1
+access_das_calendar_warehouse,name_das_calendar_warehouse,model_das_calendar_warehouse,base.group_user,1,1,1,1

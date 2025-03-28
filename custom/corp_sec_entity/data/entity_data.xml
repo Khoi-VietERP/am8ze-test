@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="0">
+        <record id="category_attachment_other_1" model="category.attachment.other">
+            <field name="name">Incorporation</field>
+        </record>
+        <record id="category_attachment_other_2" model="category.attachment.other">
+            <field name="name">Shares</field>
+        </record>
+        <record id="category_attachment_other_3" model="category.attachment.other">
+            <field name="name">Annual Return</field>
+        </record>
+        <record id="category_attachment_other_4" model="category.attachment.other">
+            <field name="name">Director/Officer/Shareholder</field>
+        </record>
+        <record id="category_attachment_other_5" model="category.attachment.other">
+            <field name="name">Charges</field>
+        </record>
+        <record id="category_attachment_other_6" model="category.attachment.other">
+            <field name="name">Change of Registerd address</field>
+        </record>
+        <record id="category_attachment_other_7" model="category.attachment.other">
+            <field name="name">Others</field>
+        </record>
+
+        <record id="source_new" model="entity.source">
+            <field name="name">NEW</field>
+        </record>
+        <record id="source_take_over" model="entity.source">
+            <field name="name">TAKEOVER</field>
+        </record>
+        <record id="source_existing" model="entity.source">
+            <field name="name">EXISTING</field>
+        </record>
+
+        <record id="type_exempt_private_company_limit_share" model="entity.type">
+            <field name="name">EXEMPT PRIVATE COMPANY LIMITED BY SHARES</field>
+            <field name="type">local</field>
+        </record>
+        <record id="type_private_company_limit_share" model="entity.type">
+            <field name="name">PRIVATE COMPANY LIMITED BY SHARED</field>
+            <field name="type">local</field>
+        </record>
+        <record id="type_public_company_limit_guarantee" model="entity.type">
+            <field name="name">PUBLIC COMPANY LIMITED BY GUARANTEE</field>
+            <field name="type">local</field>
+        </record>
+        <record id="type_public_company_limit_share" model="entity.type">
+            <field name="name">PUBLIC COMPANY LIMITED BY SHARES</field>
+            <field name="type">local</field>
+        </record>
+        <record id="type_unlimited_exempt_private_company" model="entity.type">
+            <field name="name">UNLIMITED EXEMPT PRIVATE COMAPANY</field>
+            <field name="type">local</field>
+        </record>
+        <record id="type_unlimited_private_company" model="entity.type">
+            <field name="name">UNLIMITED PRIVATE COMPANY</field>
+            <field name="type">local</field>
+        </record>
+        <record id="type_unlimited_public_company" model="entity.type">
+            <field name="name">UNLIMITED PUBLIC COMPANY</field>
+            <field name="type">local</field>
+        </record>
+        <record id="type_non_umbrella" model="entity.type">
+            <field name="name">NON-UMBRELLA</field>
+            <field name="type">local</field>
+        </record>
+        <record id="type_umbrella" model="entity.type">
+            <field name="name">UMBRELLA</field>
+            <field name="type">local</field>
+        </record>
+        <record id="type_sole_proprietor" model="entity.type">
+            <field name="name">SOLE PROPRIETOR</field>
+            <field name="type">partner</field>
+        </record>
+        <record id="type_partnership" model="entity.type">
+            <field name="name">PARTNERSHIP</field>
+            <field name="type">partner</field>
+        </record>
+        <record id="type_limit_partnership" model="entity.type">
+            <field name="name">LIMITED PARTNERSHIP</field>
+            <field name="type">partner</field>
+        </record>
+        <record id="type_liability_partnership" model="entity.type">
+            <field name="name">LIMITED LIABILITY PARTNERSHIP</field>
+            <field name="type">partner</field>
+        </record>
+
+        <record id="suffix_private_limit_1" model="entity.suffix">
+            <field name="name">PRIVATE LIMITED</field>
+        </record>
+        <record id="suffix_private_limit_2" model="entity.suffix">
+            <field name="name">(PRIVATE LIMITED)</field>
+        </record>
+        <record id="suffix_private_limit_3" model="entity.suffix">
+            <field name="name">(PRIVATE) LIMITED</field>
+        </record>
+        <record id="suffix_private_ltd_1" model="entity.suffix">
+            <field name="name">PRIVATE LTD.</field>
+        </record>
+        <record id="suffix_private_ltd_2" model="entity.suffix">
+            <field name="name">(PRIVATE LTD.)</field>
+        </record>
+        <record id="suffix_pte_limit" model="entity.suffix">
+            <field name="name">PTE. LIMITED</field>
+        </record>
+        <record id="suffix_pte_ltd_1" model="entity.suffix">
+            <field name="name">PTE. LTD.</field>
+        </record>
+        <record id="suffix_pte_ltd_2" model="entity.suffix">
+            <field name="name">(PTE.) LTD.</field>
+        </record>
+
+        <record id="state_in_progress" model="entity.state">
+            <field name="name">IN-PROGRESS</field>
+        </record>
+        <record id="state_active" model="entity.state">
+            <field name="name">ACTIVE</field>
+        </record>
+        <record id="state_inactive" model="entity.state">
+            <field name="name">INACTIVE</field>
+        </record>
+
+        <record id="authority_accounting_corporate_regulatory_rbc" model="competent.authority">
+            <field name="name">ACCOUNTING &amp; CORPORATE REGULATORY AUTHRITY - RCB</field>
+        </record>
+        <record id="authority_board_architects" model="competent.authority">
+            <field name="name">BOARD OF ARCHITECTS, SINGAPORE - BOA</field>
+        </record>
+        <record id="authority_council_estate" model="competent.authority">
+            <field name="name">COUNCIL FOR ESTATE AGENCIES - IRAS</field>
+        </record>
+        <record id="authority_enterprise_sg_board_cta" model="competent.authority">
+            <field name="name">ENTERPRISE SINGAPORE BOARD - CTA</field>
+        </record>
+        <record id="authority_enterprise_sg_board_rca" model="competent.authority">
+            <field name="name">ENTERPRISE SINGAPORE BOARD - RCA</field>
+        </record>
+        <record id="authority_rmajlis_ugama_islam" model="competent.authority">
+            <field name="name">RMAJLIS UGAMA ISLAM SINGAPURA - MUIS</field>
+        </record>
+        <record id="authority_ministry_culture" model="competent.authority">
+            <field name="name">MINISTRY OF CULTURE, COMMUNITY AND YOUTH - CHARITIES UNIT</field>
+        </record>
+        <record id="authority_ministry_defence" model="competent.authority">
+            <field name="name">MINISTRY OF DEFENCE - MINDEF</field>
+        </record>
+        <record id="authority_ministry_education" model="competent.authority">
+            <field name="name">MINISTRY OF EDUCATION- PRIVATE SCHOOLS SECTION - MOE</field>
+        </record>
+        <record id="authority_ministry_foreign" model="competent.authority">
+            <field name="name">MINISTRY OF FOREIGN AFFAIRS - MFA</field>
+        </record>
+        <record id="authority_minlaw" model="competent.authority">
+            <field name="name">MINLAW (LEGAL SERVICES REGULATORY AUTHORITY) - MINLAW</field>
+        </record>
+        <record id="authority_monetary_authority" model="competent.authority">
+            <field name="name">MONETARY AUTHORITY OF SINGAPORE (BANKING DEPARTMENT) - MAS_B</field>
+        </record>
+        <record id="authority_professional_engineers" model="competent.authority">
+            <field name="name">PROFESSIONAL ENGINEERS BOARD - PROFESSIONAL ENGINEERS BOARD</field>
+        </record>
+        <record id="authority_sg_tourism" model="competent.authority">
+            <field name="name">SINGAPORE TOURISM BOARD - STB</field>
+        </record>
+
+        <record id="position_representative" model="position.detail">
+            <field name="name">AUTHORISED REPRESENTATIVE</field>
+            <field name="type">individual</field>
+        </record>
+        <record id="position_owner" model="position.detail">
+            <field name="name">BENIFICIAL OWNER</field>
+            <field name="type">all</field>
+        </record>
+        <record id="position_controller" model="position.detail">
+            <field name="name">REGISTERABLE CONTROLLER</field>
+            <field name="type">all</field>
+        </record>
+        <record id="position_nominee_trustee" model="position.detail">
+            <field name="name">NOMINEE DIRECTOR</field>
+            <field name="type">all</field>
+        </record>
+        <record id="position_director" model="position.detail">
+            <field name="name">DIRECTOR</field>
+            <field name="type">individual</field>
+        </record>
+        <record id="position_secretary" model="position.detail">
+            <field name="name">SECRETARY</field>
+            <field name="type">individual</field>
+        </record>
+        <record id="position_auditor_individual" model="position.detail">
+            <field name="name">AUDITOR</field>
+            <field name="type">individual</field>
+        </record>
+        <record id="position_manage_director" model="position.detail">
+            <field name="name">MANAGE DIRECTOR</field>
+            <field name="type">individual</field>
+        </record>
+        <record id="position_shareholder" model="position.detail">
+            <field name="name">SHAREHOLDER</field>
+            <field name="type">all</field>
+        </record>
+        <record id="position_auditor_corporate" model="position.detail">
+            <field name="name">AUDITOR</field>
+            <field name="type">corporate</field>
+        </record>
+        <record id="position_other_member" model="position.detail">
+            <field name="name">OTHER MEMBER</field>
+            <field name="type">corporate</field>
+        </record>
+
+        <record id="identification_type_nric" model="identification.type">
+            <field name="name">NRIC</field>
+        </record>
+        <record id="identification_type_nric_pr" model="identification.type">
+            <field name="name">NRIC PR</field>
+        </record>
+        <record id="identification_type_fin" model="identification.type">
+            <field name="name">FIN</field>
+        </record>
+        <record id="identification_type_passport" model="identification.type">
+            <field name="name">PASSPORT</field>
+        </record>
+
+        <record id="address_type_mail" model="address.type">
+            <field name="name">MAILING ADDRESS</field>
+        </record>
+        <record id="address_type_office" model="address.type">
+            <field name="name">REGISTERED OFFICE ADDRESS</field>
+        </record>
+        <record id="address_type_member_index" model="address.type">
+            <field name="name">REGISTER OF MEMBERS AND INDEX ADDRESS</field>
+        </record>
+
+        <record id="address_lf_local" model="address.lf">
+            <field name="name">LOCAL</field>
+        </record>
+        <record id="address_lf_foreign" model="address.lf">
+            <field name="name">FOREIGN</field>
+        </record>
+
+        <record id="communications_type_email" model="communications.type">
+            <field name="name">Email</field>
+            <field name="type">required</field>
+        </record>
+        <record id="communications_type_mobile" model="communications.type">
+            <field name="name">Mobile</field>
+            <field name="type">other</field>
+        </record>
+        <record id="communications_type_phone" model="communications.type">
+            <field name="name">Phone</field>
+            <field name="type">other</field>
+        </record>
+        <record id="communications_type_fax" model="communications.type">
+            <field name="name">Fax</field>
+            <field name="type">other</field>
+        </record>
+        <record id="communications_type_work" model="communications.type">
+            <field name="name">Work</field>
+            <field name="type">other</field>
+        </record>
+        <record id="communications_type_personal" model="communications.type">
+            <field name="name">Personal</field>
+            <field name="type">other</field>
+        </record>
+        <record id="communications_type_website" model="communications.type">
+            <field name="name">Website</field>
+            <field name="type">required</field>
+        </record>
+
+        <record id="project_incorporation" model="project.project">
+            <field name="name">Incorporation</field>
+        </record>
+        <record id="project_create_entity" model="project.project">
+            <field name="name">Created Entity</field>
+        </record>
+        <record id="project_allotment" model="project.project">
+            <field name="name">Allotment</field>
+        </record>
+
+        <record id="project_type_open" model="project.task.type">
+            <field name="name">Open</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="project_type_prepared" model="project.task.type">
+            <field name="name">Prepared</field>
+            <field name="sequence">2</field>
+        </record>
+        <record id="project_type_circular" model="project.task.type">
+            <field name="name">Circular</field>
+            <field name="sequence">3</field>
+        </record>
+        <record id="project_type_sign_return" model="project.task.type">
+            <field name="name">Sign &amp; return</field>
+            <field name="sequence">4</field>
+        </record>
+        <record id="project_type_complete" model="project.task.type">
+            <field name="name">Completed</field>
+            <field name="sequence">5</field>
+        </record>
+
+        <record id="company_type_1" model="company.type">
+            <field name="name">EXEMPT PRIVATE COMPANY LIMITED BY SHARES</field>
+        </record>
+        <record id="company_type_2" model="company.type">
+            <field name="name">PRIVATE COMPANY LIMITED BY SHARED</field>
+        </record>
+        <record id="company_type_3" model="company.type">
+            <field name="name">PUBLIC COMPANY LIMITED BY GUARANTEE</field>
+        </record>
+        <record id="company_type_4" model="company.type">
+            <field name="name">PUBLIC COMPANY LIMITED BY SHARES</field>
+        </record>
+        <record id="company_type_5" model="company.type">
+            <field name="name">UNLIMITED EXEMPT PRIVATE COMAPANY</field>
+        </record>
+        <record id="company_type_6" model="company.type">
+            <field name="name">UNLIMITED PRIVATE COMPANY</field>
+        </record>
+        <record id="company_type_7" model="company.type">
+            <field name="name">UNLIMITED PUBLIC COMPANY</field>
+        </record>
+        <record id="company_type_8" model="company.type">
+            <field name="name">NON-UMBRELLA</field>
+        </record>
+        <record id="company_type_9" model="company.type">
+            <field name="name">UMBRELLA</field>
+        </record>
+
+        <record id="contact_address_type_1" model="contact.address.type">
+            <field name="name">MAILING ADDRESS</field>
+            <field name="type">individual</field>
+        </record>
+        <record id="contact_address_type_2" model="contact.address.type">
+            <field name="name">RESIDENTIAL ADDRESS</field>
+            <field name="type">individual</field>
+        </record>
+        <record id="contact_address_type_3" model="contact.address.type">
+            <field name="name">ALTERNATE ADDRESS</field>
+            <field name="type">individual</field>
+        </record>
+
+        <record id="contact_address_type_4" model="contact.address.type">
+            <field name="name">MAILING ADDRESS</field>
+            <field name="type">corporate</field>
+        </record>
+        <record id="contact_address_type_5" model="contact.address.type">
+            <field name="name">REGISTERED OFFICE ADDRESS</field>
+            <field name="type">corporate</field>
+        </record>
+        <record id="contact_address_type_6" model="contact.address.type">
+            <field name="name">REGISTER OF MEMBERS AND INDEX ADDRESS</field>
+            <field name="type">corporate</field>
+        </record>
+    </data>
+</odoo>

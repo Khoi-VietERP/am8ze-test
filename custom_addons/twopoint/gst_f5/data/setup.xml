@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!--
+    <record model="ir.cron" id="notify_gst_ir_cron">
+        <field name="name">Notify GST</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="active" eval="True"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="True"/>
+        <field name="model" eval="'res.company'"/>
+        <field name="function" eval="'notify_gst'"/>
+        <field eval="'()'" name="args"/>
+    </record>
+-->
+
+    <record model="ir.cron" id="notify_gst_ir_cron">
+        <field name="name">Notify GST Quarters Year</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="active" eval="True"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <!--<field name="nextcall" eval="DateTime.now().strftime('%Y-%m-%d') + ' 23:30:00'"/>-->
+        <field name="nextcall" eval="(datetime.utcnow() + timedelta(days=1)).strftime('%Y-%m-%d 16:30:00')" />
+        <field name="doall" eval="True"/>
+        <field name="model_id" ref="model_account_move"/>
+        <!-- <field name="function" eval="'notify_gst_quarters_year'"/>
+        <field eval="'()'" name="args"/> -->
+        <field name="code">model.notify_gst_quarters_year()</field>
+        <field name="state">code</field>
+    </record>
+
+</odoo>

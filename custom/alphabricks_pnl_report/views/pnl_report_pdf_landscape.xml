@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <template id="pnl_report_external_layout">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+            <t t-call="alphabricks_pnl_report.pnl_report_external_layout_standard_modifier_header_logo">
+                <t t-raw="0"/>
+            </t>
+
+        </template>
+
+        <template id="pnl_report_external_layout_standard_modifier_header_logo">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                <div class="span-bold text-center" style="font-size:16px; padding-top:10px">
+                    <b>
+                        PROFIT &amp; LOSS - <span t-esc="company_name"/>
+                        <br/>
+                    </b>
+                    <b>
+                        Period:
+                        <span t-esc="start_date"/>
+                        TO
+                        <span t-esc="end_date"/>
+                        <br/>
+                    </b>
+                </div>
+            </div>
+
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout">
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+        </template>
+
+        <template id="alphabricks_pnl_report.pnl_report_template_landscape">
+            <t t-call="web.html_container">
+                <t t-call="alphabricks_pnl_report.pnl_report_external_layout">
+                    <style>
+                        .page {
+                             font-size:14px
+                        }
+                    </style>
+                    <div class="page">
+                        <div style="margin-top:0px; width: 100%">
+                            <t t-if="check_cmp">
+                                <table width="100%" style="margin: auto;">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:30%"></th>
+                                            <t t-foreach="label_filter_list" t-as="lable">
+                                                <th style="text-align: center;"><t t-esc="lable"/> </th>
+                                            </t>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="lines_data" t-as="line">
+                                            <t t-if="line['type'] == 'account_type'">
+                                                <tr>
+                                                    <td>
+                                                        <b><t t-esc="line['name']"/></b>
+                                                    </td>
+                                                    <t t-foreach="balance_cmp_list" t-as="balance_cmp">
+                                                        <td class="text-right">
+                                                            <b><t t-esc="line[balance_cmp]"/></b>
+                                                        </td>
+                                                    </t>
+                                                </tr>
+                                            </t>
+                                            <t t-if="line['type'] == 'view'">
+                                                <tr>
+                                                    <td>
+                                                        <t t-foreach="line['list_len']" t-as="i">
+                                                            <span>&amp;nbsp;</span>
+                                                            <span>&amp;nbsp;</span>
+                                                        </t>
+                                                        <b><t t-esc="line['name']"/></b>
+                                                    </td>
+                                                    <td t-att-colspan="month_run"></td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="line['type'] == 'total'">
+                                                <tr>
+                                                    <td>
+                                                        <t t-foreach="line['list_len']" t-as="i">
+                                                            <span>&amp;nbsp;</span>
+                                                            <span>&amp;nbsp;</span>
+                                                        </t>
+                                                        <b><t t-esc="line['name']"/></b>
+                                                    </td>
+                                                    <t t-foreach="balance_cmp_list" t-as="balance_cmp">
+                                                        <td class="text-right">
+                                                            <b><t t-esc="line[balance_cmp]"/></b>
+                                                        </td>
+                                                    </t>
+                                                </tr>
+                                            </t>
+                                            <t t-if="line['type'] == 'line'">
+                                                <tr>
+                                                    <td>
+                                                        <t t-foreach="line['list_len']" t-as="i">
+                                                            <span>&amp;nbsp;</span>
+                                                            <span>&amp;nbsp;</span>
+                                                        </t>
+                                                        <t t-esc="line['name']"/>
+                                                    </td>
+                                                    <t t-foreach="balance_cmp_list" t-as="balance_cmp">
+                                                        <td class="text-right">
+                                                            <b><t t-esc="line[balance_cmp]"/></b>
+                                                        </td>
+                                                    </t>
+                                                </tr>
+                                            </t>
+                                            <t t-if="line['type'] == 'total_account_type'">
+                                                <tr style="border-top: 1px solid black;border-bottom: 1px double black">
+                                                    <td>
+                                                        <b><t t-esc="line['name']"/></b>
+                                                    </td>
+                                                    <t t-foreach="balance_cmp_list" t-as="balance_cmp">
+                                                        <td class="text-right">
+                                                            <b><t t-esc="line[balance_cmp]"/></b>
+                                                        </td>
+                                                    </t>
+                                                </tr>
+                                            </t>
+                                            <t t-if="line['type'] == 'space'">
+                                                <tr>
+                                                    <td t-att-colspan="month_run + 1" style="height: 10px"/>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </t>
+                            <t t-else="">
+                                <table width="80%" style="margin: auto;">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:70%"></th>
+                                            <th style="width:30%"  class="text-right"><b>Amount</b></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="lines_data" t-as="line">
+                                            <t t-if="line['type'] == 'account_type'">
+                                                <tr>
+                                                    <td>
+                                                        <b><t t-esc="line['name']"/></b>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <b><t t-esc="line['balance']"/></b>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="line['type'] == 'view'">
+                                                <tr>
+                                                    <td>
+                                                        <t t-foreach="line['list_len']" t-as="i">
+                                                            <span>&amp;nbsp;</span>
+                                                            <span>&amp;nbsp;</span>
+                                                        </t>
+                                                        <b><t t-esc="line['name']"/></b>
+                                                    </td>
+                                                    <td class="text-right">
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="line['type'] == 'total'">
+                                                <tr>
+                                                    <td>
+                                                        <t t-foreach="line['list_len']" t-as="i">
+                                                            <span>&amp;nbsp;</span>
+                                                            <span>&amp;nbsp;</span>
+                                                        </t>
+                                                        <b><t t-esc="line['name']"/></b>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <b><t t-esc="line['balance']"/></b>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="line['type'] == 'line'">
+                                                <tr>
+                                                    <td>
+                                                        <t t-foreach="line['list_len']" t-as="i">
+                                                            <span>&amp;nbsp;</span>
+                                                            <span>&amp;nbsp;</span>
+                                                        </t>
+                                                        <t t-esc="line['name']"/>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <t t-esc="line['balance']"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="line['type'] == 'total_account_type'">
+                                                <tr style="border-top: 1px solid black;border-bottom: 1px double black">
+                                                    <td>
+                                                        <b><t t-esc="line['name']"/></b>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <b><t t-esc="line['balance']"/></b>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="line['type'] == 'space'">
+                                                <tr>
+                                                    <td colspan="2" style="height: 10px"/>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <report id="pnl_report_pdf_landscape"
+                string="Profit and Loss (Landscape)"
+                model="pnl.report"
+                report_type="qweb-pdf"
+                name="alphabricks_pnl_report.pnl_report_template_landscape"
+                file="alphabricks_pnl_report.pnl_report_template_landscape"
+                menu="False"/>
+
+        <record id="paperformat_pnl_report_landscape" model="report.paperformat">
+            <field name="name">A4 Landscape</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">28</field>
+            <field name="margin_left">4</field>
+            <field name="margin_right">4</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">17</field>
+            <field name="dpi">91</field>
+            <field name="report_ids" eval="[(6, 0, [ref('alphabricks_pnl_report.pnl_report_pdf_landscape')])]"/>
+        </record>
+
+    </data>
+</odoo>

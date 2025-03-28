@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    assets-->
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_fixed_assets').id]"/>
+        <record id="account.data_account_type_fixed_assets" model="account.account.type">
+            <field name="sequence">0</field>
+        </record>
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_fixed_assets').id]"/>
+
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_prepayments').id]"/>
+        <record id="account.data_account_type_prepayments" model="account.account.type">
+            <field name="sequence">2</field>
+        </record>
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_prepayments').id]"/>
+
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_non_current_assets').id]"/>
+        <record id="account.data_account_type_non_current_assets" model="account.account.type">
+            <field name="sequence">4</field>
+        </record>
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_non_current_assets').id]"/>
+
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_current_assets').id]"/>
+        <record id="account.data_account_type_current_assets" model="account.account.type">
+            <field name="sequence">6</field>
+        </record>
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_current_assets').id]"/>
+
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_liquidity').id]"/>
+        <record id="account.data_account_type_liquidity" model="account.account.type">
+            <field name="sequence">8</field>
+        </record>
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_liquidity').id]"/>
+
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_receivable').id]"/>
+        <record id="account.data_account_type_receivable" model="account.account.type">
+            <field name="sequence">10</field>
+        </record>
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_receivable').id]"/>
+
+<!--    liability-->
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_non_current_liabilities').id]"/>
+        <record id="account.data_account_type_non_current_liabilities" model="account.account.type">
+            <field name="sequence">0</field>
+        </record>
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_non_current_liabilities').id]"/>
+
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_current_liabilities').id]"/>
+        <record id="account.data_account_type_current_liabilities" model="account.account.type">
+            <field name="sequence">2</field>
+        </record>
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_current_liabilities').id]"/>
+
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_credit_card').id]"/>
+        <record id="account.data_account_type_credit_card" model="account.account.type">
+            <field name="sequence">4</field>
+        </record>
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_credit_card').id]"/>
+
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_payable').id]"/>
+        <record id="account.data_account_type_payable" model="account.account.type">
+            <field name="sequence">6</field>
+        </record>
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_payable').id]"/>
+
+
+
+<!--    equity-->
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_equity').id]"/>
+        <record id="account.data_account_type_equity" model="account.account.type">
+            <field name="sequence">2</field>
+        </record>
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_equity').id]"/>
+
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_unaffected_earnings').id]"/>
+        <record id="account.data_unaffected_earnings" model="account.account.type">
+            <field name="sequence">0</field>
+        </record>
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_unaffected_earnings').id]"/>
+
+<!--    income-->
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_other_income').id]"/>
+        <record id="account.data_account_type_other_income" model="account.account.type">
+            <field name="sequence">0</field>
+        </record>
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_other_income').id]"/>
+
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_revenue').id]"/>
+        <record id="account.data_account_type_revenue" model="account.account.type">
+            <field name="sequence">2</field>
+        </record>
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_revenue').id]"/>
+
+    <!--    Expenses-->
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_expenses').id]"/>
+        <record id="account.data_account_type_expenses" model="account.account.type">
+            <field name="sequence">6</field>
+        </record>
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_expenses').id]"/>
+
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_depreciation').id]"/>
+        <record id="account.data_account_type_depreciation" model="account.account.type">
+            <field name="sequence">4</field>
+        </record>
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_depreciation').id]"/>
+
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_direct_costs').id]"/>
+        <record id="account.data_account_type_direct_costs" model="account.account.type">
+            <field name="sequence">2</field>
+        </record>
+    <function model="ir.model.data" name="toggle_noupdate" eval="['account.account.type', obj().env.ref('account.data_account_type_direct_costs').id]"/>
+
+    <!--Other Expense-->
+    <function model="account.account.type" name="update_account_type_sequence"/>
+
+</odoo>

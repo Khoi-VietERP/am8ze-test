@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.crm</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="5"/>
+        <field name="inherit_id" ref="crm.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@data-key='crm']" position="inside">
+                <h2>Commission</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box" title="DAA commission">
+                        <div class="o_setting_left_pane"></div>
+                        <div class="o_setting_right_pane">
+                            <div class="mt16">
+                                Sale Commission (%):<br/>
+                                <field name="sale_commission"/>
+                            </div>
+                            <div class="mt16">
+                                Field Collectors Commission (%):<br/>
+                                <field name="field_collector_commission"/>
+                            </div>
+                            <div class="mt16">
+                                Credit Officers Commission (%):<br/>
+                                <field name="credit_officer_commission"/>
+                            </div>
+                            <!--<div class="mt16">-->
+                                <!--Visitation Fees:<br/>-->
+                                <!--<field name="visitation_fee"/>-->
+                            <!--</div>-->
+                            <!--<div class="mt16">-->
+                                <!--Annual Fees:<br/>-->
+                                <!--<field name="annual_fee"/>-->
+                            <!--</div>-->
+                            <!--<div class="mt16">-->
+                                <!--Misc Fees:<br/>-->
+                                <!--<field name="misc_fee"/>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

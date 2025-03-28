@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pragtech_social_account,pragtech.social.account,model_pragtech_social_account,,1,1,1,1
+access_pragtech_social_media,pragtech.social.media,model_pragtech_social_media,,1,1,1,1
+access_pragtech_social_stream,pragtech.social.stream,model_pragtech_social_stream,,1,1,1,1
+access_pragtech_social_stream_post,pragtech.social.stream.post,model_pragtech_social_stream_post,,1,1,1,1
+access_pragtech_social_stream_post_image,pragtech.social.stream.post.image,model_pragtech_social_stream_post_image,,1,1,1,1
+access_pragtech_social_post,access_pragtech_social_post,model_pragtech_social_post,base.group_user,1,1,1,1

@@ -1,0 +1,205 @@
+.form-inline .form-control {
+  display: inline-block;
+  width: 250px;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+.blanket_address_checkout,
+#cart_products_summary,
+#cart_lines_checkout {
+  display: none;
+  .cart_products_summary_line {
+    display: none;
+  }
+}
+
+.progress-wizard-step {
+  cursor: pointer;
+}
+
+.blanket_confirm {
+  display: block
+}
+
+.enterprise_sale_10 {
+  #cart_products_summary,
+  .blanket_order_select,
+  .cart_summary_title {
+    display: block;
+  }
+  .blanket_payment,
+  .blanket_confirm,
+  .blanket_address_checkout {
+    display: none;
+  }
+}
+
+.enterprise_sale_20 {
+  .blanket_order_select,
+  .blanket_payment,
+  .blanket_confirm,
+  .cart_summary_title {
+    display: none;
+  }
+  #cart_products_summary,
+  .blanket_address_checkout {
+    display: block;
+  }
+  .cart_summary_body {
+    padding: 0;
+  }
+  .cart_summary_body {
+    .checkout {
+      display: none !important;
+    }
+  }
+}
+
+.enterprise_sale_40 {
+  .blanket_order_select,
+  .blanket_address_checkout,
+  .blanket_confirm,
+  .cart_summary_title {
+    display: none;
+  }
+  #cart_products_summary,
+  .blanket_payment {
+    display: block;
+  }
+  .cart_summary_body {
+    padding: 0;
+  }
+  .cart_summary_body {
+    .checkout {
+      display: none !important;
+    }
+  }
+}
+
+.blanket_confirm_page {
+  .cart_summary_body {
+    padding: 0;
+  }
+  .cart_summary_title {
+    display: none;
+  }
+  #cart_products_summary {
+    display: block;
+  }
+}
+
+.one_kanban {
+  padding: 15px;
+}
+
+.button-group-payment {
+  padding: 15px 0;
+}
+
+#shipping_and_billing {
+  .payment-back {
+    color: #00A09D;
+    background-color: transparent;
+    cursor: pointer;
+  }
+}
+
+.enterprise-sale-search-name {
+  display: none;
+  text-transform: lowercase;
+}
+
+//.prev-steps {
+//    display: none;
+//}
+
+.card {
+  margin-top: -80px;
+}
+
+.floting_btn_cl_main {
+  display: none;
+
+}
+
+.floting_btn_cl_main img {
+  width: 29px;
+  padding-top: 9px;
+  padding-left: 0px;
+  margin-left: 7px;
+  margin-top: 3px;
+}
+
+@media(max-width: 768px) {
+  .card {
+    margin-top: 0px;
+    display: block;
+  }
+
+  .floting_btn_cl_main {
+    display: block;
+    cursor: pointer;
+  }
+
+  .pos_cart_qr_code {
+    background: white;
+    border: 2px solid;
+    height: 54px;
+    display: block;
+    width: 54px;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 34px;
+    right: 4px;
+    z-index: 1000;
+  }
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 100%;
+  background-color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  z-index: 1;
+  display: block;
+  position: fixed;
+  top: 100px;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.disabledpointer {
+  pointer-events: none;
+}
+.disabledoverflow {
+  height: 100%;
+  overflow: hidden;
+}

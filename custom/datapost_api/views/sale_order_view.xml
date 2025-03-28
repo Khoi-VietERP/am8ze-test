@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+        <record id="view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="payment_term_id" position="after">
+                    <field name="peppol_document_no" invisible="0"/>
+                    <field name="peppol_order_reference" invisible="0"/>
+                    <field name="peppol_buyer_reference" invisible="0"/>
+                </field>
+                <xpath expr="//header" position="inside">
+                    <button name="action_send_datapost_response" string="Response InvoiceNow" type="object"
+                     attrs="{'invisible' : [('peppol_document_no', '=',False)]}"/>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button class="oe_stat_button" name="action_view_datapost_response" type="object" icon="fa-book"
+                     attrs="{'invisible' : [('peppol_document_no', '=',False)]}">
+                        <field name="datapost_response_count" widget="statinfo" string="Datapost Response"/>
+                    </button>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="before">
+                    <field name="line_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

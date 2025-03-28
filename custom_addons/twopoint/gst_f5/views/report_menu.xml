@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <!-- GST F8 Report Menu -->
+        <report id="gst_form8_report"
+                string="GST Form 8 Qweb"
+                model="account.gstreturn"
+                report_type="qweb-pdf"
+                name="gst_f5.gst_return_report_f8"
+                file="gst_f5.gst_return_report_f8"
+                menu="False"/>
+        <!-- # Commented by Rashik -->
+        <!-- GST F8 Report Paper Format -->
+       <!--  <record id="gst_form8_report" model="ir.actions.report">
+            <field name="paperformat_id" ref="sg_account_report.gst_form5_tax_report_paperformat"/>
+        </record> -->
+
+        <!-- GST Form F5 (with transactions) Report Menu -->
+        <report id="gst_form5_transactions_report"
+                string="GST Form F5 (with transactions)"
+                model="account.gstf5.trans"
+                report_type="qweb-pdf"
+                name="gst_f5.gst_return_report_f5_trans"
+                file="gst_f5.gst_return_report_f5_trans"
+                menu="False"/>
+        <!-- # Commented by Rashik -->
+        <!-- GST F5 Report Paper Format -->
+        <!-- <record id="gst_form5_transactions_report" model="ir.actions.report">
+            <field name="paperformat_id" ref="sg_account_report.gst_form5_transaction_tax_report_paperformat"/>
+        </record> -->
+
+    </data>
+</odoo>

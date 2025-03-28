@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <template id="report_product_foc_layout">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+            <t t-call="wk39717700c_modifier_report.external_layout_report_product_foc_header_logo">
+                <t t-raw="0"/>
+            </t>
+
+        </template>
+
+        <template id="external_layout_report_product_foc_header_logo">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                <div class="row" style="width: 100%;">
+                    <div class="col-1">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 100px;"
+                                 alt="Logo"/>
+                    </div>
+                    <div class="col-11 text-center" style="font-size: 15px">
+                        <b style="font-size: 20px;">
+                            <t t-esc="company.name"/>
+                        </b><br/>
+                        <span><t t-esc="company.street"/> </span><br/>
+                        <span> <t t-esc="company.street2"/>, <t t-esc="company.city"/> <t t-esc="company.zip"/></span><br/>
+                        <span>Email : <t t-esc="company.email"/></span>
+                        <span>Tel : <t t-esc="company.phone"/>, Fax : 67436789</span><br/>
+                        <span>GST ID NO : M8-8003615-7 , GST Reg. No : M8-8003615-7</span>
+                    </div>
+                </div>
+                <div class="row" style="width: 100%;">
+                    <div class="col-10">
+                        <span>
+                            <strong>Print Date: </strong>
+                            <t t-esc="date"/>
+                        </span>
+                    </div>
+                     <div class="col-2">
+                        <span>
+                            <strong>Page no: </strong>
+                            <span class="page"/> / <span class="topage"/>
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <strong>Invoice Summary by FOC Product Report From
+                        <t t-esc="start_date"/>
+                        To <t t-esc="end_date"/></strong>
+                </div>
+            </div>
+
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+                 t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                 t-att-data-oe-lang="o and o.env.context.get('lang')"
+            >
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+        </template>
+
+        <template id="report_product_foc_template">
+            <t t-call="web.html_container">
+                <t t-call="wk39717700c_modifier_report.report_product_foc_layout">
+                    <div class="page">
+                        <table class="table table-bordered" style="width: 100%;">
+                            <thead>
+                                <tr style="background:#c0c0c0">
+                                    <th style="border-color:black;text-align:left">Invoice No</th>
+                                    <th style="border-color:black;text-align:left">Product Code</th>
+                                    <th style="border-color:black;text-align:left">Product Name</th>
+                                    <th style="border-color:black;text-align:center">PcsPerCarton</th>
+                                    <th style="border-color:black;text-align:right">Total</th>
+                                    <th style="border-color:black;text-align:right">Foc Qty</th>
+                                    <th style="border-color:black;text-align:right">Price</th>
+                                    <th style="border-color:black;text-align:right">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="product_data" t-as="product_line">
+                                    <t t-foreach="product_line.get('data')" t-as="line">
+                                        <tr>
+                                            <td style="text-align:left">
+                                                <t t-esc="line.get('invoice_name')"/>
+                                            </td>
+                                            <td style="text-align:left">
+                                                <t t-esc="product_line.get('product_code')"/>
+                                            </td>
+                                            <td style="text-align:left">
+                                                <t t-esc="product_line.get('product_name')"/>
+                                            </td>
+                                            <td style="text-align:center">
+                                                <t t-esc="line.get('pcspercarton')"/>
+                                            </td>
+                                            <td style="text-align:right">
+                                                <t t-esc="line.get('total')"/>
+                                            </td>
+                                            <td style="text-align:right">
+                                                <t t-esc="line.get('foc_qty')"/>
+                                            </td>
+                                            <td style="text-align:right">
+                                                <t t-esc="line.get('price')"/>
+                                            </td>
+                                            <td style="text-align:right">
+                                                <t t-esc="line.get('amount')"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <template id="wk39717700c_modifier_report.report_product_foc">
+            <t t-call="web.html_container">
+                <t t-call="wk39717700c_modifier_report.report_product_foc_template"/>
+            </t>
+        </template>
+        <record id="paper_format_report_product_foc" model="report.paperformat">
+            <field name="name">Products FOC Report</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">28</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">45</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+                id="report_product_foc_id"
+                string="Products FOC Report"
+                model="product.foc.report"
+                report_type="qweb-pdf"
+                file="wk39717700c_modifier_report.report_product_foc"
+                name="wk39717700c_modifier_report.report_product_foc"
+                print_report_name="'Products FOC Report'"
+                paperformat="wk39717700c_modifier_report.paper_format_report_product_foc"
+                menu="False"
+        />
+    </data>
+</odoo>

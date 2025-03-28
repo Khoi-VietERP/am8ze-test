@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="exemption_accounting_standards_form" model="ir.ui.view">
+            <field name="name">exemption.accounting.standards.form</field>
+            <field name="model">exemption.accounting.standards</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Entity Information">
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <group class="vertical-align-top" col="2" string="Application Details">
+                                <div>
+                                    <label for="financial_year_end_date" style="font-weight: bold;"/><br/>
+                                    <field name="financial_year_end_date" style="width: 50%;" readonly="1" class="color-text-ff8d06"/>
+                                </div>
+                                <div>
+                                    <label for="email_address" style="font-weight: bold;"/><br/>
+                                    <field name="email_address" style="width: 50%;" readonly="1" class="color-text-ff8d06"/>
+                                </div>
+                                <div>
+                                    <span style="font-weight: bold;">Note:</span><br/>
+                                    <span>
+                                        Please check to ensure that the financial year end date populated above is correct. In the event that the
+                                        financial year end date is wrong, you can change the financial year end date via Bizfile <span class="color-text-ff8d06">
+                                        "Annual Filing => Notification for change of Financial Year"</span> before submitting your application for relief under
+                                        Section 201(12).
+                                    </span><br/>
+                                </div>
+                                <div style="vertical-align: top;">
+                                    <span style="font-weight: bold;">Note:</span><br/>
+                                    <span>
+                                        Please note that if the email address is not correct, please update it through "Change in particulars" transaction
+                                    </span>
+                                </div>
+                                <div>
+                                    <label for="attachment_of_letter" style="font-weight: bold;"/><br/>
+                                    <field name="attachment_of_letter" style="width: 50%;" />
+                                </div>
+                                <div/>
+                                <div>
+                                    <span style="font-weight: bold;">Note:</span><br/>
+                                    <span>
+                                        Please refer to the latest relevant ACRA's Pratice Direction which sets out the information we require to
+                                        process the application
+                                    </span>
+                                </div>
+                            </group>
+                            <separator string="Declaration"/>
+                            <div>
+                                <field name="declaration_check"/>
+                                <label for="declaration_check" style="display: contents;font-weight: normal"/>
+                            </div>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

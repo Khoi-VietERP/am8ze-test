@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+        <record id="view_company_form_invisible_inherit" model="ir.ui.view">
+            <field name="name">company.form.inherit</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="sg_income_tax_report.view_company_form_inherit"/>
+            <field name="arch" type="xml">
+                <field name="organization_id_no" position="attributes">
+                    <attribute name="required">0</attribute>
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="res_company_form_invisible_inherited" model="ir.ui.view">
+            <field name="name">company.form.inherit</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="l10n_sg_hr_payroll.res_company_form_inherited"/>
+            <field name="arch" type="xml">
+                <field name="company_code" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="sg_ir21_view_company_form_invisible_inherit" model="ir.ui.view">
+            <field name="name">company.form.inherit</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="sg_ir21.view_company_form_inherit"/>
+            <field name="arch" type="xml">
+                <field name="house_no" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="unit_no" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

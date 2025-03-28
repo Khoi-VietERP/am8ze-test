@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record id="view_expiry_date" model="res.groups">
+            <field name="name">View expiry date</field>
+            <!--<field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>-->
+        </record>
+    </data>
+
+</odoo>

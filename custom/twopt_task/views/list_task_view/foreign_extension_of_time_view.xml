@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="foreign_extension_of_time_form" model="ir.ui.view">
+            <field name="name">foreign.extension.of.time.form</field>
+            <field name="model">foreign.extension.of.time</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <group col="2">
+                                <div>
+                                    <label for="date_of_creation" style="font-weight: bold;"/><br/>
+                                    <field name="date_of_creation" style="width: 30%;"/>
+                                </div>
+                                <div>
+                                    <span style="font-weight: bold;">
+                                        Extended Date
+                                    </span><br/>
+                                </div>
+                                <div>
+                                    <label for="place_made_executed" style="font-weight: bold;"/><br/>
+                                    <field name="place_made_executed" class="color-text-ff8d06" readonly="1"/>
+                                </div>
+                                <div>
+                                    <label for="country_id" style="font-weight: bold;"/><br/>
+                                    <field name="country_id" style="width: 50%;"/>
+                                </div>
+                                <div>
+                                    <label for="reason_for_extension" style="font-weight: bold;"/><br/>
+                                    <field name="reason_for_extension" style="width: 50%;"/>
+                                </div>
+                            </group>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

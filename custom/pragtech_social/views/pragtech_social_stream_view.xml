@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+    <record id="pragtech_social_stream_view_form" model="ir.ui.view">
+        <field name="name">pragtech.social.stream.view.form</field>
+        <field name="model">pragtech.social.stream</field>
+        <field name="arch" type="xml">
+            <form string="Pragtech Linked Page">
+                <header>
+                    <button name="get_fetch_social_stream_data"  string="Get Feed Data" type="object" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                    <group name="pragtech_social_stream" col="4">
+                        <field name="stream_name"/>
+                        <field name="stream_media_id" />
+                        <field name="stream_account_id" widget="radio" />
+                        <field name="active" invisible="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="pragtech_social_stream_tree" model="ir.ui.view">
+        <field name="name">pragtech.social.stream.view.tree</field>
+        <field name="model">pragtech.social.stream</field>
+        <field name="arch" type="xml">
+            <tree create="0">
+                <field name="stream_name" />
+                <field name="stream_media_id" />
+                <field name="stream_account_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_pragtech_social_stream" model="ir.actions.act_window">
+        <field name="name">Linked Pages</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pragtech.social.stream</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="social_dashboard_social_stream"
+        parent="pragtech_social.pragtech_social_configuration"
+        name="Linked Pages"
+        action="action_pragtech_social_stream"
+        sequence="20" />
+
+</data>
+</odoo>

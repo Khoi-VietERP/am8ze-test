@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="TempAgeingSummaryReport">
+        <div class="py-main-container">
+            <div class="py-filter-container">
+                <div class="py-control-panel">
+                </div>
+            </div>
+            <div class="py-data-container">
+                <div class="py-data-container-orig">
+                </div>
+                <div id="loader">
+                    <div id="top"></div>
+                    <div id="bottom"></div>
+                    <div id="line"></div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="FilterAgeingSummaryReport">
+        <div class="py-control-div">
+            <div class="py-cntrl-left">
+                <div class="py-ctrl-buttons">
+                    <button type="button" class="btn py-btn-primary" id="pdf" action="print_pdf" style="position: relative;">Print (Pdf)</button>
+                </div>
+            </div>
+            <div class="py_cntrl_right">
+                <div class="py-search-buttons">
+                    <button type="button" id="filter_apply_button" class="btn py-btn-secondary" action="apply_filter" style="position: relative;">Apply</button>
+                    <div class="py-search-btn-date">
+                        <a type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="fa fa-calendar" title="Dates" role="img" aria-label="Dates"></span>
+                        Custom
+                        </a>
+                        <div class="dropdown-menu py-filters-menu" role="menu">
+                            <div role="separator" class="dropdown-divider"></div>
+                            <span role="menuitem" class="dropdown-item" data-filter="custom_filter_date">Custom</span>
+                            <div class="o_foldable_menu o_account_report_search" data-filter="custom_filter_date">
+                                <label class="custom-date" for="closed_date">Close Date :</label>
+                                <div class="form-group custom-date">
+                                    <div class="o_datepicker" aria-atomic="true" id="datepicker10" data-target-input="nearest">
+                                        <input type="date" id="closed_date"></input>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="separator" class="dropdown-divider"></div>
+                        </div>
+                    </div>
+                    <div class="py-search-extra">
+                        <a type="button" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="fa fa-filter"></span>
+                            Customer Range
+                        </a>
+                        <select class="dropdown-menu py-filters-menu customer-multiple" name="states[]" multiple="multiple">
+                            <t t-foreach="get_info['customer_list']" t-as="customer">
+                                <option t-attf-value="{{customer[0]}}"><t t-esc="customer[1]"/></option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="py-search-users">
+                        <a type="button" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="fa fa-book"></span>
+                            Salesman:
+                        </a>
+                        <select class="dropdown-menu py-filters-menu user-multiple" name="states[]" multiple="multiple">
+                            <t t-foreach="get_info['users']" t-as="user">
+                                <option t-attf-value="{{user[0]}}"><t t-esc="user[1]"/></option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="py-search-users">
+                        <a type="button" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="fa fa-book"></span>
+                            Terms:
+                        </a>
+                        <select class="dropdown-menu py-filters-menu term-multiple" name="states[]" multiple="multiple">
+                            <t t-foreach="get_info['terms']" t-as="term">
+                                <option t-attf-value="{{term[0]}}"><t t-esc="term[1]"/></option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="py-search-extra">
+                        <a type="button" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="fa fa-filter"></span>
+                            Options:
+                        </a>
+                        <select class="dropdown-menu py-filters-menu extra-multiple" name="states[]"
+                                multiple="multiple">
+                            <option value="hide_line">Hide line not have value</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="TempAgeingSummaryReportMain">
+        <style>
+            .table-product {
+                margin-top: 30px
+            }
+            .table-product th {
+                border-top: 1px solid #000;
+                border-bottom: 1px solid #000;
+                padding: 0.2rem 0rem;
+            }
+        </style>
+        <br/>
+        <div style="font-size:13px;text-align: center;border-bottom: 1px solid #6c757d;margin-top: 5px;">
+            <t t-if="get_info">
+                <div class="row" style="width: 50%; margin: auto;">
+                    <div class="col-9 text-left" style="font-size: 15px">
+                        <b style="font-size: 20px;">
+                            <t t-esc="get_info['company_name']"/> <t t-esc="get_info['company_china_character']"/>
+                        </b><br/>
+                        <span>Summarised Customers Ageing Listing - By Customer Code(Calculated By Months)</span><br/>
+                        <span>Closed Date: <t t-esc="get_info['closed_date']"/></span><br/>
+                        <span>Customer Range: <t t-esc="get_info['customer_range']"/> </span><br/>
+                        <span>AccountNo/Name:</span><br/>
+                    </div>
+                    <div class="col-3" style="text-align: left">
+                        <br/>
+                        <br/>
+                        <b>Date : </b><t t-esc="get_info['date_now']"/><br/>
+                        <br/>
+                        <b>Salesman : </b><t t-esc="get_info['salesman']"/><br/>
+                        <b>Terms : </b><t t-esc="get_info['term_range']"/><br/>
+                    </div>
+                </div>
+            </t>
+        </div>
+        <div>
+            <t t-if="get_info">
+                <table style="width: 100%" class="table-product">
+                    <thead>
+                        <tr>
+                            <th style="width: 28%">Customer Code/Name<br/>Month</th>
+                            <th style="width: 15%" class="text-right">Total Amt</th>
+                            <th style="width: 7%" class="text-center">Curr</th>
+                            <t t-foreach="get_info['header_list']" t-as="header">
+                                <th style="width: 10%" class="text-right"><t t-esc="header"/> </th>
+                            </t>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="check_term" t-value="False"/>
+                        <t t-foreach="get_info['customer_data']" t-as="customer">
+                            <t t-if="check_term != customer['terms']">
+                                <t t-set="check_term" t-value="customer['terms']"/>
+                                <tr style="background-color:rgb(230, 230, 230); cursor: pointer">
+                                    <td colspan="8" class="term-parent" t-att-data-term="customer['term_code']">
+                                        <strong>Term <t t-esc="customer['terms']"/>:</strong>
+                                        <i class="fa fa-caret-down" role="img" aria-label="Unfolded" title="Unfolded"></i>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr t-att-class="customer['term_code']">
+                                <td colspan="8"><u>
+                                    [ <t t-esc="customer['customer_code']"/> ] <t t-esc="customer['customer_name']"/>
+                                </u></td>
+                            </tr>
+                            <tr t-att-class="customer['term_code']">
+                                <td colspan="8">
+                                    Tel: <t t-esc="customer['phone']"/> Fax: <t t-esc="customer['fax']"/>
+                                    Contact: <t t-esc="customer['contact']"/> Terms: <t t-esc="customer['terms']"/>
+                                </td>
+                            </tr>
+                            <tr t-att-class="customer['term_code']">
+                                <td></td>
+                                <td class="text-right">
+                                    <t t-esc="customer['total']"/>
+                                </td>
+                                <td class="text-center">
+                                    <t t-esc="customer['currency']"/>
+                                </td>
+                                <td class="text-right">
+                                    <t t-esc="customer['month_5']"/>
+                                </td>
+                                <td class="text-right">
+                                    <t t-esc="customer['month_4']"/>
+                                </td>
+                                <td class="text-right">
+                                    <t t-esc="customer['month_3']"/>
+                                </td>
+                                <td class="text-right">
+                                    <t t-esc="customer['month_2']"/>
+                                </td>
+                                <td class="text-right">
+                                    <t t-esc="customer['month_1']"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="text-right">
+                                <b>Grand Total :</b>
+                            </td>
+                            <td class="text-right">
+                                <b><t t-esc="get_info['total_total']"/> </b>
+                            </td>
+                            <td></td>
+                            <td class="text-right">
+                                <b><t t-esc="get_info['total_month5']"/> </b>
+                            </td>
+                            <td class="text-right">
+                                <b><t t-esc="get_info['total_month4']"/> </b>
+                            </td>
+                            <td class="text-right">
+                                <b><t t-esc="get_info['total_month3']"/> </b>
+                            </td>
+                            <td class="text-right">
+                                <b><t t-esc="get_info['total_month2']"/> </b>
+                            </td>
+                            <td class="text-right">
+                                <b><t t-esc="get_info['total_month1']"/> </b>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </t>
+        </div>
+    </t>
+</templates>

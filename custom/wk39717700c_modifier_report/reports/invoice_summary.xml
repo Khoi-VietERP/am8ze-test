@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="paperformat_invoice_summary" model="report.paperformat">
+            <field name="name">Invoice Summary A4</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">5</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+            id="invoice_summary_report"
+            model="report.invoice.summary"
+            string="Invoice - Summary"
+            report_type="qweb-pdf"
+            name="wk39717700c_modifier_report.report_invoice_summary"
+            file="wk39717700c_modifier_report.report_invoice_summary"
+            paperformat="wk39717700c_modifier_report.paperformat_invoice_summary"
+            />
+
+        <template id="wk39717700c_invoice_summary_layout">
+            <div class="header"></div>
+            <div class="article" t-att-data-oe-model="o and docs[0]._name" t-att-data-oe-id="o and docs[0].id" t-att-data-oe-lang="o and docs[0].env.context.get('lang')">
+                <t t-raw="0"/>
+            </div>
+        </template>
+
+        <template id="report_invoice_summary">
+            <t t-call="web.html_container">
+                <t t-call="wk39717700c_modifier_report.wk39717700c_invoice_summary_layout">
+                    <t t-set="company" t-value="res_company"/>
+                    <div class="page">
+                        <div class="row" id="company">
+                            <div name="company_address" style="font-size:14px;width:100%">
+                                <ul class="list-unstyled">
+                                    <strong>
+                                        <li t-if="company.name">
+                                            <h3 t-field="company.name"/>
+                                        </li>
+                                    </strong>
+                                    <li>
+<!--                                        <span t-field="company.house_no"/>-->
+<!--                                        <span t-field="company.unit_no"/>-->
+<!--                                        <br/>-->
+                                        <span t-field="company.street"/>
+                                        <br/>
+                                    </li>
+                                    <li>
+                                        Email: <span t-field="company.email"/>
+                                    </li>
+                                    <li>
+                                        Tel: <span class="o_force_ltr" style="margin-right:10px" t-field="company.phone"/>
+                                        Fax: <span class="o_force_ltr" t-field="company.phone"/>
+                                    </li>
+                                    <li>
+                                        Co Reg No: <span class="o_force_ltr" style="margin-right:10px" t-field="company.phone"/>
+                                        GST Reg. No: <span class="o_force_ltr" t-field="company.phone"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="row" id="header_id" style="margin-top: 20px">
+                            <div style="font-size:14px;width:70%">
+                                <ul class="list-unstyled">
+                                    <li>
+                                        Print Date: <span class="o_force_ltr" t-esc="date"/>
+                                    </li>
+                                    <li>
+                                        Invoice Summary Report From <span class="o_force_ltr" t-esc="start_date"/> To <span class="o_force_ltr" t-esc="end_date"/>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div style="font-size:14px;width:30%">
+                                <ul class="list-unstyled">
+                                    <li>
+                                        Page no:
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <table class="table" style="margin-top: 20px">
+                            <thead>
+                                <tr>
+                                    <th class="text-left"><strong>Invoice No</strong></th>
+                                    <th class="text-left"><strong>Date</strong></th>
+                                    <th class="text-right"><strong>Customer Name</strong></th>
+                                    <th class="text-right"><strong>Total</strong></th>
+                                    <th class="text-right"><strong>Disc</strong></th>
+                                    <th class="text-right"><strong>Sub Total</strong></th>
+                                    <th class="text-right"><strong>Tax</strong></th>
+                                    <th class="text-right"><strong>Net Total</strong></th>
+                                    <th class="text-right"><strong>Create User</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="data" t-as="line">
+                                    <td><span t-esc="line['invoice_no']"/></td>
+                                    <td><span t-esc="line['invoice_date']"/></td>
+                                    <td><span t-esc="line['customer_name']"/></td>
+                                    <td><span t-esc="line['total']"/></td>
+                                    <td><span t-esc="line['discount']"/></td>
+                                    <td><span t-esc="line['sub_total']"/></td>
+                                    <td><span t-esc="line['tax']"/></td>
+                                    <td><span t-esc="line['net_total']"/></td>
+                                    <td><span t-esc="line['create_user']"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+        <record id="product_customer_listing_form" model="ir.ui.view">
+            <field name="name">Products Customer Listing Form</field>
+            <field name="model">report.product.customer.listing</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                        <group>
+                            <field name="product_id"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="export_report" string="Export" type="object" class="oe_highlight"/>
+                        <button name="action_view" string="View" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_customer_listing_action">
+            <field name="name">Products Customer Listing</field>
+            <field name="res_model">report.product.customer.listing</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="product_customer_listing_menu" name="Products - Customer Listing" parent="sale.menu_sale_report" action="product_customer_listing_action"/>
+    </data>
+</odoo>

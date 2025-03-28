@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <template id="assets_backend" name="Upload size" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/increase_file_upload_size/static/src/js/binary_field.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

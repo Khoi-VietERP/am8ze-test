@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="data_reporting_custom_template_manual_invoice" model="reporting.custom.template">
+            <field name="name">report_customer_manual_invoice</field>
+            <field name="name_display">Custom Manual Invoice Template</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="line_model_id" ref="account.model_account_move_line"/>
+            <field name="is_manual_report" eval="True"/>
+            <field name="title_report">INVOICE</field>
+            <field name="visible_watermark" eval="True"/>
+            <field name="field_id" eval="ref('account.field_account_move__invoice_line_ids')"/>
+            <field name="template_id" ref="report_template_invoice.data_reporting_custom_template_invoice_table_1"/>
+            <field name="header_company_field_ids" eval="[(5, 0, 0),
+                (0,0, {'prefix': False,'sequence': 10,'field_id': ref('base.field_res_company__street'),}),
+                (0,0, {'prefix': 'next_line','sequence': 20,'field_id': ref('base.field_res_company__street2'),}),
+                (0,0, {'prefix': 'next_line','sequence': 30,'field_id': ref('base.field_res_company__city'),}),
+                (0,0, {'prefix': 'comma','sequence': 40,'field_id': ref('base.field_res_company__state_id'), 'field_display_field_id': ref('base.field_res_country_state__name'),}),
+                (0,0, {'prefix': 'comma','sequence': 50,'field_id': ref('base.field_res_company__zip'),}),
+                (0,0, {'prefix': 'next_line','sequence': 60,'field_id': ref('base.field_res_company__country_id'),'field_display_field_id': ref('base.field_res_country__name'),}),
+            ]"/>
+            <field name="visible_partner_section" eval="True"/>
+            <field name="partner_field_ids" eval="[(5, 0, 0),
+                (0,0, {'prefix': False,'sequence': 10,'field_id': ref('base.field_res_partner__street'),}),
+                (0,0, {'prefix': 'next_line','sequence': 20,'field_id': ref('base.field_res_partner__street2'),}),
+                (0,0, {'prefix': 'next_line','sequence': 30,'field_id': ref('base.field_res_partner__city'),}),
+                (0,0, {'prefix': 'comma','sequence': 40,'field_id': ref('base.field_res_partner__state_id'),'field_display_field_id': ref('base.field_res_country_state__name')}),
+                (0,0, {'prefix': 'comma','sequence': 50,'field_id': ref('base.field_res_partner__zip'),}),
+                (0,0, {'prefix': 'next_line','sequence': 60,'field_id': ref('base.field_res_partner__country_id'),'field_display_field_id': ref('base.field_res_country__name')}),
+            ]"/>
+            <field name="visible_section_2" eval="True"/>
+            <field name="section_2_field_ids" eval="[(5, 0, 0),
+                (0,0, {'sequence': 5,'field_id': ref('account.field_account_move__name'),'label': 'Name'}),
+                (0,0, {'sequence': 10,'field_id': ref('account.field_account_move__invoice_date'),'label': 'Invoice Date'}),
+                (0,0, {'sequence': 30,'field_id': ref('account.field_account_move__invoice_origin'),'label': 'Source'}),
+                (0,0, {'sequence': 30,'field_id': ref('account.field_account_move__ref'),'label': 'Reference'}),
+            ]"/>
+            <field name="visible_section_lines" eval="True"/>
+            <field name="section_lines_field_ids" eval="[(5, 0, 0),
+                (0,0, {'sequence': 10, 'alignment': 'left','field_id': ref('account.field_account_move_line__name'),'label': 'Description'}),
+                (0,0, {'sequence': 20, 'alignment': 'center','field_id': ref('account.field_account_move_line__quantity'),'label': 'Quantity'}),
+                (0,0, {'sequence': 30, 'alignment': 'right','field_id': ref('account.field_account_move_line__price_unit'),'label': 'Unit Price'}),
+                (0,0, {'sequence': 60, 'alignment': 'center','field_id': ref('account.field_account_move_line__tax_ids'),'label': 'Taxes'}),
+                (0,0, {'sequence': 70, 'alignment': 'right','field_id': ref('account.field_account_move_line__price_subtotal'),'label': 'Amount', 'currency_field_name': 'move_id.currency_id', 'thousands_separator': 'applicable'}),
+            ]"/>
+            <field name="visible_section_footer" eval="True"/>
+            <field name="section_footer_field_ids" eval="[(5, 0, 0),
+                (0,0, {'sequence': 10, 'thousands_separator': 'applicable','field_id': ref('account.field_account_move__amount_untaxed'),'label': 'Subtotal'}),
+                (0,0, {'sequence': 20, 'thousands_separator': 'applicable','field_id': ref('account.field_account_move__amount_tax'),'label': 'Tax'}),
+                (0,0, {'sequence': 30, 'thousands_separator': 'applicable','field_id': ref('account.field_account_move__amount_total'),'label': 'Total'}),
+                (0,0, {'sequence': 30, 'thousands_separator': 'applicable','field_id': ref('account.field_account_move__amount_by_group'),'label': '', 'tax_group': True}),
+                (0,0, {'sequence': 40, 'thousands_separator': 'applicable','field_id': ref('account.field_account_move__amount_residual'),'label': 'Amount Due'}),
+                ]"/>
+
+            <field name="footer_company_field_ids" eval="[(5, 0, 0),
+                (0,0, {'label': 'Phone','sequence': 10,'field_id': ref('base.field_res_company__phone'),}),
+                (0,0, {'label': 'Email','sequence': 20,'field_id': ref('base.field_res_company__email'),}),
+                (0,0, {'label': 'Web','sequence': 30,'field_id': ref('base.field_res_company__website'),}),
+                (0,0, {'label': 'Tax ID','sequence': 40,'field_id': ref('base.field_res_company__vat'),}),
+            ]"/>
+            <field name="amount_in_text_visible" eval="True"/>
+            <field name="amount_in_text_label">Amount in Text</field>
+            <field name="section_other_option_ids" eval="[(5, 0, 0),
+                (0,0, {'field_type': 'char', 'name_technical':'state_posted', 'name':'HEADING:IF STATE IS POSTED','value_char':'INVOICE'}),
+                (0,0, {'field_type': 'char', 'name_technical':'state_draft', 'name':'HEADING:IF STATE IS DRAFT','value_char':'DRAFT&lt;br/&gt;INVOICE'}),
+
+                (0,0, {'field_type': 'boolean', 'name_technical':'show_serial_number', 'name':'Show serial number ?','value_boolean':True}),
+                (0,0, {'field_type': 'char', 'name_technical':'serial_number_heading', 'name':'Serial number heading','value_char':'Sl.'}),
+
+                (0,0, {'field_type': 'boolean', 'name_technical':'show_product_image', 'name':'Show product image ?','value_boolean':False}),
+                (0,0, {'field_type': 'integer', 'name_technical':'product_image_position', 'name':'Product image position (Column)','value_integer':2}),
+                (0,0, {'field_type': 'char', 'name_technical':'product_image_column_heading', 'name':'Product image heading','value_char':'Product Image'}),
+                (0,0, {'field_type': 'char', 'name_technical':'product_image_width', 'name':'Product image width','value_char':'75px'}),
+
+                (0,0, {'field_type': 'char', 'name_technical':'label_customer', 'name':'LABEL: Customer','value_char':'CUSTOMER'}),
+                (0,0, {'field_type': 'char', 'name_technical':'label_communication_payment', 'name':'LABEL: Communication For Payment','value_char':'Please use the following communication for your payment'}),
+                (0,0, {'field_type': 'char', 'name_technical':'multi_company_design_expression', 'name':'MULTI-COMPANY Design: Expression','value_char':''}),
+
+                (0,0, {'field_type': 'integer', 'name_technical':'padding_after_header', 'name':'Padding After Header (Px)','value_integer':24}),
+                (0,0, {'field_type': 'boolean', 'name_technical':'footer_single_line', 'name':'Single Line Footer','value_boolean':False}),
+
+            ]"/>
+        </record>
+    <function model="reporting.custom.template" name="action_general">
+        <value eval="[ref('report_template_manual_invoice.data_reporting_custom_template_manual_invoice')]"/>
+    </function>
+    </data>
+</odoo>

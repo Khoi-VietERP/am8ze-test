@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_js_acc_rep_excel" model="ir.ui.view">
+		<field name="name">js.account.report.excel.view</field>
+		<field name="model">js.account.report.excel</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<group>
+						<field name="report_type" required="1"/>
+						<field name="by_nature_file_name" invisible="1"/>
+						<field name="year_id" widget="many2many_tags" required="1"/>
+					</group>
+					<group>
+						<field name="data" readonly="1"  filename="by_nature_file_name"
+							   attrs="{'invisible': [('report_type', '!=', 'by_nature')] }"/>
+					</group>
+				</group>
+				<footer>
+					<button name="print_acc_excel_report" type="object" string="XLSX" class="oe_highlight"/>
+					<button string="Cancel" class="btn-default" special="cancel" />
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="js_action_acc_report_wizard" model="ir.actions.act_window">
+		<field name="name">Accounts Report</field>
+		<field name="res_model">js.account.report.excel</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="view_js_acc_rep_excel"/>
+		<field name="target">new</field>
+		<field name="binding_model_id" ref="js_account_reports.model_js_account_report_excel" />
+		<field name="binding_type">report</field>
+	</record>
+
+	<report
+		id="js_acc_xlsx_report"
+		model="js.account.report.excel"
+		string="Print to XLSX"
+		report_type="xlsx"
+		name="js_account_reports.report_account_excel_pl"
+		file="js_account_reports.report_account_excel_pl"
+		attachment_use="False"
+	/>
+
+	<menuitem id="js_account_reports" sequence="10"
+                  name="Account Reports Excel" parent="account.menu_finance_reports"/>
+	<menuitem id="js_account_report_all" sequence="1" action="js_action_acc_report_wizard"
+                  name="Account Excel Reports" parent="js_account_reports.js_account_reports" groups="account.group_account_user"/>
+
+</odoo>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="registration_of_charge_form" model="ir.ui.view">
+            <field name="name">registration.of.charge</field>
+            <field name="model">registration.of.charge</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Entity Information">
+                            <group name="entity_info">
+                                <field name="uen"/>
+                                <field name="type_of_logment" attrs="{'invisible' : [('entity_id', '=', False)]}"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <group col="2" string="Instrument and its executed"
+                               attrs="{'invisible' : ['|',('entity_id', '=', False),('type_of_logment', 'not in', ['statement1','statement2','statement3'])]}">
+                            <div attrs="{'invisible' : [('type_of_logment', 'not in', ['statement1','statement2'])]}">
+                                <label for="charge_instrument_executed" style="font-weight: bold;"/><br/>
+                                <field name="charge_instrument_executed" widget="radio" style="flex-flow: row nowrap;"/>
+                            </div>
+                            <div attrs="{'invisible' : [('type_of_logment', 'not in', ['statement1','statement2'])]}"/>
+                            <div attrs="{'invisible' : [('type_of_logment', 'not in', ['statement1','statement2'])]}">
+                                <label for="date_of_creation" style="font-weight: bold;"/><br/>
+                                <field name="date_of_creation" style="width: 50%;"/>
+                            </div>
+                            <div attrs="{'invisible' : [('type_of_logment', 'not in', ['statement1','statement2'])]}">
+                                <label for="instrument_option" style="font-weight: bold;"/><br/>
+                                <field name="instrument_option" widget="radio"/>
+                            </div>
+                            <div attrs="{'invisible' : ['|',('instrument_option', '!=', 'instrument'),('type_of_logment', 'not in', ['statement1','statement2'])]}">
+                                <label for="description_of_instrument" style="font-weight: bold;"/><br/>
+                                <field name="description_of_instrument" style="width: 80%;"/>
+                            </div>
+                            <div attrs="{'invisible' : ['|',('instrument_option', '!=', 'instrument'),('type_of_logment', 'not in', ['statement1','statement2'])]}"/>
+
+
+                            <div attrs="{'invisible' : ['|',('instrument_option', '!=', 'instrument'),('type_of_logment', '!=', 'statement2')]}">
+                                <label for="date_of_resolution" style="font-weight: bold;"/><br/>
+                                <field name="date_of_resolution" style="width: 80%;"/>
+                            </div>
+                            <div attrs="{'invisible' : ['|',('instrument_option', '!=', 'instrument'),('type_of_logment', '!=', 'statement2')]}"/>
+                            <div attrs="{'invisible' : ['|',('instrument_option', '!=', 'instrument'),('type_of_logment', '!=', 'statement2')]}">
+                                <label for="date_of_the_covering_instrument" style="font-weight: bold;"/><br/>
+                                <field name="date_of_the_covering_instrument" style="width: 50%;"/>
+                            </div>
+                            <div attrs="{'invisible' : ['|',('instrument_option', '!=', 'instrument'),('type_of_logment', '!=', 'statement2')]}">
+                                <label for="amount_rate_percent" style="font-weight: bold;"/><br/>
+                                <field name="amount_rate_percent" style="width: 80%;"/>
+                            </div>
+
+
+                            <div attrs="{'invisible' : ['|',('instrument_option', '!=', 'instrument'),('type_of_logment', '!=', 'statement1')]}">
+                                <label for="date_of_instrument" style="font-weight: bold;"/><br/>
+                                <field name="date_of_instrument" style="width: 50%;"/>
+                            </div>
+                            <div attrs="{'invisible' : ['|',('instrument_option', '!=', 'instrument'),('type_of_logment', '!=', 'statement1')]}">
+                                <label for="charge_instrument" style="font-weight: bold;"/><br/>
+                                <field name="charge_instrument" style="width: 80%;"/>
+                            </div>
+
+                            <div attrs="{'invisible' : ['|',('instrument_option', '!=', 'instrument'),('type_of_logment', 'not in', ['statement1','statement2'])]}">
+                                <label for="short_description" style="font-weight: bold;"/><br/>
+                                <field name="short_description" style="width: 80%;"/>
+                            </div>
+                            <div attrs="{'invisible' : ['|',('instrument_option', '!=', 'instrument'),('type_of_logment', 'not in', ['statement1','statement2'])]}">
+                                <label for="restrictions" style="font-weight: bold;"/><br/>
+                                <field name="restrictions" style="width: 80%;"/>
+                            </div>
+
+                            <div attrs="{'invisible' : [('type_of_logment', '!=', 'statement2')]}">
+                                <label for="trustee_name_1" style="font-weight: bold;"/><br/>
+                                <field name="trustee_name_1" style="width: 80%;"/>
+                            </div>
+                            <div attrs="{'invisible' : [('type_of_logment', '!=', 'statement2')]}">
+                                <label for="trustee_name_2" style="font-weight: bold;"/><br/>
+                                <field name="trustee_name_2"/>
+                            </div>
+
+
+                            <div attrs="{'invisible' : [('type_of_logment', '!=', 'statement3')]}">
+                                <label for="total_amount_secured" style="font-weight: bold;"/><br/>
+                                <field name="total_amount_secured" style="width: 80%;"/>
+                            </div>
+                            <div attrs="{'invisible' : [('type_of_logment', '!=', 'statement3')]}">
+                                <label for="currency_secured_id" style="font-weight: bold;"/><br/>
+                                <field name="currency_secured_id" style="width: 80%;"/>
+                            </div>
+                            <div attrs="{'invisible' : [('type_of_logment', '!=', 'statement3')]}">
+                                <label for="date_of_present" style="font-weight: bold;"/><br/>
+                                <field name="date_of_present" style="width: 50%;"/>
+                            </div>
+                            <div attrs="{'invisible' : [('type_of_logment', '!=', 'statement3')]}">
+                                <label for="amount_of_present" style="font-weight: bold;"/><br/>
+                                <field name="amount_of_present" style="width: 80%;"/>
+                            </div>
+                            <div attrs="{'invisible' : [('type_of_logment', '!=', 'statement3')]}">
+                                <label for="currency_present_id" style="font-weight: bold;"/><br/>
+                                <field name="currency_present_id" style="width: 80%;"/>
+                            </div>
+                            <div attrs="{'invisible' : [('type_of_logment', '!=', 'statement3')]}"/>
+                            <div attrs="{'invisible' : [('type_of_logment', '!=', 'statement3')]}">
+                                <label for="amount_rate_percent_statement3" style="font-weight: bold;"/><br/>
+                                <field name="amount_rate_percent_statement3" style="width: 80%;"/>
+                            </div>
+                            <div attrs="{'invisible' : [('type_of_logment', '!=', 'statement3')]}">
+                                <label for="restrictions_statement3" style="font-weight: bold;"/><br/>
+                                <field name="restrictions_statement3" style="width: 80%;"/>
+                            </div>
+
+                            <div attrs="{'invisible' : [('instrument_option', '!=', 'instrument')]}">
+                                <label for="salient_covenants_of_terms" style="font-weight: bold;"/><br/>
+                                <field name="salient_covenants_of_terms" style="width: 80%;"/>
+                            </div>
+                            <div attrs="{'invisible' : [('instrument_option', '!=', 'instrument')]}">
+                                <label for="attach_further_information" style="font-weight: bold;"/><br/>
+                                <field name="attach_further_information"/>
+                            </div>
+                        </group>
+                        <group col="1" string="Chargee Details / Amount Secured By This Charge" attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <div >
+                                <field name="chargee_detail_ids">
+                                    <tree editable="bottom">
+                                        <field name="no"/>
+                                        <field name="name"/>
+                                        <field name="chargee_id"/>
+                                        <field name="action"/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </group>
+                        <group col="2" string="Declaration" attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <div>
+                                <label for="roc_declaration_id" style="font-weight: bold;"/><br/>
+                                <field name="roc_declaration_id" style="width: 80%;"/>
+                            </div>
+                            <div/>
+                        </group>
+                        <div attrs="{'invisible' : ['|',('entity_id', '=', False),('type_of_logment', 'not in', ['statement1','statement2'])]}">
+                            <span style="font-weight: bold;">I confirm that the charge to be registered herein comes within $131(3) as being</span><br/>
+                            <field name="check_box_1"/>
+                            <label for="check_box_1" style="display: contents;font-weight: normal;"/><br/>
+                            <field name="check_box_2"/>
+                            <label for="check_box_2" style="display: contents;font-weight: normal;"/><br/>
+                            <field name="check_box_3"/>
+                            <label for="check_box_3" style="display: contents;font-weight: normal;"/><br/>
+                            <field name="check_box_4"/>
+                            <label for="check_box_4" style="display: contents;font-weight: normal;"/><br/>
+                            <field name="check_box_5"/>
+                            <label for="check_box_5" style="display: contents;font-weight: normal;"/><br/>
+                            <field name="check_box_6"/>
+                            <label for="check_box_6" style="display: contents;font-weight: normal;"/><br/>
+                            <field name="check_box_7"/>
+                            <label for="check_box_7" style="display: contents;font-weight: normal;"/><br/>
+                            <field name="check_box_8"/>
+                            <label for="check_box_8" style="display: contents;font-weight: normal;"/><br/>
+                            <field name="check_box_9"/>
+                            <label for="check_box_9" style="display: contents;font-weight: normal;"/><br/>
+                            <field name="check_box_10"/>
+                            <label for="check_box_10" style="display: contents;font-weight: normal;"/><br/>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

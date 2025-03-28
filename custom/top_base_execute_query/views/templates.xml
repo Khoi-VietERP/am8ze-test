@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+        <record id="base_execute_query_form" model="ir.ui.view">
+            <field name="name">base.execute.query.form</field>
+            <field name="model">base.execute.query</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="query"/>
+                        </group>
+
+                        <footer>
+                            <button string="Cancel" special="cancel"/>
+                            <button string="Run query" class="oe_highlight" type="object" name="run_query"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="base_execute_query_action" model="ir.actions.act_window">
+            <field name="name">Query</field>
+            <field name="res_model">base.execute.query</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <menuitem action="base_execute_query_action" id="base_execute_query_menu" name="Run Query" parent="base.next_id_6"/>
+    </data>
+</odoo>

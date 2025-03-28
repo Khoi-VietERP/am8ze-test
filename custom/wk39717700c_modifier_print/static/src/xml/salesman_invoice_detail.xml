@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="TempSalesmanInvoiceDetailReport">
+        <div class="py-main-container">
+            <div class="py-filter-container">
+                <div class="py-control-panel">
+                </div>
+            </div>
+            <div class="py-data-container">
+                <div class="py-data-container-orig">
+                </div>
+                <div id="loader">
+                    <div id="top"></div>
+                    <div id="bottom"></div>
+                    <div id="line"></div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="FilterSalesmanInvoiceDetailReport">
+        <div class="py-control-div">
+            <div class="py-cntrl-left">
+                <div class="py-ctrl-buttons">
+                    <button type="button" class="btn py-btn-primary" id="pdf" action="print_pdf" style="position: relative;">Print (Pdf)</button>
+                </div>
+            </div>
+            <div class="py_cntrl_right">
+                <div class="py-search-buttons">
+                    <button type="button" id="filter_apply_button" class="btn py-btn-secondary" action="apply_filter" style="position: relative;">Apply</button>
+                    <div class="py-search-btn-date">
+                        <a type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <span class="fa fa-calendar" title="Dates" role="img" aria-label="Dates"></span>
+                            Custom
+                            </a>
+                        <div class="dropdown-menu py-filters-menu" role="menu">
+                            <div role="separator" class="dropdown-divider"></div>
+                            <span role="menuitem" class="dropdown-item" data-filter="custom_filter_date">Custom</span>
+                            <div class="o_foldable_menu  o_account_report_search" data-filter="custom_filter_date">
+                                <label class="custom-date" for="date_from">Start Date :</label>
+                                <div class="form-group custom-date">
+                                    <div class="o_datepicker" aria-atomic="true" id="datepicker10" data-target-input="nearest">
+                                        <input type="date" id="date_from"></input>
+                                    </div>
+                                </div>
+                                <label class="custom-date" for="date_to">End Date :</label>
+                                <div class="form-group custom-date">
+                                    <div class="o_datepicker" aria-atomic="true" id="datepicker11" data-target-input="nearest">
+                                        <input type="date" id="date_to"></input>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="separator" class="dropdown-divider"></div>
+                        </div>
+                        <div class="py-search-users">
+                            <a type="button" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="fa fa-book"></span>
+                                Salesman:
+                            </a>
+                            <select class="dropdown-menu py-filters-menu user-multiple" name="states[]" multiple="multiple">
+                                <t t-foreach="get_info['filter_data']['users']" t-as="user">
+                                    <option t-attf-value="{{user[0]}}"><t t-esc="user[1]"/></option>
+                                </t>
+                            </select>
+                        </div>
+                        <div class="py-search-partners">
+                            <a type="button" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="fa fa-book"></span>
+                                Customers:
+                            </a>
+                            <select class="dropdown-menu py-filters-menu partner-multiple" name="states[]" multiple="multiple">
+                                <t t-foreach="get_info['filter_data']['partners']" t-as="partner">
+                                    <option t-attf-value="{{partner[0]}}"><t t-esc="partner[1]"/></option>
+                                </t>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="TempSalesmanInvoiceDetailReportMain">
+        <style>
+            .table-product {
+                margin-top: 30px
+            }
+            .table-product th, .table-product td {
+                padding: 0.2rem 0rem;
+            }
+            .border-bottom {
+                border-bottom: 1px solid #000;
+            }
+            .border-top {
+                border-top: 1px solid #000;
+            }
+        </style>
+        <br/>
+        <div style="font-size:13px;text-align: center;border-bottom: 1px solid #6c757d;margin-top: 5px;">
+            <t t-if="get_info">
+                <table style="width: 50%; margin: auto;">
+                    <tr>
+                        <td colspan="3">
+                            <b style="font-size: 20px;"><t t-esc="get_info['company_name']"/></b>
+                        </td>
+                        <td>
+                            <b>Date : </b> <t t-esc="get_info['date_now']"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <b>Detail Customer Inovice Listing - Customer Code Order (With and Without GST)</b>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40%" colspan="2">
+                            <b>Date Range : </b>
+                            <b>From <t t-esc="get_info['start_date']"/> To <t t-esc="get_info['end_date']"/></b>
+                        </td>
+                        <td style="width: 30%">
+                            <b>Type of Invoices : </b>
+                            <b>All Type of Invoice</b>
+                        </td>
+                        <td style="width: 30%">
+                            <b>Salesman : <t t-esc="get_info['salesman']"/></b>
+                        </td>
+                    </tr>
+                </table>
+            </t>
+        </div>
+        <div>
+            <t t-if="get_info">
+                <table style="width: 100%" class="table-product">
+                    <thead>
+                        <tr class="border-top">
+                            <th>Date</th>
+                            <th>Invoice No</th>
+                            <th>Curr</th>
+                            <th>Value</th>
+                            <th>Exchange</th>
+                            <th>Curr</th>
+                            <th>Discount</th>
+                            <th>G.S.T</th>
+                            <th>Actual Amnt</th>
+                            <th>G-Total</th>
+                        </tr>
+                        <tr class="border-bottom">
+                            <th>Invoice Date</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>Quantity</th>
+                            <th>Uom</th>
+                            <th>UnitPrice</th>
+                            <th>Ext.Amnt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="get_info['customer_data']" t-as="customer">
+                            <tr>
+                                <td>
+                                    <u><t t-esc="customer['customer_code']"/></u>
+                                </td>
+                                <td colspan="9">
+                                    <u><t t-esc="customer['customer_name']"/></u>
+                                </td>
+                            </tr>
+                            <t t-foreach="customer['invoice_data']" t-as="invoice">
+                                <tr>
+                                    <td><t t-esc="invoice['invoice_date']"/> </td>
+                                    <td><t t-esc="invoice['invoice_name']"/></td>
+                                    <td><t t-esc="invoice['currency']"/></td>
+                                    <td><t t-esc="invoice['amount_untaxed']"/></td>
+                                    <td></td>
+                                    <td><t t-esc="invoice['currency']"/></td>
+                                    <td>0.00</td>
+                                    <td><t t-esc="invoice['amount_tax']"/></td>
+                                    <td><t t-esc="invoice['amount_total']"/></td>
+                                    <td><t t-esc="invoice['amount_total']"/></td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td></td>
+                                <td colspan="2">
+                                    <u>Customer Total Distribution<br/>Curr</u>
+                                </td>
+                                <td>
+                                    <br/>
+                                    <u>CurName</u>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <br/>
+                                    <u>Total Value</u>
+                                </td>
+                                <td>
+                                    <br/>
+                                    <u>GST Amt</u>
+                                </td>
+                                <td>
+                                    <br/>
+                                    <u>Total Amt</u>
+                                </td>
+                                <td>
+                                    <br/>
+                                    <u><t t-esc="customer['currency']"/></u>
+                                </td>
+                            </tr>
+                            <tr class="border-bottom">
+                                <td></td>
+                                <td>
+                                    <t t-esc="customer['currency']"/>
+                                </td>
+                                <td></td>
+                                <td>
+                                    Singapore Dollar
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td><t t-esc="customer['total_amount_untaxed']"/> </td>
+                                <td><t t-esc="customer['total_amount_tax']"/></td>
+                                <td><t t-esc="customer['total_amount_total']"/></td>
+                                <td><t t-esc="customer['total_amount_total']"/></td>
+                            </tr>
+                        </t>
+                        <tr>
+                            <td></td>
+                            <td colspan="2">
+                                <u><b>Salesman Invoice Total Distribution<br/>Curr</b></u>
+                            </td>
+                            <td>
+                                <br/>
+                                <u><b>CurName</b></u>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <br/>
+                                <u><b>Total Value</b></u>
+                            </td>
+                            <td>
+                                <br/>
+                                <u><b>GST Amt</b></u>
+                            </td>
+                            <td>
+                                <br/>
+                                <u><b>Total Amt</b></u>
+                            </td>
+                            <td>
+                                <br/>
+                                <u><b>S$</b></u>
+                            </td>
+                        </tr>
+                        <tr class="border-bottom">
+                            <td></td>
+                            <td>
+                                <b>S$</b>
+                            </td>
+                            <td></td>
+                            <td>
+                                <b>Singapore Dollar</b>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td><b><t t-esc="get_info['salesman_ta_untaxed']"/></b></td>
+                            <td><b><t t-esc="get_info['salesman_ta_tax']"/></b></td>
+                            <td><b><t t-esc="get_info['salesman_ta_total']"/></b></td>
+                            <td><b><t t-esc="get_info['salesman_ta_total']"/></b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </t>
+        </div>
+    </t>
+</templates>

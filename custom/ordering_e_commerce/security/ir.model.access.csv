@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ordering_gift_user,ordering.gift.user,ordering_e_commerce.model_ordering_gift,sales_team.group_sale_salesman,1,1,1,1
+access_ordering_gift_portal,ordering.gift.portal,ordering_e_commerce.model_ordering_gift,base.group_portal,1,0,0,0
+
+access_ordering_gift_product_user,ordering.gift.product.user,ordering_e_commerce.model_ordering_gift_product,sales_team.group_sale_salesman,1,1,1,1
+access_ordering_gift__productportal,ordering.gift.product.portal,ordering_e_commerce.model_ordering_gift_product,base.group_portal,1,0,0,0
+
+access_ordering_gift_amount_user,ordering.gift.amount.user,ordering_e_commerce.model_ordering_gift_amount,sales_team.group_sale_salesman,1,1,1,1
+access_ordering_gift_amount_portal,ordering.gift.amount.portal,ordering_e_commerce.model_ordering_gift_amount,base.group_portal,1,0,0,0
+
+access_product_pricelist_remark,name_product_pricelist_remark,ordering_e_commerce.model_product_pricelist_remark,,1,1,1,1

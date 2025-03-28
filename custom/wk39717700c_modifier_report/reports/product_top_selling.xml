@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <template id="product_top_selling_layout">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+            <t t-call="wk39717700c_modifier_report.external_layout_product_top_selling_header_logo">
+                <t t-raw="0"/>
+            </t>
+
+        </template>
+
+        <template id="external_layout_product_top_selling_header_logo">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                <div class="row" style="width: 100%;">
+                    <div class="col-11" style="font-size: 15px">
+                        <strong>WINLYKAH TRADING</strong>
+                        <br/>
+                        <br/>
+                        <strong>TopSelling Products Report From <t t-esc="start_date"/> To <t t-esc="end_date"/></strong>
+                    </div>
+                </div>
+            </div>
+
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+                 t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                 t-att-data-oe-lang="o and o.env.context.get('lang')"
+            >
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+        </template>
+
+        <template id="report_product_top_selling_template">
+            <t t-call="web.html_container">
+                <t t-call="wk39717700c_modifier_report.product_top_selling_layout">
+                    <div class="page">
+                        <table style="width: 100%">
+                            <thead>
+                                <tr style="border-top: 1px solid black; border-bottom: 1px solid black">
+                                    <th style="text-align:left">Product Code</th>
+                                    <th style="text-align:left">Product Name</th>
+                                    <th style="text-align:center">Qty</th>
+                                    <th style="text-align:right">Invoice NetTotal</th>
+                                    <th style="text-align:right">Return NetTotal</th>
+                                    <th style="text-align:right">NetTotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="product_data" t-as="line">
+                                    <tr>
+                                        <td style="text-align:left">
+                                            <t t-esc="line.get('product_code')"/>
+                                        </td>
+                                        <td style="text-align:left">
+                                            <t t-esc="line.get('product_name')"/>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <t t-esc="'{0:,.2f}'.format(line.get('quantity')) "/>
+                                        </td>
+                                        <td style="text-align:right">
+                                            <t t-esc="'{0:,.2f}'.format(line.get('invoice_net_total'))"/>
+                                        </td>
+                                        <td style="text-align:right">
+                                            <t t-esc="'{0:,.2f}'.format(line.get('return_net_total'))"/>
+                                        </td>
+                                        <td style="text-align:right">
+                                            <t t-esc="'{0:,.2f}'.format(line.get('net_total'))"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+        <template id="wk39717700c_modifier_report.report_product_top_selling">
+            <t t-call="web.html_container">
+                <t t-call="wk39717700c_modifier_report.report_product_top_selling_template"/>
+            </t>
+        </template>
+        <record id="paper_format" model="report.paperformat">
+            <field name="name">Product - Top Selling</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">30</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+                id="report_product_top_selling_id"
+                string="Product - Top Selling"
+                model="report.product.top.selling"
+                report_type="qweb-pdf"
+                file="wk39717700c_modifier_report.report_product_top_selling"
+                name="wk39717700c_modifier_report.report_product_top_selling"
+                print_report_name="'Product - Top Selling'"
+                paperformat="wk39717700c_modifier_report.paper_format"
+                menu="False"
+        />
+    </data>
+</odoo>

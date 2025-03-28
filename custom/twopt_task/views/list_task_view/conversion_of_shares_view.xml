@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="conversion_of_shares_form" model="ir.ui.view">
+            <field name="name">conversion.of.shares.form</field>
+            <field name="model">conversion.of.shares</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <div>
+                                <label for="des_on_conversion" style="font-weight: bold;"/><br/>
+                                <field name="des_on_conversion" style="width: 50%;"/>
+                            </div>
+                            <div>
+                                <label for="authorised_by" style="font-weight: bold;"/><br/>
+                                <field name="authorised_by" style="width: 50%;" widget="radio"/>
+                            </div><br/><br/>
+                            <div attrs="{'invisible' : [('authorised_by', '!=', 'special')]}">
+                                <div>
+                                    <label for="date_of_resolution" style="font-weight: bold;"/><br/>
+                                    <field name="date_of_resolution" style="width: 30%;"/>
+                                </div>
+                                <div>
+                                    <label for="copy_of_resolution" style="font-weight: bold;"/><br/>
+                                    <field name="copy_of_resolution" style="width: 50%;"/>
+                                </div>
+                            </div>
+                            <div attrs="{'invisible' : [('authorised_by', '!=', 'constitution')]}">
+                                <div>
+                                    <label for="constitution" style="font-weight: bold;"/><br/>
+                                    <field name="constitution" style="width: 50%;" widget="radio"/>
+                                </div><br/><br/>
+                                <div attrs="{'invisible' : [('constitution', '!=', 'attach')]}">
+                                    <field name="constitution_attachment" style="width: 50%;"/>
+                                </div>
+                                <div attrs="{'invisible' : [('constitution', '!=', 'description')]}">
+                                    <field name="constitution_text" style="width: 50%;"/>
+                                </div>
+                            </div>
+                            <br/><br/>
+                            <div>
+                                <label for="date_of_conversion" style="font-weight: bold;"/><br/>
+                                <field name="date_of_conversion" style="width: 30%;"/>
+                            </div>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

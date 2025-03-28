@@ -1,0 +1,34 @@
+<odoo>
+    <data>
+        <record id="sale_detail_by_saleperson_form" model="ir.ui.view">
+            <field name="name">Sale Detail By Saleperson Report</field>
+            <field name="model">sale.detail.by.saleperson</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                        <group>
+                            <field name="user_id"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="generate_xlsx_report" string="Print XLSX" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="sale_detail_by_saleperson_action">
+            <field name="name">Sale Detail By Saleperson Report</field>
+            <field name="res_model">sale.detail.by.saleperson</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="sale_detail_by_saleperson_menu" parent="sale.menu_sale_report" action="sale_detail_by_saleperson_action"/>
+    </data>
+</odoo>

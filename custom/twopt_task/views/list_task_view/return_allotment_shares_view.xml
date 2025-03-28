@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="return_allotment_shares_form" model="ir.ui.view">
+            <field name="name">return.allotment.shares.name</field>
+            <field name="model">return.allotment.shares</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Entity Information">
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <notebook attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <page string="Company Detail" name="company_detail">
+                                <div>
+                                    <label for="filed_prior_approval"/><br/>
+                                    <field name="filed_prior_approval" widget="radio" style="flex-flow: row nowrap;"/>
+                                </div>
+                                <group col="2" attrs="{'invisible' : [('filed_prior_approval', '!=', 'no')]}">
+                                    <div>
+                                        <label for="date_of_meeting" style="font-weight: bold;"/><br/>
+                                        <field name="date_of_meeting" style="width: 50%;"/>
+                                    </div>
+                                    <div>
+                                        <label for="copy_of_resolution" style="font-weight: bold;"/><br/>
+                                        <field name="copy_of_resolution" style="width: 80%;"/>
+                                    </div>
+                                    <div>
+                                        <label for="time_of_meeting" style="font-weight: bold;"/><br/>
+                                        <field name="time_of_meeting" style="width: 15%;"/>
+                                        <field name="type_time" style="width: 15%;"/>
+                                    </div>
+                                </group>
+                            </page>
+                            <page string="Share Capital Details" name="share_capital_detail">
+                                <group col="2">
+                                    <div>
+                                        <label for="currency_id" style="font-weight: bold;"/><br/>
+                                        <field name="currency_id" style="width: 50%;"/>
+                                    </div>
+                                    <div>
+                                        <label for="country_currency_id" style="font-weight: bold;"/><br/>
+                                        <field name="country_currency_id" style="width: 50%;"/>
+                                    </div>
+                                </group>
+                                <div attrs="{'invisible' : [('currency_id', '=', False)]}">
+                                    <separator string="Share Capital Information"/>
+                                    <div>
+                                        <label for="shares_payable"/><br/>
+                                        <field name="shares_payable" widget="radio" style="flex-flow: row nowrap;"/>
+                                    </div>
+                                    <div>
+                                        <span style="font-weight: bold;">Allotment Details</span>
+                                    </div>
+                                    <table style="width: 100%" class="table-bordered table_allotment_detail">
+                                        <tr>
+                                            <td style="width: 19%">
+                                                Class Of Share
+                                            </td>
+                                            <td style="width: 27%">
+                                                Ordinary
+                                            </td>
+                                            <td style="width: 27%">
+                                                Preference
+                                            </td>
+                                            <td style="width: 27%">
+                                                Others
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Number of Shares
+                                            </td>
+                                            <td>
+                                                <field name="ordinary_number_of_shares"/>
+                                            </td>
+                                            <td>
+                                                <field name="preference_number_of_shares"/>
+                                            </td>
+                                            <td>
+                                                <field name="others_number_of_shares"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Amount of Issued Share Capital
+                                            </td>
+                                            <td>
+                                                <field name="ordinary_amount_of_issued"/>
+                                            </td>
+                                            <td>
+                                                <field name="preference_amount_of_issued"/>
+                                            </td>
+                                            <td>
+                                                <field name="others_amount_of_issued"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Amount of Paid Up Share Capital
+                                            </td>
+                                            <td>
+                                                <field name="ordinary_amount_of_paid_up"/>
+                                            </td>
+                                            <td>
+                                                <field name="preference_amount_of_paid_up"/>
+                                            </td>
+                                            <td>
+                                                <field name="others_amount_of_paid_up"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div attrs="{'invisible' : [('shares_payable', 'not in', ['otherwise_in_cash','cash_and_otherwise_cash'])]}">
+                                        <br/>
+                                        <div>
+                                            <label for="method_of_allotment" /><br/>
+                                            <field name="method_of_allotment" widget="radio" style="font-weight: normal;"/>
+                                        </div>
+                                        <div attrs="{'invisible' : [('method_of_allotment', '=', False)]}">
+                                            <label for="attachment" style="font-weight: bold;"/><br/>
+                                            <field name="attachment" style="width: 50%;"/>
+                                        </div>
+                                        <div attrs="{'invisible' : [('method_of_allotment', 'not in', ['2','3','4','5'])]}">
+                                            <label for="detail" style="font-weight: bold;"/><br/>
+                                            <field name="detail" style="width: 50%;"/>
+                                        </div>
+                                        <br/>
+                                    </div>
+                                    <div>
+                                        <label for="shares_for_the_currency"/><br/>
+                                        <field name="shares_for_the_currency" widget="radio" style="flex-flow: row nowrap;"/>
+                                    </div>
+                                    <div attrs="{'invisible' : [('shares_for_the_currency', '!=', 'yes')]}">
+                                        <field name="sub_class_ids">
+                                            <tree editable="bottom">
+                                                <field name="sub_class_share_id"/>
+                                                <field name="ordinary"/>
+                                                <field name="preference"/>
+                                                <field name="others"/>
+                                            </tree>
+                                        </field>
+                                    </div>
+                                    <div>
+                                        <label for="treasury_shares"/><br/>
+                                        <field name="treasury_shares" widget="radio" style="flex-flow: row nowrap;"/>
+                                    </div>
+                                    <div attrs="{'invisible' : [('treasury_shares', '!=', 'yes')]}">
+                                        <separator string="Treasury Shares"/>
+                                        <table style="width: 100%" class="table-bordered table_allotment_detail">
+                                            <tr>
+                                                <td style="width: 60%">
+                                                    Class Of Share
+                                                </td>
+                                                <td style="width: 40%">
+                                                    Ordinary
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Number if Treasury Shares
+                                                </td>
+                                                <td>
+                                                    <field name="ordinary_number_of_tshares"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Amount of Issued Share Capital held as Treasury Shares
+                                                </td>
+                                                <td>
+                                                    <field name="ordinary_amount_of_issued_tshares"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Amount of Paid Up Share Capital held as Treasury Shares
+                                                </td>
+                                                <td>
+                                                    <field name="ordinary_amount_of_paid_up_tshares"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div>
+                                            <span style="font-weight: bold;">Declaration</span><br/>
+                                            <field name="declaration"/>
+                                            <label for="declaration" style="display: contents;font-weight: normal;"/><br/>
+                                        </div>
+                                        <div>
+                                            <label for="sub_classes_of_shares"/><br/>
+                                            <field name="sub_classes_of_shares" widget="radio" style="flex-flow: row nowrap;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </page>
+
+                            <page string="Shareholder Details" name="shareholder_detail">
+                                <field name="shareholder_details_ids" style="width: 100%;">
+                                    <tree>
+                                        <field name="identification_no" string="Indentification No./UEN"/>
+                                        <field name="name"/>
+                                        <field name="currency_id"/>
+                                        <field name="ordinary_number_of_shares" string="Ordinary"/>
+                                        <field name="preference_number_of_shares" string="Preference"/>
+                                        <field name="others_number_of_shares" string="Others"/>
+                                    </tree>
+                                    <form>
+                                        <div>
+                                            <label for="existing_shareholder_id" style="font-weight: bold;"/><br/>
+                                            <field name="existing_shareholder_id" style="width: 50%;" options="{'no_create_edit':1, 'no_open': 1, 'no_quick_create': True}"/>
+                                        </div>
+                                        <div>
+                                            <span style="font-weight: bold;">
+                                                Shareholder Details
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <label for="category" style="font-weight: bold;"/><br/>
+                                            <field name="category" widget="radio" style="flex-flow: row nowrap;"/>
+                                        </div>
+                                        <div attrs="{'invisible' : [('category', '!=', 'individual')]}">
+                                            <group col="2">
+                                                <div>
+                                                    <label for="identification_no" style="font-weight: bold;"/><br/>
+                                                    <field name="identification_no" style="width: 50%;"/>
+                                                </div>
+                                                <div>
+                                                    <label for="id_type_another" style="font-weight: bold;"/><br/>
+                                                    <field name="id_type_another" style="width: 50%;"/>
+                                                </div>
+                                                <div>
+                                                    <label for="name" style="font-weight: bold;"/><br/>
+                                                    <field name="name" style="width: 50%;"/>
+                                                </div>
+                                                <div>
+                                                    <label for="country_id" style="font-weight: bold;"/><br/>
+                                                    <field name="country_id" style="width: 50%;"/>
+                                                </div>
+                                                <div>
+                                                    <label for="date_of_birth" style="font-weight: bold;"/><br/>
+                                                    <field name="date_of_birth" style="width: 30%;"/>
+                                                </div>
+                                                <div/>
+                                                <div>
+                                                    <label for="occupation" style="font-weight: bold;"/><br/>
+                                                    <field name="occupation" style="width: 50%;"/>
+                                                </div>
+                                            </group><br/>
+                                            <group col="2">
+                                                <div>
+                                                    <span>Contact information</span>
+                                                </div>
+                                                <div/>
+                                                <div>
+                                                    <label for="local_fixed_line_no" style="font-weight: bold;"/><br/>
+                                                    <field name="local_fixed_line_no" style="width: 50%;"/>
+                                                </div>
+                                                <div>
+                                                    <label for="local_mobile_no" style="font-weight: bold;"/><br/>
+                                                    <field name="local_mobile_no" style="width: 50%;"/>
+                                                </div>
+                                                <div>
+                                                    <label for="email_address" style="font-weight: bold;"/><br/>
+                                                    <field name="email_address" style="width: 50%;"/>
+                                                </div>
+                                                <div/>
+                                            </group>
+                                            <div>
+                                                <label for="address_type" style="font-weight: bold;"/><br/>
+                                                <field name="address_type" widget="radio" style="flex-flow: row nowrap;"/>
+                                            </div>
+                                            <div attrs="{'invisible' : [('address_type', '!=', 'local_address')]}">
+                                                <div>
+                                                    <label for="postal_code" style="font-weight: bold;"/><br/>
+                                                    <field name="postal_code" style="width: 50%;"/>
+                                                </div>
+                                                <div/>
+                                                <div>
+                                                    <label for="block_house_number" style="font-weight: bold;"/><br/>
+                                                    <field name="block_house_number" style="width: 50%;"/>
+                                                </div>
+                                                <div/>
+                                                <div>
+                                                    <label for="street" style="font-weight: bold;"/><br/>
+                                                    <field name="street" style="width: 50%;"/>
+                                                </div>
+                                                <div/>
+                                                <div style="width: 50%;">
+                                                    <group col="2">
+                                                        <div>
+                                                            <label for="level" style="font-weight: bold;"/><br/>
+                                                            <field name="level" style="width: 50%;"/>
+                                                        </div>
+                                                        <div>
+                                                            <label for="unit_number" style="font-weight: bold;"/><br/>
+                                                            <field name="unit_number" style="width: 50%;"/>
+                                                        </div>
+                                                    </group>
+                                                </div>
+                                                <div/>
+                                                <div>
+                                                    <label for="building" style="font-weight: bold;"/><br/>
+                                                    <field name="building" style="width: 50%;"/>
+                                                </div>
+                                            </div>
+                                            <group col="2" attrs="{'invisible' : [('address_type', '!=', 'foreign_address')]}">
+                                                <div>
+                                                    <label for="foreign_address_line1" style="font-weight: bold;"/><br/>
+                                                    <field name="foreign_address_line1" style="width: 50%;"/>
+                                                </div>
+                                                <div>
+                                                    <label for="foreign_address_line2" style="font-weight: bold;"/><br/>
+                                                    <field name="foreign_address_line2" style="width: 50%;"/>
+                                                </div>
+                                            </group>
+                                        </div>
+                                        <!--<div attrs="{'invisible' : [('category', '!=', 'corporate')]}">-->
+                                            <!--<div>-->
+                                                <!--<label for="entity_id" style="font-weight: bold;"/><br/>-->
+                                                <!--<field name="entity_id" style="width: 50%;" options="{'no_create_edit':1, 'no_open': 1, 'no_quick_create': True}"/>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <div>
+                                            <span style="font-weight: bold;">
+                                                Shareholding Details
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <label for="currency_id" style="font-weight: bold;"/><br/>
+                                            <field name="currency_id" style="width: 25%;"/>
+                                        </div>
+                                        <br/>
+                                        <table style="width: 100%" class="table-bordered table_allotment_detail" attrs="{'invisible' : [('currency_id', '=', False)]}">
+                                            <tr>
+                                                <td style="width: 19%">
+                                                    Class Of Share
+                                                </td>
+                                                <td style="width: 27%">
+                                                    Ordinary
+                                                </td>
+                                                <td style="width: 27%">
+                                                    Preference
+                                                </td>
+                                                <td style="width: 27%">
+                                                    Others
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Number of Shares
+                                                </td>
+                                                <td>
+                                                    <field name="ordinary_number_of_shares"/>
+                                                </td>
+                                                <td>
+                                                    <field name="preference_number_of_shares"/>
+                                                </td>
+                                                <td>
+                                                    <field name="others_number_of_shares"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Amount of Issued Share Capital
+                                                </td>
+                                                <td>
+                                                    <field name="ordinary_amount_of_issued"/>
+                                                </td>
+                                                <td>
+                                                    <field name="preference_amount_of_issued"/>
+                                                </td>
+                                                <td>
+                                                    <field name="others_amount_of_issued"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Amount of Paid Up Share Capital
+                                                </td>
+                                                <td>
+                                                    <field name="ordinary_amount_of_paid_up"/>
+                                                </td>
+                                                <td>
+                                                    <field name="preference_amount_of_paid_up"/>
+                                                </td>
+                                                <td>
+                                                    <field name="others_amount_of_paid_up"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

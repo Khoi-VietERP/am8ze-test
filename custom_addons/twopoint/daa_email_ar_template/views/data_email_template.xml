@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="send_before_due_date" model="email.ar.send.type">
+            <field name="name">Send before due date</field>
+            <field name="type">before</field>
+        </record>
+
+        <record id="send_on_due_date" model="email.ar.send.type">
+            <field name="name">Send on Actual day</field>
+            <field name="type">on</field>
+        </record>
+
+        <record id="send_after_due_date" model="email.ar.send.type">
+            <field name="name">Send after due date</field>
+            <field name="type">after</field>
+        </record>
+
+        <record id="send_after_unlimited_due_date" model="email.ar.send.type">
+            <field name="name">Send after due date Unlimited</field>
+            <field name="type">after_unlimited</field>
+        </record>
+
+        <record id="one_week_before_due_template" model="mail.template">
+            <field name="name">AR Campaign: One Week Before Due</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="subject">Follow-up on invoice ${object.name}</field>
+            <field name="email_from">${user.email_formatted | safe}</field>
+            <field name="email_to">${object.partner_id.email_formatted | safe}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear ${object.partner_id.name},
+                        <br/><br/>
+                        I hope you are well. This is just to remind you that payment on invoice ${object.name}, which we sent on ${object.invoice_date.strftime('%d-%m-%Y')}, will be due next week.
+                        <br/><br/>
+                        I’m sure you are busy, but I will appreciate if you could take a moment and look over the invoice when you get a chance. Please let me know if you have any questions.
+                        <br/><br/>
+                        Best regards
+                        <br/>
+                        Finance
+                    </p>
+                </div>
+            </field>
+        </record>
+
+        <record id="on_the_day_is_due_template" model="mail.template">
+            <field name="name">AR Campaign: On The Day Is Due</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="subject">Invoice ${object.name} is due today</field>
+            <field name="email_from">${user.email_formatted | safe}</field>
+            <field name="email_to">${object.partner_id.email_formatted | safe}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Hi ${object.partner_id.name},
+                        <br/><br/>
+                        This is just a reminder that payment on invoice ${object.name} (total ${object.currency_id.symbol}${'{:,.2f}'.format(object.amount_residual)}), which we sent on ${object.invoice_date.strftime('%d-%m-%Y')}, is due today. 
+                        You can make payment to the bank account specified on the invoice.
+                        <br/><br/>
+                        If you have any questions whatsoever, please reply and I will be happy to clarify them.
+                        <br/><br/>
+                        Best regards
+                        <br/>
+                        Finance
+                    </p>
+                </div>
+            </field>
+        </record>
+
+        <record id="one_week_after_late_payment_due_template" model="mail.template">
+            <field name="name">AR Campaign: One Week After Late Payment Due</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="subject">Invoice ${object.name} is one week overdue</field>
+            <field name="email_from">${user.email_formatted | safe}</field>
+            <field name="email_to">${object.partner_id.email_formatted | safe}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Hi ${object.partner_id.name},
+                        <br/><br/>
+                        Our records show that we have not yet received payment of ${object.currency_id.symbol}${'{:,.2f}'.format(object.amount_residual)} for Invoice ${object.name},
+                        which is overdue by one week. I would appreciate if you could check this out on your end.
+                        <br/><br/>
+                        If the payment has already been sent, please disregard this notice. And if you have lost this invoice, please let me know, and I will be happy to send you another copy.
+                        <br/><br/>
+                        Best regards
+                        <br/>
+                        Finance
+                    </p>
+                </div>
+            </field>
+        </record>
+
+        <record id="two_week_after_late_payment_due_template" model="mail.template">
+            <field name="name">AR Campaign: 2 Weeks After Late Payment Due</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="subject">Invoice ${object.name} is two weeks overdue</field>
+            <field name="email_from">${user.email_formatted | safe}</field>
+            <field name="email_to">${object.partner_id.email_formatted | safe}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Hi ${object.partner_id.name},
+                        <br/><br/>
+                        I wrote to you several times to remind you of the pending amount of ${object.currency_id.symbol}${'{:,.2f}'.format(object.amount_residual)} for invoice ${object.name}.
+                        As another reminder, payment was due two weeks ago.
+                        <br/><br/>
+                        If you have any queries regarding this payment, please let me know. I will also attached a copy of the invoice to this email, in case the original was lost or deleted.
+                        <br/><br/>
+                        Could you reply to this message and let me know you have received it? Thank you.
+                        <br/><br/>
+                        Best regards
+                        <br/>
+                        Finance
+                    </p>
+                </div>
+            </field>
+        </record>
+
+        <record id="one_month_after_late_payment_due_template" model="mail.template">
+            <field name="name">AR Campaign: 1 Month After Late Payment Due</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="subject">Invoice ${object.name} from ${object.invoice_date_due.strftime('%d-%m-%Y')} is overdue—please send payment ASAP</field>
+            <field name="email_from">${user.email_formatted | safe}</field>
+            <field name="email_to">${object.partner_id.email_formatted | safe}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Hi ${object.partner_id.name},
+                        <br/><br/>
+                        This is another reminder that I have yet to receive the ${object.currency_id.symbol}${'{:,.2f}'.format(object.amount_residual)} owed on invoice ${object.name}.
+                        Please be aware that, as per my terms, I may charge you additional interest on payment received more than 30 days past its due date. 
+                        <br/><br/>
+                        Again, please reach out if you have any questions on this payment. Otherwise, please organize for settlement of this invoice immediately.
+                        <br/><br/>
+                        Best regards
+                        <br/>
+                        Finance
+                    </p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

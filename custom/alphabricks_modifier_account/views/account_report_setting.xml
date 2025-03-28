@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_config_account_report_setting" model="ir.actions.act_window">
+            <field name="name">IAF Report</field>
+            <field name="res_model">ir.actions.report</field>
+            <field name='view_mode'>tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('base.act_report_xml_view_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('base.act_report_xml_view')})]"/>
+            <field name="domain">[('model', '=', 'account.move')]</field>
+            <field name="context">{'create': False, 'edit': False, 'delete': False}</field>
+        </record>
+
+        <menuitem id="config_account_report_settings_menu" name="Account Report Setting"
+                  parent="account.menu_finance_configuration"
+                  sequence="0" action="action_config_account_report_setting"/>
+    </data>
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_seller_snippets,name_seller_snippets,model_seller_snippets,,1,1,1,1
+access_seller_snippets_line,name_seller_snippets_line,model_seller_snippets_line,,1,1,1,1
+access_industry_sector,name_industry_sector,model_industry_sector,,1,1,1,1
+access_staff_strength,name_staff_strength,model_staff_strength,,1,1,1,1

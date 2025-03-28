@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="customer_product_listing_assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/wk39717700c_modifier_report/static/src/js/customer_product_listing.js"></script>
+                <script type="text/javascript" src="/wk39717700c_modifier_report/static/src/js/report_customer_top_selling.js"></script>
+                <script type="text/javascript" src="/wk39717700c_modifier_report/static/src/js/report_invoice_summary.js"></script>
+                <script type="text/javascript" src="/wk39717700c_modifier_report/static/src/js/invoice_summary_product.js"></script>
+                <script type="text/javascript" src="/wk39717700c_modifier_report/static/src/js/product_batch_stock.js"></script>
+                <script type="text/javascript" src="/wk39717700c_modifier_report/static/src/js/product_batch_stock_movement.js"></script>
+                <script type="text/javascript" src="/wk39717700c_modifier_report/static/src/js/product_customer_listing.js"></script>
+                <script type="text/javascript" src="/wk39717700c_modifier_report/static/src/js/report_product_foc.js"></script>
+                <script type="text/javascript" src="/wk39717700c_modifier_report/static/src/js/product_top_selling.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,176 @@
+<odoo>
+    <data>
+        <record id="corp_contact_view_tree" model="ir.ui.view">
+            <field name="name">corp.contact.tree</field>
+            <field name="model">corp.contact</field>
+            <field name="arch" type="xml">
+                <tree string="Contact">
+                    <field name="name"/>
+                    <field name="category_type"/>
+                    <field name="email"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="corp_contact_view_form" model="ir.ui.view">
+            <field name="name">corp.contact.form</field>
+            <field name="model">corp.contact</field>
+            <field name="arch" type="xml">
+                <form string="Contact">
+                    <sheet>
+                        <div class="oe_title">
+                            <field name="category_type" widget="radio" options="{'horizontal': true}"/>
+                            <h1>
+                                <field name="name" default_focus="1" placeholder="Name"/>
+                            </h1>
+                            <field name="no_profile"/>
+                            <label for="no_profile"/>
+                        </div>
+
+                        <group string="Contact Information">
+                            <group>
+                                <field name="email"/>
+                                <field name="identification_type"/>
+                                <field name="position_detail_id"/>
+                                <field name="position_detail2_id"/>
+                                <field name="position_detail3_id"/>
+                                <field name="position_detail4_id"/>
+                                <field name="remarks"/>
+                            </group>
+                            <group>
+                                <field name="nric" attrs="{'invisible' : [('category_type', '!=', 'individual')]}"/>
+                                <field name="id_type" attrs="{'invisible' : [('category_type', '!=', 'individual')]}"/>
+                                <field name="country_id" attrs="{'invisible' : [('category_type', '!=', 'individual')]}"/>
+                                <field name="title" attrs="{'invisible' : [('category_type', '!=', 'individual')]}"/>
+                                <field name="birth_date" attrs="{'invisible' : [('category_type', '!=', 'individual')]}"/>
+                                <field name="country_birth_id" attrs="{'invisible' : [('category_type', '!=', 'individual')]}"/>
+                                <field name="country_residence_id" attrs="{'invisible' : [('category_type', '!=', 'individual')]}"/>
+                                <field name="uen" attrs="{'invisible' : [('category_type', '!=', 'corporate')]}"/>
+                                <field name="country_incorporation_id" attrs="{'invisible' : [('category_type', '!=', 'corporate')]}"/>
+                                <field name="company_type" attrs="{'invisible' : [('category_type', '!=', 'corporate')], 'required' : [('category_type', '=', 'corporate')]}" options="{'no_create_edit': True}"/>
+                                <field name="former_name" attrs="{'invisible' : [('category_type', '!=', 'corporate')]}"/>
+                                <field name="date_of_incorporation" attrs="{'invisible' : [('category_type', '!=', 'corporate')]}"/>
+                                <field name="legal_from" attrs="{'invisible' : [('category_type', '!=', 'corporate')]}"/>
+                                <field name="law" attrs="{'invisible' : [('category_type', '!=', 'corporate')]}"/>
+                                <field name="registrart_of_companies" attrs="{'invisible' : [('category_type', '!=', 'corporate')]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Address" name="address">
+                                <field name="address_ids" widget="section_and_note_one2many" mode="tree" context="{'category_type': category_type}">
+                                    <tree string="Address" editable="bottom">
+                                        <field name="address_type_id" context="{'default_type' : context.get('category_type')}"
+                                               domain="[('type', '=', context.get('category_type'))]"/>
+                                        <field name="address_lf"/>
+                                        <field name="house"/>
+                                        <field name="street"/>
+                                        <field name="building"/>
+                                        <field name="unit"/>
+                                        <field name="zip"/>
+                                        <field name="country_id"/>
+                                    </tree>
+                                    <form string="Address">
+                                        <group name="approval">
+                                            <field name="address_type_id"/>
+                                            <field name="address_lf"/>
+                                            <field name="house"/>
+                                            <field name="street"/>
+                                            <field name="building"/>
+                                            <field name="unit"/>
+                                            <field name="zip"/>
+                                            <field name="country_id"/>
+                                        </group>
+                                     </form>
+                                </field>
+                            </page>
+
+                            <page string="Communication" name="communication">
+                                <field name="communication_ids" widget="section_and_note_one2many" mode="tree">
+                                    <tree string="Communication" editable="bottom">
+                                        <field name="communication_type"/>
+                                        <field name="name"/>
+                                        <field name="reminder"/>
+                                    </tree>
+                                    <form string="Communication">
+                                        <group>
+                                            <field name="communication_type"/>
+                                            <field name="name"/>
+                                            <field name="reminder"/>
+                                        </group>
+                                     </form>
+                                </field>
+                            </page>
+
+                            <page string="Other Attachment" name="other_attachment">
+                                <separator string="Other Attachment"/>
+                                <field name="attachment_other_ids" widget="section_and_note_one2many" mode="tree">
+                                    <tree string="Other Attachment" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="file_name"/>
+                                        <field name="description"/>
+                                        <field name="attachment"/>
+                                        <field name="date"/>
+                                        <field name="user_id" options="{'no_create_edit': True}"/>
+                                    </tree>
+                                    <form string="Other Attachment">
+                                        <group name="attachment">
+                                            <field name="name"/>
+                                            <field name="file_name"/>
+                                            <field name="description"/>
+                                            <field name="attachment"/>
+                                            <field name="date"/>
+                                            <field name="user_id"/>
+                                        </group>
+                                     </form>
+                                </field>
+                            </page>
+
+                            <page string="Associations" name="associations">
+                                <field name="associations_ids" widget="section_and_note_one2many" mode="tree" context="{'default_category_type': category_type}">
+                                    <tree string="Associations" editable="bottom">
+                                        <field name="entity_id"/>
+                                        <field name="uen"/>
+                                        <field name="company_status"/>
+                                        <field name="category_type" invisible="1"/>
+                                        <field name="position_detail_id" options="{'no_create_edit': True}"/>
+                                        <field name="signatory"/>
+                                        <field name="position_state"/>
+                                        <field name="commencement_date"/>
+                                        <field name="cessation_date"/>
+                                        <field name="reason_cessation"/>
+                                        <field name="director"/>
+                                        <field name="registrable_controller"/>
+                                    </tree>
+                                    <form string="Associations">
+                                        <group name="associations">
+                                            <field name="entity_id"/>
+                                            <field name="uen"/>
+                                            <field name="company_status"/>
+                                            <field name="category_type" invisible="1"/>
+                                            <field name="position_detail_id"/>
+                                            <field name="signatory"/>
+                                            <field name="position_state"/>
+                                            <field name="commencement_date"/>
+                                            <field name="cessation_date"/>
+                                            <field name="reason_cessation"/>
+                                            <field name="director"/>
+                                            <field name="registrable_controller"/>
+                                        </group>
+                                     </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="corp_contact_action" model="ir.actions.act_window">
+            <field name="name">Contact</field>
+            <field name="res_model">corp.contact</field>
+            <field name='view_mode'>tree,form</field>
+        </record>
+
+        <menuitem id="corp_contact_menu" name="Contact" parent="corp_sec_entity" action="corp_contact_action" sequence="3"/>
+    </data>
+</odoo>

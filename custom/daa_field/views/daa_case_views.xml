@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_daa_case_form" model="ir.ui.view">
+            <field name="name">daa.case.form.inherit</field>
+            <field name="model">daa.case</field>
+            <field name="inherit_id" ref="daa_case.view_daa_case_form"/>
+            <field name="arch" type="xml">
+                <page name="contacts" position="after">
+                    <page name="event_detail" string="Event Details">
+                        <field name="event_ids" context="{'default_client_id':client_id}">
+                            <tree editable="bottom">
+                                <!--<field name="case_id" required="1"/>-->
+                                <field name="create_date" string="Action Date / Time"/>
+                                <!--<field name="time_deadline" widget="float_time"/>-->
+                                <field name="action_code_id" string="Action Code"/>
+                                <field name="case_stage_id"/>
+                                <field name="activity_type_id" string="Followup Action"/>
+                                <field name="date_deadline" string="Followup Date"/>
+                                <field name="employee_id"/>
+                                <field name="internal_remarks"/>
+
+                                <field name="status_id"/>
+                                <field name="description_id" invisible="1"/>
+
+                                <field name="debtor_id" context="{'default_is_debtor':True}" invisible="1"/>
+
+                                <field name="res_model_id" invisible="1"/>
+                                <field name="res_id" invisible="1"/>
+                                <field name="res_name" invisible="1"/>
+
+                                <button string="Duplicate" name="copy" type="object"/>
+                            </tree>
+                        </field>
+                    </page>
+                </page>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="modifier_layout">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+            <t t-call="alphabricks_customer_stock_report.layout_modifier_header_logo">
+                <t t-raw="0"/>
+            </t>
+        </template>
+
+        <template id="layout_modifier_header_logo">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                <table style="width: 100%">
+                    <tr>
+                        <td style="width: 65%">
+                            <h4><span t-esc="company.name"/></h4>
+                        </td>
+                        <td style="width: 35%">
+                            <span>Date : <t t-esc="datetime.datetime.now().strftime('%d/%m/%Y')" /></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>
+                                Customer Product Listing
+                            </span>
+                        </td>
+                        <td>
+                            <div t-if="report_type == 'pdf'" class="text-muted">
+                                Page : <span class="page"/> / <span class="topage"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>Date Range <t t-esc="o.start_date and o.start_date.strftime('%d/%m/%Y') or ''"/> to
+                            <t t-esc="o.end_date and o.end_date.strftime('%d/%m/%Y') or ''"/></span>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>Customer Range <t t-esc="', '.join(o.partner_ids.mapped('name'))"/></span>
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+                 t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                 t-att-data-oe-lang="o and o.env.context.get('lang')"
+            >
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+        </template>
+
+        <template id="customer_stock_report_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="alphabricks_customer_stock_report.modifier_layout">
+                        <style>
+                            table th,table td {
+                                padding: 0.2rem 0.2rem;
+                            }
+                            .page {
+                                font-size: 14px;
+                            }
+                        </style>
+                        <div class="page">
+                            <table style="width: 100%">
+                                <thead>
+                                    <tr style="border-top: 1px solid black; border-bottom: 1px solid black">
+                                        <th style="width:6%">Cust Code<br/>Date</th>
+                                        <th style="width:10%">Type</th>
+                                        <th style="width:9%">Customer Name<br/>Doc.No</th>
+                                        <th style="width:7%">Product Code</th>
+                                        <th style="width:6%">StockOut</th>
+                                        <th style="width:5%">UOM</th>
+                                        <th style="width:8%">Unit Price</th>
+                                        <th style="width:8%">Total</th>
+                                        <th style="width:41%">Description of Transaction</th>
+                                    </tr>
+                                </thead>
+                                <t t-foreach="o.get_stock_product()" t-as="partner_data">
+                                    <tr>
+                                        <td>
+                                            <b><t t-esc="partner_data.get('partner_code')"/></b>
+                                        </td>
+                                        <td></td>
+                                        <td colspan="7"><b><u><t t-esc="partner_data.get('partner_name')"/></u></b></td>
+                                    </tr>
+                                    <t t-foreach="partner_data.get('data')" t-as="product">
+                                        <tr>
+                                            <td>
+                                                <span t-esc="product.get('date')"></span>
+                                            </td>
+                                            <td>
+                                                <span t-esc="product['type']"></span>
+                                            </td>
+                                            <td>
+                                                <span t-esc="product.get('doc_no')"></span>
+                                            </td>
+                                            <td>
+                                                <span t-esc="product.get('product_code')"></span>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="product.get('stock_out')"></span>
+                                            </td>
+                                            <td>
+                                                <span t-esc="product.get('uom')"></span>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="product.get('unit_price')"
+                                                      t-options='{"widget": "monetary", "display_currency": product.get("currency_id")}'></span>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="product.get('price_subtotal')"
+                                                      t-options='{"widget": "monetary", "display_currency": product.get("currency_id")}'></span>
+                                            </td>
+                                            <td>
+                                                <span t-esc="product.get('name')"></span>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <td colspan="9"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="text-right"><b>Grand Total:</b></td>
+                                        <td><b><t t-esc="partner_data.get('total_stock_out')"/></b></td>
+                                        <td></td>
+                                        <td><b><t t-esc="partner_data.get('total_unit_price')"/></b></td>
+                                        <td><b><t t-esc="partner_data.get('total_price_subtotal')"/></b></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="9"></td>
+                                    </tr>
+                                </t>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <report
+            id="customer_stock_report"
+            string="Customer Stock Report"
+            model="customer.stock.report"
+            report_type="qweb-pdf"
+            file="alphabricks_customer_stock_report.customer_stock_report_template"
+            name="alphabricks_customer_stock_report.customer_stock_report_template"
+            attachment="('Customer Products Listing.pdf')"
+            menu="False"
+        />
+
+        <record id="paperformat_customer_stock_report" model="report.paperformat">
+            <field name="name">Customer Stock Report Paperformat A4 (Fit)</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">28</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">40</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="paperformat_customer_stock_report" model="report.paperformat">
+            <field name="report_ids" eval="[(4, ref('customer_stock_report'))]"/>
+        </record>
+    </data>
+</odoo>

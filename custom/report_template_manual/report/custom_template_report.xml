@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--Template-->
+    <template id="custom_template_report_document">
+        <div class="header">
+            <t t-call="report_utils.font_assets"/>
+            <t t-set="colors" t-value="template.get_colors(o.company_id)"/>
+            <t t-set="font" t-value="template.get_font()"/>
+            <div t-attf-style="min-height:155px; padding-top:15px" t-if="template.show_header">
+                <table style="width:100%">
+                    <tr>
+                        <td style="width:20%;">
+                            <center><img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="height:140px;width:auto;" alt="Logo"/></center>
+                        </td>
+                        <td t-attf-style="width:80%;color:#{colors.color1};font-family:#{font.family}; vertical-align:top">
+                            <div t-attf-style="display: inline-block;margin-top:#{template.margin_top_header};margin-bottom:#{template.margin_bottom_header};margin-left:#{template.margin_left_header};margin-right:#{template.margin_right_header}" class="text-center">
+                                <span t-attf-style="font-size:#{font.get_size(percent=180)};font-weight:bold;text-transform:uppercase" t-esc="o.company_id.name"/>
+                                <br/>
+                                <span t-attf-style="font-size:#{font.size};">
+                                    <t t-foreach="template.get_address_data(o.company_id, 'header_company_field_ids')" t-as="line">
+                                        <span t-if="line['value']" t-raw="line['separator']"/>
+                                        <span t-if="line['label']" t-esc="line['label']"/>
+                                        <span t-if="line['label']">:</span>
+                                        <span t-if="line['value']" t-esc="line['value']"/>
+                                    </t>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id">
+            <div t-attf-style="font-size:#{font.get_size(percent=120)};text-align:center;font-weight:bolder;background-color:#{colors.color1};font-family:#{font.family};color:white">
+                <span t-if="template.title_report" t-raw="template.title_report"/>
+            </div>
+
+            <img t-if="template.watermark" t-attf-style="{{template.get_watermark_style()}}" t-attf-src="data:image/png;base64,{{template.watermark}}"/>
+
+            <table t-attf-style="width:100%;margin:0;font-size:#{font.size};font-family:#{font.family};color:black">
+                <tr>
+                    <td id="td_bill_to_column" t-attf-style="border:1px solid black;text-align:left;background-color:#{colors.color2};padding:4px;padding-top:15px;">
+                        <span>
+                            <t t-if="template.label_partner">
+                                <t t-esc="template.label_partner"/>
+                            </t>
+                        </span>
+                        <div style="height:10px"/>
+                        <p style="background:white;padding:2px">
+                            <t t-if="template.report_partner_id">
+                                <t t-set="partner_id" t-value="template.get_field_object(o, template.report_partner_id)"/>
+                            </t>
+                            <t t-else="">
+                                <t t-set="partner_id" t-value="o.partner_id"/>
+                            </t>
+                            <span t-esc="partner_id.name or 'Unknown'"/><br/>
+
+                            <t t-foreach="template.get_address_data(partner_id, 'partner_field_ids')" t-as="line">
+                                <span t-if="line['value']" t-raw="line['separator']"/>
+                                <span t-if="line['label']" t-esc="line['label']"/>
+                                <span t-if="line['label']">:</span>
+                                <span t-if="line['value']" t-esc="line['value']"/>
+                            </t>
+                            <t t-if="partner_id.vat">
+                                <br/>
+                                <t t-if="o.company_id.country_id.vat_label" t-esc="o.company_id.country_id.vat_label" id="inv_tax_id_label"/>
+                                <t t-else="">Tax ID</t>: <span t-field="partner_id.vat"/>
+                            </t>
+                        </p>
+                    </td>
+<!--                    <td t-attf-style="border:1px solid black;text-align:left;background-color:#{colors.color2};padding:4px;padding-top:15px;">-->
+<!--                        <span>SHIP TO</span>-->
+<!--                        <div style="height:10px"/>-->
+<!--                        <p style="background:white;padding:2px">-->
+<!--                            xxxxxxxxxxxxxxxxxxxxxxx<br/>-->
+<!--                            xxxxxxxxxxxxxxxxxxxxxxx<br/>-->
+<!--                            xxxxxxxxxxxxxxxxxxxxxxx<br/>-->
+<!--                            xxxxxxxxxxxxxxxxxxxxxxx<br/>-->
+<!--                        </p>-->
+<!--                    </td>-->
+                    <td t-attf-style="border:1px solid black;vertical-align:top">
+                        <table style="width:100%;">
+                            <t t-set="count" t-value="0"/>
+                            <tr t-foreach="template.get_o2m_data(o, 'section_2_field_ids')" t-as="line">
+                                <t t-if="line['value'] or line['null_value_display']">
+                                    <t t-set="count" t-value="count+1"/>
+                                    <td style="text-align:left;   padding:2px; border-bottom:1px solid black;border-right:1px solid black"><span t-attf-style="text-transform:uppercase;" t-esc="line['label']"/></td>
+                                    <td style="text-align:center; padding:2px; border-bottom:1px solid black"><span t-esc="line['value']"/></td>
+                                </t>
+                            </tr>
+                            <tr t-foreach="list(range(0, 6 - count))" t-as="empty_line">
+                                <td style="padding:2px; border-bottom:1px solid black;border-right:1px solid black"><span t-attf-style="text-transform:uppercase;"/>&#160;</td>
+                                <td style="padding:2px; border-bottom:1px solid black"><span/>&#160;</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+
+            <t t-set="show_serial_number" t-value="template.get_other_option_data('show_serial_number')"/>
+            <t t-set="serial_number_heading" t-value="template.get_other_option_data('serial_number_heading')"/>
+            <t t-set="show_product_image" t-value="template.get_other_option_data('show_product_image')"/>
+            <t t-set="product_image_position" t-value="template.get_other_option_data('product_image_position')"/>
+            <t t-set="product_image_column_heading" t-value="template.get_other_option_data('product_image_column_heading')"/>
+            <t t-set="product_image_width" t-value="template.get_other_option_data('product_image_width')"/>
+            <div style="height:4px"/>
+
+            <table style="width:100%" t-if="template.memo_id">
+                <tr>
+                    <td t-attf-style="font-size:#{font.size};border:1px solid black;padding:4px;text-transform:uppercase">
+                        <span>Memo :</span>
+                    </td>
+                    <td t-attf-style="font-size:#{font.size};border:1px solid black;padding:4px;text-align:center">
+                        <span t-esc="template.get_field_object(o, template.memo_id)"/>
+                    </td>
+                </tr>
+            </table>
+
+            <t t-if="template.field_id and template.section_lines_field_ids">
+                <table style="width:100%" t-if="template.get_o2m_data_lines_section(o, template.field_id.name,'section_lines_field_ids')">
+                    <tr>
+                        <td t-if="show_serial_number" t-attf-style="background: #{colors.color2};padding:4px;width:10px; border:1px solid black;"  class="text-center">
+                            <span t-attf-style="text-transform:uppercase;color:black;" t-esc="serial_number_heading"/>
+                        </td>
+                        <t t-foreach="template.get_o2m_data_lines_section(o, template.field_id.name,'section_lines_field_ids')[0]" t-as="line" t-if="not line['invisible']">
+                            <td t-if="show_product_image and (line_index + 1) == product_image_position" t-attf-style="background: #{colors.color2};padding:4px;color:white;#{line['width_style']}; border:1px solid black;"  class="text-center">
+                                <span t-attf-style="text-transform:uppercase;color:black;" t-esc="product_image_column_heading"/>
+                            </td>
+                            <td t-attf-style="background: #{colors.color2};padding:4px;color:white;#{line['width_style']}; border:1px solid black;"  class="text-center">
+                                <span t-attf-style="text-transform:uppercase;color:black;" t-esc="line['label']"/>
+                            </td>
+                        </t>
+                    </tr>
+
+                    <t t-set="line_count" t-value="0"/>
+                        <tr t-foreach="template.get_o2m_data_lines_section(o, template.field_id.name,'section_lines_field_ids')[1:]" t-as="line" class="text-left">
+                            <t t-set="display_type" t-value="line[0]['display_type']"/>
+                            <t t-if="display_type">
+                                <t t-foreach="line" t-as="line2">
+                                    <t t-if="line2['field_name'] == 'name'">
+                                        <td t-att-colspan="line2['number_column']" t-attf-style="font-size:#{font.size};border:1px solid #{colors.color1};padding:4px;#{line2['alignment_style']}" t-if="not line2['invisible']">
+                                            <span t-esc="line2['value']"/>
+                                        </td>
+                                    </t>
+                                </t>
+                            </t>
+                            <t t-else="">
+                                <t t-set="line_count" t-value="line_count + 1"/>
+                                <td t-if="show_serial_number" t-attf-style="font-size:#{font.size};border:1px solid #{colors.color1};padding:4px;text-align:center">
+                                    <span t-esc="line_count"/>
+                                </td>
+                                <t t-foreach="line" t-as="line2">
+                                    <td t-if="show_product_image and (line2_index + 1) == product_image_position" t-attf-style="font-size:#{font.size};border:1px solid #{colors.color1};padding:4px;#{line2['alignment_style']}">
+                                        <img t-attf-style="width:#{product_image_width}" t-if="line2['line_id'].product_id.image_1920" t-att-src="image_data_uri(line2['line_id'].product_id.image_1920)"/>
+                                    </td>
+                                    <td t-attf-style="font-size:#{font.size};border:1px solid #{colors.color1};padding:4px;#{line2['alignment_style']}" t-if="not line2['invisible']">
+                                        <span t-esc="line2['value']"/>
+                                    </td>
+                                </t>
+                            </t>
+                        </tr>
+                        <tr>
+                            <td t-if="show_serial_number" t-attf-style="background: #{colors.color2};padding:0px;width:10px; border:1px solid black;border-top:0px"  class="text-center">&#160;</td>
+                            <t t-foreach="template.get_o2m_data_lines_section(o, template.field_id.name,'section_lines_field_ids')[0]" t-as="line" t-if="not line['invisible']">
+                                <td t-if="show_product_image and (line_index + 1) == product_image_position" t-attf-style="background: #{colors.color2};padding:0px;color:white;#{line['width_style']}; border:1px solid black;border-top:0px"  class="text-center">&#160;</td>
+                                <td t-attf-style="background: #{colors.color2};padding:0px;color:white;#{line['width_style']}; border:1px solid black;border-top:0px"  class="text-center">&#160;</td>
+                            </t>
+                        </tr>
+                </table>
+            </t>
+
+            <table style="width:100%" t-if="template.amount_in_text_applicable">
+                <tr>
+                    <td t-attf-style="font-size:#{font.size};border:1px solid black;border-top:0px;padding:4px;text-transform:uppercase">
+                        <t t-if="template.amount_in_text_label"><span t-esc="template.amount_in_text_label"/>:</t>
+                        <t t-else="">Amount in Text:</t>
+                    </td>
+                    <td t-attf-style="font-size:#{font.size};border:1px solid black;border-top:0px;padding:4px;text-align:center">
+                        <span t-esc="template.get_amount_in_text(o, 'amount_total')"/>
+                    </td>
+                </tr>
+            </table>
+
+            <table style="width:100%" id="amount_footer">
+                <t t-foreach="template.get_o2m_data(o, 'section_footer_field_ids')" t-as="line">
+                    <t t-if="line['tax_group']">
+                        <t t-set="payments_vals" t-value="o.sudo()._get_reconciled_info_JSON_values()"/>
+                        <t t-foreach="payments_vals" t-as="payment_vals">
+                            <tr>
+                                <td t-attf-style="width:50%;border-left:1px solid black;"/>
+                                <td t-attf-style="font-size:#{font.size};border:1px solid black;border-top:0px;padding:4px;text-transform:uppercase;text-align:left">
+                                    <i class="oe_form_field text-right oe_payment_label">Paid on
+                                        <t t-esc="payment_vals['date']" t-options='{"widget": "date"}'/>
+                                    </i>
+                                </td>
+                                <td t-attf-style="font-size:#{font.size};border:1px solid black;border-top:0px;padding:4px;text-transform:uppercase;text-align:right">
+                                    <span t-esc="payment_vals['amount']"
+                                          t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+                    <t t-else="">
+                        <tr>
+                            <td t-attf-style="width:50%;border-left:1px solid black;"/>
+                            <td t-attf-style="font-size:#{font.size};border:1px solid black;border-top:0px;padding:4px;text-transform:uppercase;text-align:left"><span t-esc="line['label']"/></td>
+                            <td t-attf-style="font-size:#{font.size};border:1px solid black;border-top:0px;padding:4px;text-transform:uppercase;text-align:right"><span t-esc="line['value']"/></td>
+                        </tr>
+                    </t>
+                </t>
+            </table>
+            <table style="width:100%">
+                <tr>
+                    <td t-attf-style="background: #{colors.color2};padding:0px;border:1px solid black;border-right:0px">&#160;</td>
+                    <td colspan="2" t-attf-style="background: #{colors.color2};padding:0px;border:1px solid black;border-left:0px">&#160;</td>
+                </tr>
+
+            </table>
+
+            <div id="section_notes">
+                <div class="row">
+                    <div class="col-8 text-left">
+                        <div t-attf-style="font-size:#{font.size};text-align: left; white-space: pre-line;" t-if="template.template_note">
+                            <span t-raw="template.get_template_note(o)"/>
+                        </div>
+                    </div>
+                    <div  class="col-4" >
+                    </div>
+                </div>
+            </div>
+
+            <div id="section_signature">
+                <div class="row" style="width: 100%" >
+                    <div class="col-5">
+                        <div t-attf-style="font-size:#{font.size};text-align: center; white-space: pre-line;" t-if="template.signature_left">
+                            <div style="border-bottom: 1px solid #000; padding-bottom:100px; padding-right:50px; padding-left:50px"><span t-raw="template.signature_right_text"/></div>
+
+                        </div>
+                    </div>
+                    <div class="col-2">
+                    <br/>
+                    </div>
+                    <div class="col-5">
+                        <div t-attf-style="font-size:#{font.size};text-align: center; white-space: pre-line;" t-if="template.signature_right">
+                            <div style="border-bottom: 1px solid #000; padding-bottom:100px; padding-right:50px; padding-left:50px"><span t-raw="template.signature_left_text"/></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer" t-attf-style="background:#{colors.color2};min-height:200px">
+            <t t-call="report_utils.font_assets"/>
+            <t t-set="colors" t-value="template.get_colors(o.company_id)"/>
+            <table t-attf-style="width:100%;border-top:1px solid #{colors.color2};color:black;font-size:#{font.size};font-family:#{font.family}" t-if="template.show_footer">
+                <tr>
+                    <td style="width:30%">
+                        <t t-foreach="template.get_address_data(o.company_id, 'footer_company_field_ids')" t-as="line">
+                            <br t-if="line_index != 0"/>
+                            <span t-if="line['value']" t-raw="line['separator']"/>
+                            <span style="font-weight:bold" t-if="line['label']" t-esc="line['label']"/>
+                            <span style="font-weight:bold" t-if="line['label']">:</span>
+                            <span t-if="line['value']" t-esc="line['value']"/>
+                        </t>
+                    </td>
+                    <td style="width:60%;text-align:center;font-style:italic;padding-left:20px;padding-right:20px;">
+                        <span t-field="o.company_id.report_header"/>
+                    </td>
+                    <td style="width:10%">
+                        <div t-if="report_type == 'pdf'">
+                            Page: <span class="page"/> / <span class="topage"/>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </template>
+</odoo>

@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+        <record id="view_account_tax_form_inherit" model="ir.ui.view">
+            <field name="name">account.tax.form</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="tax_code"/>
+                </field>
+                <xpath expr="//sheet" position="before">
+                    <header>
+                        <button name="action_update_account_tax" class="oe_highlight" string="Update Account Tax" type="object"/>
+                    </header>
+                </xpath>
+                 <xpath expr="//field[@name='description']" position="after">
+                    <field name="use_label_as_tax_name"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="tax_repartition_line_tree_inherit" model="ir.ui.view">
+            <field name="name">account.tax.repartition.line.tree</field>
+            <field name="model">account.tax.repartition.line</field>
+            <field name="inherit_id" ref="account.tax_repartition_line_tree"/>
+            <field name="arch" type="xml">
+                <field name="tag_ids" position="attributes">
+                    <attribute name="options">{}</attribute>
+                </field>
+                <xpath expr="//field[@name='account_id']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('repartition_type', '=', 'base')],'required' : [('repartition_type', '!=', 'base')]}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+<!--        <function model="account.tax" name="update_tax_8_percent"/>-->
+    </data>
+</odoo>

@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <template id="many2one_assets_backend" name="Partner Autocomplete Assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/many2one_extra/static/src/js/many2one.js" />
+            </xpath>
+        </template>
+    </data>
+</odoo>

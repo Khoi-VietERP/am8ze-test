@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+
+        <!-- function model="mail.channel" name="add_user_gst_channel"/>
+        <function model="res.company" name="add_user_company"/>
+        <notify all employees of module installation -->
+    </data>
+</odoo>

@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <template id="redirect_confirm_template" name="Confirm Redirect">
+            <style>
+                .button {
+                      text-decoration: none;
+                      background-color: #EEEEEE;
+                      color: #333333;
+                      padding: 2px 6px 2px 6px;
+                      border-top: 1px solid #CCCCCC;
+                      border-right: 1px solid #333333;
+                      border-bottom: 1px solid #333333;
+                      border-left: 1px solid #CCCCCC;
+                    }
+
+                .div-confirm {
+                    margin-top: 35px;
+                    text-align: center;
+                    border: 2px double #008eff;
+                    width: 450px;
+                    height: 80px;
+                    border-radius: 5px;
+                }
+            </style>
+            <div style="display: flex;justify-content: center;">
+                 <div class="div-confirm">
+                    <div style="padding-top: 10px;">
+                        <span>You are going off your site. Do you want to do it?</span>
+                    </div>
+                    <div style="height: 10px;"/>
+                    <div>
+                        <a class="btn btn-secondary button" t-attf-href="#{back_url}"> Go to Home</a>
+                        <a class="btn btn-secondary button" t-attf-href="#{new_url}"> Go to Site</a>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </data>
+</odoo>

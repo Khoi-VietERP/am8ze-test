@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_template_form_view" model="ir.ui.view">
+            <field name="name">product.template.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <div name="options" position="inside">
+                    <div>
+                        <field name="show_in_ordering"/>
+                        <label for="show_in_ordering"/>
+                    </div>
+                </div>
+                <page name="general_information" position="inside">
+                    <group string="Ordering">
+                        <field name="ordering_sequence" string="Sequence"/>
+                    </group>
+                    <!--<field name="remarks" nolabel="1" placeholder="Remark..."/>-->
+                    <field name="product_pricelist_remark_ids">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="pricelist_id"/>
+                        </tree>
+                        <form>
+                            <field name="name"/>
+                            <field name="pricelist_id"/>
+                        </form>
+                    </field>
+                </page>
+            </field>
+        </record>
+
+        <record id="product_category_form_view" model="ir.ui.view">
+            <field name="name">product.category.form.inherit</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <group name="first" position="after">
+                    <group name="ordering">
+                        <group string="Ordering">
+                            <field name="ordering_sequence"/>
+                        </group>
+                    </group>
+                </group>
+            </field>
+        </record>
+    </data>
+</odoo>

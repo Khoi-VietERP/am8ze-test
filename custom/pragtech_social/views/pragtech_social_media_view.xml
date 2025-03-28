@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+    <record id="pragtech_social_media_view_kanban" model="ir.ui.view">
+        <field name="name">pragtech.social.media.view.kanban</field>
+        <field name="model">pragtech.social.media</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_pragtech_sm" create="false">
+                <field name="media_name"/>
+                <field name="id"/>
+                <field name="media_description"/>
+                <field name="media_link_accounts"/>
+                <field name="media_image"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div name="media" class="oe_kanban_color_5">
+                            <div name="media_image" class="o_kanban_image">
+                                <img name="image_name" type="open"
+                                     t-att-src="kanban_image('pragtech.social.media', 'media_image', record.id.raw_value)"
+                                     alt=" Pragtech Installed Media"/>
+                            </div>
+                            <div>
+                                <h3 name="h3" class="mt4"><t t-esc="record.media_name.value"/></h3>
+                                <t t-if="record.media_description.raw_value"
+                                   t-raw="record.media_description.raw_value"/>
+                            </div>
+                             <div>
+                                <button t-if="record.media_link_accounts.raw_value"
+                                        name="pragtech_link_account"
+                                        type="object"
+                                        class="float-right btn btn-primary">
+                                    Link account
+                                </button>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_pragtech_social_media" model="ir.actions.act_window">
+        <field name="name">Installed Media</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pragtech.social.media</field>
+        <field name="view_mode">kanban,form</field>
+    </record>
+
+    <menuitem
+        id="social_dashboard_social_media"
+        parent="pragtech_social.pragtech_social_configuration"
+        name="Installed Media"
+        action="action_pragtech_social_media"
+        sequence="10" />
+
+</data>
+</odoo>

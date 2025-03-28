@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+    <menuitem
+        id="social_dashboard_instagram"
+        parent="odoo_lead_forms_ad_integration_hub_crm.social_dashboard_main_menu"
+        name="Instagram Dashboard"
+        sequence="33" />
+
+    <menuitem
+        id="social_dashboard_instagram_pages"
+        parent="odoo_lead_forms_ad_integration_hub_crm.social_dashboard_social_configuration"
+        name="Instagram Pages"
+        sequence="41" />
+
+</data>
+</odoo>

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_f53167513x_modifier_partner_f53167513x_modifier_partner,f53167513x_modifier_partner.f53167513x_modifier_partner,model_f53167513x_modifier_partner_f53167513x_modifier_partner,base.group_user,1,1,1,1

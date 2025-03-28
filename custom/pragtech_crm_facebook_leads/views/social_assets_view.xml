@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="assets_crm_facebook_backend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link href="/pragtech_crm_facebook_leads/static/css/custom_css.css"
+                  rel="stylesheet"
+                  type="text/css"/>
+        </xpath>
+    </template>
+
+</odoo>

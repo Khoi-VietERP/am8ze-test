@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_am8ze_crm_modifier_am8ze_crm_modifier,am8ze_crm_modifier.am8ze_crm_modifier,model_am8ze_crm_modifier_am8ze_crm_modifier,base.group_user,1,1,1,1

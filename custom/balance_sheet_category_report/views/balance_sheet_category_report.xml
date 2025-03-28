@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="ins_account_financial_report_bs_category" model="ins.account.financial.report">
+            <field name="name">Balance Sheet Category</field>
+            <field name="type">sum</field>
+            <field name="display_detail">no_detail</field>
+        </record>
+
+        <record id="action_dynamic_bs_category_report" model="ir.actions.client">
+            <field name="name">Balance Sheet Category</field>
+            <field name="tag">dynamic.fr</field>
+            <field name="context"
+                       eval="{'account_report_id':ref('balance_sheet_category_report.ins_account_financial_report_bs_category')}"/>
+        </record>
+
+        <menuitem id="menu_dynamic_bs_category_report" sequence="90" action="action_dynamic_bs_category_report"
+                  name="Balance Sheet Category" parent="account_dynamic_reports.account_reports_ins_wiz" groups="account.group_account_user"/>
+    </data>
+    <data>
+        <function model="ins.account.financial.report" name="create_bs_category_report"/>
+    </data>
+</odoo>

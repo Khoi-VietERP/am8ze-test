@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+      <!-- TXCA Purchase Tax -->
+      <!-- Rashik -->
+     <!--  <record id="tag_sg_purchase_tax_TXCA_7" model="account.account.tag">
+          <field name="name">Purchase Tax 7% TXCA</field>
+          <field name="applicability">taxes</field>
+          <field name="country_id" ref="base.sg"/>
+      </record>
+
+      <record model="account.account" id="gst_f5.account_account_TXCA">
+        <field name="name">Purchase Tax Account 7% TXCA</field>
+        <field name="code">204008</field>
+        <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+        <field name="reconcile" eval="False" />
+      </record> -->
+
+      <!-- <record id="1sg_purchase_tax_TXCA_7" model="account.tax">
+          <field name="name">Purchase Tax 7% TXCA</field>
+          <field name="description">7% TXCA</field>
+          <field name="price_include" eval="0"/>
+          <field name="amount">7</field>
+          <field name="amount_type">percent</field>
+          <field name="type_tax_use">purchase</field> -->
+          <!-- <field name="account_id" ref="gst_f5.account_account_TXCA"/> -->
+          <!-- <field name="refund_account_id" ref="gst_f5.account_account_TXCA"/> -->
+          <!-- <field name="tag_ids" eval="[(6,0,[ref('tag_sg_purchase_tax_TXCA_7')])]"/> -->
+      <!-- </record> -->
+
+        <!-- SRCA-C Sales Tax -->
+
+      <!-- <record id="tag_sg_sales_tax_SRCA_C_7" model="account.account.tag">
+          <field name="name">Sales Tax 7% SRCA-C</field>
+          <field name="country_id" ref="base.sg"/>
+          <field name="applicability">taxes</field>
+      </record>
+
+      <record model="account.account" id="gst_f5.account_account_SRCA_C">
+        <field name="name">Sales Tax Account 7% SRCA-C</field>
+        <field name="code">204007</field>
+        <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+        <field name="reconcile" eval="False" />
+      </record>
+
+      <record id="sg_sales_tax_SRCA_C_7" model="account.tax">
+          <field name="name">Sales Tax 7% SRCA-C</field>
+          <field name="description">7% SRCA-C</field>
+          <field name="price_include" eval="0"/>
+          <field name="amount">7</field>
+          <field name="amount_type">percent</field>
+          <field name="type_tax_use">sale</field> -->
+          <!-- <field name="account_id" ref="gst_f5.account_account_SRCA_C"/> -->
+          <!-- <field name="refund_account_id" ref="gst_f5.account_account_SRCA_C"/> -->
+          <!-- <field name="tag_ids" eval="[(6,0,[ref('tag_sg_sales_tax_SRCA_C_7')])]"/> -->
+      <!-- </record> -->
+
+      <!-- SRCA-S Sales Tax -->
+
+      <!-- <record id="tag_sg_sales_tax_SRCA_S_0" model="account.account.tag">
+          <field name="name">Sales Tax 0% SRCA-S</field>
+          <field name="applicability">taxes</field>
+          <field name="country_id" ref="base.sg"/>
+      </record>
+
+      <record model="account.account" id="gst_f5.account_account_SRCA_S">
+        <field name="name">Sales Tax Account 0% SRCA-S</field>
+        <field name="code">204009</field>
+        <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+        <field name="reconcile" eval="False" />
+      </record>
+
+      <record id="sg_sales_tax_SRCA_S_0" model="account.tax">
+          <field name="name">Sales Tax 0% SRCA-S</field>
+          <field name="description">0% SRCA-S</field>
+          <field name="price_include" eval="0"/>
+          <field name="amount">0</field>
+          <field name="amount_type">percent</field>
+          <field name="type_tax_use">sale</field>
+          <field name="account_id" ref="gst_f5.account_account_SRCA_S"/>
+          <field name="refund_account_id" ref="gst_f5.account_account_SRCA_S"/>
+          <field name="tag_ids" eval="[(6,0,[ref('tag_sg_sales_tax_SRCA_S_0')])]"/> -->
+          <!-- <field name="linkTaxRecord" ref="gst_f5.srca_s_link_txca_record_special"/> -->
+      <!-- </record> -->
+
+      <!-- <record id="srca_s_link_txca_record_special" model="tax.linkconfig">
+          <field name="name">SRCA-S Link TXCA</field>
+          <field name="mainTax" ref="gst_f5.sg_purchase_tax_TXCA_7"/>
+          <field name="linkTax" ref="gst_f5.sg_sales_tax_SRCA_C_7"/>
+      </record>
+ -->
+    </data>
+</odoo>

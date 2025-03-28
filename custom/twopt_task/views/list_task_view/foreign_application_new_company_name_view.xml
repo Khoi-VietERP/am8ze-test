@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="foreign_application_new_company_name_form" model="ir.ui.view">
+            <field name="name">foreign.application.new.company.name.form</field>
+            <field name="model">foreign.application.new.company.name</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <separator string="Company Information"/>
+                        <div>
+                            <label for="name_of_foreign_company" style="font-weight: bold;"/><br/>
+                            <field name="name_of_foreign_company" style="width: 30%;"/><br/>
+                            <span>
+                                Note: Please do NOT include any suffix in the proposed entity name e.g, Pte, Ltđ., limited, LLP.
+                                For more information on the different business structures, please click here.
+                            </span>
+                        </div><br/><br/>
+                        <group col="2">
+                            <div>
+                                <label for="proposed_entity_name" style="font-weight: bold;"/>
+                            </div>
+                            <div>
+                                <field name="proposed_entity_name" style="width: 30%;"/>
+                            </div>
+                        </group>
+                        <separator string="Company Activity"/>
+                        <div>
+                            <label for="primary_activity" style="font-weight: bold;"/><br/>
+                            <field name="primary_activity" style="width: 50%;"/>
+                        </div>
+                        <div>
+                            <label for="primary_description" style="font-weight: bold;"/><br/>
+                            <field name="primary_description" style="width: 30%;"/>
+                        </div>
+                        <div>
+                            <label for="secondary_activity" style="font-weight: bold;"/><br/>
+                            <field name="secondary_activity" style="width: 50%;"/>
+                        </div>
+                        <div>
+                            <label for="secondary_description" style="font-weight: bold;"/><br/>
+                            <field name="secondary_description" style="width: 30%;"/>
+                        </div>
+                        <separator string="In-Principle Approval from Referral Authorities"/>
+                        <div>
+                            <label for="in_principle" style="font-weight: bold;"/><br/>
+                            <field name="in_principle" widget="radio" style="flex-flow: row nowrap;"/>
+                        </div>
+                        <div attrs="{'invisible' : [('in_principle', '!=', 'yes')]}">
+                            <div>
+                                <label for="referral_authority" style="font-weight: bold;"/><br/>
+                                <field name="referral_authority" style="width: 30%;"/>
+                            </div>
+                            <div>
+                                <label for="attachment_in_principle" style="font-weight: bold;"/><br/>
+                                <field name="attachment_in_principle" style="width: 30%;"/>
+                            </div>
+                        </div>
+                        <separator string="Officer Details"/>
+                        <span style="font-weight: bold;">
+                            If the foreign company does not have directors, the particulars of the person who is in the position equivalent to a
+                            director should be provided
+                        </span>
+                        <div>
+                            <field name="line_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="identification_no_uen"/>
+                                    <field name="position_held"/>
+                                </tree>
+                                <form>
+                                    <div>
+                                        <label for="position_held" style="font-weight: bold;"/><br/>
+                                        <field name="position_held" widget="radio" style="flex-flow: row nowrap;"/>
+                                    </div>
+                                    <div>
+                                        <label for="category" style="font-weight: bold;"/><br/>
+                                        <field name="category" widget="radio" style="flex-flow: row nowrap;"/>
+                                    </div>
+                                    <div attrs="{'invisible' : [('category', '=', False)]}">
+                                        <label for="date_of_appointment" style="font-weight: bold;"/><br/>
+                                        <field name="date_of_appointment" style="width: 30%;"/>
+                                    </div><br/>
+                                    <div attrs="{'invisible' : [('category', '!=', 'corporate')]}">
+                                        <span style="font-weight: bold;">
+                                            Entity Information
+                                        </span><br/>
+                                        <group col="2">
+                                            <div>
+                                                <label for="uen_search" style="font-weight: bold;"/><br/>
+                                                <field name="uen_search" style="width: 50%;"/>
+                                            </div>
+                                            <div>
+                                                <label for="entity_name_serch" style="font-weight: bold;"/><br/>
+                                                <field name="entity_name_serch" style="width: 50%;"/>
+                                                <field name="entity_id" invisible="1"/>
+                                            </div>
+                                            <br/><br/>
+                                            <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                                                <label for="uen" style="font-weight: bold;"/><br/>
+                                                <field name="uen" style="width: 50%;" class="color-text-ff8d06"/>
+                                            </div>
+                                            <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                                                <label for="entity_name" style="font-weight: bold;"/><br/>
+                                                <field name="entity_name" style="width: 50%;" class="color-text-ff8d06"/>
+                                            </div>
+                                             <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                                                <label for="current_address" style="font-weight: bold;"/><br/>
+                                                <field name="current_address" style="width: 50%;" class="color-text-ff8d06"/>
+                                            </div>
+                                        </group>
+                                        <div attrs="{'invisible' : [('entity_id', '!=', False)]}">
+                                            <span>
+                                                This Entity does not exist in system
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div attrs="{'invisible' : [('category', '!=', 'individual')]}">
+                                        <group col="2">
+                                            <div>
+                                                <label for="id_type_another" style="font-weight: bold;"/><br/>
+                                                <field name="id_type_another" style="width: 50%;"/>
+                                            </div>
+                                            <div>
+                                                <label for="identification_no" style="font-weight: bold;"/><br/>
+                                                <field name="identification_no" style="width: 50%;"/>
+                                            </div>
+                                            <div>
+                                                <label for="name_nric" style="font-weight: bold;"/><br/>
+                                                <field name="name_nric" style="width: 50%;"/>
+                                            </div>
+                                        </group>
+                                        <span class="color-text-blue">
+                                            Note: The Alternate Address will be displayed in publc records instead of your Residential Address.
+                                        </span>
+                                        <div>
+                                            <label for="want_provide_address" style="font-weight: bold;"/><br/>
+                                            <field name="want_provide_address" widget="radio" style="flex-flow: row nowrap;"/>
+                                        </div><br/>
+                                        <div class="border-div">
+                                            <span style="font-weight: bold;">
+                                                Contact Information
+                                            </span><br/>
+                                            <span class="color-text-blue">
+                                                Note: The following information is required for ACRA's administative purposes.
+                                            </span>
+                                            <div>
+                                                <label for="email_address" style="font-weight: bold;"/><br/>
+                                                <field name="email_address" style="width: 30%;"/>
+                                            </div>
+                                            <group col="3">
+                                                <div>
+                                                    <label for="country_id" style="font-weight: bold;"/><br/>
+                                                    <field name="country_id" style="width: 90%;"/>
+                                                </div>
+                                                <div>
+                                                    <label for="area_code" style="font-weight: bold;"/><br/>
+                                                    <field name="area_code" style="width: 90%;"/>
+                                                </div>
+                                                <div>
+                                                    <label for="mobile_no" style="font-weight: bold;"/><br/>
+                                                    <field name="mobile_no" style="width: 90%;"/>
+                                                </div>
+                                            </group>
+                                        </div>
+                                    </div>
+                                </form>
+                            </field>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,179 @@
+<odoo>
+    <data>
+        <record id="view_daa_case_form" model="ir.ui.view">
+            <field name="name">daa.case.form</field>
+            <field name="model">daa.case</field>
+            <field name="arch" type="xml">
+                <form string="Case">
+                    <sheet>
+                        <header>
+                            <button name="print_dunning_letter" string="Print Dunning Letter" type="object" class="oe_highlight"/>
+                        </header>
+                        <group>
+                            <group>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="id" string="Case ID" readonly="1"/>
+                                <field name="stage_id"/>
+                                <field name="transfer_date"/>
+                                <field name="client_id"/>
+                                <field name="agreement_id" required="1"/>
+                                <field name="debt_amount"/>
+                                <field name="assigned_amount"/>
+                                <field name="total_amount"/>
+                                <field name="balance_amount"/>
+                            </group>
+                            <group>
+                                <field name="is_validation"/>
+                                <field name="debtor_id" context="{'default_is_debtor':True}" required="1"/>
+                                <field name="guarantor_1" context="{'default_is_guarantor':True}"/>
+                                <field name="guarantor_2" context="{'default_is_guarantor':True}"/>
+                                <field name="guarantor_3" context="{'default_is_guarantor':True}"/>
+                                <field name="guarantor_4" context="{'default_is_guarantor':True}"/>
+                                <field name="guarantor_5" context="{'default_is_guarantor':True}"/>
+                                <field name="line_officer_1"/>
+                                <field name="line_officer_2"/>
+                                <field name="credit_officer_1"/>
+                                <field name="credit_officer_2"/>
+                            </group>
+                        </group>
+                        <group>
+                            <!--<label for="document_ids" string="Attachments" class="o_status"/>-->
+                            <group></group>
+                            <group></group>
+                            <field name="document_ids"  context="{'default_name': 'Case.pdf'}">
+                                <tree editable="bottom">
+                                    <field name="directory_id" string="File Directory"/>
+                                    <field name="create_date" string="File Date"/>
+                                    <field name="name" string="File Name"/>
+                                    <field name="document" filename="name"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="directory_id" string="File Directory"/>
+                                            <field name="create_date" string="File Date"/>
+                                            <field name="name" string="File Name"/>
+                                            <field name="document" filename="name"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+                        <notebook>
+                            <page name="charge_detail" string="Charge Details">
+                                <field name="charge_ids">
+                                    <tree editable="bottom" context="{'default_case_id': id}">
+                                        <field name="case_id" invisible="1"/>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="assign_amount"/>
+                                        <field name="invoice_date"/>
+                                        <field name="invoice_no" required="1"/>
+                                        <field name="adjust_amount"/>
+                                        <field name="total_amount"/>
+                                        <field name="balance_amount"/>
+                                        <field name="inst"/>
+                                        <field name="due_date"/>
+                                        <field name="term"/>
+                                        <field name="document"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="payment_history" string="Payment History">
+                                <field name="payment_ids" context="{'default_case_id': id}">
+                                    <tree editable="bottom">
+                                        <field name="case_id" invisible="1"/>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="due_date"/>
+                                        <field name="received_date"/>
+                                        <field name="entry_date"/>
+                                        <field name="received_amount"/>
+                                        <field name="adjust_amount"/>
+                                        <field name="balance_amount"/>
+                                        <field name="invoice_id" required="1"/>
+                                        <field name="receipt_no"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="contacts" string="Contacts">
+                                <field name="contact_ids">
+                                    <tree>
+                                        <field name="obligations"/>
+                                        <field name="display_name"/>
+                                        <field name="sms"/>
+                                        <field name="phone"/>
+                                        <field name="email"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <!--<field name="ref"/>-->
+                    <!--<field name="debt_amount"/>-->
+                    <!--<field name="total_amount"/>-->
+                    <!--<field name="assigned_amount"/>-->
+                    <!--<field name="collected_amount"/>-->
+                    <!--<field name="balance_amount"/>-->
+                </form>
+            </field>
+        </record>
+
+        <record id="view_daa_case_tree" model="ir.ui.view">
+            <field name="name">daa.case.tree</field>
+            <field name="model">daa.case</field>
+            <field name="arch" type="xml">
+                <tree string="Cases">
+                    <field name="currency_id" invisible="1"/>
+                    <field name="id" string="Case ID" readonly="1"/>
+                    <field name="stage_id"/>
+                    <field name="transfer_date"/>
+                    <field name="client_id"/>
+                    <field name="debtor_id" context="{'default_is_debtor':True}"/>
+                    <!--<field name="ref"/>-->
+                    <field name="debt_amount"/>
+                    <field name="total_amount"/>
+                    <field name="assigned_amount"/>
+                    <!--<field name="collected_amount"/>-->
+                    <field name="balance_amount"/>
+                    <button string="Print Dunning Letter" name="print_dunning_letter" type="object"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="daa_case_search" model="ir.ui.view">
+            <field name="name">daa.case.search</field>
+            <field name="model">daa.case</field>
+            <field name="arch" type="xml">
+                <search string="Search Case">
+                    <field name="id"/>
+                    <field name="stage_id"/>
+                    <field name="client_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_cases" model="ir.actions.act_window">
+            <field name="name">Cases</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">daa.case</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a case
+              </p>
+            </field>
+        </record>
+
+        <menuitem name="Cases"
+            id="menu_cases"
+            sequence="4"
+            web_icon="contacts,static/description/icon.png"/>
+
+        <menuitem id="daa_case_menu_cases"
+            name="Cases"
+            action="action_cases"
+            parent="daa_case.menu_cases"
+            sequence="1"/>
+    </data>
+</odoo>

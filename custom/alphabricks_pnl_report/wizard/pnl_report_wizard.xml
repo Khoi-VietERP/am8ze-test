@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="pnl_report_wizard" model="ir.ui.view">
+            <field name="name">pnl.report.form</field>
+            <field name="model">pnl.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group string="Date">
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                            </group>
+                            <group>
+                                <field name="hide_line"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="enable_filter"/>
+                            </group>
+                            <group attrs="{'invisible':[('enable_filter','=',False)]}">
+                                <field name="date_from_cmp" attrs="{'invisible':[('enable_filter','=',False)]}"/>
+                                <field name="date_to_cmp" attrs="{'invisible':[('enable_filter','=',False)]}"/>
+                                <field name="number_of_comparison" attrs="{'invisible':[('enable_filter','=',False)]}"/>
+                                <field name="comparison_number_of_month" attrs="{'invisible':[('enable_filter','=',False)]}"/>
+                                <field name="comparison_number_of_year" attrs="{'invisible':[('enable_filter','=',False)]}"/>
+                                <field name="analytic_account_ids" attrs="{'invisible':[('enable_filter','=',False)]}" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="PDF Landscape" name="check_report_landscape" type="object"
+                                class="btn-primary"/>
+                        <button string="PDF" name="check_report" type="object"
+                                class="btn-primary"/>
+                        <button string="XLSX" name="action_xlsx" type="object"
+                                class="btn-primary"/>
+                        <button string="VIEW" name="action_view" type="object"
+                                class="btn-primary"/>
+                        <button string="Discard" class="btn-secondary"
+                                special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_pnl_report_wizard" model="ir.actions.act_window">
+            <field name="name">Profit and Loss</field>
+            <field name="res_model">pnl.report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="pnl_report_wizard"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_ins_pnl_new_report" sequence="80" action="action_pnl_report_wizard"
+                  name="Profit and Loss" parent="account_dynamic_reports.account_reports_ins"
+                  groups="account.group_account_user"/>
+    </data>
+</odoo>

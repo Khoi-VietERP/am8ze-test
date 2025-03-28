@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_custom_template2_document_inherit" inherit_id="report_template_invoice.report_custom_template2_document">
+        <div id="qrcode" position="replace">
+            <div class="col-lg-9 col-12" style="padding: 15px;">
+                <img t-if="o.barcode" t-attf-src="data:image/png;base64,{{o.barcode}}"
+                     style="height:200px;width:200px;" class="img img-fluid"/>
+            </div>
+        </div>
+    </template>
+</odoo>

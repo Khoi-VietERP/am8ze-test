@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_modifier_pl_report_format_modifier_pl_report_format,modifier_pl_report_format.modifier_pl_report_format,model_modifier_pl_report_format_modifier_pl_report_format,base.group_user,1,1,1,1

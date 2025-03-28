@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="pragtech_social_account_view_form" model="ir.ui.view">
+            <field name="name">pragtech.social.account.view.form</field>
+            <field name="model">pragtech.social.account</field>
+            <field name="arch" type="xml">
+                <form create="0">
+                    <sheet>
+                        <group name="pragtech_social_account" col="4">
+                            <field name="name" />
+                            <field name="social_media_id" options="{'no_open': True}"/>
+                            <field name="social_m_type"  />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="pragtech_social_accountview_list" model="ir.ui.view">
+            <field name="name">pragtech.social.account.view.tree</field>
+            <field name="model">pragtech.social.account</field>
+            <field name="arch" type="xml">
+                <tree create="0">
+                    <field name="name" />
+                    <field name="social_media_id" />
+                    <field name="social_m_type" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_pragtech_social_account" model="ir.actions.act_window">
+            <field name="name">Linked Accounts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pragtech.social.account</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+            id="social_dashboard_social_account"
+            parent="pragtech_social.pragtech_social_configuration"
+            name="Linked Accounts"
+            action="action_pragtech_social_account"
+            sequence="11" />
+    </data>
+</odoo>

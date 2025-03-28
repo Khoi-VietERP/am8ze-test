@@ -1,0 +1,171 @@
+<odoo>
+
+    <record id="crm_case_form_view_leads_custom_instagram" model="ir.ui.view">
+        <field name="name">crm.lead.form</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr='//page[@name="extra"]' position='after'>
+                <page name="categorization" string="Instagram Info">
+                    <group name="instagram_info" string="Instagram Info">
+                        <field name="instagram_lead_id"/>
+                        <field name="instagram_date_create"/>
+                        <field name="instagram_page_id"/>
+                        <field name="instagram_form_id"/>
+                        <field name="instagram_adset_id"/>
+                        <field name="instagram_ad_id"/>
+                        <field name="instagram_campaign_id"/>
+                        <field name="instagram_is_organic"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="crm_case_list_view_leads_custom_instagram" model="ir.ui.view">
+        <field name="name">crm.lead.form</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_tree_view_leads"/>
+        <field name="arch" type="xml">
+            <xpath expr='//field[@name="name"]' position='after'>
+                 <field name="instagram_form_id"/>
+                <field name="instagram_page_id"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="crm_instagram_page_form" model="ir.ui.view">
+        <field name="name">crm.instagram.page.form</field>
+        <field name="model">crm.instagram.page</field>
+        <field name="arch" type="xml">
+            <form string="Instagram Page">
+                <button name="fetch_instagram_forms" type="object" string="Fetch Forms"/>
+                <group colspan="2">
+                    <field name="instagram_account"/>
+                    <field name="name"/>
+                    <field name="instagram_access_token" password="1" readonly="1" invisible="1"/>
+                </group>
+                <group colspan="2">
+                    <field name="form_ids">
+                        <tree editable="0" readonly="1">
+                            <field name="name" readonly="1"/>
+<!--                            <field name="allow_to_sync" readonly='1'/>-->
+                            <field name="instagram_form_id" readonly="1"/>
+                            <field name="team_id"/>
+                            <field name="campaign_id"/>
+<!--                            <field name="medium_id"/>-->
+<!--                            <field name="source_id"/>-->
+                        </tree>
+                    </field>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="crm_instagram_page_tree" model="ir.ui.view">
+        <field name="name">crm.instagram.page.tree</field>
+        <field name="model">crm.instagram.page</field>
+        <field name="arch" type="xml">
+            <tree string="Instagram Page">
+                <field name="instagram_account" />
+                <field name="name"/>
+                <field name="write_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_crm_instagram_page">
+        <field name="name">Instagram Pages</field>
+        <field name="res_model">crm.instagram.page</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="crm_instagram_page_tree"/>
+        <field name="help" type="html">
+            <p></p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_crm_instagram_page"
+            name="Instagram Pages"
+            parent="crm.menu_crm_config_lead"
+            sequence="101"
+            action="action_crm_instagram_page"
+            groups="sales_team.group_sale_manager"/>
+
+    <record id="crm_instagram_form_form" model="ir.ui.view">
+        <field name="name">crm.instagram.form.form</field>
+        <field name="model">crm.instagram.form</field>
+        <field name="arch" type="xml">
+            <form string="Instagram form">
+                 <header>
+
+                    <button name="validate_instagram_form" string="Validate Form" type="object" class="oe_highlight"  attrs="{'invisible': ['|', ('state', 'in', ('confirm')), ('instagram_form_id', '=', False)]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm" readonly="1"/>
+
+                </header>
+                <sheet>
+                <button name="fetch_instagram_form_fields" type="object" string="Fetch Fields"/>
+                <group>
+                    <group>
+                        <field name="name"/>
+<!--                        <field name="allow_to_sync" readonly='1'/>-->
+                        <field name="team_id"/>
+                    </group>
+                    <group>
+                        <field name="page_id" readonly='1'/>
+                        <field name="instagram_form_id" readonly='1'/>
+                        <field name="instagram_access_token" invisible="1"/>
+                    </group>
+<!--                    <group string="Tracking Info">-->
+<!--                        <field name="campaign_id"/>-->
+<!--                        <field name="medium_id"/>-->
+<!--                        <field name="source_id"/>-->
+<!--                    </group>-->
+                </group>
+                <group colspan="2" string="Mappings">
+                    <field name="mappings">
+                        <tree editable="bottom">
+                            <field name="name" readonly='1'/>
+                            <field name="fb_field" readonly='1'/>
+                            <field name="For_map_odoo_field"/>
+                        </tree>
+                    </field>
+                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="crm_instagram_form_tree" model="ir.ui.view">
+        <field name="name">crm.instagram.form.tree</field>
+        <field name="model">crm.instagram.form</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="allow_to_sync" readonly='1'/>
+                <field name="instagram_form_id" readonly='1'/>
+                <field name="page_id" readonly='1'/>
+                <field name="team_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_crm_instagram_form">
+        <field name="name">Instagram Forms</field>
+        <field name="res_model">crm.instagram.form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="crm_instagram_form_tree"/>
+        <field name="help" type="html">
+            <p></p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_crm_instagram_form"
+            name="Instagram Forms"
+            parent="crm.menu_crm_config_lead"
+            sequence="102"
+            action="action_crm_instagram_form"
+            groups="sales_team.group_sale_manager"/>
+</odoo>

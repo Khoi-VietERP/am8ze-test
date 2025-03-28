@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="paperformat_customer_top_selling" model="report.paperformat">
+            <field name="name">Customer Top Selling A4</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">5</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+            id="customer_top_selling_report"
+            model="report.customer.top.selling"
+            string="Customer - Top Selling"
+            report_type="qweb-pdf"
+            name="wk39717700c_modifier_report.report_customer_top_selling"
+            file="wk39717700c_modifier_report.report_customer_top_selling"
+            paperformat="wk39717700c_modifier_report.paperformat_customer_top_selling"
+            />
+        <report
+            id="customer_top_selling_xlsx_report"
+            model="report.customer.top.selling"
+            string="Customer - Top Selling XLSX"
+            report_type="xlsx"
+            name="wk39717700c_modifier_report.customer_top_selling_excel"
+            file="wk39717700c_modifier_report.customer_top_selling_excel"
+            attachment_use="False"
+            print_report_name="'Customer - Top Selling XLSX - %s To %s %s' % (object.start_date.strftime('%b'),object.end_date.strftime('%b'),object.start_date.strftime('%y'))"
+        />
+
+        <template id="wk39717700c_customer_top_selling_layout">
+            <div class="header"></div>
+            <div class="article" t-att-data-oe-model="o and docs[0]._name" t-att-data-oe-id="o and docs[0].id" t-att-data-oe-lang="o and docs[0].env.context.get('lang')">
+                <t t-raw="0"/>
+            </div>
+        </template>
+
+        <template id="report_customer_top_selling">
+            <t t-call="web.html_container">
+                <t t-call="wk39717700c_modifier_report.wk39717700c_customer_top_selling_layout">
+                    <t t-set="company" t-value="res_company"/>
+                    <div class="page">
+                        <div class="row" id="header_id">
+                            <div style="font-size:14px;width:70%">
+                                <ul class="list-unstyled">
+                                    <strong>
+                                        <li t-if="company.name">
+                                            <h4 t-field="company.name"/>
+                                        </li>
+                                    </strong>
+                                    <li>
+                                        Customers Top Selling From <span class="o_force_ltr" t-esc="start_date"/> to <span class="o_force_ltr" t-esc="end_date"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <table class="table" style="margin-top: 20px">
+                            <thead>
+                                <tr>
+                                    <th class="text-left"><strong>Customer Code</strong></th>
+                                    <th class="text-left"><strong>Customer Name</strong></th>
+                                    <th class="text-left"><strong>Salesman ID</strong></th>
+                                    <th class="text-right"><strong>Invoice NetTotal</strong></th>
+                                    <th class="text-right"><strong>Return NetTotal</strong></th>
+                                    <th class="text-right"><strong>NetTotal</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="data" t-as="line">
+                                    <td><span t-esc="line['customer_code']"/></td>
+                                    <td><span t-esc="line['customer_name']"/></td>
+                                    <td><span t-esc="line['user_name']"/></td>
+                                    <td><t t-esc="'{0:,.2f}'.format(line['invoice'])"/></td>
+                                    <td>-<t t-esc="'{0:,.2f}'.format(line['return'])"/></td>
+                                    <td><t t-esc="'{0:,.2f}'.format(line['total'])"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="facebook_view_company_form" model="ir.ui.view" >
+        <field name="name">facebook.view.company.form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[1]" position="after">
+                <page string="Facebook">
+                     <div class="row">
+							<div class="col-md-4" align="center">
+								<button string='Authenticate' type="object" name="get_short_access_token"
+									class="oe_highlight" icon="fa-plug" />
+
+                                <button string='Page Token' type="object" name="get_page_access_token"
+									class="oe_highlight" icon="fa-plug" />
+							</div>
+                     </div>
+                    <separator name="configuration" string="Facebook Configuration"/>
+                    <group string="Credentials">
+                        <field name="facebook_app_id"  />
+                        <field name="facebook_app_short_code" />
+                         <field name="facebook_app_secret" />
+                        <field name="facebook_user_access_token" />
+                       <field name="facebook_custom_verify_token"  />
+                       <field name="facebook_page_id"  />
+                       <field name="facebook_page_access_token"  />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

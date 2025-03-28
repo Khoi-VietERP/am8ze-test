@@ -1,0 +1,81 @@
+<odoo>
+    <data>
+        <record id="history_register_of_directors_tree" model="ir.ui.view">
+            <field name="name">history.register.of.directors.tree</field>
+            <field name="model">history.register.of.directors</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="entity_id"/>
+                    <field name="name"/>
+                    <field name="new_name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="history_register_of_directors_form" model="ir.ui.view">
+            <field name="name">history.register.of.directors.form</field>
+            <field name="model">history.register.of.directors</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="entity_id"/>
+                        </group>
+                        <group/>
+                    </group>
+                    <group col="2">
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group/>
+                        <group>
+                            <field name="title"/>
+                            <field name="any_former_names"/>
+                            <field name="aliases"/>
+                            <field name="usual_residential_address"/>
+                            <field name="business_occupation"/>
+                            <field name="particulars"/>
+                        </group>
+                        <group>
+                            <field name="country_id"/>
+                            <field name="passport_no"/>
+                            <field name="id_card"/>
+                            <field name="notes"/>
+                            <field name="date_of_appointment"/>
+                            <field name="date_of_resignation"/>
+                            <field name="date_of_birth"/>
+                            <field name="minute1"/>
+                            <field name="minute2"/>
+                        </group>
+                    </group>
+                    <br/><br/><br/>
+                    <group col="2">
+                        <group>
+                            <field name="new_name"/>
+                        </group>
+                        <group/>
+                        <group>
+                            <field name="new_title"/>
+                            <field name="new_any_former_names"/>
+                            <field name="new_aliases"/>
+                            <field name="new_usual_residential_address"/>
+                            <field name="new_business_occupation"/>
+                            <field name="new_particulars"/>
+                        </group>
+                        <group>
+                            <field name="new_country_id"/>
+                            <field name="new_passport_no"/>
+                            <field name="new_id_card"/>
+                            <field name="new_notes"/>
+                            <field name="new_date_of_appointment"/>
+                            <field name="new_date_of_resignation"/>
+                            <field name="new_date_of_birth"/>
+                            <field name="new_minute1"/>
+                            <field name="new_minute2"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<odoo>
+    <template id="wk_rss_assets_frontend" inherit_id="website.assets_frontend" name="RSS">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/odoo_rss_feed_reader/static/src/js/wk_rss_reader.js"></script>
+            <link rel="stylesheet" type="text/scss" href="/odoo_rss_feed_reader/static/src/scss/wk_rss.scss"/>
+        </xpath>
+    </template>
+
+    <template id="wk_footer_custom" inherit_id="website.footer_custom" name="RSS Reader">
+        <xpath expr="//div/div/div[@id='connect']/p" position="inside">
+            <a href="/feed" target="_blank"><i class="fa fa-rss wk_rss"/></a>
+        </xpath>
+    </template>
+
+    <template id="feed" name="RSS Feed">
+        <t t-call="website.layout">
+        <div id="wrap">
+            <div class="oe_structure"/>
+                <div class="fluid-container">
+                    <div class="row">
+                        <t t-set="rssfeedconfig" t-value="request.env['rss.feed.config.settings'].search([('website_id', '=', request.website_routing),('is_active', '=', True)], limit=1)"/>
+                        <t t-if="rssfeedconfig">
+                            <div class="col-md-12">
+                                <div class="wk_title fa fa-rss col-md-12"> <t t-esc="rssfeedconfig.feed_title"/></div>
+                            </div>
+                            <t t-set="rss_view" t-value="rssfeedconfig.rss_view"/>
+                            <t t-if="rss_view == 'sleek'">
+                                <t t-call="odoo_rss_feed_reader.s_rss"/>
+                            </t>
+                            <t t-else="">
+                                <t t-call="odoo_rss_feed_reader.wk_rss_menu"/>
+                                <div class="wk_content col-md-9 col-xs-12 col-sm-12">
+                                    <t t-if="rss_view == 'card'">
+                                            <t t-call="odoo_rss_feed_reader.wk_rss_card_view"/>
+                                    </t>
+                                    <t t-else="">
+                                        <t t-call="odoo_rss_feed_reader.wk_rss_menu_view"/>
+                                    </t>
+                                </div>
+                            </t>
+                        </t>
+                    </div>
+                </div>
+            <div class="oe_structure"/>
+        </div>
+        <div id="wk_loader"/>
+        </t>
+    </template>
+
+    <!-- template for rss menu -->
+
+    <template id="wk_rss_menu" name="RSS Menu">
+        <div class="vertical-menu col-md-3 col-xs-12 col-sm-12 " id="myNavbar">
+            <t t-set="menus" t-value="request.env['feeds.config'].sudo().search([('status', '=', True)], order='sequence DESC').filtered(lambda m: request.website_routing in m.website_ids.ids or not m.website_ids)"/>
+            <t t-foreach="menus" t-as="menu">
+                <t t-if="menu.is_active">
+                    <a href="#" class="rss_menu active" t-esc="menu.name"/>
+                </t>
+                <t t-else="">
+                    <a href="#" class="rss_menu" t-esc="menu.name"/>
+                </t>
+            </t>
+        </div>
+    </template>
+
+    <!-- template for rss content -->
+
+    <template id="wk_rss_menu_view" name="RSS Menu View">
+        <t t-if="rssdata">
+            <t t-foreach="rssdata" t-as="rss">
+                <div class="row wk_inner_card">
+                    <div class="col-sm-9 wk_card-header">
+                        <t t-esc="rss.get('rss_menu_title', '')"/>
+                    </div>
+                    <div class="col-sm-3 wk_card-time">
+                        <span class="fa fa-calendar"></span> <t t-esc="rss.get('rss_menu_date', '')"/>
+                    </div>
+                    <div class="col-sm-12 wk_card-text">
+                        <t t-esc="rss.get('rss_menu_description', '')"/> [...]
+                    </div>
+                    <div class="col-sm-12 wk_card-read">
+                        <a t-att-href="rss.get('rss_menu_link', '')" target="_blank">READ MORE</a>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <!-- template for rss card View -->
+
+    <template id="wk_rss_card_view" name="RSS Card View">
+        <div class="row">
+            <div id="wk_card_view">
+                <t t-if="rssdata">
+                    <t t-foreach="rssdata" t-as="rss">
+                        <div class="col s12 m6 col-md-12 wk_card_view_inner">
+                            <div class="card wk_blue_darken">
+                                <div class="card-content white-text">
+                                    <div class="card-view-title"><t t-esc="rss.get('rss_menu_title', '')"/></div>
+                                    <div class="col-md-12 card-description">
+                                        <p>
+                                            <t t-esc="rss.get('rss_menu_description', '')"/> [...]
+                                        </p>
+                                        <div class="wk_readmore">
+                                            <a id="wk_readmore" t-att-href="rss.get('rss_menu_link', '')" target="_blank">
+                                                [read more]
+                                            </a>
+                                        </div>
+                                        <h4 class="wk_card_view-time">
+                                            <span class="fa fa-calendar"></span>
+                                                <t t-esc="rss.get('rss_menu_date', '')"/>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </div>
+        </div>
+    </template>
+
+    <template id="s_rss" name="RSS">
+        <section class="s_rss" id="wk_content">
+            <div class="container wk_content">
+                <t t-call="odoo_rss_feed_reader.s_rss_sleek"/>
+            </div>
+        </section>
+    </template>
+
+    <template id="s_rss_sleek" name="RSS">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="wk_snippet col-md-9" id="container">
+                    <div id="mainselection">
+                        <select class="wk_rss_menu">
+                            <t t-set="menus" t-value="request.env['feeds.config'].sudo().search([('status', '=', True)], order='sequence DESC').filtered(lambda m: request.website_routing in m.website_ids.ids or not m.website_ids)"/>
+                            <t t-foreach="menus" t-as="menu">
+                                <t t-if="menu.is_active">
+                                    <option class="card-title" selected="selected"><t t-esc="menu.name"/></option>
+                                </t>
+                                <t t-if="not menu.is_active">
+                                    <option class="card-title"><t t-esc="menu.name"/></option>
+                                </t>
+                            </t>
+                        </select>
+                    </div>
+                    <div id="myDiv">
+                        <t t-if="rssdata">
+                            <t t-foreach="rssdata" t-as="rss">
+                                <div class="col-sm-12 wk_section">
+                                    <a t-att-href="rss.get('rss_menu_link', '')" target="_blank"><t t-esc="rss.get('rss_menu_title', '')"/></a>
+                                    <h4 id="wk_time" class="wk_card-time"><span class="fa fa-clock-o"></span> <t t-esc="rss.get('rss_menu_date', '')"/></h4>
+                                </div>
+                            </t>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+</odoo>

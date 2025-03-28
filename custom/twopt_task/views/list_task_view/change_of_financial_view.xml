@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="change_of_financial_form" model="ir.ui.view">
+            <field name="name">change.of.financial.form</field>
+            <field name="model">change.of.financial</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Entity Information">
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <separator string="Notification for Change of Financial Year End (FYE) for Local Company"/>
+                            <group col="2">
+                                <div>
+                                    <label for="incorporation_date" style="font-weight: bold;"/><br/>
+                                    <field name="incorporation_date" style="width: 50%;" readonly="1" class="color-text-ff8d06"/>
+                                </div>
+                                <div/>
+                                <div>
+                                    <label for="financial_year_start_date" style="font-weight: bold;"/><br/>
+                                    <field name="financial_year_start_date" style="width: 50%;" readonly="1" class="color-text-ff8d06"/>
+                                </div>
+                                <div>
+                                    <label for="financial_year_end_date" style="font-weight: bold;"/><br/>
+                                    <field name="financial_year_end_date" style="width: 50%;" readonly="1" class="color-text-ff8d06"/>
+                                </div>
+                                <div>
+                                    <label for="next_agm_due_date" style="font-weight: bold;"/><br/>
+                                    <field name="next_agm_due_date" style="width: 50%;" readonly="1" class="color-text-ff8d06"/>
+                                </div>
+                                <div>
+                                    <label for="next_ar_due_date" style="font-weight: bold;"/><br/>
+                                    <field name="next_ar_due_date" style="width: 50%;" readonly="1" class="color-text-ff8d06"/>
+                                </div>
+                                <div>
+                                    <label for="revised_financial" style="font-weight: bold;"/><br/>
+                                    <field name="revised_financial" style="width: 50%;"/>
+                                </div>
+                                <div>
+                                    <label for="financial_year_period" style="font-weight: bold;"/><br/>
+                                    <field name="financial_year_period" style="width: 50%;"/>
+                                </div>
+                            </group>
+                            <field name="declare_that"/>
+                            <label for="declare_that" style="display: contents;font-weight: normal;"/><br/>
+                            <div class="margin-left-46">
+                                <span>
+                                    (i) The notified change in the financial year end (EYE) is that of the current financial year or
+                                    immediate previous financial year of the company and
+                                </span><br/>
+                                <span>
+                                    (ii) The relevant period in section 198(6) applicable to the company for this change of FYE
+                                    has not expired
+                                </span>
+                            </div><br/>
+                            <div class="border-div">
+                                <p>
+                                    #Note: The relevant period in section 198(6) within which a company my change its financial year end is
+                                    determined as follows and the type of company referred to is the type of company during the financial year
+                                    for which the FYE is intended to be changed
+                                </p>
+                                <p>
+                                    (a) a private company that is not a dormant relevant company cannot change the FYE:
+                                </p>
+                                <li>
+                                    if it is required to hold an AGM, after 6 months less 14 calendar days have passed since the original FYE or
+                                </li>
+                                <li>
+                                    If it is not required to hold an AGM, after 5 months have passed since the original FYE.
+                                </li><br/>
+                                <p>
+                                    (b) a dormant relevant company cannot change the FYE:
+                                </p>
+                                <li>
+                                    if it is a private company, after more than 7 months have passed since the original FYE ororifinal FYE or
+                                </li>
+                                <li>
+                                    If it is a public company, after more than 6 months have passed since theoriginal FYE.
+                                </li><br/>
+                                <p>
+                                    (c) a public non-listed company cannot change the FYE after 6 months less 14 calendar days have passed
+                                    since the original FYE.
+                                </p>
+                                <p>
+                                    (d) a public listed company cannot change the FYE after 4 months less 14 calendar days have passed
+                                    since the original FYE.
+                                </p>
+                            </div>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

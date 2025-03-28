@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="account_dynamic_reports assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/alphabricks_bs_report/static/src/js/balance_sheet_report.js"></script>
+            </xpath>
+        </template>
+
+
+<!--        <record id="ins_account_financial_report_bs" model="ins.account.financial.report">-->
+<!--            <field name="name">Balance Report New</field>-->
+<!--            <field name="type">sum</field>-->
+<!--            <field name="display_detail">no_detail</field>-->
+<!--        </record>-->
+
+<!--        &lt;!&ndash;    Action for profit and loss    &ndash;&gt;-->
+<!--        <record id="action_ins_bs_report" model="ir.actions.act_window">-->
+<!--            <field name="name">Balance Report New</field>-->
+<!--            <field name="res_model">ins.financial.report</field>-->
+<!--            <field name="type">ir.actions.act_window</field>-->
+<!--            <field name="view_mode">form</field>-->
+<!--            <field name="view_id" ref="account_dynamic_reports.ins_financial_report_wiz_modified"/>-->
+<!--            <field name="target">new</field>-->
+<!--            <field name="context"-->
+<!--                   eval="{'default_account_report_id':ref('alphabricks_bs_report.ins_account_financial_report_bs')}"/>-->
+<!--        </record>-->
+
+<!--        <menuitem id="menu_ins_bs_report" sequence="80" action="action_ins_bs_report"-->
+<!--                  name="Balance Report New" parent="h202102879_modifier_menu.invoicing_financial_report" groups="account.group_account_user"/>-->
+
+
+<!--        # TODO Balance Report New 2-->
+<!--        <record id="ins_account_financial_report_bs2" model="ins.account.financial.report">-->
+<!--            <field name="name">Balance Report New 2</field>-->
+<!--            <field name="type">sum</field>-->
+<!--            <field name="display_detail">no_detail</field>-->
+<!--        </record>-->
+
+<!--        &lt;!&ndash;    Action for profit and loss    &ndash;&gt;-->
+<!--        <record id="action_ins_bs2_report" model="ir.actions.act_window">-->
+<!--            <field name="name">Balance Report New 2</field>-->
+<!--            <field name="res_model">ins.financial.report</field>-->
+<!--            <field name="type">ir.actions.act_window</field>-->
+<!--            <field name="view_mode">form</field>-->
+<!--            <field name="view_id" ref="account_dynamic_reports.ins_financial_report_wiz_modified"/>-->
+<!--            <field name="target">new</field>-->
+<!--            <field name="context"-->
+<!--                   eval="{'default_account_report_id':ref('alphabricks_bs_report.ins_account_financial_report_bs2')}"/>-->
+<!--        </record>-->
+
+<!--        <menuitem id="menu_ins_bs2_report" sequence="80" action="action_ins_bs2_report"-->
+<!--                  name="Balance Report New 2" parent="h202102879_modifier_menu.invoicing_financial_report" groups="account.group_account_user"/>-->
+
+<!--        <function model="ins.account.financial.report" name="update_report_format"/>-->
+
+        <record id="view_move_line_tree_grouped_inherit" model="ir.ui.view">
+            <field name="name">account.move.line.tree.inherit</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_move_line_tree_grouped"/>
+            <field name="arch" type="xml">
+                <field name="credit" position="after">
+                    <field name="balance" sum="Total Balance" readonly="1"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="recurring_invoice_view_form_inherit" model="ir.ui.view">
+            <field name="name">recurring.invoice.form</field>
+            <field name="model">recurring.invoice</field>
+            <field name="inherit_id" ref="recurring_invoice_app.recurring_invoice_view_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='confirm_recurring']"  position="after">
+                        <button name="save_as_template" string="Save as Template" class="btn-primary" type="object" attrs="{'invisible': [('state', '=','running')]}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

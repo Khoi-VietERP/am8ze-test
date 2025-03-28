@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<odoo>
+	<data>
+		<template id="wk_snippet_rss" inherit_id="website.snippets">
+			<xpath expr="//div[@id='snippet_structure']" position="after">
+            <div id="wk_snippet_rss" class="o_panel">
+                <div class="o_panel_header">
+                    <i class="fa fa-rss"/> RSS Feed
+                </div>
+                <div class="o_panel_body">
+                    <t t-snippet="odoo_rss_feed_reader.s_rss" t-thumbnail="/odoo_rss_feed_reader/static/src/img/blocks/rssfeed.png"/>
+                </div>
+            </div>
+			</xpath>
+		</template>
+	</data>
+</odoo>

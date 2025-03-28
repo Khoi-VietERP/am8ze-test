@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_top_modifier_customer_top_modifier_customer,top_modifier_customer.top_modifier_customer,model_top_modifier_customer_top_modifier_customer,base.group_user,1,1,1,1

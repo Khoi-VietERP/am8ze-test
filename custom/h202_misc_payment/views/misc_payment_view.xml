@@ -1,0 +1,95 @@
+<odoo>
+    <data>
+        <record id="sequence_misc_payment_inbound" model="ir.sequence">
+            <field name="name">Miscellaneous payments inbound</field>
+            <field name="code">misc.payment.inbound</field>
+            <field name="prefix">MISC.IN/%(range_year)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="True" name="use_date_range"/>
+            <field eval="False" name="company_id"/>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_misc_payment_outbound" model="ir.sequence">
+            <field name="name">Miscellaneous payments outbound</field>
+            <field name="code">misc.payment.outbound</field>
+            <field name="prefix">MISC.OUT/%(range_year)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="True" name="use_date_range"/>
+            <field eval="False" name="company_id"/>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="view_misc_payment_form" model="ir.ui.view">
+            <field name="name">misc.payment.form</field>
+            <field name="model">misc.payment</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="post" class="oe_highlight" states="draft" string="Confirm" type="object"/>
+                        <button name="action_draft" class="btn btn-secondary" attrs="{'invisible': [('state', '=', 'draft')]}" string="Reset To Draft" type="object"/>
+                        <button name="cancel" states="draft" string="Cancel" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,posted,cancelled"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="button_journal_entries" string="Journal Items" type="object"
+                                    groups="account.group_account_user" attrs="{'invisible':[('move_line_ids','=',[])]}" icon="fa-bars"/>
+                            <field name="move_line_ids" invisible="1"/>
+                        </div>
+                        <div class="oe_title" attrs="{'invisible': [('state', '=', 'draft')]}">
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group>
+                            <field name="company_id" invisible="1"/>
+                            <group>
+                                <field name="payment_type"/>
+                                <field name="account_id"/>
+                            </group>
+                            <group>
+                                <field name="journal_id"/>
+                                <field name="deposit_to_id"/>
+                            </group>
+                            <group>
+                                <label for="amount"/>
+                                <div name="amount_div" class="o_row">
+                                    <field name="amount"/>
+                                    <field name="currency_id" options="{'no_create': True, 'no_open': True}" groups="base.group_multi_currency"/>
+                                </div>
+                                <field name="payment_date"/>
+                                <field name="communication"/>
+                            </group>
+                            <group></group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_misc_payment_list" model="ir.ui.view">
+            <field name="name">misc.payment.list</field>
+            <field name="model">misc.payment</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Misc Payment">
+                    <field name="payment_date"/>
+                    <field name="name"/>
+                    <field name="journal_id"/>
+                    <field name="amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_misc_payment_action" model="ir.actions.act_window">
+            <field name="name">Misc Payment</field>
+            <field name="res_model">misc.payment</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="view_misc_payment_menu" name="Misc Payment" action="view_misc_payment_action" parent="account.menu_finance_receivables" sequence="17"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- View form -->
+        <record id="config_account_iaf_report_form_view" model="ir.ui.view">
+            <field name="name">config.account.iaf.report.form.view</field>
+            <field name="model">config.account.iaf.report</field>
+            <field name="arch" type="xml">
+                <form class="oe_form_configuration">
+                    <header>
+                        <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                        or
+                        <!--<button string="Cancel" type="object" name="cancel" class="oe_link"/>-->
+                         <button special="cancel" string="Cancel" />
+                    </header>
+
+                    <separator string="IAF Report Settings"/>
+                    <group name="account_report_grp">
+                        <label for="account_report_id" string="Default Account Reports"/>
+                        <div>
+                            <div>
+                                <field name="account_report_id" domain="[('parent_id','=',False)]" class="oe_inline"/>
+                            </div>
+                        </div>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_config_account_iaf_report_form_view" model="ir.actions.act_window">
+            <field name="name">IAF Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">config.account.iaf.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+        <!-- Menu item -->
+        <menuitem id="config_settings_menu" name="IAF Report"
+                  parent="account.menu_finance_configuration"
+                  groups="account.group_account_manager"
+                  sequence="200" action="action_config_account_iaf_report_form_view"/>
+
+    </data>
+</odoo>

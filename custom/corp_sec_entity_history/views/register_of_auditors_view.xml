@@ -1,0 +1,50 @@
+<odoo>
+    <data>
+        <record id="register_of_auditors_tree" model="ir.ui.view">
+            <field name="name">register.of.auditors.tree</field>
+            <field name="model">register.of.auditors</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="entity_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="register_of_auditors_form" model="ir.ui.view">
+            <field name="name">register.of.auditors.form</field>
+            <field name="model">register.of.auditors</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="entity_id"/>
+                        </group>
+                        <group/>
+                    </group>
+                    <field name="line_ids">
+                        <tree editable="bottom">
+                            <field name="no"/>
+                            <field name="auditors"/>
+                            <field name="company_no"/>
+                            <field name="residential_address"/>
+                            <field name="date_of_appointment"/>
+                            <field name="date_of_cessation"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="no"/>
+                                <field name="auditors"/>
+                                <field name="company_no"/>
+                                <field name="residential_address"/>
+                            </group>
+                            <group>
+                                <field name="date_of_appointment"/>
+                                <field name="date_of_cessation"/>
+                            </group>
+                        </form>
+                    </field>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

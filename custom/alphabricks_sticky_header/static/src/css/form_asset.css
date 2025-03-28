@@ -1,0 +1,10 @@
+.o_form_sheet_bg .sticky_header {
+    position: sticky;
+    top: 0;
+    z-index:999;
+}
+
+.o_form_view .sticky_header {
+    box-shadow: 0 1px 0 0 #ddd;
+}
+

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="datapost_received_view_form">
+            <field name="name">datapost.received.form</field>
+            <field name="model">datapost.received</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <header>
+                            <button name="action_download_document" string="Download Document"
+                                    class="oe_right oe_highlight" type="object"/>
+                            <button name="action_parse_document" string="Parse Document"
+                                    class="oe_right oe_highlight" type="object"/>
+                        </header>
+                        <group>
+                            <group>
+                                <field name="batch_id"/>
+                                <field name="document_type"/>
+                            </group>
+                            <group>
+                                <field name="api_id"/>
+                                <field name="peppol_document_no" readonly="1"/>
+                                <field name="move_id" attrs="{'invisible': [('document_type','!=', 'invoices')]}"/>
+                                <field name="sale_id" attrs="{'invisible': [('document_type','!=', 'orders')]}"/>
+                                <field name="response_id" attrs="{'invisible': [('document_type','not in', ['invoice-responses', 'order-responses'])]}"/>
+                            </group>
+                            <field name="xml_content" readonly="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="datapost_received_view_tree">
+            <field name="name">datapost.received.tree</field>
+            <field name="model">datapost.received</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="create_date"/>
+                    <field name="write_date"/>
+                    <field name="batch_id"/>
+                    <field name="api_id"/>
+                    <field name="document_type"/>
+                    <field name="peppol_document_no"/>
+                    <field name="move_id"/>
+                    <field name="sale_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="datapost_received_action" model="ir.actions.act_window">
+            <field name="name">Datapost Received</field>
+            <field name="res_model">datapost.received</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem
+                id="datapost_received_menu"
+                name="Datapost Received"
+                parent="datapost_menu_root"
+                action="datapost_received_action"
+                sequence="20"/>
+    </data>
+</odoo>

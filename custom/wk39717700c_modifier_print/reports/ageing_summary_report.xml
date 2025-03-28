@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="ageing_modifier_external_layout">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+            <t t-call="wk39717700c_modifier_print.ageing_external_layout_standard_modifier_header_logo">
+                <t t-raw="0"/>
+            </t>
+
+        </template>
+
+        <template id="ageing_external_layout_standard_modifier_header_logo">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                <div class="row" style="width: 100%;">
+                    <div class="col-9 text-left" style="font-size: 15px">
+                        <b style="font-size: 20px;">
+                            <t t-esc="company.name"/> <t t-esc="company.china_character"/>
+                        </b><br/>
+                        <span>Summarised Customers Ageing Listing - By Customer Code(Calculated By Months)</span><br/>
+                        <span>Closed Date: <t t-esc="closed_date"/></span><br/>
+                        <span>Customer Range: <t t-esc="customer_range"/> </span><br/>
+                        <span>AccountNo/Name:</span><br/>
+                    </div>
+                    <div class="col-3">
+                        <br/>
+                        <br/>
+                        <b>Date : </b><t t-esc="datetime.datetime.now().strftime('%d/%m/%Y')"/><br/>
+                        <b>Salesman : </b><t t-esc="salesman"/><br/>
+                        <b>Terms : </b><t t-esc="term_range"/><br/>
+                        <b>Page No : </b> <span class="page"/> / <span class="topage"/>
+                    </div>
+                </div>
+            </div>
+
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout">
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+        </template>
+
+        <record id="paperformat_ageing" model="report.paperformat">
+            <field name="name">Ageing Summary Paperformat A4 (Fit)</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">28</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <template id="wk39717700c_modifier_print.ageing_summary_template">
+            <t t-call="web.html_container">
+                <t t-call="wk39717700c_modifier_print.ageing_modifier_external_layout">
+                    <style>
+                        .page {
+                            font-size: 15px;
+                        }
+                        .table-product {
+                            margin-top: 30px
+                        }
+                        .table-product th {
+                            border-top: 1px solid #000;
+                            border-bottom: 1px solid #000;
+                            padding: 0.2rem 0rem;
+                        }
+                    </style>
+                    <div class="page">
+                        <table style="width: 100%" class="table-product">
+                            <thead>
+                                <tr>
+                                    <th style="width: 28%">Customer Code/Name<br/>Month</th>
+                                    <th style="width: 15%" class="text-right">Total Amt</th>
+                                    <th style="width: 7%" class="text-center">Curr</th>
+                                    <t t-foreach="header_list" t-as="header">
+                                        <th style="width: 10%" class="text-right"><t t-esc="header"/> </th>
+                                    </t>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="check_term" t-value="False"/>
+                                <t t-foreach="customer_data" t-as="customer">
+                                    <t t-if="check_term != customer['terms'] and term_range">
+                                        <t t-set="check_term" t-value="customer['terms']"/>
+                                        <tr>
+                                            <td colspan="8">
+                                                <strong>Term <t t-esc="customer['terms']"/>:</strong>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <td colspan="8"><u>
+                                            [ <t t-esc="customer['customer_code']"/> ] <t t-esc="customer['customer_name']"/>
+                                        </u></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">
+                                            Tel: <t t-esc="customer['phone']"/> Fax: <t t-esc="customer['fax']"/>
+                                            Contact: <t t-esc="customer['contact']"/> Terms: <t t-esc="customer['terms']"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td class="text-right">
+                                            <t t-esc="customer['total']"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <t t-esc="customer['currency']"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="customer['month_5']"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="customer['month_4']"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="customer['month_3']"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="customer['month_2']"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="customer['month_1']"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td class="text-right">
+                                        <b>Grand Total :</b>
+                                    </td>
+                                    <td class="text-right">
+                                        <b><t t-esc="total_total"/> </b>
+                                    </td>
+                                    <td></td>
+                                    <td class="text-right">
+                                        <b><t t-esc="total_month5"/> </b>
+                                    </td>
+                                    <td class="text-right">
+                                        <b><t t-esc="total_month4"/> </b>
+                                    </td>
+                                    <td class="text-right">
+                                        <b><t t-esc="total_month3"/> </b>
+                                    </td>
+                                    <td class="text-right">
+                                        <b><t t-esc="total_month2"/> </b>
+                                    </td>
+                                    <td class="text-right">
+                                        <b><t t-esc="total_month1"/> </b>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <report id="ageing_summary_report"
+            string="Ageing Summary"
+            model="ageing.summary.report"
+            report_type="qweb-pdf"
+            name="wk39717700c_modifier_print.ageing_summary_template"
+            file="wk39717700c_modifier_print.ageing_summary_template"
+            paperformat="wk39717700c_modifier_print.paperformat_ageing"
+            print_report_name="'Ageing Summary'"
+            menu="False"/>
+    </data>
+</odoo>

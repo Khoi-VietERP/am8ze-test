@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="menu_enterprise_sale" model="website.menu">
+            <field name="name">Ordering</field>
+            <field name="url">/ordering</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">70</field>
+        </record>
+
+        <record id="group_portal_price" model="res.groups">
+            <field name="name">Show Price in Web / Portal</field>
+        </record>
+
+        <record id="group_portal_invoice_bill" model="res.groups">
+            <field name="name">Show Invoices &amp; Bills in Web / Portal</field>
+        </record>
+
+        <record id="group_portal_sale_order" model="res.groups">
+            <field name="name">Show Sale Order in Web / Portal</field>
+        </record>
+    </data>
+</odoo>

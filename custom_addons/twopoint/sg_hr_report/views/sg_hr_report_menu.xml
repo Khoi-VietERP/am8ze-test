@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Menu for Report -->
+    <menuitem
+        id="menu_parent_hr_report_summary"
+        name="Reports"
+        parent="hr_payroll.menu_hr_payroll_root"/>
+
+    <!-- menu for summary -->
+    <menuitem
+        id="menu_report_payroll1_summary"
+        name="Summary"
+        parent="menu_parent_hr_report_summary"
+        sequence="4" />
+
+    <!-- menu for CPF -->
+    <menuitem
+        id="menu_report_payroll1_cpf"
+        name="CPF"
+        parent="menu_parent_hr_report_summary"
+        sequence="5" />
+
+    <!-- menu for Misc -->
+    <menuitem
+        id="menu_report_payroll1_misc"
+        name="Misc"
+        parent="menu_parent_hr_report_summary"
+        sequence="6" />
+
+    <!-- Qweb report For: payslip sample voucher -->
+    <report
+        id="sg_payslip_voucher_report"
+        string="Payslip Sample Voucher"
+        model="hr.payslip"
+        report_type="qweb-pdf"
+        name="sg_hr_report.report_payslip_sample_voucher"
+        file="sg_hr_report.payslip_voucher_template.xml" />
+
+    <!-- Qweb report For: Payroll Summary -->
+    <report
+        id="hr_employee_payroll_summary"
+        string="Payroll Summary"
+        model="payroll.summary.wizard"
+        report_type="qweb-pdf"
+        name="sg_hr_report.hr_payroll_summary_report_tmp"
+        menu="False"/>
+
+    <!-- Qweb report For: HR Bank Summary Report -->
+    <report
+        id="hr_bank_summary_report"
+        string="HR Bank Summary Report"
+        model="view.bank.summary.report.wizard"
+        report_type="qweb-pdf"
+        menu="False"
+        name="sg_hr_report.hr_bank_summary_report_tmp"
+        file="sg_hr_report.hr_bank_summary_report_tmp"/>
+
+    <!-- Qweb report For: HR Cheque Summary Report -->
+    <report
+        id="cheque_hr_summary_report"
+        string="HR Cheque Summary Report"
+        model="view.cheque.summary.report.wizard"
+        report_type="qweb-pdf"
+        name="sg_hr_report.cheque_summary_report_tmp"
+        menu="False" />
+
+    <!-- Qweb report For: Payslip Voucher -->
+    <report
+        id="sg_payslip_report"
+        string="Payslip Voucher"
+        model="hr.payslip"
+        report_type="qweb-pdf"
+        name="sg_hr_report.report_payslip_sample"
+        file="sg_hr_report.report_payslip_sample" />
+
+    <!-- Paper Format for : Payslip Sample Voucher Report -->
+    <!-- <record id="payslip_sample_voucher_report_paperformat"
+        model="report.paperformat">
+        <field name="name">Payslip Sample Voucher Report</field>
+        <field name="default" eval="True" />
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">23</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+        <field name="report_ids"
+            eval="[(4, ref('sg_hr_report.sg_payslip_voucher_report'))]"/>
+    </record> -->
+
+    <!-- Paper Format for : Payroll Summary Report -->
+    <record id="hr_payroll_summary_report_paperformat"
+        model="report.paperformat">
+        <field name="name">Payroll Summary Report</field>
+        <field name="default" eval="True" />
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">30</field>
+        <field name="margin_bottom">23</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">20</field>
+        <field name="dpi">90</field>
+        <field name="report_ids"
+            eval="[(4, ref('sg_hr_report.hr_employee_payroll_summary'))]"/>
+    </record>
+
+    <!-- Paper Format for : Payslip Voucher Report -->
+    <!-- <record id="payslip_voucher_report_paperformat" model="report.paperformat">
+        <field name="name">Payslip Voucher Report</field>
+        <field name="default" eval="True" />
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">23</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+        <field name="report_ids"
+            eval="[(4, ref('sg_hr_report.sg_payslip_report'))]"/>
+    </record> -->
+
+</odoo>

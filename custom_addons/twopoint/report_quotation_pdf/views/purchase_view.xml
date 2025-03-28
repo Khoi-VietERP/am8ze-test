@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sale.seq_sale_order" model="ir.sequence">
+            <field name="name">Sales Order</field>
+            <field name="code">sale.order</field>
+            <field name="prefix">Q</field>
+        </record>
+    <record id="seq_sale_order_validated" model="ir.sequence">
+            <field name="name">Sales Order Validated</field>
+            <field name="code">sale.order.validated</field>
+            <field name="prefix">SA</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    <template id="report_invoice_remove_tax" inherit_id="account.report_invoice_document">
+        <xpath expr="//h2" position="replace">
+            <h4>
+                        <span t-if="o.type == 'out_invoice' and o.state in ('open', 'in_payment', 'paid')">Invoice</span>
+                        <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
+                        <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
+                        <span t-if="o.type == 'out_refund'">Credit Note</span>
+                        <span t-if="o.type == 'in_refund'">Vendor Credit Note</span>
+                        <span t-if="o.type == 'in_invoice'">Vendor Bill</span>
+                        <span t-field="o.name"/>
+                    </h4>
+        </xpath>
+        <xpath expr="//t[@t-set='address']" position="replace">
+            <!-- <t t-set="address"> -->
+                <div>
+                    <span t-field="o.partner_id.name"/><br/>
+                    <t t-if="o.partner_id.house_no">
+                        <span t-field="o.partner_id.house_no"/>
+                    </t>
+                    <span t-field="o.partner_id.street"/><br/>
+                    <t t-if="o.partner_id.level_no">
+                        #<span t-field="o.partner_id.level_no"/>
+                    </t>
+                    <t t-if="o.partner_id.unit_no">
+                        - <span t-field="o.partner_id.unit_no"/>
+                    </t>
+                    <t t-if="o.partner_id.street2">
+                        <span t-field="o.partner_id.street2"/><br/>
+                    </t>
+                    <t t-if="o.partner_id.city">
+                        <span t-field="o.partner_id.city"/>
+                    </t>
+                    <t t-if="o.partner_id.state_id">
+                        <span t-field="o.partner_id.state_id.name"/><br/>
+                    </t>
+                    <t t-if="o.partner_id.country_id">
+                        <span t-field="o.partner_id.country_id.name"/>
+                    </t>
+                    <span t-field="o.partner_id.zip"/><br/>
+                </div>
+                <div style="float:right; clear:right;" t-if="o.partner_id.vat" class="mt16"><t t-esc="o.company_id.country_id.vat_label or 'Tax ID'"/>: <span t-field="o.partner_id.vat"/></div>
+            <!-- </t> -->
+        </xpath>
+        <xpath expr="//div[@id='informations']" position="replace">
+            <div id="informations" class="row mt32 mb32">
+                        <div class="col-auto mw-100 mb-2" t-if="o.invoice_date" name="invoice_date">
+                            <strong>Invoice Date:</strong>
+                            <p class="m-0" t-field="o.invoice_date"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2" t-if="o.invoice_date_due and o.type == 'out_invoice' and o.state in ('open', 'in_payment', 'paid')" name="due_date">
+                            <strong>Due Date:</strong>
+                            <p class="m-0" t-field="o.invoice_date_due"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2" t-if="o.invoice_origin" name="origin">
+                            <strong>Source:</strong>
+                            <p class="m-0" t-field="o.invoice_origin"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2" t-if="o.partner_id.ref" name="customer_code">
+                            <strong>Customer Code:</strong>
+                            <p class="m-0" t-field="o.partner_id.ref"/>
+                        </div>
+                    </div>
+        </xpath>
+        <xpath expr="//table[@name='invoice_line_table']/thead" position="replace">
+            <thead>
+                <tr>
+                    <t t-set="colspan" t-value="6"/>
+                    <th class="text-left"><span>Description</span></th>
+                    <th class="d-none text-left"><span>Source Document</span></th>
+                    <th class="text-right"><span>Quantity</span></th>
+                    <th t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Unit Price</span></th>
+                    <th t-if="display_discount" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                        <span>Disc.(%)</span>
+                        <t t-set="colspan" t-value="colspan+1"/>
+                    </th>
+                    <th class="text-right">
+                        <span groups="account.group_show_line_subtotals_tax_excluded">Amount</span>
+                        <span groups="account.group_show_line_subtotals_tax_included">Total Price</span>
+                    </th>
+                </tr>
+            </thead>
+        </xpath>
+
+        <xpath expr="//table[@name='invoice_line_table']/tbody" position="replace">
+            <tbody class="invoice_tbody">
+                <t t-set="current_subtotal" t-value="0"/>
+                <t t-foreach="o.invoice_line_ids" t-as="line">
+                    <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                    <t t-set="current_subtotal" t-value="current_subtotal + line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+
+                    <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
+                        <t t-if="not line.display_type" name="account_invoice_line_accountable">
+                            <td name="account_invoice_line_name"><span t-field="line.name"/></td>
+                            <td class="d-none"><span t-field="line.move_id.invoice_origin"/></td>
+                            <td class="text-right">
+                                <span t-field="line.quantity"/>
+                                <span t-field="line.uom_id" groups="uom.group_uom"/>
+                            </td>
+                            <td t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                <span t-field="line.price_unit" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                            </td>
+                            <td t-if="display_discount" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                <span t-field="line.discount"/>
+                            </td>
+                            <td class="text-right o_price_total">
+                                <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                                <span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+                            </td>
+                        </t>
+                        <t t-if="line.display_type == 'line_section'">
+                            <td t-att-colspan="colspan">
+                                <span t-field="line.name"/>
+                            </td>
+                            <t t-set="current_section" t-value="line"/>
+                            <t t-set="current_subtotal" t-value="0"/>
+                        </t>
+                        <t t-if="line.display_type == 'line_note'">
+                            <td t-att-colspan="colspan">
+                                <span t-field="line.name"/>
+                            </td>
+                        </t>
+                    </tr>
+                    <t t-if="current_section and (line_last or o.invoice_line_ids[line_index+1].display_type == 'line_section')">
+                        <tr class="is-subtotal text-right">
+                            <td t-att-colspan="colspan">
+                                <strong class="mr16">Subtotal</strong>
+                                <span t-esc="current_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+            </tbody>
+        </xpath>
+
+        <xpath expr="//div[@class='clearfix']" position="replace">
+            <div class="clearfix">
+                <div id="total" class="row">
+                    <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                        <table class="table table-sm">
+                            <tr class="border-black o_subtotal" style="">
+                                <td><strong>Subtotal</strong></td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_untaxed"/>
+                                </td>
+                            </tr>
+                            <tr class="border-black o_total">
+                                <td><strong>Total</strong></td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_total"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="report_so_notax_term_condition" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//h2" position="replace">
+            <h4>
+                <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
+                    <span t-if="doc.state not in ['draft','sent']">Sales Agreement # </span>
+                    <span t-if="doc.state in ['draft','sent']">Quotation # </span>
+                </t>
+                <t t-if="env.context.get('proforma', False) or is_pro_forma">
+                    <span>Pro-Forma Invoice # </span>
+                </t>
+                <span t-field="doc.name"/>
+            </h4>
+        </xpath>
+        <xpath expr="//div[@t-if='doc.user_id.name']" position="replace"/>
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead" position="replace">
+            <thead>
+                <tr>
+                    <t t-set="colspan" t-value="5"/>
+                    <th class="text-left">Description</th>
+                    <th class="text-right">Quantity</th>
+                    <th class="text-right">Unit Price</th>
+                    <th t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line">
+                        <span>Disc.(%)</span>
+                        <t t-set="colspan" t-value="colspan+1"/>
+                    </th>
+                    <th class="text-right">
+                        <t groups="account.group_show_line_subtotals_tax_excluded">Amount</t>
+                        <t groups="account.group_show_line_subtotals_tax_included">Total Price</t>
+                    </th>
+                </tr>
+            </thead>
+        </xpath>
+        <xpath expr="//table/tbody[@class='sale_tbody']" position="replace">
+            <tbody class="sale_tbody">
+                <t t-set="current_subtotal" t-value="0"/>
+                <t t-foreach="doc.order_line" t-as="line">
+                    <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                    <t t-set="current_subtotal" t-value="current_subtotal + line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+
+                    <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
+                        <t t-if="not line.display_type">
+                            <td><span t-field="line.name"/></td>
+                            <td class="text-right">
+                                <span t-field="line.product_uom_qty"/>
+                                <span t-field="line.product_uom" groups="uom.group_uom"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="line.price_unit"/>
+                            </td>
+                            <td t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line">
+                                <span t-field="line.discount"/>
+                            </td>
+                            <td class="text-right o_price_total">
+                                <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                                <span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+                            </td>
+                        </t>
+                        <t t-if="line.display_type == 'line_section'">
+                            <td colspan="99">
+                                <span t-field="line.name"/>
+                            </td>
+                            <t t-set="current_section" t-value="line"/>
+                            <t t-set="current_subtotal" t-value="0"/>
+                        </t>
+                        <t t-if="line.display_type == 'line_note'">
+                            <td colspan="99">
+                                <span t-field="line.name"/>
+                            </td>
+                        </t>
+                    </tr>
+
+                    <t t-if="current_section and (line_last or doc.order_line[line_index+1].display_type == 'line_section')">
+                        <tr class="is-subtotal text-right">
+                            <td colspan="99">
+                                <strong class="mr16">Subtotal</strong>
+                                <span t-esc="current_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+            </tbody>
+        </xpath>
+
+        <xpath expr="//div[@class='clearfix']" position="replace">
+            <div class="clearfix">
+                <div id="total" class="row" name="total">
+                    <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                        <table class="table table-sm">
+                            <tr class="border-black o_subtotal" style="">
+                                <td><strong>Subtotal</strong></td>
+                                <td class="text-right">
+                                    <span t-field="doc.amount_untaxed"/>
+                                </td>
+                            </tr>
+                            <t t-foreach="doc.amount_by_group" t-as="amount_by_group">
+                                <tr style="">
+                                    <t t-if="amount_by_group[3] == 1 and doc.amount_untaxed == amount_by_group[2]">
+                                        <td>
+                                            <span t-esc="amount_by_group[0]"/>
+                                            <span>&amp;nbsp;<span>on</span>&amp;nbsp;<t t-esc="amount_by_group[2]" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/></span>
+                                        </td>
+                                        <td class="text-right o_price_total">
+                                            <span t-esc="amount_by_group[1]" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+                            <tr class="border-black o_total">
+                                <td><strong>Total</strong></td>
+                                <td class="text-right">
+                                    <span t-field="doc.amount_total"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//t[@t-set='information_block']" position="replace"></xpath>
+        <xpath expr="//t[@t-set='address']" position="replace">
+            <!-- <t t-set="address"> -->
+                <div>
+                    <span t-field="doc.partner_id.name"/><br/>
+                    <t t-if="doc.partner_id.house_no">
+                        <span t-field="doc.partner_id.house_no"/>
+                    </t>
+                    <span t-field="doc.partner_id.street"/><br/>
+                    <t t-if="doc.partner_id.level_no">
+                        #<span t-field="doc.partner_id.level_no"/>
+                    </t>
+                    <t t-if="doc.partner_id.unit_no">
+                        - <span t-field="doc.partner_id.unit_no"/>
+                    </t>
+                    <t t-if="doc.partner_id.street2">
+                        <span t-field="doc.partner_id.street2"/><br/>
+                    </t>
+                    <t t-if="doc.partner_id.city">
+                        <span t-field="doc.partner_id.city"/>
+                    </t>
+                    <t t-if="doc.partner_id.state_id">
+                        <span t-field="doc.partner_id.state_id.name"/><br/>
+                    </t>
+                    <t t-if="doc.partner_id.country_id">
+                        <span t-field="doc.partner_id.country_id.name"/>
+                    </t>
+                    <span t-field="doc.partner_id.zip"/><br/>
+                </div>
+                <p style="float:left; clear:left;" t-if="doc.partner_id.vat"><t t-esc="doc.company_id.country_id.vat_label or 'Tax ID'"/>: <span t-field="doc.partner_id.vat"/></p><br/>
+            <!-- </t> -->
+        </xpath> 
+        <xpath expr="//div[@id='informations']" position="replace">
+          <div class="row mt32 mb32" id="informations">
+            <div t-if="doc.client_order_ref" class="col-auto mw-100 mb-2">
+                    <strong>Your Reference:</strong>
+                    <p class="m-0" t-field="doc.client_order_ref"/>
+                </div>
+                <div t-if="doc.date_order and doc.state not in ['draft','sent']" class="col-sm-12 col-md-4 mb-4">
+                    <strong>Date of Agreement:</strong>
+                    <p class="m-0" t-esc="doc.date_order" t-options="{'widget': 'date'}"/>
+                </div>
+                <div t-if="doc.date_order and doc.state in ['draft','sent']" class="col-auto mw-100 mb-2">
+                    <strong>Quotation Date:</strong>
+                    <p class="m-0" t-field="doc.date_order"/>
+                </div>
+                <div name="payment_term" t-if="doc.payment_term_id" class="col-auto mw-100 mb-2">
+                    <strong>Payment Terms:</strong>
+                    <p class="m-0" t-field="doc.payment_term_id"/>
+                </div>
+                <div t-if="doc.validity_date and doc.state in ['draft', 'sent']" class="col-auto mw-100 mb-2">
+                    <strong>Valid Till:</strong>
+                    <p class="m-0" t-field="doc.validity_date"/>
+                </div>
+	    </div>
+        </xpath>
+
+        <xpath expr="//div[@class='page']" position="after">
+            <!-- AM8ZE TERMS OF USE > 
+            <div class="page" -->
+              <p style="page-break-after:always;">  <h5 class="text-center"> AM8ZE TERMS OF USE </h5> 
+          
+            <table class="table table-sm o_main_table" style="border: 5px solid white;" >
+              <tbody>
+                <tr>
+                  <td style="width:45%;border: 2px solid white;">
+                    <p style="text-align: justify;">These Terms of Use are intended to explain our obligations as a service provider and Your obligations as a customer. Please read them carefully.</p>
+                    <p style="text-align: justify;">These Terms are binding on any use of the Service and apply to You from the time that AM8ZE provides You with access to the Service.</p>
+                    <p style="text-align: justify;">The AM8ZE Service will evolve over time based on user feedback. These Terms are not intended to answer every question or address every issue raised using the AM8ZE Service. AM8ZE reserves the right to change these terms at any time, effective upon the posting of modified terms and AM8ZE will make every effort to communicate these changes to You via email or notification. It is likely the terms of use will change over time.</p>
+                    <p style="text-align: justify;">By registering to use the Service You acknowledge that You have read and understood these Terms and have the authority to act on behalf of any person for whom You are using the Service. You are deemed to have agreed to these Terms on behalf of any entity for whom You use the Service.</p>
+
+                    <p><u><b>1. Definitions </b></u></p>
+                    <p><b>"Agreement" </b> means these Terms of Use.</p>
+                    <p style="text-align: justify;"><b>"AM8ZE"</b> means AM8ZE Pte. Ltd. which is incorporated in Singapore.</p>
+                    <p style="text-align: justify;"><b>"Payable Fees"</b> includes the Development Fees, Hosting Charges and Maintenance Fees (where applicable and excluding any taxes and duties) payable by You in accordance with the Fee Schedule.</p>
+                    <p style="text-align: justify;"><b>"Confidential Information"</b> includes all information exchanged between the parties to this Agreement, whether in writing, electronically or orally, including the Service but does not include information which is, or becomes, publicly available other than through unauthorised disclosure by the other party.</p>
+                    <p style="text-align: justify;"><b>"Data"</b> means any data keyed by You or with Your authorised personal into the system.</p>
+                    <p style="text-align: justify;"><b>"Fee Schedule"</b> means the information relating to subscriptions and billing set out on the AM8ZE subscriptions and billing pages on the , or any other page(s) on the  notified by AM8ZE, which may be updated or amended by AM8ZE from time to time.</p>
+                  </td>
+                  <td style="width:10%;border-top: 2px solid white;border-right: 2px solid white;border-left: 2px solid white;border-bottom: 2px solid white;">
+                    <p></p>
+                  </td>
+                  <td style="width:45%;border: 2px solid white;">
+                    <p style="text-align: justify;"><b>"Intellectual Property Right"</b> means any patent, trade mark, service mark, copyright, moral right, right in a design, know-how and any other intellectual or industrial property rights, anywhere in the world whether or not registered.</p>
+                    <p style="text-align: justify;"><b>“Maintenance”</b> refers to conducting of regular checks and provision of status reports on Hosting Performance. as well as weekly database back-ups at a stipulated time as determined by AM8ZE.</p>
+                    <p style="text-align: justify;"><b>"Invited User"</b> means any person or entity, other than the Subscriber, that uses the Service with the authorisation of the Subscriber from time to time.</p>
+                    <p style="text-align: justify;"><b>"Service"</b> refers to the AM8ZE ERP Solution designed, developed and deployed.</p>
+                    <p style="text-align: justify;"><b>"Subscriber"</b> means the person who registers to use the Service, and, where the context permits, includes any entity on whose behalf that person registers to use the Service.</p>
+                    <p style="text-align: justify;"><b>"You"</b> means the Subscriber, and where the context permits, an Invited User. "Your" has a corresponding meaning.</p>
+                    
+                    <p><u><b>2. Use of Software </b></u></p>
+                    <p style="text-align: justify;">AM8ZE grants You the right to access and use the Service with the particular user roles available to You according to Your subscription type. This right is non-exclusive, non-transferable, and limited by and subject to this Agreement. You acknowledge and agree that, subject to any applicable written agreement between the Subscriber and the Invited Users, or any other applicable laws:</p>
+                    <p style="text-align: justify;">(i) the Subscriber determines who is an Invited User and what level of user role access to the relevant organization and Service that Invited User has;</p>
+                    <p style="text-align: justify;">(ii) the Subscriber is responsible for all Invited Users’ use of the Service;</p>
+                    <p style="text-align: justify;">(iii) the Subscriber controls each Invited User’s level of access to the relevant organization and Service at all times and can revoke or change an Invited User’s access, or level of access, at any time and for any reason, in which case that person or entity will cease to be an Invited User or shall have that different level of access, as the case may be;</p>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              </p>
+              
+<br/><br/>
+              <table class="table table-sm o_main_table" style="page-break-after: always;border: 2px solid white;">
+              <tbody>
+                <tr>
+                  <td style="width:45%;border: 2px solid white;">
+                    <p style="text-align: justify;">(iv) if there is any dispute between a Subscriber and an Invited User regarding access to any organization or Service, the Subscriber shall decide what access or level of access to the relevant Data or Service that Invited User shall have, if any.</p>
+                    <p><u><b>3. Payment</b></u></p>
+                    <p style="text-align: justify;">An invoice for the Payable Fees will be issued in accordance with the details set out in the Fee Schedule. AM8ZE will continue invoicing You in accordance with the Fee Schedule until this Agreement is terminated in accordance with clause 6.</p>
+                    <p style="text-align: justify;">Subscription Fees are non-refundable if Subscriber cancels or if the Subscription is terminated for cause. As of the effective date of cancellation or termination Subscriber shall no longer be able and shall have no further right to access or use the Services which have been cancelled or terminated.</p>
+                    <p style="text-align: justify;">All AM8ZE invoices will be sent to You, or to a Billing Contact whose details are provided by You, by email. Payment of all amounts specified in an invoice must be paid in accordance with the Fee Schedule. You are responsible for payment of all taxes and duties in addition to the Payable Fees.</p>
+                    <p style="text-align: justify;">Date-Based payments are presentable as per billing milestones stipulated in the Sales Agreement endorsed by both parties and due for payment one (01) day after the presentation of the invoice by AM8ZE.</p>
+                    <p style="text-align: justify;">All invoices presented will be issued to the primary point of contact established during the engagement. An acceptance or non-acceptance of invoice, should be conveyed to AM8ZE in three (03) working days, failing which it will be assumed to be accepted.</p>
+                    <p style="text-align: justify;">All delayed payment will attract a penalty of 2% per month on the balance outstanding for more than 30 days, unless due to a bona-fide dispute raised and acknowledged by both parties.</p>
+                    <p style="text-align: justify;">In the event of any payment delay of more than 2 months, the Consultant reserves the right to stop all further deliverables and retract all source codes delivered previously, documents and rights of use of such codes from the Company, corresponding to the statement of works of which the payment is in arrears.</p>
+                    
+                    
+                    
+                  </td>
+                  
+                  <td style="width:10%;border-top: 2px solid white;border-right: 2px solid white;border-left: 2px solid white;border-bottom: 2px solid white;">
+                    <p/>
+                  </td>
+                  
+                  <td style="width:45%;border: 2px solid white;">
+                    <p style="text-align: justify;">All payments collected are strictly not refundable.</p>
+                    <p style="text-align: justify;">In the event of any delays to our last query for more than 7 days, AM8ZE shall be entitled to relocate the resources for other projects and the Client’s project will assume a lower priority. AM8ZE shall be entitled to invoice the Client for the proportion of the time delayed by the client and AM8ZE shall not be responsible for any corresponding delays in project fulfilment and delivery.</p>
+                    <p style="text-align: justify;"> In the event that the Client’s delayed response persists beyond 50% of the estimated project duration, AM8ZE reserves the rights to invoice the Client for the proportion of the fee that in AM8ZE’s reasonable judgment reflects the proportion of the Software that has been completed to date and after taking into account the work that has already been invoiced and paid. </p>
+                    <p><u><b>4. Preferential Pricing or Discounts</b></u></p>
+                    <p style="text-align: justify;">You may from time to time be offered preferential pricing or discounts for the Payable Fees because of the number of organizations that You have added to the Service or that have been added with Your authority or because of Your use of the Service ('Organizations'). Eligibility for such preferential pricing or discounts is conditional upon Your acceptance of responsibility for payment of any Payable Fees in relation to all Your Organizations. Without prejudice to any other rights that AM8ZE may have under these Terms or at law, AM8ZE reserves the right to render invoices for the full (non-discounted) Payable Fees due or suspend or terminate Your use of the Service in respect of any or all Your Organizations in the event that any invoices for those Payable Fees are not paid in full in accordance with the requirements set out in the Fee Schedule.</p>
+                    <p><u><b>5. General Obligations</b></u></p>
+                    <p style="text-align: justify;">You must only use the Service for Your own lawful internal business purposes, in accordance with these Terms and any notice sent by AM8ZE. You may use the Service  on behalf of others or to provide services to others but if You do so You must ensure that You are authorized to do so and that all persons for whom or to whom services are provided comply with and accept all terms of this Agreement that apply to You.</p>
+                    
+
+
+                  </td>
+                </tr>
+                
+                <tr>
+                  <td style="width:45%;border: 2px solid white;">
+                    <p><u><b>6. Notice of Termination</b></u></p>
+                    <p style="text-align: justify;">(i) This contract for services is payable by means of a Subscription Fee. Payment of Fees shall be made by means of a charge by AM8ZE against Licensee’s Cash, bank debit or credit card account, and Licensee agrees to keep said account current and in good standing such that charges against the same may be collected; AM8ZE is not obligated to prorate or to refund any accrued Fees. Fees are due and payable to AM8ZE Pte Ltd at its office in 28 Kallang Place, #07-17, Singapore 339158. AM8ZE retains the right to, and shall, terminate Licensee’s access to the Software if Licensee is delinquent as defined above.</p>
+                    <p style="text-align: justify;"><u><b>7. Access Conditions</b></u></p>
+                    <p style="text-align: justify;">(i) You must ensure that all usernames and passwords required to access the Service are kept secure and confidential. You must immediately notify AM8ZE of any unauthorized use of Your passwords or any other breach of security and AM8ZE will reset Your password and You must take all other actions that AM8ZE reasonably deems necessary to maintain or enhance the security of AM8ZE's computing systems and networks and Your access to the Services.</p>
+                    <p style="text-align: justify;">(ii) As a condition of these Terms, when accessing and using the Services, You must:</p>
+                    <p style="text-align: justify;">•	not attempt to undermine the security or integrity of AM8ZE's computing systems or networks or, where the Services are hosted by a third party, that third party's computing systems and networks;</p>
+                    <p style="text-align: justify;">•	not use, or misuse, the Services in any way which may impair the functionality of the Services, or other systems used to deliver the Services or impair the ability of any other user to use the Services;</p>
+                    <p style="text-align: justify;">•	not attempt to gain unauthorized access to any materials other than those to which You have been given expressed permission to access or to the computer system on which the Services are hosted;</p>
+                    <p style="text-align: justify;">•	not attempt to modify, copy, adapt, reproduce, disassemble, decompile or reverse engineer any computer programs used to deliver the Services except as is strictly necessary to use either of them for normal operation.</p>
+                  </td>
+                  
+                  <td style="width:10%;border-top: 2px solid white;border-right: 2px solid white;border-left: 2px solid white;border-bottom: 2px solid white;">
+                    <p/>
+                  </td>
+                  
+                  <td style="width:45%;border: 2px solid white;">
+                    <p><u><b>8. Support</b></u></p>
+                    <p style="text-align: justify;">During the Subscription Period, AM8ZE will provide Subscriber with the support described in this paragraph (hereinafter “Support”) on a local office’s business hours basis which shall ordinarily be from 9 AM through 6 PM, Monday through Friday excluding PH.</p>
+                    <p style="text-align: justify;">In AM8ZE sole determination, Support shall consist of telephone or electronic support to Subscriber to help Subscriber locate and, on Subscriber’s own efforts, correct problems with the Services.</p>
+                    <p><u><b>9. Indemnity</b></u></p>
+                    <p style="text-align: justify;">You indemnify AM8ZE against: all claims, costs, damage and loss arising from Your breach of any of these Terms or any obligation You may have to AM8ZE, including (but not limited to) any costs relating to the recovery of any Payable Fees that are due but have not been paid by You.</p>
+                    <p><u><b>10. Intellectual Property</b></u></p>
+                    <p style="text-align: justify;">(i) General. Title to, and all Intellectual Property Rights in the Services and any documentation relating to the Services remain the property of AM8ZE (or its licensors).</p>
+                    <p style="text-align: justify;">(ii) Ownership of Data. Title to, and all Intellectual Property Rights in, the Data remain Your property. However, Your access to the Data is contingent on full payment of the AM8ZE Payable Fees when due. You grant AM8ZE a licence to use, copy, transmit, store, and back-up Your information and Data for the purposes of enabling You to access and use the Services and for any other purpose related to provision of services to You.</p>
+                    <p style="text-align: justify;">(iii) Backup of Data. You must maintain copies of all Data inputted into the Service. AM8ZE adheres to its best practice policies and procedures to prevent data loss, including a weekly system data back-up regime, but does not make any guarantees that there will be no loss of Data. AM8ZE expressedly excludes liability for any loss of Data no matter how caused.</p>
+                  </td>
+                </tr>
+                  
+                </tbody>
+              </table>
+              
+              <table class="table table-sm o_main_table" style="border: 5px solid white;">
+              <tbody>
+                <tr>
+                  <td style="width:45%;border: 2px solid white;">
+                    <p style="text-align: justify;">(iv) Third-party applications and Your Data. If You enable third-party applications for use in conjunction with the Services, You acknowledge that AM8ZE may allow the providers of those third-party applications to access Your Data as required for the interoperation of such third-party applications with the Services. AM8ZE shall not be responsible for any disclosure, modification or deletion of Your Data resulting from any such access by third-party application providers.</p>
+                  </td>
+                  <td style="width:10%;border-top: 2px solid white;border-right: 2px solid white;border-left: 2px solid white;border-bottom: 2px solid white;">
+                    <p/>
+                  </td>
+                  <td style="width:45%;border: 2px solid white;">
+                    <p><u><b>11. Entire agreement:</b></u></p>
+                    <p style="text-align: justify;">These Terms and the terms of any other notices or instructions given to You under these Terms of Use, supersede and extinguish all prior agreements, representations (whether oral or written), and understandings and constitute the entire agreement between You and AM8ZE relating to the Services and the other matters dealt with in these Terms.</p>
+                  </td>
+                </tr>
+              </tbody>
+              </table>
+              
+              <!-- <p>Signed for and on behalf of AM8ZE PTE.LTD. by its duly authorised representative:</p>
+              <br/> <br/> <br/>
+              <table class="table table-sm o_main_table">
+              <tbody>
+                <tr>
+                  <td style="width:45%;border-top: 2px solid black;border-right: 2px solid white;border-left: 2px solid white;border-bottom: 2px solid white;">
+                    <p>Signature of authorized representative</p>
+                  </td>
+                  <td style="width:10%;border-top: 2px solid white;border-right: 2px solid white;border-left: 2px solid white;border-bottom: 2px solid white;">
+                    <p/>
+                  </td>
+                  <td style="width:45%;border-top: 2px solid black;border-right: 2px solid white;border-left: 2px solid white;border-bottom: 2px solid white;">
+                    <p>Name Designation</p>
+                  </td>
+                </tr>
+              </tbody>
+              </table>
+              <br/> <br/>
+              
+              <table class="table table-sm o_main_table">
+              <tbody>
+                <tr>
+                  <td style="width:45%;border-top: 2px solid white;border-right: 2px solid white;border-left: 2px solid white;border-bottom: 2px solid white;">
+                    <p/>
+                  </td>
+                  <td style="width:10%;border-top: 2px solid white;border-right: 2px solid white;border-left: 2px solid white;border-bottom: 2px solid white;">
+                    <p/>
+                  </td>
+                  <td style="width:45%;border-top: 2px solid black;border-right: 2px solid white;border-left: 2px solid white;border-bottom: 2px solid white;">
+                    <p>Date</p>
+                  </td>
+                </tr>
+              </tbody>
+              </table> -->
+              
+              <br/>
+              <p>I confirm my order and agree to the terms and conditions.</p>
+              <br/> <br/> <br/> <br/>
+              
+              <table class="table table-sm o_main_table">
+              <tbody>
+                <tr>
+                  <td style="width:45%;border-top: 2px solid black;border-right: 2px solid white;border-left: 2px solid white;border-bottom: 2px solid white;">
+                    <p>Signature of authorized representative</p>
+                  </td>
+                  <td style="width:10%;border-top: 2px solid white;border-right: 2px solid white;border-left: 2px solid white;border-bottom: 2px solid white;">
+                    <p/>
+                  </td>
+                  <td style="width:45%;border-top: 2px solid black;border-right: 2px solid white;border-left: 2px solid white;border-bottom: 2px solid white;">
+                    <p>Name Designation</p>
+                  </td>
+                </tr>
+              </tbody>
+              </table>
+              <br/> <br/> <br/>
+              
+              <table class="table table-sm o_main_table">
+              <tbody>
+                <tr>
+                  <td style="width:45%;border-top: 2px solid white;border-right: 2px solid white;border-left: 2px solid white;border-bottom: 2px solid white;">
+                    <p/>
+                  </td>
+                  <td style="width:10%;border-top: 2px solid white;border-right: 2px solid white;border-left: 2px solid white;border-bottom: 2px solid white;">
+                    <p/>
+                  </td>
+                  <td style="width:45%;border-top: 2px solid black;border-right: 2px solid white;border-left: 2px solid white;border-bottom: 2px solid white;">
+                    <p>Date</p>
+                  </td>
+                </tr>
+              </tbody>
+              </table>
+
+        </xpath>
+
+    </template>
+
+</odoo>

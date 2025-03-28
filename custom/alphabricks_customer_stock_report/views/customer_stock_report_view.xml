@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="account_dynamic_reports assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" type="text/scss" href="/alphabricks_customer_stock_report/static/src/scss/customer_stock_report.scss"/>
+                <script type="text/javascript" src="/alphabricks_customer_stock_report/static/src/js/customer_stock_report.js"></script>
+            </xpath>
+        </template>
+
+        <record id="customer_stock_report_form_view" model="ir.ui.view">
+            <field name="name">customer.stock.report.form</field>
+            <field name="model">customer.stock.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="partner_ids" widget="many2many_tags"/>
+                                <field name="user_ids" widget="many2many_tags"/>
+                                <field name="product_ids" widget="many2many_tags"/>
+                                <field name="categ_ids" widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="print_report" string="Print"
+                                type="object" class="oe_highlight"/>
+                        <button name="action_view" string="View" type="object" default_focus="1" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="customer_stock_report_action" model="ir.actions.act_window">
+            <field name="name">Customer Products Listing</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">customer.stock.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="customer_stock_report_menu"
+                  parent="stock.menu_warehouse_report"
+                  action="customer_stock_report_action"/>
+    </data>
+</odoo>

@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+        <record id="res_partner_view_form" model="ir.ui.view">
+            <field name="name">res.partner.view.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='purchase']" position="after">
+                    <group string="Tax" name="tax_group">
+                        <field name="use_tax_for_sale_purchase"/>
+                        <field name="sale_tax_id" attrs="{'invisible' : [('use_tax_for_sale_purchase', '=', False)]}"/>
+                        <field name="purchase_tax_id" attrs="{'invisible' : [('use_tax_for_sale_purchase', '=', False)]}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_partner_tree_inherit" model="ir.ui.view">
+            <field name="name">res.partner.view.tree.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <field name="country_id" position="after">
+                    <field name="use_tax_for_sale_purchase" invisible="1"/>
+                    <field name="sale_tax_id" attrs="{'invisible' : [('use_tax_for_sale_purchase', '=', False)]}"/>
+                    <field name="purchase_tax_id" attrs="{'invisible' : [('use_tax_for_sale_purchase', '=', False)]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_partner_vendor_tree_inherit" model="ir.ui.view">
+            <field name="name">res.partner.view.tree.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <field name="sale_tax_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="account.res_partner_action_supplier" model="ir.actions.act_window">
+            <field name="view_id" ref="view_partner_vendor_tree_inherit"/>
+        </record>
+    </data>
+</odoo>

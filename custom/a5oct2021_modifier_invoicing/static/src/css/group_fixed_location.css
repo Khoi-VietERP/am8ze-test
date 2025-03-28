@@ -1,0 +1,15 @@
+.scroll_tree_view div.table-responsive {
+    overflow-y: auto;
+    height: 30vh;
+}
+.scroll_tree_view thead{
+    position: sticky !important;
+    top: 0px !important;
+    z-index: 1;
+}
+
+.scroll_tree_view table {
+    border-collapse: collapse;
+    width: 100%;
+}
+

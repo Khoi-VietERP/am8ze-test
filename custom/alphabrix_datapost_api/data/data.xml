@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+<!--        <record id="ir_cron_datapost_update_invoice_status" model="ir.cron">-->
+<!--            <field name="name">Datapost: update invoice status</field>-->
+<!--            <field name="model_id" ref="model_account_move"/>-->
+<!--            <field name="type">ir.actions.server</field>-->
+<!--            <field name="state">code</field>-->
+<!--            <field name="code">model.cron_update_datapost_invoice_status()</field>-->
+<!--            <field name="interval_number">1</field>-->
+<!--            <field name="interval_type">minutes</field>-->
+<!--            <field name="numbercall">-1</field>-->
+<!--        </record>-->
+
+        <record id="ir_cron_download_new_documents" model="ir.cron">
+            <field name="name">Datapost: download new documents</field>
+            <field name="model_id" ref="model_datapost_received_batch"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.cron_download_documents()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+<!--        <record id="ir_cron_datapost_update_peppol_participant" model="ir.cron">-->
+<!--            <field name="name">Datapost: update peppol participant</field>-->
+<!--            <field name="model_id" ref="model_peppol_participant"/>-->
+<!--            <field name="type">ir.actions.server</field>-->
+<!--            <field name="state">code</field>-->
+<!--            <field name="code">model.cron_update_peppol_participant()</field>-->
+<!--            <field name="interval_number">1</field>-->
+<!--            <field name="interval_type">days</field>-->
+<!--            <field name="numbercall">-1</field>-->
+<!--        </record>-->
+
+<!--        <record id="ir_cron_datapost_create_peppol_participant" model="ir.cron">-->
+<!--            <field name="name">Datapost: Create New Peppol Participant</field>-->
+<!--            <field name="model_id" ref="model_peppol_participant"/>-->
+<!--            <field name="type">ir.actions.server</field>-->
+<!--            <field name="state">code</field>-->
+<!--            <field name="code">model.cron_create_new_peppol_participants()</field>-->
+<!--            <field name="interval_number">99999</field>-->
+<!--            <field name="interval_type">months</field>-->
+<!--            <field name="numbercall">1</field>-->
+<!--        </record>-->
+
+        <record id="ir_cron_partner_get_peppol_id" model="ir.cron">
+            <field name="name">Datapost: update partner peppol id</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.cron_partner_get_peppol_id()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+<!-- Move creation to cron ir_cron_datapost_create_peppol_participant -->
+<!--        <function model="peppol.participant" name="init_peppol_participants"/>-->
+    </data>
+</odoo>

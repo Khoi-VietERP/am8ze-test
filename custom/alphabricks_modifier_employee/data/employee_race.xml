@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="employee_race_chinese" model="employee.race">
+            <field name="name">Chinese</field>
+            <field name="rule_id" eval="ref('l10n_sg_hr_payroll.hr_salary_rule_cpfcdac0')"></field>
+        </record>
+
+        <record id="employee_race_eurasian" model="employee.race">
+            <field name="name">Eurasian</field>
+            <field name="rule_id" eval="ref('l10n_sg_hr_payroll.hr_salary_rule_cpfecf0')"></field>
+        </record>
+
+        <record id="employee_race_indian" model="employee.race">
+            <field name="name">Indian</field>
+            <field name="rule_id" eval="ref('l10n_sg_hr_payroll.hr_salary_rule_cpfsinda0')"></field>
+        </record>
+
+        <record id="employee_race_malay" model="employee.race">
+            <field name="name">Malay</field>
+            <field name="rule_id" eval="ref('l10n_sg_hr_payroll.hr_salary_rule_cpfmbmf0')"></field>
+        </record>
+
+        <record id="employee_race_foreign_workers" model="employee.race">
+            <field name="name">Foreign workers/others</field>
+            <field name="rule_id" eval="ref('l10n_sg_hr_payroll.hr_salary_rule_cpfsdl0')"></field>
+        </record>
+    </data>
+</odoo>

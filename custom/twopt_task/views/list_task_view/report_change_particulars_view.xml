@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="report_change_particulars_form" model="ir.ui.view">
+            <field name="name">report.change.particulars.form</field>
+            <field name="model">report.change.particulars</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <div>
+                                <span style="font-weight: bold;">
+                                    Type of Application
+                                </span><br/>
+                                <field name="lodge_instrument"/>
+                                <label for="lodge_instrument" style="display: contents;font-weight: normal"/><br/>
+                                <field name="lodge_notice"/>
+                                <label for="lodge_notice" style="display: contents;font-weight: normal"/><br/>
+                                <field name="report_change"/>
+                                <label for="report_change" style="display: contents;font-weight: normal"/><br/>
+                            </div>
+                            <group col="2" attrs="{'invisible' : [('lodge_notice', '!=', True)]}"
+                                   string="Extension of Time to lodge Instrument Effecting Change, Lodge Change of Name and Report Change of Particulars">
+                                <div>
+                                    <label for="name_application_no" style="font-weight: bold;"/>
+                                    <br/>
+                                    <field name="name_application_no" style="width: 50%;"/>
+                                </div>
+                                <div/>
+                            </group>
+                            <group col="2" attrs="{'invisible' : [('lodge_notice', '!=', True),('lodge_instrument', '!=', True)]}">
+                                <div>
+                                    <label for="name_of_applicant" style="font-weight: bold;"/>
+                                    <br/>
+                                    <field name="name_of_applicant" readonly="1" style="width: 50%;"
+                                           class="color-text-ff8d06"/>
+                                </div>
+                                <div>
+                                    <label for="identification_no" style="font-weight: bold;"/>
+                                    <br/>
+                                    <field name="identification_no" readonly="1" style="width: 50%;"
+                                           class="color-text-ff8d06"/>
+                                </div>
+                                <div>
+                                    <label for="email_address" style="font-weight: bold;"/>
+                                    <br/>
+                                    <field name="email_address" readonly="1" style="width: 50%;" class="color-text-ff8d06"/>
+                                </div>
+                                <div>
+                                    <label for="mobile_no" style="font-weight: bold;"/>
+                                    <br/>
+                                    <field name="mobile_no" readonly="1" style="width: 50%;" class="color-text-ff8d06"/>
+                                </div>
+                                <div>
+                                    <label for="date_document" style="font-weight: bold;"/>
+                                    <br/>
+                                    <field name="date_document" style="width: 30%;"/>
+                                </div>
+                                <div>
+                                    <label for="reason" style="font-weight: bold;"/>
+                                    <br/>
+                                    <field name="reason" widget="radio"/>
+                                </div>
+                            </group>
+                            <group col="2" attrs="{'invisible' : [('report_change', '!=', True)]}">
+                                <div>
+                                    <label for="other_reasons" style="font-weight: bold;"/>
+                                    <br/>
+                                    <field name="other_reasons" style="width: 50%;"/>
+                                </div><br/>
+                                <div>
+                                    <label for="application_date" style="font-weight: bold;"/>
+                                    <br/>
+                                    <field name="application_date" readonly="1" style="width: 50%;" class="color-text-ff8d06"/>
+                                </div>
+                                <div>
+                                    <span style="font-weight: bold;">
+                                        Type of Change
+                                    </span><br/>
+                                    <field name="type_of_change_1"/>
+                                    <label for="type_of_change_1" style="display: contents;font-weight: normal"/><br/>
+                                    <field name="type_of_change_2"/>
+                                    <label for="type_of_change_2" style="display: contents;font-weight: normal"/><br/>
+                                    <field name="type_of_change_3"/>
+                                    <label for="type_of_change_3" style="display: contents;font-weight: normal"/><br/>
+                                    <field name="type_of_change_4"/>
+                                    <label for="type_of_change_4" style="display: contents;font-weight: normal"/><br/>
+                                    <field name="type_of_change_5"/>
+                                    <label for="type_of_change_5" style="display: contents;font-weight: normal"/><br/>
+                                </div>
+                            </group>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

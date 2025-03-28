@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="ir_cron_partner_get_peppol_id" model="ir.cron">
+            <field name="name">Datapost: update partner peppol id</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.cron_partner_get_peppol_id()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record id="daa_view_partner_form" model="ir.ui.view">
+            <field name="name">daa.res.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="function" position="before">
+                    <field name="peppol_id" options="{'no_create_edit': True}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

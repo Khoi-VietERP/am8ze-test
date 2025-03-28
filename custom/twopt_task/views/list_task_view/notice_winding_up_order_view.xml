@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="notice_winding_up_order_form" model="ir.ui.view">
+            <field name="name">notice.winding.up.order.form</field>
+            <field name="model">notice.winding.up.order</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <group col="2" string="Notice of Winding Up Order">
+                                <div>
+                                    <label for="compulsory_winding_up_id" style="font-weight: bold;"/><br/>
+                                    <field name="compulsory_winding_up_id" style="width: 50%;"/>
+                                </div>
+                                <div>
+                                    <label for="winding_up_no" style="font-weight: bold;"/><br/>
+                                    <field name="winding_up_no" style="width: 50%;"/>
+                                </div>
+                                <div>
+                                    <label for="name_of_plaintiff" style="font-weight: bold;"/><br/>
+                                    <field name="name_of_plaintiff" style="width: 50%;"/>
+                                </div>
+                                <div>
+                                    <label for="winding_up_order_made_on" style="font-weight: bold;"/><br/>
+                                    <field name="winding_up_order_made_on" style="width: 30%;"/>
+                                </div>
+                                <div>
+                                    <label for="solicitors_for_plaintiff" style="font-weight: bold;"/><br/>
+                                    <field name="solicitors_for_plaintiff" style="width: 50%;"/>
+                                </div>
+                                <div>
+                                    <label for="attach_copy_of_notice" style="font-weight: bold;"/><br/>
+                                    <field name="attach_copy_of_notice" style="width: 30%;"/>
+                                </div>
+                            </group>
+                            <group col="2" string="Lodgement of Winding Up Order">
+                                <div>
+                                    <label for="order_for_winding_up" style="display: contents;font-weight: bold"/><field name="order_for_winding_up"/><br/>
+                                </div>
+                                <div>
+                                    <label for="attach_copy_of_court_order" style="font-weight: bold;"/><br/>
+                                    <field name="attach_copy_of_court_order" style="width: 50%;"/>
+                                </div>
+                                <div>
+                                    <label for="date_of_filling" style="font-weight: bold;"/><br/>
+                                    <field name="date_of_filling" style="width: 30%;"/>
+                                </div>
+                            </group>
+                            <separator string="List of Appointed Provisional Liquidator(s)/Liquidator(s)"/>
+                            <field name="line_ids" style="width: 90%;">
+                                <tree>
+                                    <field name="uen"/>
+                                    <field name="name_of_liquidator"/>
+                                    <field name="entity_name"/>
+                                </tree>
+                                <form>
+                                    <group col="2" string="Appointment of Provisibal Liquidator/Liquidator">
+                                        <div>
+                                            <label for="type_of_appointment" style="font-weight: bold;"/><br/>
+                                            <field name="type_of_appointment" widget="radio"/>
+                                        </div>
+                                        <div>
+                                            <label for="liquidator" style="font-weight: bold;"/><br/>
+                                            <field name="liquidator" widget="radio"/>
+                                        </div>
+                                    </group>
+                                </form>
+                            </field>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

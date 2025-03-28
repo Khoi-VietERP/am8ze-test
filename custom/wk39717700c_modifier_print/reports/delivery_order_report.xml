@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="modifier_do_external_layout">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+            <t t-call="wk39717700c_modifier_print.standard_modifier_do_external_layout">
+                <t t-raw="0"/>
+            </t>
+        </template>
+
+        <template id="standard_modifier_do_external_layout">
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+                 t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                 t-att-data-oe-lang="o and o.env.context.get('lang')"
+            >
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+            <div t-attf-class="footer">
+                <div class="row col-12" style="border-top: 1px solid #000; font-size: 15px">
+                    <div class="col-5">
+                        <b>Remarks: <span t-field="o.note"/></b><br/>
+                        <b>Goods received in good order and condition.</b>
+                        <div style="height: 65px; border-bottom:1px solid #000; width: 100%">
+                        </div>
+                        <div class="text-center" style="width: 100%">
+                            Customer's Signature and Stamp
+                        </div>
+                    </div>
+                    <div class="col-3 text-center">
+                    </div>
+                    <div class="col-4 text-center">
+                        <br/>
+                        <br/>
+                        <div style="height: 65px; border-bottom:1px solid #000; width: 100%">
+                        </div>
+                        for WINLYKAH TRADING
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <record id="paperformat_do_no_header" model="report.paperformat">
+            <field name="name">Paperformat Custom DO No Header</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">40</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">5</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <template id="delivery_order_print_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="wk39717700c_modifier_print.modifier_do_external_layout">
+                        <style>
+                            .page {
+                                font-size: 15px
+                            }
+                            .table-product th {
+                                border: 1px solid #000;
+                                padding: 0.2rem 0.2rem;
+                            }
+                            .table-product td {
+                                border: 1px solid #000;
+                                padding: 0.2rem 0.75rem;
+                            }
+                        </style>
+                        <div class="page">
+                            <t t-if="not company">
+                                <t t-if="company_id">
+                                    <t t-set="company" t-value="company_id"/>
+                                </t>
+                                <t t-elif="o and 'company_id' in o">
+                                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                                </t>
+                                <t t-else="else">
+                                    <t t-set="company" t-value="res_company"/>
+                                </t>
+                            </t>
+                            <div class="row" style="margin-left: 0px; margin-right:0px; padding-bottom: 20px; width: 100%;">
+                                <div class="col-8">
+                                    <b style="font-size: 20px;">
+                                        <t t-esc="company.china_character"/><br/>
+                                        <t t-esc="company.name"/>
+                                    </b><br/>
+                                    <span><t t-esc="company.street"/> </span><br/>
+                                    <span> <t t-esc="company.street2"/>, <t t-esc="company.city"/> <t t-esc="company.zip"/></span><br/>
+                                    <span>Tel : <t t-esc="company.phone"/>, Fax : 67436789</span><br/>
+                                    <span>Bussiness. Reg. No : 39717700-C <![CDATA[&nbsp;&nbsp;&nbsp;]]>GST Reg. No : M8-8003615-7</span><br/>
+                                    <span>Email : <t t-esc="company.email"/></span>
+                                </div>
+                                <div class="col-4 text-center" style="padding: 0px;">
+                                    <b style="font-size: 20px;">
+                                        DELIVERY ORDER <br/>
+                                        GST Reg. No : M8-8003615-7<br/>
+                                    </b>
+                                </div>
+                            </div>
+                            <table style="width: 95%; margin-top: 30px">
+                                <tr>
+                                    <td style="width: 60%; border: 1px solid #000;padding: 0.2rem">
+                                        <b>A/C No: </b>
+                                        <t t-if="o.partner_id.customer_code">
+                                            <b><t t-esc="o.partner_id.customer_code"/> </b><br/>
+                                        </t>
+                                        <div style="margin-left: 55px">
+                                            <b><t t-esc="o.partner_id.name"/> </b><br/>
+                                            <t t-if="o.partner_id.street or o.partner_id.street2">
+                                                <t t-esc="o.partner_id.street"/>
+                                                ,<t t-esc="o.partner_id.street2"/>
+                                                <br/>
+                                            </t>
+                                            <t t-if="o.partner_id.city">
+                                                <t t-esc="o.partner_id.city"/> <t t-esc="o.partner_id.zip"/><br/>
+                                            </t>
+                                            Phone : <t t-esc="o.partner_id.phone"/>
+                                        </div>
+                                    </td>
+                                    <td style="width: 3%"></td>
+                                    <td style="width: 37%; border: 1px solid #000;padding: 0.2rem">
+                                        <table style="width: 100%">
+                                            <tr>
+                                                <td style="width: 35%">
+                                                    <b>Date</b>
+                                                </td>
+                                                <td style="width: 65%">
+                                                    : <t t-esc="o.scheduled_date and o.scheduled_date.date()"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 35%">
+                                                    <b>D/O No</b>
+                                                </td>
+                                                <td style="width: 65%">
+                                                    : <t t-esc="o.name"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 35%">
+                                                    <b>Remarks</b>
+                                                </td>
+                                                <td style="width: 65%">
+                                                    : <t t-esc="o.sale_id.user_id.name"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table class="table-product" style="width: 100%; margin-top: 20px">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 8%">Item</th>
+                                        <th style="width: 15%">Code</th>
+                                        <th style="width: 50%">Description</th>
+                                        <th style="width: 12%">Qty</th>
+                                        <th style="width: 15%">Batch No.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="count" t-value="0"/>
+                                    <t t-foreach="o.move_ids_without_package" t-as="line">
+                                        <t t-set="count" t-value="count + 1"/>
+                                        <tr>
+                                            <td>
+                                                <t t-esc="count"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.product_id.default_code"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.product_id.name"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <t t-esc="line.product_uom_qty"/> <t t-esc="line.product_uom.name"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <t t-esc="', '.join(line.move_line_ids.mapped('lot_id').mapped('name'))"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <report id="delivery_order_print"
+            string="Delivery Order"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            name="wk39717700c_modifier_print.delivery_order_print_template"
+            file="wk39717700c_modifier_print.delivery_order_print_template"
+            paperformat="wk39717700c_modifier_print.paperformat_do_no_header"
+            print_report_name="'Delivery Order'"
+            menu="True"/>
+    </data>
+</odoo>

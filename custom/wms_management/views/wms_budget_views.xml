@@ -1,0 +1,59 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="view_wms_budget_form">
+      <field name="name">wms.budget.form</field>
+      <field name="model">wms.budget</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <group>
+                <field name="name"/>
+                <field name="checking_date"/>
+              </group>
+              <group>
+                <field name="repeat"/>
+              </group>
+            </group>
+            <notebook>
+              <page string="Lines" name="lines">
+                <field name="line_ids">
+                  <tree editable="inline">
+                    <field name="product_id"/>
+                    <field name="location_id"/>
+                    <field name="man_hours" sum="man_hours"/>
+                    <field name="pick_away" sum="pick_away"/>
+                  </tree>
+                </field>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_wms_budget_tree">
+      <field name="name">wms.budget.tree</field>
+      <field name="model">wms.budget</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="plan_id"/>
+          <field name="name"/>
+          <field name="checking_date"/>
+          <field name="repeat"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="wms_management.action_wms_budget_window">
+      <field name="name">Budget</field>
+      <field name="res_model">wms.budget</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Budget" id="wms_management.menu_wms_budget" parent="wms_management.menu_root"/>
+    <menuitem name="Budget" id="wms_management.menu_wms_budget_list" parent="wms_management.menu_wms_budget"
+              action="wms_management.action_wms_budget_window"/>
+  </data>
+</odoo>

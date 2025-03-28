@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="objection_against_strike_off_form" model="ir.ui.view">
+            <field name="name">objection.against.strike.off.form</field>
+            <field name="model">objection.against.strike.off</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Entity Information">
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <div>
+                                <label for="type_of_application" style="font-weight: bold;"/><br/>
+                                <field name="type_of_application" style="width: 30%;"/>
+                            </div>
+                            <separator string="Objection Against Striking Off"/>
+                            <div attrs="{'invisible' : [('type_of_application', '!=', False)]}">
+                                <field name="objection_against_striking_off" style="width: 100%;"/>
+                            </div>
+                            <div attrs="{'invisible' : [('type_of_application', '!=', 'objection')]}">
+                                <label for="identification_of_objection" style="font-weight: bold;"/><br/>
+                                <field name="identification_of_objection" style="width: 30%;"/>
+                            </div>
+                            <div attrs="{'invisible' : [('type_of_application', '!=', 'objection')]}">
+                                <br/>
+                                <div attrs="{'invisible' : [('identification_of_objection', 'not in', ['business','individual','csp','csp_clients','government'])]}">
+                                    <span class="color-text-ff8d06">
+                                        Objection's Details
+                                    </span><br/><br/>
+                                </div>
+                                <div attrs="{'invisible' : [('identification_of_objection', 'not in', ['business','csp','csp_clients','government'])]}">
+                                    <group col="2">
+                                        <div>
+                                            <label for="uen_of_objector" style="font-weight: bold;"/><br/>
+                                            <field name="uen_of_objector" style="width: 50%;"/>
+                                        </div>
+                                        <div>
+                                            <span style="font-weight: bold;" attrs="{'invisible' : [('identification_of_objection', '!=', 'business')]}">
+                                                Name of Entity
+                                            </span>
+                                            <span style="font-weight: bold;" attrs="{'invisible' : [('identification_of_objection', '!=', 'csp')]}">
+                                                Name of CSP(On own behalf)
+                                            </span>
+                                            <span style="font-weight: bold;" attrs="{'invisible' : [('identification_of_objection', '!=', 'csp_clients')]}">
+                                                Name on behalf of clients
+                                            </span>
+                                            <span style="font-weight: bold;" attrs="{'invisible' : [('identification_of_objection', '!=', 'government')]}">
+                                                Name of Government Agency
+                                            </span>
+                                        </div>
+                                        <div attrs="{'invisible' : [('identification_of_objection', '!=', 'csp')]}">
+                                            <label for="name_of_objector" style="font-weight: bold;"/><br/>
+                                            <field name="name_of_objector" style="width: 50%;"/>
+                                        </div>
+                                        <div attrs="{'invisible' : [('identification_of_objection', '!=', 'csp')]}"/>
+                                        <div attrs="{'invisible' : [('identification_of_objection', '!=', 'csp_clients')]}">
+                                            <label for="uen_no" style="font-weight: bold;"/><br/>
+                                            <field name="uen_no" style="width: 50%;"/>
+                                        </div>
+                                        <div attrs="{'invisible' : [('identification_of_objection', '!=', 'csp_clients')]}">
+                                            <label for="name_of_client" style="font-weight: bold;"/><br/>
+                                            <field name="name_of_client" style="width: 50%;"/>
+                                        </div>
+                                        <div>
+                                            <label for="email_address_business" style="font-weight: bold;"/><br/>
+                                            <field name="email_address_business" style="width: 50%;"/>
+                                        </div>
+                                        <div>
+                                            <label for="local_mobile_no_business" style="font-weight: bold;"/><br/>
+                                            <field name="local_mobile_no_business" style="width: 50%;"/>
+                                        </div>
+                                        <div>
+                                            <label for="local_fixed_line_no_business" style="font-weight: bold;"/><br/>
+                                            <field name="local_fixed_line_no_business" style="width: 50%;"/>
+                                        </div>
+                                    </group>
+                                </div>
+                                <div attrs="{'invisible' : [('identification_of_objection', '!=', 'individual_another')]}">
+                                    <span class="color-text-ff8d06">
+                                        Lodger Details
+                                    </span><br/><br/>
+                                </div>
+                                <div attrs="{'invisible' : [('identification_of_objection', 'not in', ['individual_another','individual'])]}">
+                                    <group col="2">
+                                        <div>
+                                            <label for="id_type" style="font-weight: bold;"/><br/>
+                                            <field name="id_type" style="width: 50%;"/>
+                                        </div>
+                                        <div>
+                                            <label for="id_number_of_the_objector" style="font-weight: bold;"/><br/>
+                                            <field name="id_number_of_the_objector" style="width: 50%;" readonly="1" class="color-text-ff8d06"/>
+                                        </div>
+                                        <div>
+                                            <label for="name_id_docurement" style="font-weight: bold;"/><br/>
+                                            <field name="name_id_docurement" style="width: 50%;"/>
+                                        </div>
+                                        <div/>
+                                        <div>
+                                            <span style="font-weight: bold;">Local Address</span><br/><br/>
+                                            <label for="postal_code" style="font-weight: bold;"/><br/>
+                                            <field name="postal_code" style="width: 50%;"/>
+                                        </div>
+                                        <div/>
+                                        <div>
+                                            <label for="block_house_number" style="font-weight: bold;"/><br/>
+                                            <field name="block_house_number" style="width: 50%;"/>
+                                        </div>
+                                        <div/>
+                                        <div>
+                                            <label for="street" style="font-weight: bold;"/><br/>
+                                            <field name="street" style="width: 50%;"/>
+                                        </div>
+                                        <div/>
+                                        <div>
+                                            <group col="2">
+                                                <div>
+                                                    <label for="level" style="font-weight: bold;"/><br/>
+                                                    <field name="level" style="width: 50%;"/>
+                                                </div>
+                                                <div>
+                                                    <label for="unit_number" style="font-weight: bold;"/><br/>
+                                                    <field name="unit_number" style="width: 50%;"/>
+                                                </div>
+                                            </group>
+                                        </div>
+                                        <div/>
+                                        <div>
+                                            <label for="building" style="font-weight: bold;"/><br/>
+                                            <field name="building" style="width: 50%;"/>
+                                        </div>
+                                        <div/>
+                                        <div>
+                                            <label for="email_address" style="font-weight: bold;"/><br/>
+                                            <field name="email_address" style="width: 50%;"/>
+                                        </div>
+                                        <div>
+                                            <label for="local_mobile_no" style="font-weight: bold;"/><br/>
+                                            <field name="local_mobile_no" style="width: 30%;"/>
+                                        </div>
+                                        <div>
+                                            <label for="local_fixed_line_no" style="font-weight: bold;"/><br/>
+                                            <field name="local_fixed_line_no" style="width: 30%;"/>
+                                        </div>
+                                        <div/>
+
+                                    </group>
+                                    <br/><br/>
+                                </div>
+                                <div attrs="{'invisible' : [('identification_of_objection', '!=', 'individual_another')]}">
+                                    <span class="color-text-ff8d06">
+                                        Objection's Details
+                                    </span><br/><br/>
+                                    <group col="2">
+                                        <div>
+                                            <label for="id_type_another" style="font-weight: bold;"/><br/>
+                                            <field name="id_type_another" style="width: 50%;"/>
+                                        </div>
+                                        <div>
+                                            <label for="id_number_of_the_objector_another" style="font-weight: bold;"/><br/>
+                                            <field name="id_number_of_the_objector_another" style="width: 50%;" readonly="1" class="color-text-ff8d06"/>
+                                        </div>
+                                        <div>
+                                            <label for="name_id_docurement_another" style="font-weight: bold;"/><br/>
+                                            <field name="name_id_docurement_another" style="width: 50%;"/>
+                                        </div>
+                                        <div/>
+                                        <div>
+                                            <span style="font-weight: bold;">Local Address</span><br/><br/>
+                                            <label for="postal_code_another" style="font-weight: bold;"/><br/>
+                                            <field name="postal_code_another" style="width: 50%;"/>
+                                        </div>
+                                        <div/>
+                                        <div>
+                                            <label for="block_house_number_another" style="font-weight: bold;"/><br/>
+                                            <field name="block_house_number_another" style="width: 50%;"/>
+                                        </div>
+                                        <div/>
+                                        <div>
+                                            <label for="street_another" style="font-weight: bold;"/><br/>
+                                            <field name="street_another" style="width: 50%;"/>
+                                        </div>
+                                        <div/>
+                                        <div>
+                                            <group col="2">
+                                                <div>
+                                                    <label for="level_another" style="font-weight: bold;"/><br/>
+                                                    <field name="level_another" style="width: 50%;"/>
+                                                </div>
+                                                <div>
+                                                    <label for="unit_number_another" style="font-weight: bold;"/><br/>
+                                                    <field name="unit_number_another" style="width: 50%;"/>
+                                                </div>
+                                            </group>
+                                        </div>
+                                        <div/>
+                                        <div>
+                                            <label for="building_another" style="font-weight: bold;"/><br/>
+                                            <field name="building_another" style="width: 50%;"/>
+                                        </div>
+                                        <div/>
+                                        <div>
+                                            <label for="email_address_another" style="font-weight: bold;"/><br/>
+                                            <field name="email_address_another" style="width: 50%;"/>
+                                        </div>
+                                        <div>
+                                            <label for="local_mobile_no_another" style="font-weight: bold;"/><br/>
+                                            <field name="local_mobile_no_another" style="width: 30%;"/>
+                                        </div>
+                                        <div>
+                                            <label for="local_fixed_line_no_another" style="font-weight: bold;"/><br/>
+                                            <field name="local_fixed_line_no_another" style="width: 30%;"/>
+                                        </div>
+                                        <div/>
+
+                                    </group>
+                                    <br/><br/>
+                                </div>
+                            </div>
+                            <div attrs="{'invisible' : [('type_of_application', '!=', 'objection')]}">
+                                <span class="color-text-ff8d06">
+                                    Reason(s) For Objection
+                                </span><br/><br/>
+                                <div>
+                                    <field name="check_box_1"/>
+                                    <label for="check_box_1" style="display: contents;font-weight: normal"/><br/>
+                                    <field name="check_box_2"/>
+                                    <label for="check_box_2" style="display: contents;font-weight: normal"/><br/>
+                                    <field name="check_box_3"/>
+                                    <label for="check_box_3" style="display: contents;font-weight: normal"/><br/>
+                                    <field name="check_box_4"/>
+                                    <label for="check_box_4" style="display: contents;font-weight: normal"/><br/>
+                                    <field name="check_box_5"/>
+                                    <label for="check_box_5" style="display: contents;font-weight: normal"/><br/>
+                                    <field name="check_box_6"/>
+                                    <label for="check_box_6" style="display: contents;font-weight: normal"/><br/>
+                                    <field name="check_box_7"/>
+                                    <label for="check_box_7" style="display: contents;font-weight: normal"/><br/>
+                                    <field name="check_box_8"/>
+                                    <label for="check_box_8" style="display: contents;font-weight: normal"/><br/>
+                                    <field name="check_box_9"/>
+                                    <label for="check_box_9" style="display: contents;font-weight: normal"/><br/>
+                                    <field name="check_box_10"/>
+                                    <label for="check_box_10" style="display: contents;font-weight: normal"/>
+                                </div>
+                            </div>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

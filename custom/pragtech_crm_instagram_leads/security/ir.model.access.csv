@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_socail_instagram,instagram.dashboard1,model_instagram_socail_dashboard,,1,1,1,1
+access_pragtech_social_instagram,pragtech.social.instagram,model_instagram_pragtech_social_media,,1,1,1,1
+access_instagram_pragtech_social_account,instagram.pragtech.social.account,model_instagram_pragtech_social_account,,1,1,1,1
+
+access_crm_instagram_page_manager,crm.instagram.page.manager,model_crm_instagram_page,,1,1,1,1
+access_crm_instagram_form_manager,crm.instagram.form.manager,model_crm_instagram_form,,1,1,1,1
+access_crm_instagram_page_user,crm.instagram.page.manager,model_crm_instagram_page,,1,1,1,1
+access_crm_instagram_form_user,crm.instagram.form.manager,model_crm_instagram_form,,1,1,1,1
+access_crm_instagram_form_field_manager,crm.instagram.form.field.manager,model_crm_instagram_form_field,,1,1,1,1
+access_crm_instagram_adset_user,crm.instagram.adset.user,model_utm_adset,,1,1,1,1

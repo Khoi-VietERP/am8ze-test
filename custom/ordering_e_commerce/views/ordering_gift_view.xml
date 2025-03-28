@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_ordering_gift_tree" model="ir.ui.view">
+            <field name="name">ordering.gift.tree</field>
+            <field name="model">ordering.gift</field>
+            <field name="arch" type="xml">
+                <tree string="Ordering Gift">
+                    <field name="name"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="ordering_gift_form_view">
+            <field name="name">ordering.gift.form.view</field>
+            <field name="model">ordering.gift</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <group col="2">
+                            <group colspan="2">
+                                <field name="name"/>
+                                <field name="pricelist_ids" widget="many2many_tags"/>
+                            </group>
+                            <group colspan="2" string="Total Order Amount Rules">
+                                <field name="gift_amount_ids">
+                                    <tree editable="bottom">
+                                        <field name="amount"/>
+                                        <field name="product_gift_id"/>
+                                        <field name="product_gift_quantity"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <group colspan="2" string="Order Product Rules">
+                                <field name="gift_product_ids">
+                                    <tree editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="min_quantity"/>
+                                        <field name="product_gift_id"/>
+                                        <field name="product_gift_quantity"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_ordering_gift_settings" model="ir.actions.act_window">
+            <field name="name">Ordering Gift Settings</field>
+            <field name="res_model">ordering.gift</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="ordering_gift_menu" name="Ordering Gift Settings"
+                  parent="sale.sale_menu_root" action="action_ordering_gift_settings"/>
+    </data>
+</odoo>

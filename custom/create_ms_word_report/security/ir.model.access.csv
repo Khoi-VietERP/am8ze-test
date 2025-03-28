@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_create_ms_word_report_create_ms_word_report,create_ms_word_report.create_ms_word_report,model_create_ms_word_report_create_ms_word_report,base.group_user,1,1,1,1

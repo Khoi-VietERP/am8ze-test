@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_f53167513x_modifier_invoice_f53167513x_modifier_invoice,f53167513x_modifier_invoice.f53167513x_modifier_invoice,model_f53167513x_modifier_invoice_f53167513x_modifier_invoice,base.group_user,1,1,1,1

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="extension_time_agm_form" model="ir.ui.view">
+            <field name="name">extension.time.agm.form</field>
+            <field name="model">extension.time.agm</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Entity Information">
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <group col="2" attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <div>
+                                <label for="type_of_extension_id" style="font-weight: bold;"/><br/>
+                                <field name="type_of_extension_id" style="width: 50%;"/>
+                            </div>
+                            <div>
+                                <label for="financial_year_end_date" style="font-weight: bold;"/><br/>
+                                <field name="financial_year_end_date" style="width: 50%;" readonly="1" class="color-text-ff8d06"/>
+                            </div>
+                            <div>
+                                <label for="reason_for_application_id" style="font-weight: bold;"/><br/>
+                                <field name="reason_for_application_id" style="width: 50%;"/>
+                            </div>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

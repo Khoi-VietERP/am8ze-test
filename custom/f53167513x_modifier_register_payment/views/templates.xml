@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <template id="assets_backend" name="account assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/f53167513x_modifier_register_payment/static/src/js/account_payment_widget.js"></script>
+            </xpath>
+        </template>
+
+        <record model="ir.ui.view" id="view_multiple_register_payments_inherit">
+            <field name="name">multiple.register.payments.form</field>
+            <field name="model">multiple.register.payments</field>
+            <field name="inherit_id" ref="mass_payments_for_multiple_vendors_customers.view_multiple_register_payments"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="create">false</attribute>
+                    <attribute name="edit">false</attribute>
+                    <attribute name="delete">false</attribute>
+                </xpath>
+                <xpath expr="//footer" position="attributes">
+                    <attribute name="invisible">context.get('view_payment', False)</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

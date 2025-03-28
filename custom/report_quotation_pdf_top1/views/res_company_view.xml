@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="assets_common_qr" inherit_id="web.report_assets_common">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" type="text/scss" href="/report_quotation_pdf_top1/static/src/scss/layout_boxed.scss"/>
+            </xpath>
+        </template>
+
+        <record id="view_company_form" model="ir.ui.view">
+            <field name="name">top.res.company</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <field name="phone" position="after">
+                    <field name="fax"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

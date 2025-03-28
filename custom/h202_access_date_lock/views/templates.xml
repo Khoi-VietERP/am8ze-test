@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <template id="asset_backend_inherit" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link href="/h202_access_date_lock/static/src/css/form_css_inherit.css" rel="stylesheet" type="text/scss"/>
+                <script type="text/javascript" src="/h202_access_date_lock/static/src/js/form_view.js"/>
+            </xpath>
+        </template>
+
+        <record id="isr_invoice_form" model="ir.ui.view">
+            <field name="name">l10n_ch.account.invoice.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet" position="inside">
+                    <field name="check_date_lock"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

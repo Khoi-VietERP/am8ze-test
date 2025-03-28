@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    	
+	<record id="view_addin_fields_partner_inherit" model="ir.ui.view">
+		<field name="name">view.picking.type.tree.general.inherit</field>
+		<field name="model">res.partner</field>
+		<field name="inherit_id" ref="base.view_partner_form"/>
+		<field name="arch" type="xml">
+			<label for="street" position="replace">
+				<label for="street" string="Operating Address"/>
+			</label>
+			<field name="street2" position="after">
+				<field name="street3" placeholder="Street 3..." class="o_address_street" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+				<field name="street4" placeholder="Street 4..." class="o_address_street" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+			</field>
+			<notebook position="inside">
+				<page string="Corporation">
+					<group colspan="4" col="4">
+						<group colspan="2" col="2" string="Corporation Details">
+							<field name="uen_issue_date"/>
+							<field name="incorp_date"/>
+							<field name="bu_const_desc"/>
+							<field name="comp_type_desc"/>
+							<field name="ent_type_desc"/>
+							<field name="enti_status_de"/>
+							<field name="pri_ssic_code"/>
+							<field name="pri_ssic_desc"/>
+							<field name="pri_user_desc"/>
+							<field name="sec_ssic_code"/>
+							<field name="sec_ssic_desc"/>
+							<field name="sec_user_desc"/>
+						</group>
+						
+						<group colspan="2" col="2" string="Registered Address">
+							<field name="blk" string="Blk"/>
+							<field name="level_no"/>
+							<field name="unit_no"/>
+							<field name="street"/>
+							<field name="buiding_name"/>
+							<field name="postal_code"/>
+							<field name="contact_number"/>
+						</group>
+						
+						<group colspan="2" col="2" string="Key Contacts">
+							<field name="key_person1"/>
+							<field name="desination1"/>
+							<field name="email1"/>
+							<field name="tell1"/>
+
+							<field name="key_person2"/>
+							<field name="desination2"/>
+							<field name="email2"/>
+							<field name="tell2"/>
+
+							<field name="key_person3"/>
+							<field name="desination3"/>
+							<field name="email3"/>
+							<field name="tell3"/>
+						</group>
+						
+						<group colspan="2" col="2" string="Financial Info">
+							<field name="las_rev" string="Latest Available Sales Revenue"/>
+							<field name="la_net_profit"/>
+							<field name="ls_rev_year"/>
+							<field name="ln_pro_year"/>
+							<field name="paid_up_capital"/>
+							
+							<field name="acc_due_date"/>
+							<field name="annu_return_date"/>
+						</group>						
+					</group>					
+				</page>
+			</notebook>
+		</field>
+	</record>
+	
+	<record id="view_contact_import_file_form" model="ir.ui.view">
+	        <field name="name">view.s.import.file.form.</field>
+	        <field name="model">s.import.file</field>
+	        <field name="arch" type="xml">
+				<form string="Import Contact">
+					<sheet>
+	                    <div class="oe_title">
+	                        <h1>
+	                            <field name="im_file"/>
+<!-- field name="line_f"/>
+<field name="line_e"/ -->
+								<field name="error"/>
+	                        </h1>
+	                    </div>
+					</sheet>
+					<footer>
+						<button name="dummy" string="Import" class="oe_highlight" type="object"/>
+						<button string="Cancel" class="btn-default" special="cancel"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_import_contact" model="ir.actions.act_window">
+            <field name="name">Import Contact</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">s.import.file</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">form</field>
+            <!-- <field name="priority">100</field> -->
+			<field name="target">new</field>      
+        </record>
+		
+		<menuitem id="menu_import_contact" action="action_import_contact" sequence="10" 
+        	parent="contacts.res_partner_menu_config" name="Import Contacts"/>
+
+	
+	<record id="view_log_import_contract_tree" model="ir.ui.view">
+            <field name="name">log.import.contract.tree</field>
+            <field name="model">s.import.file</field>
+            <field name="arch" type="xml">
+                <tree string="Import Contracts">
+                <field name="create_date"/>
+                <field name="im_file"/>
+                <field name="state"/>
+                <field name="error"/>
+                <field name="line_f"/>
+                <field name="line_e"/>
+<button name="run_import" type="object" string="Run Import" attrs="{'invisible': [('state','=','done')]}" class="oe_highlight"/>
+                </tree>
+            </field>
+        </record>
+
+	<record id="action_import_contact_log" model="ir.actions.act_window">
+            <field name="name">Import Contact</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">s.import.file</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree</field>
+            <!-- <field name="priority">101</field> -->
+            <field name="target">current</field>
+        </record>
+
+                <menuitem id="menu_import_contact_log" action="action_import_contact_log" sequence="11" 
+                parent="contacts.res_partner_menu_config" name="Logs Import Contacts"/>
+
+        <!-- record model="ir.cron" id="ir_cron_run_import">
+    	<field name="name">Run Import</field>
+    	<field name="model_id" ref="corporate_fields_name.model_s_import_file"/>
+    	<field name="state">code</field>
+    	<field name="code">model.import2p()</field>
+    	<field name="active" eval="True"/>
+    	<field name="user_id" ref="base.user_root"/>
+    	<field name="activity_user_type">generic</field>
+        <field name="interval_number">2</field> 
+    	<field name="interval_type">minutes</field>
+    	<field name="numbercall">-1</field>
+  </record -->
+
+
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_invoice_layouted" inherit_id="account.report_invoice_document">
+            <!--  Commented by Rashik -->
+            <!-- <xpath expr="//t[@t-foreach='o._get_tax_amount_by_group()']" position="replace">
+                <t t-foreach="o._get_tax_amount_by_group()" t-as="amount_by_group">
+                    <tr class="border-black">
+                        <td>GST @ 7%</td>
+                        <td class="text-right">
+                            <span t-esc="amount_by_group[1]"
+                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                        </td>
+                    </tr>
+                </t>
+            </xpath> -->
+        </template>
+    </data>
+</openerp>

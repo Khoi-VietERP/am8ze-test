@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xml:spacer="preserve">
+    <t t-extend="BillsListView.buttons">
+        <t t-jquery="button.o_button_upload_bill" t-operation="after">
+            <t t-if="widget.modelName == 'account.move'">
+                <button  type="button"
+                    class="btn btn-secondary  invoice_now_button">
+                    Check InvoiceNow
+                </button>
+            </t>
+        </t>
+    </t>
+</template>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="ir_sequence_account_action" model="ir.actions.act_window">
+            <field name="name">Account Sequences</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ir.sequence</field>
+            <field name="view_id" ref="base.sequence_view_tree"/>
+            <field name="context">{'active_test': False}</field>
+            <field name="domain">[('name', 'in', ['BILL Sequence','BILL: Refund Sequence', 'INV Sequence', 'INV: Refund Sequence'])]</field>
+        </record>
+
+        <menuitem action="ir_sequence_account_action" id="ir_sequence_account_form" parent="account.menu_finance_configuration"/>
+    </data>
+</odoo>

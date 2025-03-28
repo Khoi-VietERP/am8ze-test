@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="acount_move_paynow" model="ir.ui.view">
+        <field name="name">account.move.paynow</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@id='header_right_group']" position="after">
+                <group>
+                    <field name="paynow_expiry_date" string="Pay Now Expiry Date"
+                           groups="paynow_qr_code.view_expiry_date"/>
+                </group>
+                <group attrs="{'invisible': ['|',('type', '!=', 'out_invoice'),('state','!=','posted')]}">
+                    <field name="barcode" widget="image" class="oe_avatar"
+                           attrs="{'invisible': ['|',('type', '!=', 'out_invoice'),('state','!=','posted')]}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <template id="account_invoice_report_template" inherit_id="account.report_invoice_document">
+        <div id="qrcode" position="replace">
+            <div class="col-lg-9 col-12" style="padding: 15px;">
+                <img t-if="o.barcode" t-attf-src="data:image/png;base64,{{o.barcode}}"
+                     style="height:200px;width:200px;" class="img img-fluid"/>
+            </div>
+        </div>
+    </template>
+
+</odoo>

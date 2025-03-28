@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wk39717700c_modifier_inventory_wk39717700c_modifier_inventory,wk39717700c_modifier_inventory.wk39717700c_modifier_inventory,model_wk39717700c_modifier_inventory_wk39717700c_modifier_inventory,base.group_user,1,1,1,1

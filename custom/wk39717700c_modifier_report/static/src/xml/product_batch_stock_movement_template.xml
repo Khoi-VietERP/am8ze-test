@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="TempProductBatchStockMovement">
+        <div class="py-main-container">
+            <div class="py-filter-container">
+                <div class="py-control-panel">
+                </div>
+            </div>
+            <div class="py-data-container">
+                <div class="py-data-container-orig">
+                </div>
+                <div id="loader">
+                    <div id="top"></div>
+                    <div id="bottom"></div>
+                    <div id="line"></div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="FilterProductBatchStockMovement">
+        <div class="py-control-div">
+            <div class="py-cntrl-left">
+                <div class="py-ctrl-buttons">
+                    <button type="button" class="btn py-btn-primary" id="pdf" action="print_pdf" style="position: relative;">Print (Pdf)</button>
+                </div>
+            </div>
+            <div class="py_cntrl_right">
+                <div class="py-search-buttons">
+                    <button type="button" id="filter_apply_button" class="btn py-btn-secondary" action="apply_filter" style="position: relative;">Apply</button>
+                    <div class="py-search-btn-date">
+                        <a type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="fa fa-calendar" title="Dates" role="img" aria-label="Dates"></span>
+                        Custom
+                        </a>
+                        <div class="dropdown-menu py-filters-menu" role="menu">
+                            <div role="separator" class="dropdown-divider"></div>
+                            <span role="menuitem" class="dropdown-item" data-filter="custom_filter_date">Custom</span>
+                            <div class="o_foldable_menu  o_account_report_search" data-filter="custom_filter_date">
+                                <label class="custom-date" for="date_from">Start Date :</label>
+                                <div class="form-group custom-date">
+                                    <div class="o_datepicker" aria-atomic="true" id="datepicker10" data-target-input="nearest">
+                                        <input type="date" id="date_from"></input>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="separator" class="dropdown-divider"></div>
+                        </div>
+                    </div>
+                    <div class="py-search-extra">
+                        <a type="button" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="fa fa-filter"></span>
+                            Location Range
+                        </a>
+                        <select class="dropdown-menu py-filters-menu location-multiple" name="states[]" multiple="multiple">
+                            <t t-foreach="get_info['location_list']" t-as="location">
+                                <option t-attf-value="{{location[0]}}"><t t-esc="location[1]"/></option>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="TempProductBatchStockMovementMain">
+        <div class="row" id="company" style="margin: 5px">
+            <t t-if="get_info">
+                <div style="text-align:center; width: 100%;">
+                    <strong>WINLYKAH TRADING</strong>
+                </div>
+                <div class="row" style="width: 100%;">
+                    <div class="col-10">
+                        <span>
+                            <strong>Print Date: </strong>
+                            <t t-esc="get_info['date']"/>
+                        </span>
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+                <div>
+                    <strong>
+                        <span>
+                            Product Batch Stock Movement History For Location:
+                            <t t-esc="get_info['location_id']"/>
+                        </span>
+                        <span>
+                            <![CDATA[&nbsp;]]> FromDate: <t t-esc="get_info['start_date']"/> (<t t-esc="get_info['start_date']"/>)
+                        </span>
+                    </strong>
+                </div>
+            </t>
+        </div>
+        <table class="table table-bordered" style="width: 100%;margin-top: 40px">
+             <thead>
+                <tr>
+                    <th style="border-color:black;text-align:left">Product Code</th>
+                    <th style="border-color:black;text-align:left">Product Name</th>
+                    <th style="border-color:black;text-align:left">Batch No</th>
+                    <th style="border-color:black;text-align:left">Opening</th>
+                    <th style="border-color:black;text-align:left">Purchase</th>
+                    <th style="border-color:black;text-align:left">Sales</th>
+                    <th style="border-color:black;text-align:left">DO</th>
+                    <th style="border-color:black;text-align:left">Return</th>
+                    <th style="border-color:black;text-align:left">Adjustment</th>
+                    <th style="border-color:black;text-align:left">Repacking</th>
+                    <th style="border-color:black;text-align:left">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <t t-foreach="get_info['product_data']" t-as="line">
+                    <tr>
+                        <td style="text-align:left">
+                            <t t-esc="line['product_code']"/>
+                        </td>
+                        <td style="text-align:left">
+                            <t t-esc="line['product_name']"/>
+                        </td>
+                        <td style="text-align:left">
+                            <t t-esc="line['batch_no']"/>
+                        </td>
+                        <td style="text-align:right">
+                            <t t-esc="line['opening']"/>
+                        </td>
+                        <td style="text-align:right">
+                            <t t-esc="line['purchase']"/>
+                        </td>
+                        <td style="text-align:right">
+                            <t t-esc="line['sales']"/>
+                        </td>
+                        <td style="text-align:right">
+                            <t t-esc="line['do']"/>
+                        </td>
+                        <td style="text-align:right">
+                            <t t-esc="line['return']"/>
+                        </td>
+                        <td style="text-align:right">
+                            <t t-esc="line['adjustment']"/>
+                        </td>
+                        <td style="text-align:right">
+                            <t t-esc="line['repacking']"/>
+                        </td>
+                        <td style="text-align:right; font-weight:bold">
+                            <t t-esc="line['total']"/>
+                        </td>
+                    </tr>
+                </t>
+            </tbody>
+        </table>
+    </t>
+</templates>

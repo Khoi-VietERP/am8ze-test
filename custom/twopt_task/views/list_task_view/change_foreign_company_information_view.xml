@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="change_foreign_company_information_form" model="ir.ui.view">
+            <field name="name">change.foreign.company.information.form</field>
+            <field name="model">change.foreign.company.information</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <div>
+                                <label for="tick_to_change_tab1" class="lable-size-15"/>
+                                <field name="tick_to_change_tab1" class="check-box-right"/>
+                            </div>
+                            <group col="2">
+                                <div>
+                                    <label for="current_company_name" style="font-weight: bold;"/><br/>
+                                    <field name="current_company_name" style="width: 50%;" class="color-text-ff8d06"/>
+                                </div>
+                                <div></div>
+                                <div>
+                                    <label for="new_company_name" style="font-weight: bold;"/>
+                                </div>
+                                <div>
+                                    <field name="new_company_name" style="width: 50%;"/>
+                                </div>
+                                <div></div>
+                                <div>
+                                    <field name="proposed_entity_name" style="width: 50%;"/>
+                                </div>
+                            </group>
+                            <div>
+                                <span>
+                                    Note: Please do NOT include any suffix in the proposed entity name e.g, Pte, Ltđ., limited, LLP.
+                                    For more information on the different business structures, please click here.
+                                </span>
+                            </div>
+                            <separator string="In-Principle Approval from Referral Authorities" class="lable-size-15"/>
+                            <div>
+                                <label for="in_principle" style="font-weight: bold;"/><br/>
+                                <field name="in_principle" widget="radio" style="flex-flow: row nowrap;"/>
+                            </div>
+                            <div attrs="{'invisible' : [('in_principle', '!=', 'yes')]}">
+                                <div>
+                                    <label for="referral_authority" style="font-weight: bold;"/><br/>
+                                    <field name="referral_authority" style="width: 30%;"/>
+                                </div>
+                                <div>
+                                    <label for="attachment_in_principle" style="font-weight: bold;"/><br/>
+                                    <field name="attachment_in_principle" style="width: 30%;"/>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="tick_to_change_tab3" class="lable-size-15"/>
+                                <field name="tick_to_change_tab3" class="check-box-right"/>
+                            </div>
+                            <span style="font-weight: bold;">
+                                Primary Activity
+                            </span><br/>
+                            <div>
+                                <label for="current_primary_activity" style="font-weight: bold;"/><br/>
+                                <field name="current_primary_activity" style="width: 50%;" class="color-text-ff8d06"/>
+                            </div>
+                            <div>
+                                <label for="new_primary_activity" style="font-weight: bold;"/><br/>
+                                <field name="new_primary_activity" style="width: 50%;"/>
+                            </div>
+                            <div>
+                                <label for="current_primary_described" style="font-weight: bold;"/><br/>
+                                <field name="current_primary_described" style="width: 50%;" class="color-text-ff8d06"/>
+                            </div>
+                            <div>
+                                <label for="new_primary_described" style="font-weight: bold;"/><br/>
+                                <field name="new_primary_described" style="width: 50%;"/>
+                            </div><br/>
+                            <div>
+                                <field name="add_secondary_activity"/>
+                                <label for="add_secondary_activity" style="display: contents;font-weight: normal;"/><br/>
+                            </div>
+                            <div>
+                                <label for="effective_date_of_change" style="font-weight: bold;"/><br/>
+                                <field name="effective_date_of_change" style="width: 30%;"/>
+                            </div>
+                            <div>
+                                <label for="tick_to_change_tab4" class="lable-size-15"/>
+                                <field name="tick_to_change_tab4" class="check-box-right"/>
+                            </div>
+                            <div>
+                                <label for="current_address" style="font-weight: bold;"/><br/>
+                                <field name="current_address" style="width: 50%;" class="color-text-ff8d06"/>
+                            </div>
+                            <div>
+                                <div>
+                                    <label for="postal_code" style="font-weight: bold;"/><br/>
+                                    <field name="postal_code" style="width: 50%;"/>
+                                </div>
+                                <div/>
+                                <div>
+                                    <label for="block_house_number" style="font-weight: bold;"/><br/>
+                                    <field name="block_house_number" style="width: 50%;"/>
+                                </div>
+                                <div/>
+                                <div>
+                                    <label for="street" style="font-weight: bold;"/><br/>
+                                    <field name="street" style="width: 50%;"/>
+                                </div>
+                                <div/>
+                                <div style="width: 50%;">
+                                    <group col="2">
+                                        <div>
+                                            <label for="level" style="font-weight: bold;"/><br/>
+                                            <field name="level" style="width: 50%;"/>
+                                        </div>
+                                        <div>
+                                            <label for="unit_number" style="font-weight: bold;"/><br/>
+                                            <field name="unit_number" style="width: 50%;"/>
+                                        </div>
+                                    </group>
+                                </div>
+                                <div/>
+                                <div>
+                                    <label for="building" style="font-weight: bold;"/><br/>
+                                    <field name="building" style="width: 50%;"/>
+                                </div>
+                            </div>
+                            <span style="font-weight: bold;">
+                                Office Hours
+                            </span><br/><br/>
+                            <span style="font-weight: bold;">
+                                Current Office Hours
+                            </span><br/>
+                            <span style="font-weight: bold;" class="color-text-ff8d06">
+                                Ordinary business hours on each day except weekends and public holidays
+                            </span><br/><br/>
+                            <div>
+                                <label for="new_office_hours" style="font-weight: bold;"/><br/>
+                                <field name="new_office_hours" widget="radio"/>
+                            </div><br/>
+                            <group col="2" attrs="{'invisible' : [('new_office_hours', '!=', 'other')]}">
+                                <div>
+                                    <label for="office_hours_line_1" style="font-weight: bold;"/><br/>
+                                    <field name="office_hours_line_1" style="width: 50%;"/>
+                                </div>
+                                <div>
+                                    <label for="office_hours_line_2" style="font-weight: bold;"/><br/>
+                                    <field name="office_hours_line_2" style="width: 50%;"/>
+                                </div>
+                                <div>
+                                    <label for="office_hours_line_3" style="font-weight: bold;"/><br/>
+                                    <field name="office_hours_line_3" style="width: 50%;"/>
+                                </div>
+                            </group>
+                            <div>
+                                <label for="effective_date_of_change_tab_2" style="font-weight: bold;"/><br/>
+                                <field name="effective_date_of_change_tab_2" style="width: 30%;"/>
+                            </div>
+                            <div>
+                                <label for="tick_to_change_tab5" class="lable-size-15"/>
+                                <field name="tick_to_change_tab5" class="check-box-right"/>
+                            </div>
+                            <field name="line_ids">
+                                <tree>
+                                    <field name="identification_no"/>
+                                    <field name="name"/>
+                                    <field name="position_held"/>
+                                </tree>
+                                <form>
+                                    <span style="font-weight: bold;">
+                                        Position Held
+                                    </span>
+                                    <div>
+                                        <field name="position_held_authorised"/>
+                                        <label for="position_held_authorised" style="display: contents;font-weight: normal"/>
+                                        <field name="position_held_director" style="margin-left: 10px"/>
+                                        <label for="position_held_director" style="display: contents;font-weight: normal"/>
+                                    </div>
+                                    <div attrs="{'invisible' : [('position_held_authorised', '=', False),('position_held_director', '=', False)]}">
+                                        <div>
+                                            <label for="category" style="font-weight: bold;"/><br/>
+                                            <field name="category" widget="radio" style="flex-flow: row nowrap;"/>
+                                        </div>
+                                        <div attrs="{'invisible' : [('category', '!=', 'individual')]}">
+                                            <group col="2">
+                                                <div>
+                                                    <label for="date_of_appointment" style="font-weight: bold;"/><br/>
+                                                    <field name="date_of_appointment" style="width: 50%;"/>
+                                                </div>
+                                                <div/>
+                                                <div>
+                                                    <label for="name" style="font-weight: bold;"/><br/>
+                                                    <field name="name" style="width: 50%;"/>
+                                                </div>
+                                                <div>
+                                                    <label for="id_type_another" style="font-weight: bold;"/><br/>
+                                                    <field name="id_type_another" style="width: 50%;"/>
+                                                </div>
+                                                <div>
+                                                    <label for="identification_no" style="font-weight: bold;"/><br/>
+                                                    <field name="identification_no" style="width: 50%;"/>
+                                                </div>
+                                                <div>
+                                                    <label for="country_id" style="font-weight: bold;"/><br/>
+                                                    <field name="country_id" style="width: 50%;"/>
+                                                </div>
+                                                <div>
+                                                    <label for="date_of_birth" style="font-weight: bold;"/><br/>
+                                                    <field name="date_of_birth" style="width: 50%;"/>
+                                                </div>
+                                                <div/>
+                                                <div>
+                                                    <span style="font-weight: bold;">
+                                                        Contact information
+                                                    </span>
+                                                </div>
+                                                <div/>
+                                                <div>
+                                                    <label for="local_fixed_line_no" style="font-weight: bold;"/><br/>
+                                                    <field name="local_fixed_line_no" style="width: 50%;"/>
+                                                </div>
+                                                <div>
+                                                    <label for="local_mobile_no" style="font-weight: bold;"/><br/>
+                                                    <field name="local_mobile_no" style="width: 50%;"/>
+                                                </div>
+                                                <div>
+                                                    <label for="email_address" style="font-weight: bold;"/><br/>
+                                                    <field name="email_address" style="width: 50%;"/>
+                                                </div>
+                                            </group>
+                                            <span>
+                                                Residential Address
+                                            </span>
+                                            <div>
+                                                <label for="address_type"/><br/>
+                                                <field name="address_type" widget="radio" style="flex-flow: row nowrap;"/>
+                                            </div><br/>
+                                            <div attrs="{'invisible' : [('address_type', '!=', 'local_address')]}">
+                                                <span>
+                                                    local Address
+                                                </span>
+                                                <div>
+                                                    <div>
+                                                        <label for="postal_code" style="font-weight: bold;"/><br/>
+                                                        <field name="postal_code" style="width: 50%;"/>
+                                                    </div>
+                                                    <div/>
+                                                    <div>
+                                                        <label for="block_house_number" style="font-weight: bold;"/><br/>
+                                                        <field name="block_house_number" style="width: 50%;"/>
+                                                    </div>
+                                                    <div/>
+                                                    <div>
+                                                        <label for="street" style="font-weight: bold;"/><br/>
+                                                        <field name="street" style="width: 50%;"/>
+                                                    </div>
+                                                    <div/>
+                                                    <div style="width: 50%;">
+                                                        <group col="2">
+                                                            <div>
+                                                                <label for="level" style="font-weight: bold;"/><br/>
+                                                                <field name="level" style="width: 50%;"/>
+                                                            </div>
+                                                            <div>
+                                                                <label for="unit_number" style="font-weight: bold;"/><br/>
+                                                                <field name="unit_number" style="width: 50%;"/>
+                                                            </div>
+                                                        </group>
+                                                    </div>
+                                                    <div/>
+                                                    <div>
+                                                        <label for="building" style="font-weight: bold;"/><br/>
+                                                        <field name="building" style="width: 50%;"/>
+                                                    </div>
+                                                </div><br/>
+                                                <span>
+                                                    Alternate Address
+                                                </span>
+                                                <div>
+                                                    <label for="want_provide_address" style="font-weight: bold;"/><br/>
+                                                    <field name="want_provide_address" style="flex-flow: row nowrap;"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </field>
+                            <div>
+                                <label for="tick_to_change_tab6" class="lable-size-15"/>
+                                <field name="tick_to_change_tab6" class="check-box-right"/>
+                            </div>
+                            <group col="2">
+                                <div>
+                                    <label for="type_of_notice" style="font-weight: bold;"/><br/>
+                                    <field name="type_of_notice" style="width: 30%;"/>
+                                </div>
+                                <div>
+                                    <label for="data_of_notice" style="font-weight: bold;"/><br/>
+                                    <field name="data_of_notice" style="width: 30%;" class="color-text-ff8d06" readonly="1"/>
+                                </div>
+                            </group><br/>
+                            <div>
+                                <psan style="font-weight: bold;">
+                                    Local Address where Register is kept
+                                </psan>
+                                <div>
+                                    <label for="postal_code_tab4" style="font-weight: bold;"/><br/>
+                                    <field name="postal_code_tab4" style="width: 50%;"/>
+                                </div>
+                                <div/>
+                                <div>
+                                    <label for="block_house_number_tab4" style="font-weight: bold;"/><br/>
+                                    <field name="block_house_number_tab4" style="width: 50%;"/>
+                                </div>
+                                <div/>
+                                <div>
+                                    <label for="street_tab4" style="font-weight: bold;"/><br/>
+                                    <field name="street_tab4" style="width: 50%;"/>
+                                </div>
+                                <div/>
+                                <div style="width: 50%;">
+                                    <group col="2">
+                                        <div>
+                                            <label for="level_tab4" style="font-weight: bold;"/><br/>
+                                            <field name="level_tab4" style="width: 50%;"/>
+                                        </div>
+                                        <div>
+                                            <label for="unit_number_tab4" style="font-weight: bold;"/><br/>
+                                            <field name="unit_number_tab4" style="width: 50%;"/>
+                                        </div>
+                                    </group>
+                                </div>
+                                <div/>
+                                <div>
+                                    <label for="building_tab4" style="font-weight: bold;"/><br/>
+                                    <field name="building_tab4" style="width: 50%;"/>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="tick_to_change_tab7" class="lable-size-15"/>
+                                <field name="tick_to_change_tab7" class="check-box-right"/>
+                            </div>
+                            <group col="2">
+                                <div>
+                                    <psan style="font-weight: bold;">
+                                        Current Foreign Address
+                                    </psan>
+                                </div>
+                                <div/>
+                                <div>
+                                    <psan style="font-weight: bold;">
+                                        Foreign Address line 1
+                                    </psan>
+                                </div>
+                                <div>
+                                    <psan style="font-weight: bold;">
+                                        Foreign Address line 2
+                                    </psan>
+                                </div>
+                                <div>
+                                    <psan style="font-weight: bold;">
+                                        New Foreign Address
+                                    </psan>
+                                </div>
+                                <div/>
+                                <div>
+                                    <label for="foreign_address_line1" style="font-weight: bold;"/><br/>
+                                    <field name="foreign_address_line1" style="width: 50%;"/>
+                                </div>
+                                <div>
+                                    <label for="foreign_address_line2" style="font-weight: bold;"/><br/>
+                                    <field name="foreign_address_line2" style="width: 50%;"/>
+                                </div>
+                                <div>
+                                    <label for="effective_date_of_change_tab_5" style="font-weight: bold;"/><br/>
+                                    <field name="effective_date_of_change_tab_5" style="width: 50%;"/>
+                                </div>
+                            </group>
+                            <div>
+                                <label for="tick_to_change_tab8" class="lable-size-15"/>
+                                <field name="tick_to_change_tab8" class="check-box-right"/>
+                            </div>
+                            <group col="2">
+                                <div>
+                                    <psan style="font-weight: bold;">
+                                        Current Legal Form
+                                    </psan>
+                                </div>
+                                <div>
+                                    <label for="effective_date_of_change_tab_6" style="font-weight: bold;"/><br/>
+                                    <field name="effective_date_of_change_tab_6" style="width: 50%;"/>
+                                </div><br/><br/>
+                                <div>
+                                    <label for="new_legal_form_id" style="font-weight: bold;"/><br/>
+                                    <field name="new_legal_form_id" style="width: 50%;"/>
+                                </div>
+                            </group>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

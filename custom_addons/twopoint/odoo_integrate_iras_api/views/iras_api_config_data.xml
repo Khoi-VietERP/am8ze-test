@@ -1,0 +1,10 @@
+<odoo>
+    <data noupdate="0">
+        <record id="iras_api_config_data" model="iras.api.config">
+            <field name="url">https://apisandbox.iras.gov.sg</field>
+            <field name="url_callback">https://app13.am8ze.com/iras_callback</field>
+            <field name="client_id">567d1387-6082-43b5-8379-866ebf28a431</field>
+            <field name="client_secret">N5bU7kW3jI7yT1nG4dY6hS3rA1lX3kR8gV0qU4dY7sF7kW6wN3</field>
+          </record>
+    </data>
+</odoo>

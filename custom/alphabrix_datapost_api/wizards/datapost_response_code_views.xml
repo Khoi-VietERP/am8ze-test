@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_datapost_response_code_form" model="ir.ui.view">
+            <field name="name">InvoiceNow Response</field>
+            <field name="model">datapost.response.code</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name" nolabel="1" readonly="1" widget="html" invisible="1"/>
+                        <field name="document_type"/>
+                        <field name="response_code"/>
+                        <field name="response_reason_code" attrs="{'invisible': [('response_code','not in', ['RE'])]}"/>
+                        <field name="response_reason" attrs="{'invisible': [('response_code','not in', ['RE'])]}"/>
+                        <field name="move_id" invisible="1"/>
+                        <field name="sale_id" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button name="action_send_response" string="Send Invoicenow Response" class="btn-primary"
+                                type="object"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="datapost_response_code_action" model="ir.actions.act_window">
+            <field name="name">InvoiceNow Response</field>
+            <field name="res_model">datapost.response.code</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

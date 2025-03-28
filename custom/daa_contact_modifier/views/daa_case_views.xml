@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_daa_case_form" model="ir.ui.view">
+        <field name="name">daa.case.form</field>
+        <field name="model">daa.case</field>
+        <field name="inherit_id" ref="daa_case.view_daa_case_form"/>
+        <field name="arch" type="xml">
+            <page name="contacts" position="inside">
+                <!--<page name="contact_nos" string="Contact Nos">-->
+                    <!--<field name="phone_ids" context="{'default_client_id':client_id}">-->
+                        <!--<tree editable="bottom" delete="1">-->
+                            <!--<field name="name"/>-->
+                            <!--<field name="status_id"/>-->
+                            <!--<field name="client_id"/>-->
+                            <!--<field name="write_date" string="Updated Date" readonly="1"/>-->
+                        <!--</tree>-->
+                    <!--</field>-->
+                <!--</page>-->
+                <separator string="Contact Address"/>
+                <field name="address_ids" context="{'default_client_id':client_id}">
+                    <tree editable="bottom" delete="1">
+                        <field name="blk_no"/>
+                        <field name="unit_level"/>
+                        <field name="street_name"/>
+                        <field name="building_name"/>
+                        <field name="postal_code"/>
+                        <field name="client_id"/>
+                        <field name="contact_status_id"/>
+                        <field name="is_letter"/>
+
+                        <field name="create_date" string="Created Date" readonly="1"/>
+                        <field name="create_uid" string="User" readonly="1"/>
+                        <field name="write_date" string="Updated Date" readonly="1"/>
+                        <field name="write_uid" string="User" readonly="1"/>
+                        <!--<field name="write_date" string="Updated Date" readonly="1"/>-->
+                    </tree>
+                </field>
+            </page>
+        </field>
+    </record>
+</odoo>

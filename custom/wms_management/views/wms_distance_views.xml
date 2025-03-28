@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_wms_distance_tree">
+            <field name="name">wms.distance.tree</field>
+            <field name="model">wms.distance</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_wms_distance_form">
+            <field name="name">wms.distance.form</field>
+            <field name="model">wms.distance</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button type="object" name="action_load" string="Load"/>
+                    </header>
+                    <sheet>
+                        <sheet>
+                            <group>
+                                <group>
+                                    <field name="name"/>
+                                </group>
+                            </group>
+                            <notebook>
+                                <page name="from" string="From">
+                                    <field name="from_ids">
+                                        <tree>
+                                            <field name="location_id"/>
+                                        </tree>
+                                        <form>
+                                            <sheet>
+                                                <group>
+                                                    <field name="to_ids">
+                                                        <tree>
+                                                            <field name="location_id"/>
+                                                            <field name="distance"/>
+                                                        </tree>
+                                                    </field>
+                                                </group>
+                                            </sheet>
+                                        </form>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </sheet>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="wms_management.action_wms_distance_window">
+            <field name="name">Distance</field>
+            <field name="res_model">wms.distance</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Distance" id="wms_management.menu_wms_distance" parent="wms_management.menu_root"/>
+        <menuitem name="Distance" id="wms_management.menu_wms_distance_list" parent="wms_management.menu_wms_distance"
+                  action="wms_management.action_wms_distance_window"/>
+    </data>
+</odoo>

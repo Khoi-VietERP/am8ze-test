@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pragtech_social_stream_view_form_inherit" model="ir.ui.view">
+        <field name="name">pragtech.social.stream.view.form.inherit.pragtech.facebook</field>
+        <field name="model">pragtech.social.stream</field>
+        <field name="inherit_id" ref="pragtech_social.pragtech_social_stream_view_form"/>
+        <field name="arch" type="xml">
+           <xpath expr="//field[@name='stream_account_id']" position="after">
+               <field name="view_fb_page_data" readonly="1"/>
+           </xpath>
+        </field>
+    </record>
+</odoo>

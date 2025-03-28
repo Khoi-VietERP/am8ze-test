@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <record id="account_invoice_form_inherit" model="ir.ui.view">
+            <field name="name">account.move.tree.view</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="sale.account_invoice_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_shipping_id" position="attributes">
+                    <attribute name="context">{'show_address' : 1}</attribute>
+                    <attribute name="widget">res_partner_many2one</attribute>
+                    <attribute name="options">{&quot;always_reload&quot;: True, &quot;no_quick_create&quot;: True}</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

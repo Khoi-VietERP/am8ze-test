@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="invoice_asset_backend_inherit" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link href="/a5oct2021_modifier_invoicing/static/src/scss/form_css_inherit.scss" rel="stylesheet" type="text/scss"/>
+                <link href="/a5oct2021_modifier_invoicing/static/src/css/group_fixed_location.css" rel="stylesheet" type="text/css"/>
+                <script type="text/javascript" src="/a5oct2021_modifier_invoicing/static/src/js/history_back.js"/>
+            </xpath>
+        </template>
+
+        <record id="view_bank_acc_rec_statement_form_inherit" model="ir.ui.view">
+            <field name="name">bank.acc.rec.statement.form.inherit</field>
+            <field name="model">bank.acc.rec.statement</field>
+            <field name="inherit_id" ref="sg_bank_reconcile.view_bank_acc_rec_statement_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page/group[1]" position="replace"/>
+                <xpath expr="//form/sheet/notebook/page/group[@name='calculation1']" position="replace"/>
+                <xpath expr="//form/sheet/notebook/page/group[@name='calculation2']" position="replace"/>
+                <xpath expr="//form/sheet/group" position="after">
+<!--                    <group col="2" colspan="1" groups="sg_bank_reconcile.group_bank_stmt_verifier">-->
+<!--                        <button name="action_select_all" type="object" states="draft,to_be_reviewed" string="Select All" />-->
+<!--                        <button name="action_unselect_all" type="object" states="draft,to_be_reviewed" string="Unselect All" />-->
+<!--                    </group>-->
+<!--                    <newline/>-->
+                    <group name="calculation1" string="Totals Area">
+                        <group>
+                            <field name="sum_of_debits" string="Deposits Amount"/>
+<!--                            <field name="sum_of_debits_lines" string="Deposits Items"/>-->
+                            <button name="action_select_all" type="object" states="draft,to_be_reviewed" string="Select All" />
+                        </group>
+                        <group >
+                            <field name="sum_of_credits" string="Withdrawals Amount"/>
+<!--                            <field name="sum_of_credits_lines" string="Withdrawals Item"/>-->
+                            <button name="action_unselect_all" type="object" states="draft,to_be_reviewed" string="Unselect All" />
+                        </group>
+                    </group>
+                    <group name="calculation2" string="Balance Area">
+                        <group >
+                              <field name="cleared_balance"/>
+                        </group>
+                        <group >
+                            <field name="difference"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

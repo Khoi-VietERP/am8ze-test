@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_alphabricks_product_lot_expiry_alphabricks_product_lot_expiry,alphabricks_product_lot_expiry.alphabricks_product_lot_expiry,model_alphabricks_product_lot_expiry_alphabricks_product_lot_expiry,base.group_user,1,1,1,1

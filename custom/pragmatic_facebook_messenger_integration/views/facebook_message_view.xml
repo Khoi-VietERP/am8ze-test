@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="facebook_message_form" model="ir.ui.view">
+		<field name="name">facebook.messages.form</field>
+		<field name="model">facebook.message</field>
+		<field name="arch" type="xml">
+			<form string="Facebook Messages">
+				<header> 
+ 					<button name="get_sendor" text="Fetch Sender" type="object" />
+					<button name="%(action_show_send_message_form)d" string="Send Message" type="action"></button>
+				</header>
+				<sheet>
+					<group>
+						<group>
+							<field name="sender_id" />
+							<field name="sender_name" />
+							<field name="message_id" />
+						</group>
+					</group>
+
+					<field name="message_lines">
+						<tree default_order='id desc'>
+							<field name="message_type" />
+							<field name="date_recieved" />
+							<field name="date_sent" />
+							<field name="text_message" />
+						</tree>
+						<form>
+							<group>
+								<group>
+									<field name="message_type" />
+									<field name="date_recieved" />
+									<field name="date_sent" />
+									<field name="text_message" />
+								</group>
+								<group>
+									<field name="file_message" />
+									<field name="message_id" />
+								</group>
+							</group>
+						</form>
+					</field>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="facebook_messages_tree" model="ir.ui.view">
+		<field name="name">facebook.messages.tree</field>
+		<field name="model">facebook.message</field>
+		<field name="arch" type="xml">
+			<tree string="Facebook Messages" create="0" edit="0">
+				<field name="sender_id" />
+				<field name="sender_name" />
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="facebook_messages_action">
+		<field name="name">facebook Messages</field>
+		<field name="view_mode">tree,form</field>
+		<field name="res_model">facebook.message</field>
+		<field name="context"></field>
+	</record>
+	<!--{'group_by':['partner_id']} -->
+
+	<menuitem id="menu_whatsapp_messages" action="facebook_messages_action" name="Facebook Messages" sequence="2" parent="contacts.menu_contacts" />
+
+</odoo>
+

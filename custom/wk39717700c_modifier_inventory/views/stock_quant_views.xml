@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_stock_quant_tree_ihr_life_date" model="ir.ui.view" >
+        <field name="name">stock.quant.tree.life.iht</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_editable"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='lot_id']" position="after">
+                <field name="end_life_date"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

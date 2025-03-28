@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="report_template_invoice_show_qr_code.list">
+      <field name="name">report_template_invoice_show_qr_code list</field>
+      <field name="model">report_template_invoice_show_qr_code.report_template_invoice_show_qr_code</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="report_template_invoice_show_qr_code.action_window">
+      <field name="name">report_template_invoice_show_qr_code window</field>
+      <field name="res_model">report_template_invoice_show_qr_code.report_template_invoice_show_qr_code</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="report_template_invoice_show_qr_code.action_server">
+      <field name="name">report_template_invoice_show_qr_code server</field>
+      <field name="model_id" ref="model_report_template_invoice_show_qr_code_report_template_invoice_show_qr_code"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="report_template_invoice_show_qr_code" id="report_template_invoice_show_qr_code.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="report_template_invoice_show_qr_code.menu_1" parent="report_template_invoice_show_qr_code.menu_root"/>
+    <menuitem name="Menu 2" id="report_template_invoice_show_qr_code.menu_2" parent="report_template_invoice_show_qr_code.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="report_template_invoice_show_qr_code.menu_1_list" parent="report_template_invoice_show_qr_code.menu_1"
+              action="report_template_invoice_show_qr_code.action_window"/>
+    <menuitem name="Server to list" id="report_template_invoice_show_qr_code" parent="report_template_invoice_show_qr_code.menu_2"
+              action="report_template_invoice_show_qr_code.action_server"/>
+-->
+  </data>
+</odoo>

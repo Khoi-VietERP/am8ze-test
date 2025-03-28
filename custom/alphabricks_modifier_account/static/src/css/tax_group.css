@@ -1,0 +1,7 @@
+.oe_tax_group_name {
+    font-weight: bold;
+    min-width: 150px;
+    text-align: right;
+    padding-right: 34px;
+    color: #757575;
+}

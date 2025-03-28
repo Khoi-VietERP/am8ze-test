@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="salesman_invoice_detail_form" model="ir.ui.view">
+            <field name="name">Salesman Invoice Detail</field>
+            <field name="model">salesman.invoice.detail</field>
+            <field name="arch" type="xml">
+                <form string="Choose your date">
+                    <group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                        <group>
+                            <field name="user_ids" widget="many2many_tags"/>
+                            <field name="partner_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="generate_pdf_report" string="Print" type="object" class="oe_highlight"/>
+                        <button string="VIEW" name="action_view" type="object"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="salesman_invoice_detail_action">
+            <field name="name">Salesman Invoice Detail</field>
+            <field name="res_model">salesman.invoice.detail</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="salesman_invoice_detail_menu" parent="account.menu_finance_reports" action="salesman_invoice_detail_action"/>
+    </data>
+</odoo>

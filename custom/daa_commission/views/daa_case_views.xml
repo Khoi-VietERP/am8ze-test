@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_daa_case_form" model="ir.ui.view">
+        <field name="name">daa.case.form</field>
+        <field name="model">daa.case</field>
+        <field name="inherit_id" ref="daa_case.view_daa_case_form"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <button name="print_credit_officer_excel" string="Print CO" type="object" class="oe_highlight"/>
+            </header>
+            <page name="payment_history" position="after">
+                <page name="commission" string="Commission">
+                    <field name="commission_ids" context="{'default_debtor_id':debtor_id, 'agreement_id' : agreement_id}">
+                        <tree editable="inline">
+                            <field name="currency_id" invisible="1"/>
+                            <field name="received_amount" invisible="1"/>
+                            <field name="received_amount_sub"/>
+                            <field name="date"/>
+                            <field name="saleperson_id"/>
+                            <field name="sale_comm"/>
+                            <field name="line_officers_id"/>
+                            <field name="lo_comm"/>
+                            <field name="lo_misc_fees"/>
+                            <field name="visitation"/>
+                            <field name="credit_officer_id"/>
+                            <field name="co_comm"/>
+                            <field name="co_misc_fees"/>
+                        </tree>
+                    </field>
+                </page>
+                <page name="sub_fees" string="Sub Fees">
+                    <button name="compute_sub_fees" string="Compute" type="object" class="oe_highlight"/>
+                    <field name="sub_fees_ids" readonly="1">
+                        <tree editable="bottom" create="false" delete="false">
+                            <field name="currency_id" invisible="1"/>
+                            <field name="sub_fees_amount"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="saleperson_id"/>
+                            <field name="sub_fee_comm"/>
+                        </tree>
+                    </field>
+                </page>
+                <!--<page name="visitation_fee" string="Visitation Fees">-->
+                    <!--<field name="visitation_ids" context="{'default_client_id':client_id, 'agreement_id' : agreement_id}">-->
+                        <!--<tree editable="bottom">-->
+                            <!--<field name="currency_id" invisible="1"/>-->
+                            <!--<field name="visitation_fees"/>-->
+                            <!--<field name="visitation_company"/>-->
+                            <!--<field name="visitation_company_amount"/>-->
+                            <!--<field name="visitation_collector"/>-->
+                            <!--<field name="visitation_collector_amount"/>-->
+
+                            <!--<field name="case_id" required="1"/>-->
+                            <!--<field name="create_date" string="Action Date / Time"/>-->
+                            <!--&lt;!&ndash;<field name="time_deadline" widget="float_time"/>&ndash;&gt;-->
+                            <!--<field name="action_code_id" string="Action Code"/>-->
+                            <!--<field name="case_stage_id"/>-->
+                            <!--<field name="activity_type_id" string="Followup Action"/>-->
+                            <!--<field name="date_deadline" string="Followup Date"/>-->
+                            <!--<field name="employee_id"/>-->
+                            <!--<field name="internal_remarks"/>-->
+
+                            <!--<field name="status_id"/>-->
+                            <!--<field name="description_id" invisible="1"/>-->
+
+                            <!--<field name="debtor_id" context="{'default_is_debtor':True}" invisible="1"/>-->
+
+                            <!--<field name="res_model_id" invisible="1"/>-->
+                            <!--<field name="res_id" invisible="1"/>-->
+                            <!--<field name="res_name" invisible="1"/>-->
+
+                            <!--<button string="Duplicate" name="copy" type="object"/>-->
+                        <!--</tree>-->
+                    <!--</field>-->
+                <!--</page>-->
+                <!--<page name="misc_fee" string="Misc Fees">-->
+                    <!--<field name="misc_ids" context="{'default_client_id':client_id, 'agreement_id' : agreement_id}">-->
+                        <!--<tree editable="bottom">-->
+                            <!--<field name="currency_id" invisible="1"/>-->
+                            <!--<field name="misc_fees"/>-->
+                            <!--<field name="misc_company"/>-->
+                            <!--<field name="misc_company_amount"/>-->
+                            <!--<field name="misc_collector"/>-->
+                            <!--<field name="misc_collector_amount"/>-->
+
+                            <!--<field name="case_id" required="1"/>-->
+                            <!--<field name="create_date" string="Action Date / Time"/>-->
+                            <!--&lt;!&ndash;<field name="time_deadline" widget="float_time"/>&ndash;&gt;-->
+                            <!--<field name="action_code_id" string="Action Code"/>-->
+                            <!--<field name="case_stage_id"/>-->
+                            <!--<field name="activity_type_id" string="Followup Action"/>-->
+                            <!--<field name="date_deadline" string="Followup Date"/>-->
+                            <!--<field name="employee_id"/>-->
+                            <!--<field name="internal_remarks"/>-->
+
+                            <!--<field name="status_id"/>-->
+                            <!--<field name="description_id" invisible="1"/>-->
+
+                            <!--<field name="debtor_id" context="{'default_is_debtor':True}" invisible="1"/>-->
+
+                            <!--<field name="res_model_id" invisible="1"/>-->
+                            <!--<field name="res_id" invisible="1"/>-->
+                            <!--<field name="res_name" invisible="1"/>-->
+
+                            <!--<button string="Duplicate" name="copy" type="object"/>-->
+                        <!--</tree>-->
+                    <!--</field>-->
+                <!--</page>-->
+            </page>
+        </field>
+    </record>
+</odoo>

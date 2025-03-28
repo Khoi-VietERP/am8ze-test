@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <template id="report_product_batch_stock_movement_layout">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+            <t t-call="wk39717700c_modifier_report.external_layout_report_product_batch_stock_movement_header_logo">
+                <t t-raw="0"/>
+            </t>
+
+        </template>
+
+        <template id="external_layout_report_product_batch_stock_movement_header_logo">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                <div style="text-align:center; width: 100%;">
+                    <strong>WINLYKAH TRADING</strong>
+                </div>
+                <div class="row" style="width: 100%;">
+                    <div class="col-10">
+                        <span>
+                            <strong>Print Date: </strong>
+                            <t t-esc="date"/>
+                        </span>
+                    </div>
+                     <div class="col-2">
+                        <span>
+                            <strong>Page No: </strong>
+                            <span class="page"/> / <span class="topage"/>
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <strong>Product Batch Stock Movement History For Location: <t t-esc="docs.location_id.name"/>
+                        FromDate: <t t-esc="start_date"/> (<t t-esc="start_date"/>)</strong>
+                </div>
+            </div>
+
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+                 t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                 t-att-data-oe-lang="o and o.env.context.get('lang')"
+            >
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+        </template>
+
+        <template id="report_product_batch_stock_movement_template">
+            <t t-call="web.html_container">
+                <t t-call="wk39717700c_modifier_report.report_product_batch_stock_movement_layout">
+                    <div class="page">
+                        <table class="table table-bordered" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th style="border-color:black;text-align:left">Product Code</th>
+                                    <th style="border-color:black;text-align:left">Product Name</th>
+                                    <th style="border-color:black;text-align:left">Batch No</th>
+                                    <th style="border-color:black;text-align:left">Opening</th>
+                                    <th style="border-color:black;text-align:left">Purchase</th>
+                                    <th style="border-color:black;text-align:left">Sales</th>
+                                    <th style="border-color:black;text-align:left">DO</th>
+                                    <th style="border-color:black;text-align:left">Return</th>
+                                    <th style="border-color:black;text-align:left">Adjustment</th>
+                                    <th style="border-color:black;text-align:left">Repacking</th>
+                                    <th style="border-color:black;text-align:left">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="product_data" t-as="line">
+                                    <tr>
+                                        <td style="text-align:left">
+                                            <t t-esc="line.get('product_code')"/>
+                                        </td>
+                                        <td style="text-align:left">
+                                            <t t-esc="line.get('product_name')"/>
+                                        </td>
+                                        <td style="text-align:left">
+                                            <t t-esc="line.get('batch_no')"/>
+                                        </td>
+                                        <td style="text-align:right">
+                                            <t t-esc="line.get('opening')"/>
+                                        </td>
+                                        <td style="text-align:right">
+                                            <t t-esc="line.get('purchase')"/>
+                                        </td>
+                                        <td style="text-align:right">
+                                            <t t-esc="line.get('sales')"/>
+                                        </td>
+                                        <td style="text-align:right">
+                                            <t t-esc="line.get('do')"/>
+                                        </td>
+                                        <td style="text-align:right">
+                                            <t t-esc="line.get('return')"/>
+                                        </td>
+                                        <td style="text-align:right">
+                                            <t t-esc="line.get('adjustment')"/>
+                                        </td>
+                                        <td style="text-align:right">
+                                            <t t-esc="line.get('repacking')"/>
+                                        </td>
+                                        <td style="text-align:right; font-weight:bold">
+                                            <t t-esc="line.get('total')"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <template id="wk39717700c_modifier_report.report_product_batch_stock_movement">
+            <t t-call="web.html_container">
+                <t t-call="wk39717700c_modifier_report.report_product_batch_stock_movement_template"/>
+            </t>
+        </template>
+
+        <record id="paper_format_product_batch_stock_movement" model="report.paperformat">
+            <field name="name">Product Batch Stock Movement</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">25</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+                id="report_product_batch_stock_movement_id"
+                string="Product Batch Stock Movement"
+                model="product.batch.stock.movement"
+                report_type="qweb-pdf"
+                file="wk39717700c_modifier_report.report_product_batch_stock_movement"
+                name="wk39717700c_modifier_report.report_product_batch_stock_movement"
+                print_report_name="'Product Batch Stock Movement'"
+                paperformat="wk39717700c_modifier_report.paper_format_product_batch_stock_movement"
+                menu="False"
+        />
+    </data>
+</odoo>

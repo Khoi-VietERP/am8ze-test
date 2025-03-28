@@ -1,0 +1,9 @@
+.py-search-users,
+.py-search-products,
+.py-search-categories{
+    white-space: nowrap;
+    display: inline-block;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+}

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_feeds_config_public,feeds_config_public,model_feeds_config,,1,0,0,0
+access_feeds_config,feeds_config_manager,model_feeds_config,website.group_website_designer,1,1,1,1
+access_rss_feed_config_settings_public,RSS Feed Config Settings,model_rss_feed_config_settings,,1,1,1,1

@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+
+    <record id="pragtech_extra_menu" model="res.groups">
+        <field name="name">Social: Extra Menu</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <record id="pragtech_gs_user" model="res.groups">
+        <field name="name">Social: User</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="pragtech_gs_manager" model="res.groups">
+        <field name="name">Social: Manager</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        <field name="implied_ids" eval="[(4, ref('pragtech_gs_user'))]"/>
+    </record>
+
+
+</odoo>

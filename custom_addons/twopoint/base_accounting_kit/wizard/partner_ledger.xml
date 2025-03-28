@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_partner_leadger" model="ir.actions.act_window">
+        <field name="name">Partner Ledger</field>
+        <field name="res_model">account.report.partner.ledger</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="sg_account_report.account_report_partner_ledger_view"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem name="Partner Ledger"
+              id="menu_partner_ledger" sequence="1"
+              parent="base_accounting_kit.account_reports_partner"
+              action="action_partner_leadger"/>
+</odoo>

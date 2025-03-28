@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="notice_of_redenomination_form" model="ir.ui.view">
+            <field name="name">notice.of.redenomination.form</field>
+            <field name="model">notice.of.redenomination</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <div attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <notebook>
+                                <page string="Company Details">
+                                    <group col="2" string="Notice of Resolution">
+                                        <div>
+                                            <label for="date_of_resolution" style="font-weight: bold;"/><br/>
+                                            <field name="date_of_resolution" style="width: 30%;"/>
+                                        </div>
+                                        <div>
+                                            <label for="date_of_redenomination" style="font-weight: bold;"/><br/>
+                                            <field name="date_of_redenomination" style="width: 30%;"/>
+                                        </div>
+                                        <div>
+                                            <label for="copy_of_resolution" style="font-weight: bold;"/><br/>
+                                            <field name="copy_of_resolution" style="width: 50%;"/>
+                                        </div>
+                                    </group>
+                                    <div>
+                                        <field name="company_detail_check"/>
+                                        <label for="company_detail_check" style="display: contents;font-weight: normal"/><br/>
+                                    </div>
+                                </page>
+                                <page string="Share Capital Details">
+                                    <div>
+                                        <label for="currency_id" style="font-weight: bold;"/><br/>
+                                        <field name="currency_id" style="width: 50%;" readonly="1" class="color-text-ff8d06"/>
+                                    </div>
+                                    <separator string="Share Capital Information"/>
+                                    <span style="font-weight: bold;">Before Redenomination</span><br/>
+                                    <table style="width: 100%" class="table-bordered table_publication">
+                                        <tr>
+                                            <td colspan="4">
+                                                <span style="font-weight: bold;">Currency: </span><span class="color-text-ff8d06">SINGAPORE, DOLLARS</span>
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 30px">
+                                            <td style="width: 55%">
+                                                Class Of Shares
+                                            </td>
+                                            <td style="width: 15%">
+                                                Ordinary
+                                            </td>
+                                            <td style="width: 15%">
+                                                Preference
+                                            </td>
+                                            <td style="width: 15%">
+                                                Others
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 30px">
+                                            <td>
+                                                Number of Shares
+                                            </td>
+                                            <td>
+                                                <field name="ordinary_number_of_shares" readonly="1"/>
+                                            </td>
+                                            <td>
+                                                <field name="preference_number_of_shares" readonly="1"/>
+                                            </td>
+                                            <td>
+                                                <field name="others_number_of_shares" readonly="1"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 30px">
+                                            <td>
+                                                Amount of Issued Share Capital
+                                            </td>
+                                            <td>
+                                                <field name="ordinary_amount_of_issued" readonly="1"/>
+                                            </td>
+                                            <td>
+                                                <field name="preference_amount_of_issued" readonly="1"/>
+                                            </td>
+                                            <td>
+                                                <field name="others_amount_of_issued" readonly="1"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 30px">
+                                            <td>
+                                                Amount of Paid Up Share Capital
+                                            </td>
+                                            <td>
+                                                <field name="ordinary_amount_of_paid_up" readonly="1"/>
+                                            </td>
+                                            <td>
+                                                <field name="preference_amount_of_paid_up" readonly="1"/>
+                                            </td>
+                                            <td>
+                                                <field name="others_amount_of_paid_up" readonly="1"/>
+                                            </td>
+                                        </tr>
+                                    </table><br/><br/><br/>
+                                    <span style="font-weight: bold;">Before Redenomination</span><br/>
+                                    <div>
+                                        <label for="currency_new_id" style="font-weight: bold;"/><br/>
+                                        <field name="currency_new_id" style="width: 50%;"/>
+                                    </div><br/>
+                                    <table style="width: 100%" class="table-bordered table_allotment_detail">
+                                        <tr>
+                                            <td style="width: 30%">
+                                                Class Of Shares
+                                            </td>
+                                            <td style="width: 20%">
+                                                Ordinary
+                                            </td>
+                                            <td style="width: 20%">
+                                                Preference
+                                            </td>
+                                            <td style="width: 20%">
+                                                Others
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 30px">
+                                            <td>
+                                                Number of Shares
+                                            </td>
+                                            <td>
+                                                <field name="after_ordinary_number_of_shares" readonly="1"/>
+                                            </td>
+                                            <td>
+                                                <field name="after_preference_number_of_shares" readonly="1"/>
+                                            </td>
+                                            <td>
+                                                <field name="after_others_number_of_shares" readonly="1"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 30px">
+                                            <td>
+                                                Amount of Issued Share Capital
+                                            </td>
+                                            <td>
+                                                <field name="after_ordinary_amount_of_issued"/>
+                                            </td>
+                                            <td>
+                                                <field name="after_preference_amount_of_issued" readonly="1"/>
+                                            </td>
+                                            <td>
+                                                <field name="after_others_amount_of_issued" readonly="1"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 30px">
+                                            <td>
+                                                Amount of Paid Up Share Capital
+                                            </td>
+                                            <td>
+                                                <field name="after_ordinary_amount_of_paid_up"/>
+                                            </td>
+                                            <td>
+                                                <field name="after_preference_amount_of_paid_up" readonly="1"/>
+                                            </td>
+                                            <td>
+                                                <field name="after_others_amount_of_paid_up" readonly="1"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 30px">
+                                            <td>
+                                                Amount of Unpaid Share Capital
+                                            </td>
+                                            <td>
+                                                <field name="after_ordinary_amount_of_unpaid"/>
+                                            </td>
+                                            <td>
+                                                <field name="after_preference_amount_of_unpaid" readonly="1"/>
+                                            </td>
+                                            <td>
+                                                <field name="after_others_amount_of_unpaid" readonly="1"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div>
+                                        <label for="particulars_1" style="font-weight: bold;"/><br/>
+                                        <field name="particulars_1" style="width: 80%;"/>
+                                    </div>
+                                    <div>
+                                        <label for="particulars_2" style="font-weight: bold;"/><br/>
+                                        <field name="particulars_2" style="width: 80%;"/>
+                                    </div>
+                                    <div>
+                                        <label for="particulars_3" style="font-weight: bold;"/><br/>
+                                        <field name="particulars_3" style="width: 80%;"/>
+                                    </div>
+                                    <div>
+                                        <label for="are_there_shares" style="font-weight: bold;"/><br/>
+                                        <field name="are_there_shares" style="width: 50%;" widget="radio"/>
+                                    </div>
+                                </page>
+                                <page string="Shareholders Details">
+                                    <div>
+                                        <field name="line_ids" style="width: 90%;">
+                                            <tree>
+                                                <field name="uen"/>
+                                                <field name="name"/>
+                                                <field name="new_currency_id"/>
+                                                <field name="old_currency_id"/>
+                                                <field name="ordinary"/>
+                                                <field name="preference"/>
+                                                <field name="others"/>
+                                            </tree>
+                                            <form>
+                                                <group>
+                                                    <group>
+                                                        <field name="uen"/>
+                                                        <field name="name"/>
+                                                        <field name="new_currency_id"/>
+                                                        <field name="old_currency_id"/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="ordinary"/>
+                                                        <field name="preference"/>
+                                                        <field name="others"/>
+                                                    </group>
+                                                </group>
+                                                <div>
+                                                    <span style="font-weight: bold;">Before Redenomination</span><br/>
+                                                    <table style="width: 100%" class="table-bordered table_allotment_detail">
+                                                        <tr>
+                                                            <td style="width: 30%">
+                                                                Class Of Shares
+                                                            </td>
+                                                            <td style="width: 20%">
+                                                                Ordinary
+                                                            </td>
+                                                            <td style="width: 20%">
+                                                                Preference
+                                                            </td>
+                                                            <td style="width: 20%">
+                                                                Others
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                Number of Shares
+                                                            </td>
+                                                            <td>
+                                                                <field name="before_ordinary_number_of_shares" readonly="1"/>
+                                                            </td>
+                                                            <td>
+                                                                <field name="before_pre_number_of_shares" readonly="1"/>
+                                                            </td>
+                                                            <td>
+                                                                <field name="before_others_number_of_shares" readonly="1"/>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                Amount of Paid Up Share Capital
+                                                            </td>
+                                                            <td>
+                                                                <field name="before_ordinary_amount_of_paid_up" readonly="1"/>
+                                                            </td>
+                                                            <td>
+                                                                <field name="before_pre_amount_of_paid_up" readonly="1"/>
+                                                            </td>
+                                                            <td>
+                                                                <field name="before_others_amount_of_paid_up" readonly="1"/>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                Shares held in trust
+                                                            </td>
+                                                            <td>
+                                                                <field name="before_ordinary_share_hit" readonly="1"/>
+                                                            </td>
+                                                            <td>
+                                                                <field name="before_pre_share_hit" readonly="1"/>
+                                                            </td>
+                                                            <td>
+                                                                <field name="before_others_share_hit" readonly="1"/>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                Name of the trust
+                                                            </td>
+                                                            <td>
+                                                                <field name="before_ordinary_name_ott" readonly="1"/>
+                                                            </td>
+                                                            <td>
+                                                                <field name="before_pre_name_ott" readonly="1"/>
+                                                            </td>
+                                                            <td>
+                                                                <field name="before_others_name_ott" readonly="1"/>
+                                                            </td>
+                                                        </tr>
+                                                    </table><br/><br/><br/>
+                                                    <span style="font-weight: bold;">Before Redenomination</span><br/>
+                                                    <table style="width: 100%" class="table-bordered table_allotment_detail">
+                                                        <tr>
+                                                            <td style="width: 30%">
+                                                                Class Of Shares
+                                                            </td>
+                                                            <td style="width: 20%">
+                                                                Ordinary
+                                                            </td>
+                                                            <td style="width: 20%">
+                                                                Preference
+                                                            </td>
+                                                            <td style="width: 20%">
+                                                                Others
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                Number of Shares
+                                                            </td>
+                                                            <td>
+                                                                <field name="after_ordinary_number_of_shares" readonly="1"/>
+                                                            </td>
+                                                            <td>
+                                                                <field name="after_pre_number_of_shares" readonly="1"/>
+                                                            </td>
+                                                            <td>
+                                                                <field name="after_others_number_of_shares" readonly="1"/>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                Amount of Paid Up Share Capital
+                                                            </td>
+                                                            <td>
+                                                                <field name="after_ordinary_amount_of_paid_up"/>
+                                                            </td>
+                                                            <td>
+                                                                <field name="after_pre_amount_of_paid_up" readonly="1"/>
+                                                            </td>
+                                                            <td>
+                                                                <field name="after_others_amount_of_paid_up" readonly="1"/>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                Shares held in trust
+                                                            </td>
+                                                            <td>
+                                                                <field name="after_ordinary_share_hit" readonly="1"/>
+                                                            </td>
+                                                            <td>
+                                                                <field name="after_pre_share_hit" readonly="1"/>
+                                                            </td>
+                                                            <td>
+                                                                <field name="after_others_share_hit" readonly="1"/>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                Name of the trust
+                                                            </td>
+                                                            <td>
+                                                                <field name="after_ordinary_name_ott" readonly="1"/>
+                                                            </td>
+                                                            <td>
+                                                                <field name="after_pre_name_ott" readonly="1"/>
+                                                            </td>
+                                                            <td>
+                                                                <field name="after_others_name_ott" readonly="1"/>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </form>
+                                        </field>
+                                    </div>
+                                </page>
+                            </notebook>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--    Financial report common form view    -->
+        <record id="balance_sheet_report_wizard" model="ir.ui.view">
+            <field name="name">balance.sheet.report</field>
+            <field name="model">balance.sheet.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group string="Date">
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                        <group>
+                            <field name="hide_line"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="enable_filter"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group attrs="{'invisible':[('enable_filter','=',False)]}">
+                            <field name="date_from_cmp" attrs="{'invisible':[('enable_filter','=',False)]}"/>
+                            <field name="date_to_cmp" attrs="{'invisible':[('enable_filter','=',False)]}"/>
+                            <field name="number_of_comparison" attrs="{'invisible':[('enable_filter','=',False)]}"/>
+                            <field name="comparison_number_of_month" attrs="{'invisible':[('enable_filter','=',False)]}"/>
+                            <field name="comparison_number_of_year" attrs="{'invisible':[('enable_filter','=',False)]}"/>
+                            <field name="analytic_account_ids" attrs="{'invisible':[('enable_filter','=',False)]}" widget="many2many_tags"/>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button string="PDF" name="check_report" type="object"
+                                class="btn-primary"/>
+                        <button string="XLSX" name="action_xlsx" type="object"
+                                class="btn-primary"/>
+                        <button string="VIEW" name="action_view" type="object"
+                                class="btn-primary"/>
+                        <button string="Discard" class="btn-secondary"
+                                special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!--    Action for balance sheet    -->
+        <record id="action_balance_sheet_report" model="ir.actions.act_window">
+            <field name="name">Balance Sheet Report</field>
+            <field name="res_model">balance.sheet.report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="balance_sheet_report_wizard"/>
+            <field name="target">new</field>
+        </record>
+
+
+         <menuitem id="menu_balance_sheet_report" sequence="80" action="action_balance_sheet_report"
+                  name="Balance Sheet Report" parent="h202102879_modifier_menu.invoicing_financial_report" groups="account.group_account_user"/>
+
+    </data>
+</odoo>

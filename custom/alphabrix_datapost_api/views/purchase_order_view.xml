@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+        <record id="purchase_order_form_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <field name="datapost_document_count" invisible="1"/>
+                    <button name="create_datapost_document" string="Submit InvoiceNow" type="object"
+                     attrs="{'invisible' : ['|',('datapost_document_count', '>=',1),('state', '!=', 'purchase')]}"/>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button class="oe_stat_button" name="action_datapost_document" type="object" icon="fa-book"
+                     attrs="{'invisible' : [('datapost_document_count', '=',0)]}">
+                        <field name="datapost_document_count" widget="statinfo" string="Datapost Document"/>
+                    </button>
+                </xpath>
+                <page name="purchase_delivery_invoice" position="after">
+                    <page name="datapost_response" string="Datapost Responses">
+                        <field name="datapost_response_ids">
+                            <tree>
+                                <field name="response_code"/>
+<!--                                <field name="response_reason"/>-->
+                                <field name="peppol_document_no"/>
+                            </tree>
+                        </field>
+                    </page>
+                </page>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="before">
+                    <field name="line_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--Form-->
+        <record id="view_form_reporting_template_inherit" model="ir.ui.view">
+            <field name="name">reporting.custom.template</field>
+            <field name="mode">primary</field>
+            <field eval="20" name="priority"/>
+            <field name="model">reporting.custom.template</field>
+            <field name="inherit_id" ref="report_utils.view_form_reporting_template"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group" position="attributes">
+                    <attribute name="attrs">{'invisible': [('report_id','=', False)]}</attribute>
+                </xpath>
+                <xpath expr="//sheet/notebook" position="attributes">
+                    <attribute name="attrs">{'invisible': [('report_id','=', False)]}</attribute>
+                </xpath>
+
+                <xpath expr="//form" position="attributes">
+                    <attribute name="create">true</attribute>
+                    <attribute name="delete">true</attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='action_preview']" position="before">
+                    <button name="action_general" type="object" string="General Report" class="oe_highlight"
+                            attrs="{'invisible': [('report_id','!=', False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='template_id']" position="replace">
+                    <field name="template_id"  widget="selection"/>
+                </xpath>
+                <xpath expr="//field[@name='name_display']" position="replace">
+                </xpath>
+                <xpath expr="//button[@name='action_preview']" position="replace">
+                    <button name="action_preview_custom" attrs="{'invisible': [('report_id','=', False)]}"
+                            type="object" string="Preview" class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//field[@name='model_id']" position="replace">
+                </xpath>
+                <xpath expr="//field[@name='line_model_id']" position="before">
+                    <field name="field_id" domain="[('model_id', '=', model_id), ('ttype', 'in', ['one2many', 'many2many'])]"
+                           options="{'no_create_edit': True, 'no_quick_create': True}"/>
+                </xpath>
+
+                <xpath expr="//sheet/group" position="before">
+                    <group>
+                        <group>
+                            <field name="name" invisible="1"/>
+                            <field name="name_display" attrs="{'readonly': [('report_id', '!=', False)]}"/>
+                            <field name="report_id" attrs="{'readonly': True, 'invisible': True}"/>
+                            <field name="model_id" options="{'no_open': True, 'no_create_edit': True, 'no_quick_create': True}" attrs="{'required': True, 'readonly': [('report_id', '!=', False)]}"/>
+                            <field name="is_manual_report" invisible="1"/>
+                            <field name="view_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="title_report" attrs="{'invisible': [('report_id','=', False)]}"/>
+                        </group>
+                    </group>
+                </xpath>
+                <field name="partner_field_ids" position="before">
+                    <group>
+                        <field name="report_partner_id" options="{'no_create_edit': True, 'no_quick_create': True}"/>
+                        <field name="label_partner"/>
+                    </group>
+                </field>
+                <field name="section_lines_field_ids" position="after">
+                    <separator string="Memo"/>
+                    <group>
+                        <field name="memo_id" options="{'no_create_edit': True, 'no_quick_create': True}"/>
+                    </group>
+                </field>
+                <field name="template_note" position="after">
+                    <separator string="Signature"/>
+                    <group>
+                        <field name="signature_right"/>
+                        <field name="signature_right_text" attrs="{'invisible': [('signature_right', '=', False)]}"/>
+                        <field name="signature_left"/>
+                        <field name="signature_left_text" attrs="{'invisible': [('signature_left', '=', False)]}"/>
+                    </group>
+                </field>
+                <xpath expr="//page[5]/field[@name='section_footer_field_ids']/tree/field[@name='thousands_separator']" position="after">
+                    <field name="tax_group"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--Tree-->
+        <record id="view_tree_reporting_template_custom" model="ir.ui.view">
+            <field name="name">reporting.custom.template.custom.view.tree</field>
+            <field name="model">reporting.custom.template</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name_display"/>
+                    <field name="name" invisible="1"/>
+                    <field name="model_id" invisible="1"/>
+                    <field name="template_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Action-->
+        <record id="action_view_custom_template" model="ir.actions.act_window">
+            <field name="name">Custom Templates</field>
+            <field name="res_model">reporting.custom.template</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_is_manual_report': True}</field>
+            <field name="domain">[('is_manual_report', '=', True)]</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('report_template_manual.view_tree_reporting_template_custom')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('report_template_manual.view_form_reporting_template_inherit')})]"/>
+        </record>
+
+        <!--Menu-->
+        <menuitem name="Custom Templates" id="menu_view_custom_template" parent="base.menu_administration"
+                  action="action_view_custom_template" sequence="4"/>
+    </data>
+
+</odoo>

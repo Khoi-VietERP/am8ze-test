@@ -1,0 +1,72 @@
+<odoo>
+    <data>
+        <record id="recurring_invoice_template_view_form" model="ir.ui.view">
+            <field name="name">recurring.invoice.template.form</field>
+            <field name="model">recurring.invoice.template</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="create_recurring" string="Create Recurring Process" class="btn-primary" type="object"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="view_invoice"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-pencil-square-o">
+                                <span>Invoice</span>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="invoice_id" required="1" options="{'no_create_edit': True}"/>
+                            </group>
+                            <group>
+                                <field name="partner_id" required="1"/>
+                            </group>
+
+                        </group>
+                        <notebook>
+                            <page string="Recurring Data">
+                                <group>
+                                    <group>
+                                        <field name="first_date" required="1"/>
+                                        <field name="recurring_number" required="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="interval_type" required="1"/>
+                                        <field name="recurring_interval" required="1"/>
+                                    </group>
+
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="recurring_invoice_template_view_tree" model="ir.ui.view">
+            <field name="name">recurring.invoice.template.tree</field>
+            <field name="model">recurring.invoice.template</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="invoice_id"/>
+                    <field name="partner_id"/>
+                    <field name="first_date"/>
+                    <field name="recurring_number"/>
+                    <field name="interval_type"/>
+                    <field name="recurring_interval"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_recurring_invoice_template" model="ir.actions.act_window">
+            <field name="name">Recurring Invoice Template</field>
+            <field name="res_model">recurring.invoice.template</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_recurring_invoice_template" action="action_recurring_invoice_template" name="Recurring Invoice Template" parent="account.menu_finance_receivables" sequence="9"/>
+    </data>
+</odoo>

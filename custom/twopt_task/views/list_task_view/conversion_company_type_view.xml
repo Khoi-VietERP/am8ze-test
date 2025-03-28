@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="conversion_company_type_form" model="ir.ui.view">
+            <field name="name">conversion.company.type.form</field>
+            <field name="model">conversion.company.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Entity Information">
+                            <group name="entity_info">
+                                <field name="uen"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <group attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <group>
+                                <field name="type_of_conversion" attrs="{'required' : [('entity_id', '!=', False)]}"/>
+                            </group>
+                            <group></group>
+                        </group>
+                        <group string="Special Resolution" attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <group>
+                                <field name="date_of_meeting" attrs="{'required' : [('entity_id', '!=', False)]}"/>
+                            </group>
+                            <group>
+                                <field name="copy_of_resolution"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

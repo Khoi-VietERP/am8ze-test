@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+        <template id="assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="//script[last()]" position="after">
+                <script type="text/javascript" src="/dragdrop_attachment/static/src/js/attachment.js"/>
+            </xpath>
+            <xpath expr="//link[last()]" position="after">
+                <link rel="stylesheet" href="/dragdrop_attachment/static/src/css/attachment.css" />
+            </xpath>
+        </template>
+    </data>
+</odoo>

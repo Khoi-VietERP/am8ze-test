@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_model_daa_case,access_model_daa_case,model_daa_case,base.group_user,1,1,1,0
+access_model_daa_case_stage,access_model_daa_case_stage,model_daa_case_stage,base.group_user,1,1,1,0
+access_model_daa_case_charge,access_model_daa_case_charge,model_daa_case_charge,base.group_user,1,1,1,0
+access_model_daa_case_payment,access_model_daa_case_payment,model_daa_case_payment,base.group_user,1,1,1,0

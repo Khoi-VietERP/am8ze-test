@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="po_modifier_external_layout">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+            <t t-call="wk39717700c_modifier_print.po_external_layout_standard_modifier_header_logo">
+                <t t-raw="0"/>
+            </t>
+
+        </template>
+
+        <template id="po_external_layout_standard_modifier_header_logo">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                <div class="row" style="width: 100%;">
+                    <div class="col-8 text-left" style="font-size: 15px">
+                        <b style="font-size: 20px;">
+                            <t t-esc="company.name"/>
+                        </b><br/>
+                        <span><t t-esc="company.street"/> </span><br/>
+                        <span> <t t-esc="company.street2"/>, <t t-esc="company.city"/> <t t-esc="company.zip"/></span><br/>
+                        <span>Email : <t t-esc="company.email"/></span>
+                        <span>Tel : <t t-esc="company.phone"/>, Fax : 67436789</span><br/>
+                        <span>Co.Reg.No : 39717700-C</span>
+                    </div>
+                    <div class="col-4">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 100px;"
+                                 alt="Logo"/>
+                    </div>
+                </div>
+            </div>
+
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+                 t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                 t-att-data-oe-lang="o and o.env.context.get('lang')"
+            >
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+        </template>
+
+        <record id="paperformat_purchase_order" model="report.paperformat">
+            <field name="name">Purchase Order Paperformat A4 (Fit)</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">28</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <template id="purchase.report_purchaseorder">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="wk39717700c_modifier_print.po_modifier_external_layout">
+                        <style>
+                            .page {
+                                font-size: 15px;
+                            }
+                            .table-product {
+                                margin-top: 30px
+                            }
+                            .table-product th {
+                                border: 1px solid #000;
+                                padding: 0.2rem 0rem;
+                            }
+                            .table-product td {
+                                border: 1px solid #000;
+                                padding: 0.2rem 0.75rem;
+                            }
+                        </style>
+                        <div class="page">
+                            <div id="__header" style="margin-top: 20px">
+                                <b>TO :</b>
+                                <div class="row" style="width: 100%; margin-top: 10px; margin-left: 10px">
+                                    <div class="col-7">
+                                        <b><t t-esc="o.partner_id.name"/> </b><br/>
+                                        <t t-if="o.partner_id.street">
+                                            <t t-esc="o.partner_id.street"/><br/>
+                                        </t>
+                                        <t t-if="o.partner_id.street2">
+                                            <t t-esc="o.partner_id.street2"/><br/>
+                                        </t>
+                                        <t t-if="o.partner_id.city">
+                                            <t t-esc="o.partner_id.city"/><br/>
+                                        </t>
+                                        Phone : <t t-esc="o.partner_id.phone"/> Handphone No : <t t-esc="o.partner_id.mobile"/>
+                                    </div>
+                                    <div class="col-5">
+                                        <table style="width: 100%">
+                                            <tr>
+                                                <td colspan="2">
+                                                    <b>Purchase Order</b>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 40%">
+                                                    <span>PO NO</span>
+                                                </td>
+                                                <td style="width: 60%">
+                                                    <span>: <t t-esc="o.name"/> </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span>PO Date</span>
+                                                </td>
+                                                <td>
+                                                    <span>: <t t-esc="o.date_approve and o.date_approve.date()"/></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span>Currency</span>
+                                                </td>
+                                                <td>
+                                                    : <t t-esc="round(o.currency_id.rounding, 2)"/> [<t t-esc="o.currency_id.name"/>]
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <table style="width: 100%" class="table-product">
+                                <thead>
+                                    <tr>
+                                        <td style="width: 5%">S.No</td>
+                                        <td style="width: 15%">Product Code</td>
+                                        <td style="width: 32%">Description</td>
+                                        <td style="width: 8%">UOM</td>
+                                        <td style="width: 10%">Pack Size</td>
+                                        <td style="width: 9%">Qty</td>
+                                        <td style="width: 11%">Unit Price</td>
+                                        <td style="width: 10%">Total</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="count" t-value="0"/>
+                                    <t t-foreach="o.order_line" t-as="line">
+                                        <t t-if="not line.display_type">
+                                            <t t-set="count" t-value="count + 1"/>
+                                            <tr>
+                                                <td>
+                                                    <t t-esc="count"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="line.product_id.default_code"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="line.name"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="line.product_uom.name"/>
+                                                </td>
+                                                <td></td>
+                                                <td class="text-right">
+                                                    <t t-esc="line.product_qty"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <t t-esc="line.price_unit"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <t t-esc="line.price_subtotal"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <t t-else="">
+                                            <td colspan="8" class="left-right-border">
+                                                <span t-field="line.name"/>
+                                            </td>
+                                        </t>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <record id="paperformat_purchase_order" model="report.paperformat">
+            <field name="report_ids" eval="[(4, ref('purchase.action_report_purchase_order'))]"/>
+        </record>
+    </data>
+</odoo>

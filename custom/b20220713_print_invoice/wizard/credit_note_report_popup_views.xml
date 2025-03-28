@@ -1,0 +1,17 @@
+<odoo>
+    <record id="view_credit_note_report_popup_form" model="ir.ui.view">
+            <field name="name">report.credit.note.popup.form</field>
+            <field name="model">report.credit.note.popup</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="account_move_ids" widget="many2many_tags" readonly="1"/>
+                    </group>
+                    <footer>
+                        <button name="print_pdf" type="object" string="PDF" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+</odoo>

@@ -1,0 +1,5 @@
+<odoo>
+    <data noupdate="1">
+        <function name="update_amount_python_compute" model="hr.salary.rule"/>
+    </data>
+</odoo>

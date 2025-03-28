@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="modifier_external_layout_no_header">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+            <t t-call="wk39717700c_modifier_print.standard_modifier_external_layout_no_header">
+                <t t-raw="0"/>
+            </t>
+        </template>
+
+        <template id="standard_modifier_external_layout_no_header">
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+                 t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                 t-att-data-oe-lang="o and o.env.context.get('lang')"
+            >
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+        </template>
+
+        <record id="paperformat_no_header" model="report.paperformat">
+            <field name="name">Paperformat Custom No Header</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">5</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <template id="sale_invoice_print_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="wk39717700c_modifier_print.modifier_external_layout_no_header">
+                        <style>
+                            .page {
+                                font-size: 15px
+                            }
+                            .table-product th {
+                                border: 1px solid #000;
+                                padding: 0.2rem 0.2rem;
+                                border-color: #878787;
+                            }
+                            .table-product td {
+                                border: 1px solid #000;
+                                padding: 0.1rem 0.3rem;
+                                border-color: #878787;
+                            }
+                        </style>
+                        <div class="page">
+                            <t t-if="not company">
+                                <t t-if="company_id">
+                                    <t t-set="company" t-value="company_id"/>
+                                </t>
+                                <t t-elif="o and 'company_id' in o">
+                                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                                </t>
+                                <t t-else="else">
+                                    <t t-set="company" t-value="res_company"/>
+                                </t>
+                            </t>
+                            <div class="row" style="margin-left: 0px; margin-right:0px; padding-bottom: 20px; width: 100%;">
+                                <div class="col-1" style="text-align: left;padding: 0px;">
+                                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 145px"
+                                 alt="Logo"/>
+                                </div>
+                                <div class="col-7">
+                                    <b style="font-size: 20px;">
+                                        <t t-esc="company.china_character"/><br/>
+                                        <t t-esc="company.name"/>
+                                    </b><br/>
+                                    <span><t t-esc="company.street"/> </span><br/>
+                                    <span> <t t-esc="company.street2"/>, <t t-esc="company.city"/> <t t-esc="company.zip"/></span><br/>
+                                    <span>Tel : <t t-esc="company.phone"/>, Fax : 67436789</span><br/>
+                                    <span>Bussiness. Reg. No : 39717700-C</span><br/>
+                                    <span>Email : <t t-esc="company.email"/></span>
+                                </div>
+                                <div class="col-4 text-center" style="padding: 0px;">
+                                    <b style="font-size: 20px;">
+                                        TAX-INVOICE <br/>
+                                        GST Reg. No : M8-8003615-7<br/>
+<!--                                        CASH SALE-->
+                                    </b>
+                                </div>
+                            </div>
+                            <table style="width: 95%; font-size: 16px">
+                                <tr>
+                                    <td style="width: 60%; border: 1px solid #000;padding: 0.2rem">
+                                        <table>
+                                            <tr>
+                                                <td style="width: 15%"><b>A/C No:</b></td>
+                                                <td style="width: 85%">
+                                                    <div style="margin-left: 10px">
+                                                        <t t-if="o.partner_id.customer_code">
+                                                            <b><t t-esc="o.partner_id.customer_code"/> </b><br/>
+                                                        </t>
+                                                        <b><t t-esc="o.partner_id.name"/> </b><br/>
+                                                        <span t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": true}'/>
+                                                        Phone : <t t-esc="o.partner_id.phone"/>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td style="width: 3%"></td>
+                                    <td style="width: 37%; border: 1px solid #000;padding: 0.2rem">
+                                        <table style="width: 100%">
+                                            <tr>
+                                                <td style="width: 35%">
+                                                    <b>Date</b>
+                                                </td>
+                                                <td style="width: 65%">
+                                                    : <t t-if="o.invoice_date">
+                                                        <t t-esc="o.invoice_date.strftime('%d/%m/%Y')"/>
+                                                        </t>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 35%">
+                                                    <b>InvoiceNo</b>
+                                                </td>
+                                                <td style="width: 65%">
+                                                    : <t t-esc="o.name"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 35%">
+                                                    <b>Terms</b>
+                                                </td>
+                                                <td style="width: 65%">
+                                                    : <t t-esc="o.invoice_payment_term_id.name"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 35%">
+                                                    <b>Remarks</b>
+                                                </td>
+                                                <td style="width: 65%">
+                                                    : <t t-esc="o.user_id.name"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div style="min-height: 500px; font-size: 18px">
+                                <table class="table-product" style="width: 100%; margin-top: 20px">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 5%">Item</th>
+                                            <th style="width: 10%">Code</th>
+                                            <th class="text-center" style="width: 34%">Description</th>
+                                            <th class="text-center" style="width: 11%">Qty</th>
+                                            <th class="text-center" style="width: 15%">Batch No.</th>
+                                            <th style="width: 13%">Unit Price S$</th>
+                                            <th style="width: 12%">Amount S$</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="count" t-value="0"/>
+                                        <t t-foreach="o.invoice_line_ids.sorted(key=lambda r: r.sequence)" t-as="line">
+                                            <t t-if="not line.display_type">
+                                                <t t-if="line.is_foc_line">
+                                                    <tr>
+                                                        <td>
+                                                        </td>
+                                                        <td>
+                                                            <t t-esc="line.product_id.default_code"/>
+                                                        </td>
+                                                        <td>
+                                                            <t t-raw="line.get_description()"/>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <t t-esc="int(line.quantity)"/> <t t-esc="line.product_uom_id.name"/>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <t t-esc="', '.join(line.get_lot_id().move_line_ids.mapped('lot_id').mapped('name'))"/>
+                                                        </td>
+                                                        <td class="text-right">
+                                                        </td>
+                                                        <td class="text-right">
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-else="">
+                                                    <t t-set="count" t-value="count + 1"/>
+                                                    <tr>
+                                                        <td class="text-center">
+                                                            <t t-esc="count"/>
+                                                        </td>
+                                                        <td>
+                                                            <t t-esc="line.product_id.default_code"/>
+                                                        </td>
+                                                        <td>
+                                                            <t t-raw="line.get_description()"/>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <t t-esc="int(line.quantity)"/> <t t-esc="line.product_uom_id.name"/>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <t t-esc="', '.join(line.get_lot_id().move_line_ids.mapped('lot_id').mapped('name'))"/>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <t t-if="line.price_unit">
+                                                                <t t-esc="'{0:,.2f}'.format(line.price_unit)"/>
+                                                            </t>
+
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <t t-if="line.price_subtotal">
+                                                                <t t-esc="'{0:,.2f}'.format(line.price_subtotal)"/>
+                                                            </t>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                            <t t-else="">
+                                                <tr>
+                                                    <td colspan="7" class="left-right-border" style="white-space: pre-line">
+                                                        <span t-field="line.name"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </tbody>
+                                </table>
+                                <table style="width: 100%; margin-top: 30px">
+                                    <tr>
+                                        <td style="width: 75%"/>
+                                        <td style="width: 25%">
+                                            <table style="width: 100%; font-weight:bold">
+                                                <tr>
+                                                    <td style="width: 42%">
+                                                        <b>Sub Total</b>
+                                                    </td>
+                                                    <td style="width: 16%">
+                                                        : S$
+                                                    </td>
+                                                    <td style="width: 42%;" class="text-right">
+                                                        <t t-esc="'{0:,.2f}'.format(o.amount_untaxed)"/>
+                                                    </td>
+                                                </tr>
+                                                <t t-foreach="o.amount_by_group" t-as="amount_by_group">
+                                                    <tr>
+                                                        <td><span class="text-nowrap" t-esc="amount_by_group[0]"/></td>
+                                                        <td>
+                                                            : S$
+                                                        </td>
+                                                        <td class="text-right o_price_total">
+                                                            <span class="text-nowrap" t-esc="amount_by_group[1]" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <tr>
+                                                    <td>
+                                                        <b>NetTotal</b>
+                                                    </td>
+                                                    <td>
+                                                        : S$
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <t t-esc="'{0:,.2f}'.format(o.amount_total)"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div style="page-break-inside: avoid; font-size: 13px">
+                                <div class="row" style="margin-left: -15px; margin-right:-15px">
+                                    <div class="col-8">
+                                        <b>Total Amount of <t t-esc="o.currency_id.currency_country.name"/> <t t-esc="o.currency_id.currency_unit_label"/>
+                                        <span t-esc="o.currency_id.amount_to_text(o.amount_total)"></span> </b>
+                                        <ul>
+                                            <t t-foreach="o.get_sale_invoice_note()" t-as="note">
+                                                <li>
+                                                    <t t-esc="note"/>
+                                                </li>
+                                            </t>
+                                        </ul>
+                                    </div>
+                                    <div class="col-4">
+                                        <img src="/wk39717700c_modifier_print/static/src/img/paynow_logo.png"
+                                             style="height:50px"/>
+                                        <br/>
+                                        <img t-if="o.barcode" t-attf-src="data:image/png;base64,{{o.barcode}}"
+                                                 style="height:120px;width:120px;" class="img img-fluid"/>
+                                        <br/>
+                                        UEN : <span t-esc="o.company_id.l10n_sg_unique_entity_number"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row col-12" style="margin-top: 40px; page-break-inside: avoid; font-size: 13px">
+                                <div class="col-5 text-center">
+                                    <b>Goods received in good order and condition.</b>
+                                    <div style="height: 65px; border-bottom:1px solid #000; width: 100%">
+                                    </div>
+                                    Customer's Signature and Stamp
+                                </div>
+                                <div class="col-3 text-center">
+                                </div>
+                                <div class="col-4 text-center">
+                                    <br/>
+                                    <div style="height: 65px; border-bottom:1px solid #000; width: 100%">
+                                    </div>
+                                    for WINLYKAH TRADING
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <report id="sale_invoice_print"
+            string="Sale Invoice"
+            model="account.move"
+            report_type="qweb-pdf"
+            name="wk39717700c_modifier_print.sale_invoice_print_template"
+            file="wk39717700c_modifier_print.sale_invoice_print_template"
+            paperformat="wk39717700c_modifier_print.paperformat_no_header"
+            print_report_name="'%s' % (object.name)"
+            menu="True"/>
+    </data>
+</odoo>

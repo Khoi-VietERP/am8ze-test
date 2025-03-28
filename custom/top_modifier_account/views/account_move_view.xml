@@ -1,0 +1,60 @@
+<odoo>
+    <record forcecreate="True" id="decimal_vendor_price" model="decimal.precision">
+        <field name="name">Vendor Price Unit</field>
+        <field name="digits">5</field>
+    </record>
+
+    <template id="assets_backend_attachment_dragdrop" name="top_modifier_account assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link href="/top_modifier_account/static/src/css/custom.css" rel="stylesheet" />
+<!--            <script type="text/javascript" src="/attachment_dragdrop/static/src/js/attachment_dragdrop.js"></script>-->
+        </xpath>
+    </template>
+
+    <record id="view_move_form_partner_filter" model="ir.ui.view">
+        <field name="name">account.move.form.debit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="replace">
+                <field name="partner_id" widget="res_partner_many2one" nolabel="1"
+                       context="{
+                            'search_default_customer': context.get('default_type', 'entry') in ('out_invoice', 'out_refund', 'out_receipt') and 1 or 0,
+                            'search_default_supplier': context.get('default_type', 'entry') in ('in_invoice', 'in_refund', 'in_receipt') and 1 or 0,
+                            'res_partner_search_mode': (context.get('default_type', 'entry') in ('out_invoice', 'out_refund', 'out_receipt') and 'customer') or (context.get('default_type', 'entry') in ('in_invoice', 'in_refund', 'in_receipt') and 'supplier') or False,
+                            'show_address': 1, 'default_is_company': True, 'show_vat': True}"
+                       options='{"always_reload": True, "no_quick_create": True}'
+                       attrs="{'invisible': [('type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]}"/>
+            </field>
+            <xpath expr="//page[@id='invoice_tab']/field[@name='invoice_line_ids']/tree//field[@name='price_unit']" position="replace">
+                <field name="price_unit" string="Price" force_save="true"
+                       invisible="context.get('default_type') not in ('out_invoice', 'out_refund', 'out_receipt')"/>
+                <field name="price_unit_vendor" string="Price" force_save="true" digits="[42, 5]"
+                       invisible="context.get('default_type') not in ('in_invoice', 'in_refund', 'in_receipt')"/>
+            </xpath>
+            <xpath expr="//page[@id='invoice_tab']/field[@name='invoice_line_ids']/tree//field[@name='quantity']" position="replace">
+            </xpath>
+            <xpath expr="//page[@id='invoice_tab']/field[@name='invoice_line_ids']/tree//field[@name='product_id']" position="before">
+                <field name="quantity"/>
+            </xpath>
+            <xpath expr="//page[@id='invoice_tab']/field[@name='invoice_line_ids']/tree//field[@name='product_id']" position="attributes">
+                <attribute name="context">{'default_type':context.get('default_type')}</attribute>
+            </xpath>
+            <!--<field name="amount_total" position="after">-->
+                <!--<field name="manual_amount" class="oe_subtotal_footer_separator" attrs="{'invisible' : [('type', '!=', 'out_invoice')]}"/>-->
+            <!--</field>-->
+        </field>
+    </record>
+
+    <record id="res_partner_view_search" model="ir.ui.view">
+        <field name="name">res.partner.search.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+               <field name="customer_id_ref"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

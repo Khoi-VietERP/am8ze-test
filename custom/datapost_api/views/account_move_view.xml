@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_move_form_inherit" model="ir.ui.view">
+            <field name="name">account.move.form.ihr</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='button_draft']" position="after">
+                    <field name="datapost_document_count" invisible="1"/>
+                    <field name="peppol_document_no" invisible="1"/>
+                    <button name="create_datapost_document" string="Submit InvoiceNow" type="object"
+                     attrs="{'invisible' : ['|', '|', ('peppol_document_no', '!=',False), ('datapost_document_count', '>=',1),('type', 'not in', ('out_invoice', 'out_refund'))]}"/>
+                    <button name="action_send_datapost_response" string="Response InvoiceNow" type="object"
+                     attrs="{'invisible' : [('peppol_document_no', '=',False)]}"/>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button class="oe_stat_button" name="action_datapost_document" type="object" icon="fa-book"
+                     attrs="{'invisible' : ['|', ('datapost_document_count', '=',0),('type', 'not in', ('out_invoice', 'out_refund'))]}">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="datapost_document_count" widget="statinfo" nolabel="1" class="mr4"/>
+                            </span>
+                            <span class="o_stat_text">Datapost Document</span>
+                        </div>
+                    </button>
+
+                    <button class="oe_stat_button" name="action_datapost_response" type="object" icon="fa-book"
+                     attrs="{'invisible' : ['|', ('datapost_response_count', '=',0),('type', 'not in', ('in_invoice'))]}">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="datapost_response_count" widget="statinfo" nolabel="1" class="mr4"/>
+                            </span>
+                            <span class="o_stat_text">Datapost Response</span>
+                        </div>
+                    </button>
+                </xpath>
+                <field name="invoice_date" position="after">
+                    <field name="peppol_order_reference"/>
+                    <field name="attn"/>
+                </field>
+                <page name="other_info" position="after">
+                    <page name="datapost_response" string="Datapost Responses">
+                        <field name="datapost_response_ids">
+                            <tree>
+                                <field name="response_code"/>
+                                <field name="response_reason_code"/>
+                                <field name="response_reason"/>
+                                <field name="effective_date"/>
+                                <field name="peppol_document_no"/>
+                            </tree>
+                        </field>
+                    </page>
+                </page>
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_id']" position="before">
+                    <field name="line_id"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='product_id']" position="after">
+                    <field name="line_id" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="incorporation_local_company_form" model="ir.ui.view">
+            <field name="name">incorporation.local.company.form</field>
+            <field name="model">incorporation.local.company</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group name="entity_info">
+                                <field name="entity_search_id" options="{'no_create_edit':1, 'no_open': 1, 'no_quick_create': True}"/>
+                            </group>
+                            <group>
+                                <field name="entity_id" invisible="1"/>
+                                <field name="entity_name"/>
+                            </group>
+                        </group>
+                        <notebook attrs="{'invisible' : [('entity_id', '=', False)]}">
+                            <page string="Company Details">
+                                <separator string="Company Information"/>
+                                <group col="2">
+                                    <div>
+                                        <label for="company_type" style="font-weight: bold;"/><br/>
+                                        <field name="company_type" class="color-text-ff8d06"/>
+                                    </div>
+                                    <div/>
+                                    <div>
+                                        <label for="financial_year_end" style="font-weight: bold;"/><br/>
+                                        <field name="financial_year_end" style="width: 30%;"/>
+                                    </div>
+                                    <div>
+                                        <label for="financial_year_period" style="font-weight: bold;"/><br/>
+                                        <field name="financial_year_period" style="width: 50%;"/>
+                                    </div>
+                                </group>
+                                <separator string="Company Activity"/>
+                                <div>
+                                    <label for="primary_activity" style="font-weight: bold;"/><br/>
+                                    <field name="primary_activity" style="width: 100%;" class="color-text-ff8d06"/>
+                                </div>
+                                <div>
+                                    <label for="primary_description" style="font-weight: bold;"/><br/>
+                                    <field name="primary_description" style="width: 100%;" class="color-text-ff8d06"/>
+                                </div>
+                                <div>
+                                    <label for="secondary_activity" style="font-weight: bold;"/><br/>
+                                    <field name="secondary_activity" style="width: 100%;" class="color-text-ff8d06"/>
+                                </div>
+                                <div>
+                                    <label for="secondary_description" style="font-weight: bold;"/><br/>
+                                    <field name="secondary_description" style="width: 100%;" class="color-text-ff8d06"/>
+                                </div>
+                                <separator string="Officers/Shareholders Details"/>
+                                <div>
+                                    <field name="contact_ids" style="width: 100%;">
+                                        <tree string="Officer / Position Details" editable="bottom">
+                                            <field name="category_type"/>
+                                            <field name="position_detail_id"/>
+                                            <field name="position_detail2_id"/>
+                                            <field name="position_detail3_id"/>
+                                            <field name="position_detail4_id"/>
+                                            <field name="date_appointment"/>
+                                            <field name="identification_type" attrs="{'readonly': [('category_type', '!=', 'individual')]}"/>
+                                            <field name="nric" attrs="{'readonly': [('category_type', '!=', 'individual')]}"/>
+                                            <field name="contact_id"/>
+                                            <field name="name" invisible="1"/>
+                                            <field name="uen" attrs="{'readonly': [('category_type', '!=', 'corporate')]}"/>
+                                            <field name="check_signed"/>
+                                        </tree>
+                                        <form string="Officer / Position Details">
+                                            <group name="approval">
+                                                <field name="category_type"/>
+                                                <field name="position_detail_id"/>
+                                                <field name="position_detail2_id"/>
+                                                <field name="position_detail3_id"/>
+                                                <field name="position_detail4_id"/>
+                                                <field name="date_appointment"/>
+                                                <field name="identification_type"/>
+                                                <field name="nric"/>
+                                                <field name="contact_id"/>
+                                                <field name="name" invisible="1"/>
+                                                <field name="uen"/>
+                                                <field name="check_signed"/>
+                                            </group>
+                                         </form>
+                                    </field>
+                                </div>
+                                <separator string="In-Principle Approval from Referral Authorities"/>
+                                <div style="width: 100%;">
+                                    <label for="authority_approval_obtained" style="font-weight: bold;"/>
+                                    <field name="authority_approval_obtained"/>
+                                </div>
+                                <div>
+                                    <field name="authority_approval_ids" widget="section_and_note_one2many" mode="tree" attrs="{'invisible': [('authority_approval_obtained', '=', False)]}">
+                                        <tree string="Approval Obtained From Authorities" editable="bottom">
+                                            <field name="name"/>
+                                            <field name="file_name"/>
+                                            <field name="description"/>
+                                            <field name="attachment"/>
+                                            <field name="user_id" options="{'no_create_edit': True}"/>
+                                        </tree>
+                                        <form string="Approval Obtained From Authorities">
+                                            <group name="approval">
+                                                <field name="name"/>
+                                                <field name="file_name"/>
+                                                <field name="description"/>
+                                                <field name="attachment"/>
+                                                <field name="user_id"/>
+                                            </group>
+                                         </form>
+                                    </field>
+                                </div>
+                            </page>
+                            <page string="Share Capital Details">
+                                <div>
+                                    <field name="share_capital_information_ids">
+                                        <tree>
+                                            <field name="currency_id"/>
+                                            <field name="ordinary_number_of_shares" string="Ordinary"/>
+                                            <field name="preference_number_of_shares" string="Preference"/>
+                                            <field name="others_number_of_shares" string="Others"/>
+                                        </tree>
+                                        <form>
+                                            <group col="2">
+                                                <div>
+                                                    <label for="currency_id" style="font-weight: bold;"/><br/>
+                                                    <field name="currency_id" style="width: 50%;"/>
+                                                </div>
+                                                 <div>
+                                                    <label for="country_currency_id" style="font-weight: bold;"/><br/>
+                                                    <field name="country_currency_id" style="width: 50%;"/>
+                                                </div>
+                                            </group>
+                                            <div attrs="{'invisible' : [('currency_id', '=', False)]}">
+                                                <div>
+                                                    <label for="shares_payable" style="font-weight: bold;"/><br/>
+                                                    <field name="shares_payable" widget="radio" style="flex-flow: row nowrap;"/>
+                                                </div>
+                                                <table style="width: 100%" class="table-bordered table_publication">
+                                                    <tr style="height: 30px">
+                                                        <td style="width: 55%">
+                                                            Class Of Shares
+                                                        </td>
+                                                        <td style="width: 15%">
+                                                            Ordinary
+                                                        </td>
+                                                        <td style="width: 15%">
+                                                            Preference
+                                                        </td>
+                                                        <td style="width: 15%">
+                                                            Others
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="height: 30px">
+                                                        <td>
+                                                            Number of Shares
+                                                        </td>
+                                                        <td>
+                                                            <field name="ordinary_number_of_shares"/>
+                                                        </td>
+                                                        <td>
+                                                            <field name="preference_number_of_shares"/>
+                                                        </td>
+                                                        <td>
+                                                            <field name="others_number_of_shares"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="height: 30px">
+                                                        <td>
+                                                            Amount of Issued Share Capital
+                                                        </td>
+                                                        <td>
+                                                            <field name="ordinary_amount_of_issued"/>
+                                                        </td>
+                                                        <td>
+                                                            <field name="preference_amount_of_issued"/>
+                                                        </td>
+                                                        <td>
+                                                            <field name="others_amount_of_issued"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="height: 30px">
+                                                        <td>
+                                                            Amount of Paid Up Share Capital
+                                                        </td>
+                                                        <td>
+                                                            <field name="ordinary_amount_of_paid_up"/>
+                                                        </td>
+                                                        <td>
+                                                            <field name="preference_amount_of_paid_up"/>
+                                                        </td>
+                                                        <td>
+                                                            <field name="others_amount_of_paid_up"/>
+                                                        </td>
+                                                    </tr>
+                                                </table><br/>
+                                                <div attrs="{'invisible' : [('shares_payable', 'not in', ['otherwise_in_cash','cash_and_otherwise_cash'])]}">
+                                                    <br/>
+                                                    <div>
+                                                        <label for="method_of_allotment" /><br/>
+                                                        <field name="method_of_allotment" widget="radio" style="font-weight: normal;"/>
+                                                    </div>
+                                                    <div attrs="{'invisible' : [('method_of_allotment', '=', False)]}">
+                                                        <label for="attachment" style="font-weight: bold;"/><br/>
+                                                        <field name="attachment" style="width: 50%;"/>
+                                                    </div>
+                                                    <div attrs="{'invisible' : [('method_of_allotment', 'not in', ['2','3','4'])]}">
+                                                        <label for="detail" style="font-weight: bold;"/><br/>
+                                                        <field name="detail" style="width: 50%;"/>
+                                                    </div>
+                                                    <br/>
+                                                </div>
+                                                <div>
+                                                    <label for="shares_for_the_currency" style="font-weight: bold;"/><br/>
+                                                    <field name="shares_for_the_currency" widget="radio" style="flex-flow: row nowrap;"/>
+                                                </div>
+                                                <div attrs="{'invisible' : [('shares_for_the_currency', '!=', 'yes')]}">
+                                                    <field name="sub_class_ids">
+                                                        <tree editable="bottom">
+                                                            <field name="sub_class_share_id"/>
+                                                            <field name="ordinary"/>
+                                                            <field name="preference"/>
+                                                            <field name="others"/>
+                                                        </tree>
+                                                    </field>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </field>
+                                </div>
+                            </page>
+                            <page string="Shareholder Details">
+                                <div>
+                                    <field name="shareholder_details_ids">
+                                        <tree>
+                                            <field name="identification_no"/>
+                                            <field name="name"/>
+                                            <field name="currency_id"/>
+                                            <field name="ordinary_number_of_shares" string="Ordinary"/>
+                                            <field name="pre_number_of_shares" string="Preference"/>
+                                            <field name="others_number_of_shares" string="Others"/>
+                                        </tree>
+                                        <form>
+                                            <group col="2">
+                                                <div>
+                                                    <label for="identification_no" style="font-weight: bold;"/><br/>
+                                                    <field name="identification_no" style="width: 50%;"/><br/>
+                                                    <label for="currency_id" style="font-weight: bold;"/><br/>
+                                                    <field name="currency_id" style="width: 50%;"/>
+                                                </div>
+                                                <div>
+                                                    <label for="name" style="font-weight: bold;"/><br/>
+                                                    <field name="name" style="width: 50%;"/>
+                                                </div>
+                                            </group>
+                                            <table style="width: 100%" class="table-bordered table_allotment_detail">
+                                                <tr>
+                                                    <td style="width: 30%">
+                                                        Class Of Shares
+                                                    </td>
+                                                    <td style="width: 20%">
+                                                        Ordinary
+                                                    </td>
+                                                    <td style="width: 20%">
+                                                        Preference
+                                                    </td>
+                                                    <td style="width: 20%">
+                                                        Others
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Number of Shares
+                                                    </td>
+                                                    <td>
+                                                        <field name="ordinary_number_of_shares"/>
+                                                    </td>
+                                                    <td>
+                                                        <field name="pre_number_of_shares"/>
+                                                    </td>
+                                                    <td>
+                                                        <field name="others_number_of_shares"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Amount of Paid Up Share Capital
+                                                    </td>
+                                                    <td>
+                                                        <field name="ordinary_amount_of_paid_up"/>
+                                                    </td>
+                                                    <td>
+                                                        <field name="pre_amount_of_paid_up"/>
+                                                    </td>
+                                                    <td>
+                                                        <field name="others_amount_of_paid_up"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Shares held in trust
+                                                    </td>
+                                                    <td>
+                                                        <field name="ordinary_share_hit"/>
+                                                    </td>
+                                                    <td>
+                                                        <field name="pre_share_hit"/>
+                                                    </td>
+                                                    <td>
+                                                        <field name="others_share_hit"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Name of the trust
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </form>
+                                    </field>
+                                </div>
+                            </page>
+                            <page string="Registered Office and Constitution">
+                                <separator string="Registered Office Address"/>
+                                <group col="2">
+                                    <div>
+                                        <div>
+                                            <label for="postal_code" style="font-weight: bold;"/><br/>
+                                            <field name="postal_code" style="width: 90%;"/>
+                                        </div>
+                                        <div/>
+                                        <div>
+                                            <label for="block_house_number" style="font-weight: bold;"/><br/>
+                                            <field name="block_house_number" style="width: 90%;"/>
+                                        </div>
+                                        <div/>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <label for="address_lf" style="font-weight: bold;"/><br/>
+                                            <field name="address_lf" style="width: 50%;"/>
+                                        </div>
+                                        <div>
+                                            <label for="country" style="font-weight: bold;"/><br/>
+                                            <field name="country" style="width: 50%;"/>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <label for="street" style="font-weight: bold;"/><br/>
+                                            <field name="street" style="width: 90%;"/>
+                                        </div>
+                                        <div/>
+                                        <div>
+                                            <label for="unit_number" style="font-weight: bold;"/><br/>
+                                            <field name="unit_number" style="width: 90%;"/>
+                                        </div>
+                                        <div/>
+                                        <div>
+                                            <label for="building" style="font-weight: bold;"/><br/>
+                                            <field name="building" style="width: 90%;"/>
+                                        </div>
+                                    </div>
+                                    <div/>
+                                </group>
+
+                                <separator string="Working Hours"/>
+                                <span style="font-weight: bold;">
+                                    Working Hours
+                                </span>
+                                <div>
+                                    <field name="hours_work_5"/>
+                                    <label for="hours_work_5" style="display: contents;"/>
+                                </div>
+                                <div>
+                                    <field name="hours_work_3"/>
+                                    <label for="hours_work_3" style="display: contents;"/>
+                                </div>
+                                <label for="hours_work_3_hours1" style="display: contents;" attrs="{'invisible' : [('hours_work_3', '=', False)]}"/>
+                                <div attrs="{'invisible' : [('hours_work_3', '=', False)]}">
+                                    <field name="hours_work_3_hours1" style="width:auto" attrs="{'required' : [('hours_work_3', '=', True)]}"/>
+                                    <span>.</span>
+                                    <field name="hours_work_3_hours2" style="width:auto" attrs="{'required' : [('hours_work_3', '=', True)]}"/>
+                                    <span>hrs</span>
+                                </div>
+                                <separator string="Constitution"/>
+                                <div>
+                                    <label for="constitution" style="font-weight: bold;"/><br/>
+                                    <field name="constitution" style="width: 50%;" widget="radio"/>
+                                </div>
+                                <div attrs="{'invisible' : [('constitution', '!=', 'use_model_cons')]}">
+                                    <label for="type_of_model_constitution" style="font-weight: bold;"/><br/>
+                                    <field name="type_of_model_constitution" widget="radio" style="flex-flow: row nowrap;"/>
+                                </div>
+                                <div attrs="{'invisible' : [('constitution', '!=', 'attached_cus_cons')]}">
+                                    <label for="attachment_constitution" style="font-weight: bold;"/><br/>
+                                    <field name="attachment_constitution" style="width: 50%;"/>
+                                </div>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

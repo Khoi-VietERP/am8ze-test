@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_pragtech_social_account_instagram" model="ir.actions.act_window">
+            <field name="name">Instagram Pages</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">instagram.pragtech.social.account</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="social_dashboard_instagram_pages" model="ir.ui.menu">
+            <field name="action" ref="action_pragtech_social_account_instagram"/>
+        </record>
+
+        <record id="pragtech_social_accountview_list_instagram" model="ir.ui.view">
+            <field name="name">instagram.pragtech.social.account.view.tree</field>
+            <field name="model">instagram.pragtech.social.account</field>
+            <field name="arch" type="xml">
+                <tree string=" Pragtech Social Accounts" create="0">
+                    <field name="instagram_name"/>
+                    <field name="instagram_social_media_id"/>
+                    <field name="instagram_social_media_type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="pragtech_social_account_view_form_instagram" model="ir.ui.view">
+            <field name="name">instagram.pragtech.social.account.view.form</field>
+            <field name="model">instagram.pragtech.social.account</field>
+            <field name="arch" type="xml">
+                <form string="Pragtech Social Account" create="0">
+                    <sheet>
+                        <group>
+                            <group name="social_account_global">
+                                <field name="instagram_name"/>
+                                <field name="instagram_social_media_id" options="{'no_open': True}"/>
+                                <field name="instagram_social_media_type"/>
+                                <field name="instagram_account_id"/>
+                                <field name="instagram_access_token"
+                                       class="customwrapclass"
+                                       style="width:900px;"/>
+
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

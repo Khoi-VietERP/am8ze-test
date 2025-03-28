@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_model_daa_case_commission,access_model_daa_case_commission,model_daa_case_commission,base.group_user,1,1,1,1
+access_model_co_wizard,access_model_co_wizard,model_co_wizard,base.group_user,1,1,1,1
+access_daa_sub_fees,name_daa_sub_fees,model_daa_sub_fees,base.group_user,1,1,1,1

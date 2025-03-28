@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="survey.survey" id="survey_2">
+            <field name="title">Food Services</field>
+            <field name="users_can_go_back" eval="True"/>
+            <field name="questions_layout">page_per_section</field>
+        </record>
+
+        <record id="survey_2_page_1" model="survey.question">
+            <field name="title">Keen to find out how digital-ready your business is and the steps to take to further your digital efforts?</field>
+            <field name="survey_id" ref="survey_2"/>
+            <field name="is_page" eval="True"/>
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="survey_2_page_1_select" model="survey.question">
+            <field name="title">Take the self-test to find out for the following sectors:
+            </field>
+            <field name="survey_id" ref="survey_2"/>
+            <field name="question_type">multiple_choice</field>
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="survey_2_page_1_select_label_1" model="survey.label">
+            <field name="value">1. Environmental Services</field>
+            <field name="question_id" ref="survey_2_page_1_select"/>
+        </record>
+
+        <record id="survey_2_page_1_select_label_2" model="survey.label">
+            <field name="value">2. Food Services</field>
+            <field name="question_id" ref="survey_2_page_1_select"/>
+        </record>
+
+        <record id="survey_2_page_1_select_label_3" model="survey.label">
+            <field name="value">3. Retail</field>
+            <field name="question_id" ref="survey_2_page_1_select"/>
+        </record>
+
+        <record id="survey_2_page_1_select_label_4" model="survey.label">
+            <field name="value">4. Logistics</field>
+            <field name="question_id" ref="survey_2_page_1_select"/>
+        </record>
+
+        <record id="survey_2_page_1_select_label_5" model="survey.label">
+            <field name="value">5. Wholesale Trade</field>
+            <field name="question_id" ref="survey_2_page_1_select"/>
+        </record>
+
+        <record id="survey_2_page_1_select_label_6" model="survey.label">
+            <field name="value">6. Security</field>
+            <field name="question_id" ref="survey_2_page_1_select"/>
+        </record>
+
+        <record id="survey_2_page_1_select_label_7" model="survey.label">
+            <field name="value">7. Sea Transport – Harbour Craft</field>
+            <field name="question_id" ref="survey_2_page_1_select"/>
+        </record>
+
+        <record id="survey_2_page_1_select_label_8" model="survey.label">
+            <field name="value">8. Sea Transport – Ship Agency</field>
+            <field name="question_id" ref="survey_2_page_1_select"/>
+        </record>
+
+        <record id="survey_2_page_1_select_label_9" model="survey.label">
+            <field name="value">9. Sea Transport – Bunkering</field>
+            <field name="question_id" ref="survey_2_page_1_select"/>
+        </record>
+
+        <record id="survey_2_page_1_select_label_10" model="survey.label">
+            <field name="value">10. Accountancy</field>
+            <field name="question_id" ref="survey_2_page_1_select"/>
+        </record>
+
+        <record id="survey_2_page_1_select_label_11" model="survey.label">
+            <field name="value">11. Cybersecurity</field>
+            <field name="question_id" ref="survey_2_page_1_select"/>
+        </record>
+
+        <record id="survey_2_page_1_select_label_12" model="survey.label">
+            <field name="value">12. Training and Adult Education</field>
+            <field name="question_id" ref="survey_2_page_1_select"/>
+        </record>
+
+        <record id="survey_2_page_1_select_label_13" model="survey.label">
+            <field name="value">13. Construction &amp; Facilities Management</field>
+            <field name="question_id" ref="survey_2_page_1_select"/>
+        </record>
+
+        <record id="survey_2_page_1_select_label_14" model="survey.label">
+            <field name="value">14. Early Childhood Education</field>
+            <field name="question_id" ref="survey_2_page_1_select"/>
+        </record>
+
+        <record id="survey_2_page_1_select_label_15" model="survey.label">
+            <field name="value">15. Land Transport – Chartered Bus Services</field>
+            <field name="question_id" ref="survey_2_page_1_select"/>
+        </record>
+
+        <record id="survey_2_page_1_select_label_16" model="survey.label">
+            <field name="value">16. Food Manufacturing</field>
+            <field name="question_id" ref="survey_2_page_1_select"/>
+        </record>
+
+        <record id="survey_2_page_1_select_label_17" model="survey.label">
+            <field name="value">17. Marine &amp; Offshore Engineering</field>
+            <field name="question_id" ref="survey_2_page_1_select"/>
+        </record>
+
+        <record id="survey_2_page_1_select_label_18" model="survey.label">
+            <field name="value">18. Process Construction and Maintenance</field>
+            <field name="question_id" ref="survey_2_page_1_select"/>
+        </record>
+
+        <record id="survey_2_page_2" model="survey.question">
+            <field name="title">Company Infomation</field>
+            <field name="survey_id" ref="survey_2"/>
+            <field name="is_page" eval="True"/>
+            <field name="sequence">3</field>
+        </record>
+
+        <record id="survey_2_uen_number" model="survey.question">
+            <field name="survey_id" ref="survey_2"/>
+            <field name="title">UEN Number</field>
+            <field name="question_type">textbox</field>
+            <field name="sequence">4</field>
+        </record>
+
+        <record id="survey_2_company_name" model="survey.question">
+            <field name="survey_id" ref="survey_2"/>
+            <field name="title">Company Name</field>
+            <field name="question_type">textbox</field>
+            <field name="sequence">5</field>
+        </record>
+
+        <record id="survey_2_staff_strength" model="survey.question">
+            <field name="survey_id" ref="survey_2"/>
+            <field name="title">Staff Strength</field>
+            <field name="question_type">textbox</field>
+            <field name="sequence">6</field>
+        </record>
+
+        <record id="survey_2_revenue" model="survey.question">
+            <field name="survey_id" ref="survey_2"/>
+            <field name="title">Revenue</field>
+            <field name="question_type">textbox</field>
+            <field name="sequence">7</field>
+        </record>
+
+        <record id="survey_2_years_of_operation" model="survey.question">
+            <field name="survey_id" ref="survey_2"/>
+            <field name="title">Years of Operation</field>
+            <field name="question_type">textbox</field>
+            <field name="sequence">8</field>
+        </record>
+
+        <record id="survey_2_page_3" model="survey.question">
+            <field name="title">Question</field>
+            <field name="survey_id" ref="survey_2"/>
+            <field name="is_page" eval="True"/>
+            <field name="sequence">9</field>
+        </record>
+    </data>
+</odoo>

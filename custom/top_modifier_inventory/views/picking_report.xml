@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="report_picking_inherit" inherit_id="stock.report_picking">
+            <xpath expr="//p[@t-field='o.note']" position="after">
+                <div class="row" style="margin-top:20px">
+                    <div class="col-7"/>
+                    <div class="col-5 text-center">
+                        <strong>Signature</strong><br/><br/>
+                        <t t-if="o.signature_image">
+                            <img t-att-src="'data:image/png;base64,%s' % to_text(o.signature_image)"
+                                     style="height:auto; max-width:100%;" />
+                        </t>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>

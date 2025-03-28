@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_pragtech_social_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.pragtech.social.dashboard.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div
+                    class="pragtech_social_settings_block app_settings_block"
+                    data-string="Social Dashboard"
+                    string="Social Dashboard"
+                    data-key="pragtech_social"
+                    groups="base.group_system">
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_pragtech_social_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="target">inline</field>
+        <field name="view_mode">form</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="context">{'bin_size': False, 'module' : 'pragtech_social'}</field>
+    </record>
+
+    <menuitem
+        id="menu_mass_mailing_global_settings"
+        name="Settings"
+        parent="pragtech_social.pragtech_social_configuration"
+        sequence="0"
+        action="action_pragtech_social_settings"
+        groups="base.group_system"/>
+
+</odoo>

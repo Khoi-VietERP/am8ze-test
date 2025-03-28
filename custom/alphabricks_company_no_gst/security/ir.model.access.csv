@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_alphabricks_company_no_gst_alphabricks_company_no_gst,alphabricks_company_no_gst.alphabricks_company_no_gst,model_alphabricks_company_no_gst_alphabricks_company_no_gst,base.group_user,1,1,1,1

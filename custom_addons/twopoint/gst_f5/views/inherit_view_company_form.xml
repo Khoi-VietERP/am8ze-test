@@ -1,0 +1,30 @@
+<odoo>
+    <record id="inherit_view_company_form_f5" model="ir.ui.view">
+        <field name="name">res.company.form.inherit</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_registry']" position="after">
+                <field name="gst_filling_interval" />
+                <!-- attrs="{'readonly': ['|',('gst_no', '=', ''),('gst_no', '=', False)]}" -->
+            </xpath>
+            <!-- <xpath expr="//field[@name='period_start']" position="replace">
+            </xpath>
+            <xpath expr="//field[@name='period_end']" position="replace">
+            </xpath>
+            <xpath expr="//field[@name='iaf_creation_date']" position="replace">
+            </xpath> -->
+
+            <xpath expr="//field[@name='company_registry']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="GST Prompt Users">
+                    <group>
+                        <field name="prompt_user_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

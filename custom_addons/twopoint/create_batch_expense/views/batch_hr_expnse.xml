@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="batch_expense_form_view" model="ir.ui.view">
+            <field name="name">batch.expense.form</field>
+            <field name="model">hr.batch.expense</field>
+            <field name="arch" type="xml">
+                <form string="Bill of Material">
+                    <header>
+                        <button name="create_expense" type="object" string="Create Expense"
+                                attrs="{'invisible': [('state', '=', 'done')]}"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_get_attachment_view"
+                                class="oe_stat_button"
+                                icon="fa-file-text-o"
+                                type="object">
+                                <field name="attachment_number" widget="statinfo" string="Documents" options="{'reload_on_button': true}"/>
+                            </button>
+                        </div>
+                        <group>
+                            <field name="name" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                        </group>
+                        <notebook>
+                            <page string="Expense Lines">
+                                <field name="batch_expense_lines" attrs="{'readonly': [('state', '=', 'done')]}">
+                                    <tree editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="account_id"/>
+                                        <field name="analytic_account_id"/>
+                                        <field name="unit_amount"/>
+                                        <field name="quantity"/>
+                                        <field name="payment_mode"/>
+                                        <field name="description"/>
+                                        <field name="reference"/>
+                                        <field name="date"/>
+                                        <field name="employee_id"/>
+                                        <field name="merchant_id"/>
+                                        <field name="project_id"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="currency_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="batch_create_expense_action" model="ir.actions.act_window">
+            <field name="name">Batch Expenses</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.batch.expense</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a batch Expense
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_batch_create_expense"
+                  action="batch_create_expense_action"
+                  parent="hr_expense.menu_hr_expense_my_expenses"
+        />
+    </data>
+</odoo>

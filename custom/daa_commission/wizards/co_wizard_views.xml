@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <act_window id="action_co_wizard"
+                name="Print CO"
+                res_model="co.wizard"
+                binding_model="daa.case"
+                binding_views="list"
+                view_mode="form"
+                target="new"
+                context="{
+                }"
+    />
+
+    <record id="co_wizard_view" model="ir.ui.view">
+        <field name="name">CO</field>
+        <field name="model">co.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                    <field name="select_co"/>
+                    <field name="select_field"/>
+                </group>
+                <footer>
+                    <button name="print_excel" string="Print" class="oe_right oe_highlight"
+                            type="object"/>
+                    <button string="Cancel" class="oe_right" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

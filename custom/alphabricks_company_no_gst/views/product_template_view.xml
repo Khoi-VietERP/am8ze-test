@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="product_template_form_view_inherit" model="ir.ui.view">
+            <field name="name">product.template.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="account.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <field name="taxes_id" position="after">
+                    <field name="no_gst" invisible="1"/>
+                </field>
+                <field name="taxes_id" position="attributes">
+                    <attribute name="attrs">{'invisible' : [('no_gst', '=', True)]}</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

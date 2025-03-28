@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="industry_code_1" model="industry.code">
+            <field name="name"><![CDATA[Accommodation]]></field>
+        </record>
+        <record id="industry_code_2" model="industry.code">
+            <field name="name"><![CDATA[Banking]]></field>
+        </record>
+        <record id="industry_code_3" model="industry.code">
+            <field name="name"><![CDATA[Food Services]]></field>
+        </record>
+        <record id="industry_code_4" model="industry.code">
+            <field name="name"><![CDATA[Construction]]></field>
+        </record>
+        <record id="industry_code_5" model="industry.code">
+            <field name="name"><![CDATA[Co-Operatives]]></field>
+        </record>
+        <record id="industry_code_6" model="industry.code">
+            <field name="name"><![CDATA[Education]]></field>
+        </record>
+        <record id="industry_code_7" model="industry.code">
+            <field name="name"><![CDATA[Engineering]]></field>
+        </record>
+        <record id="industry_code_8" model="industry.code">
+            <field name="name"><![CDATA[Finance & Insurance]]></field>
+        </record>
+        <record id="industry_code_9" model="industry.code">
+            <field name="name"><![CDATA[Food & Beverages]]></field>
+        </record>
+        <record id="industry_code_10" model="industry.code">
+            <field name="name"><![CDATA[Hospital & Heathcare]]></field>
+        </record>
+        <record id="industry_code_11" model="industry.code">
+            <field name="name"><![CDATA[Information & Communications]]></field>
+        </record>
+        <record id="industry_code_12" model="industry.code">
+            <field name="name"><![CDATA[Manufacturing]]></field>
+        </record>
+        <record id="industry_code_13" model="industry.code">
+            <field name="name"><![CDATA[Securities]]></field>
+        </record>
+        <record id="industry_code_14" model="industry.code">
+            <field name="name"><![CDATA[Shipping]]></field>
+        </record>
+        <record id="industry_code_15" model="industry.code">
+            <field name="name"><![CDATA[Storage]]></field>
+        </record>
+        <record id="industry_code_16" model="industry.code">
+            <field name="name"><![CDATA[Telco]]></field>
+        </record>
+        <record id="industry_code_17" model="industry.code">
+            <field name="name"><![CDATA[Transportation]]></field>
+        </record>
+        <record id="industry_code_18" model="industry.code">
+            <field name="name"><![CDATA[Utilites]]></field>
+        </record>
+        <record id="industry_code_19" model="industry.code">
+            <field name="name"><![CDATA[Wholesale & Retail]]></field>
+        </record>
+        <record id="industry_code_20" model="industry.code">
+            <field name="name"><![CDATA[Real Estate]]></field>
+        </record>
+        <record id="industry_code_21" model="industry.code">
+            <field name="name"><![CDATA[Recreation]]></field>
+        </record>
+        <record id="industry_code_22" model="industry.code">
+            <field name="name"><![CDATA[Other Services]]></field>
+        </record>
+    </data>
+</odoo>

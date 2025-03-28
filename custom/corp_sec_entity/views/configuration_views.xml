@@ -1,0 +1,227 @@
+<odoo>
+    <data>
+        <record id="entity_type_tree_view" model="ir.ui.view">
+            <field name="name">entity.type.tree</field>
+            <field name="model">entity.type</field>
+            <field name="arch" type="xml">
+                <tree string="Company Type" editable="bottom">
+                    <field name="name"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="entity_type_action" model="ir.actions.act_window">
+            <field name="name">Company Type</field>
+            <field name="res_model">entity.type</field>
+            <field name='view_mode'>tree</field>
+        </record>
+
+        <!-- -->
+
+        <record id="entity_sub_type_tree_view" model="ir.ui.view">
+            <field name="name">entity.sub.type.tree</field>
+            <field name="model">entity.sub.type</field>
+            <field name="arch" type="xml">
+                <tree string="Sub Type" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="entity_sub_type_action" model="ir.actions.act_window">
+            <field name="name">Sub Type</field>
+            <field name="res_model">entity.sub.type</field>
+            <field name='view_mode'>tree</field>
+        </record>
+
+        <!-- -->
+
+        <record id="entity_state_tree_view" model="ir.ui.view">
+            <field name="name">entity.state.tree</field>
+            <field name="model">entity.state</field>
+            <field name="arch" type="xml">
+                <tree string="Entity Status" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="entity_state_action" model="ir.actions.act_window">
+            <field name="name">Entity Status</field>
+            <field name="res_model">entity.state</field>
+            <field name='view_mode'>tree</field>
+        </record>
+
+        <!-- -->
+
+        <record id="entity_source_tree_view" model="ir.ui.view">
+            <field name="name">entity.source.tree</field>
+            <field name="model">entity.source</field>
+            <field name="arch" type="xml">
+                <tree string="Entity Source" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="entity_source_action" model="ir.actions.act_window">
+            <field name="name">Entity Source</field>
+            <field name="res_model">entity.source</field>
+            <field name='view_mode'>tree</field>
+        </record>
+
+        <!-- -->
+
+        <record id="entity_jurisdiction_tree_view" model="ir.ui.view">
+            <field name="name">entity.jurisdiction.tree</field>
+            <field name="model">entity.jurisdiction</field>
+            <field name="arch" type="xml">
+                <tree string="Entity Jurisdiction" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="entity_jurisdiction_action" model="ir.actions.act_window">
+            <field name="name">Entity Jurisdiction</field>
+            <field name="res_model">entity.jurisdiction</field>
+            <field name='view_mode'>tree</field>
+        </record>
+
+        <!-- -->
+
+        <record id="entity_suffix_tree_view" model="ir.ui.view">
+            <field name="name">entity.suffix.tree</field>
+            <field name="model">entity.suffix</field>
+            <field name="arch" type="xml">
+                <tree string="Entity Suffix" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="entity_suffix_action" model="ir.actions.act_window">
+            <field name="name">Entity Suffix</field>
+            <field name="res_model">entity.suffix</field>
+            <field name='view_mode'>tree</field>
+        </record>
+
+        <!-- -->
+
+        <record id="ssic_code_tree_view" model="ir.ui.view">
+            <field name="name">ssic.code.tree</field>
+            <field name="model">ssic.code</field>
+            <field name="arch" type="xml">
+                <tree string="SSIC Code" editable="bottom">
+                    <field name="name"/>
+                    <field name="title"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="ssic_code_action" model="ir.actions.act_window">
+            <field name="name">SSIC Code</field>
+            <field name="res_model">ssic.code</field>
+            <field name='view_mode'>tree</field>
+        </record>
+
+        <!-- -->
+
+        <record id="authorities_tree_view" model="ir.ui.view">
+            <field name="name">competent.authority.tree</field>
+            <field name="model">competent.authority</field>
+            <field name="arch" type="xml">
+                <tree string="Authorities" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="authorities_action" model="ir.actions.act_window">
+            <field name="name">Authorities</field>
+            <field name="res_model">competent.authority</field>
+            <field name='view_mode'>tree</field>
+        </record>
+
+        <!-- -->
+
+        <record id="address_type_tree_view" model="ir.ui.view">
+            <field name="name">address.type.tree</field>
+            <field name="model">address.type</field>
+            <field name="arch" type="xml">
+                <tree string="Address Type" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="address_type_action" model="ir.actions.act_window">
+            <field name="name">Address Type</field>
+            <field name="res_model">address.type</field>
+            <field name='view_mode'>tree</field>
+        </record>
+
+        <!-- -->
+
+        <record id="address_lf_tree_view" model="ir.ui.view">
+            <field name="name">address.lf.tree</field>
+            <field name="model">address.lf</field>
+            <field name="arch" type="xml">
+                <tree string="Address L/F" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="address_lf_action" model="ir.actions.act_window">
+            <field name="name">Address L/F</field>
+            <field name="res_model">address.lf</field>
+            <field name='view_mode'>tree</field>
+        </record>
+
+        <!-- -->
+
+        <record id="communications_type_tree_view" model="ir.ui.view">
+            <field name="name">communications.type.tree</field>
+            <field name="model">communications.type</field>
+            <field name="arch" type="xml">
+                <tree string="Communication Type" editable="bottom">
+                    <field name="name"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="communications_type_action" model="ir.actions.act_window">
+            <field name="name">Communication Type</field>
+            <field name="res_model">communications.type</field>
+            <field name='view_mode'>tree</field>
+        </record>
+
+        <menuitem id="corp_sec_menu_config" name="Configuration" parent="corp_sec_entity" sequence="10"/>
+
+        <menuitem id="menu_config_entity_information" name="Entity Information" parent="corp_sec_menu_config" sequence="1"/>
+        <menuitem id="menu_config_business_activity" name="Business Activity" parent="corp_sec_menu_config" sequence="2"/>
+        <menuitem id="menu_config_authority" name="Authorities" parent="corp_sec_menu_config" sequence="3"/>
+        <menuitem id="menu_config_address" name="Address" parent="corp_sec_menu_config" sequence="5"/>
+        <menuitem id="menu_config_communication" name="Communication" parent="corp_sec_menu_config" sequence="6"/>
+
+        <menuitem id="company_type_menu_config" name="Company Type" parent="menu_config_entity_information" action="entity_type_action" sequence="1"/>
+        <menuitem id="sub_type_menu_config" name="Sub Type" parent="menu_config_entity_information" action="entity_sub_type_action" sequence="2"/>
+        <menuitem id="entity_status_menu_config" name="Entity Status" parent="menu_config_entity_information" action="entity_state_action" sequence="3"/>
+        <menuitem id="entity_source_menu_config" name="Entity Source" parent="menu_config_entity_information" action="entity_source_action" sequence="4"/>
+        <menuitem id="entity_jurisdiction_menu_config" name="Entity Jurisdiction" parent="menu_config_entity_information" action="entity_jurisdiction_action" sequence="5"/>
+        <menuitem id="entity_suffix_menu_config" name="Entity Suffix" parent="menu_config_entity_information" action="entity_suffix_action" sequence="6"/>
+
+        <menuitem id="ssic_code_menu_config" name="SSIC Code" parent="menu_config_business_activity" action="ssic_code_action" sequence="1"/>
+
+        <menuitem id="authorities_menu_config" name="Authorities" parent="menu_config_authority" action="authorities_action" sequence="1"/>
+
+        <menuitem id="address_type_config" name="Address Type" parent="menu_config_address" action="address_type_action" sequence="1"/>
+        <menuitem id="address_lf_config" name="Address L/F" parent="menu_config_address" action="address_lf_action" sequence="2"/>
+
+        <menuitem id="communications_type_config" name="Communication Type" parent="menu_config_communication" action="communications_type_action" sequence="1"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sh_pwa_config,access_sh_pwa_config,model_sh_pwa_config,base.group_user,1,1,1,1
+access_sh_wqm_quick_model_all,access.sh.wqm.quick.model.all,model_sh_wqm_quick_menu,,1,1,1,1
+
